@@ -49,12 +49,14 @@ if ( ! defined( 'LEAFLET_PLUGIN_ICONS_DIR' ) )
 	define ("LEAFLET_PLUGIN_ICONS_DIR", $lmm_upload_dir['basedir'] . DIRECTORY_SEPARATOR . "leaflet-maps-marker-icons");
 //info: not in class Leafletmapsmarker as otherwise warnings on resetting defaults options
 require_once( plugin_dir_path( __FILE__ ) . 'inc' . DIRECTORY_SEPARATOR . 'class-leaflet-options.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'inc' . DIRECTORY_SEPARATOR . 'class-plugin-update-checker.php' );
 class Leafletmapsmarker
 {
 function __construct() {
 	$lmm_options = get_option( 'leafletmapsmarker_options' );
 	add_action('init', array(&$this, 'lmm_load_translation_files'),1);
-	add_action('admin_init', array(&$this, 'lmm_install_and_updates'),2); //info: register_action_hook not used as otherwise Wordpress Network installs break
+	add_action( 'admin_init', array(&$this, 'lmm_deactivate_free_version_if_active' ),2);
+	add_action('admin_init', array(&$this, 'lmm_install_and_updates'),3); //info: register_action_hook not used as otherwise Wordpress Network installs break
 	add_action('wp_enqueue_scripts', array(&$this, 'lmm_frontend_enqueue_scripts') );
 	add_action('wp_print_styles', array(&$this, 'lmm_frontend_enqueue_stylesheets'),4);
 	add_action('admin_menu', array(&$this, 'lmm_admin_menu'),5);
@@ -662,6 +664,11 @@ function __construct() {
 	wp_register_style( 'jquery-ui-timepicker-addon', LEAFLET_PLUGIN_URL . 'inc/css/jquery-datepicker-theme/jquery-ui-timepicker-addon.css', array('jquery-ui-all'), NULL );
 	wp_enqueue_style( 'jquery-ui-timepicker-addon' );
    }
+  function lmm_deactivate_free_version_if_active() {
+	if (is_plugin_active('leaflet-maps-marker/leaflet-maps-marker.php') ) {
+		deactivate_plugins('leaflet-maps-marker/leaflet-maps-marker.php');
+	}
+  }
   function lmm_install_and_updates() {
 	//info: set transient to execute install & update-routine only once a day
 	$current_version = "v34"; //2do - mandatory: change on each update to new version!
@@ -692,7 +699,15 @@ function __construct() {
   } //info: end plugin_meta_links()
 }  //info: end class
 $run_leafletmapsmarker = new Leafletmapsmarker();
+$run_PluginUpdateChecker = new PluginUpdateChecker(
+    'http://www.mapsmarker.com/downloads/version.json',
+    __FILE__,
+    'leaflet-maps-marker-pro',
+    '12',
+    'leafletmapsmarkerpro_pluginupdatechecker'
+);
 //info: include widget class
 require_once( plugin_dir_path( __FILE__ ) . 'inc' . DIRECTORY_SEPARATOR . 'class-leaflet-recent-marker-widget.php' );
 unset($run_leafletmapsmarker);
+unset($run_PluginUpdateChecker);
 ?>

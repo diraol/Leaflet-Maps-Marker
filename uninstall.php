@@ -1,13 +1,12 @@
 <?php
-/*die if uninstall not called from Wordpress exit*/
+//info: die if uninstall not called from Wordpress exit
 if ( !defined( 'WP_UNINSTALL_PLUGIN' ) )
 	exit ();
-/* Remove settings */
-$current_version = "v34"; //2do: change on each update!
+$current_version = "v34"; //2do: change on each update to current version!
 if (is_multisite()) {
 	global $wpdb;
 	$blogs = $wpdb->get_results("SELECT blog_id FROM {$wpdb->blogs}", ARRAY_A);
-	$lmm_pro_readme = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'leaflet-maps-marker-pro' . DIRECTORY_SEPARATOR . 'readme.txt';
+	$lmm_free_readme = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'leaflet-maps-marker' . DIRECTORY_SEPARATOR . 'readme.txt';
 		//info: delete transients (needed for reinstalls within validity of transients)
 		$schedule_transient = 'leafletmapsmarker_install_update_cache_' . $current_version;
 		$install_update_schedule = get_transient( $schedule_transient );
@@ -18,8 +17,10 @@ if (is_multisite()) {
 		if ( $version_before_update != FALSE ) {
 			delete_transient( 'leafletmapsmarker_version_before_update' );
 		}
-		//info: dont remove files if pro version exists
-		if (!file_exists($lmm_pro_readme)) {
+		//info: delete pro options
+		delete_option('leafletmapsmarkerpro_pluginupdatechecker');
+		//info: dont remove files if free version exists
+		if (!file_exists($lmm_free_readme)) {
 			delete_option('leafletmapsmarker_options');
 			delete_option('leafletmapsmarker_version');
 			delete_option('leafletmapsmarker_version_before_update');
@@ -49,8 +50,10 @@ if (is_multisite()) {
 			if ( $version_before_update != FALSE ) {
 				delete_transient( 'leafletmapsmarker_version_before_update' );
 			}
+			//info: delete pro options
+			delete_option('leafletmapsmarkerpro_pluginupdatechecker');
 			//info: dont remove files if pro version exists
-			if (!file_exists($lmm_pro_readme)) {
+			if (!file_exists($lmm_free_readme)) {
 				delete_option('leafletmapsmarker_options');
 				delete_option('leafletmapsmarker_version');
 				delete_option('leafletmapsmarker_version_before_update');
@@ -64,7 +67,9 @@ if (is_multisite()) {
 			}
 		}
 		restore_current_blog();
-		if (!file_exists($lmm_pro_readme)) {
+		//info: delete pro options
+		delete_option('leafletmapsmarkerpro_pluginupdatechecker');
+		if (!file_exists($lmm_free_readme)) {
 				/*remove map icons directory for subsites*/
 				$lmm_upload_dir = wp_upload_dir();
 				$icons_directory = $lmm_upload_dir['basedir'] . DIRECTORY_SEPARATOR . "leaflet-maps-marker-icons" . DIRECTORY_SEPARATOR;
@@ -89,9 +94,11 @@ else
 	if ( $version_before_update != FALSE ) {
 		delete_transient( 'leafletmapsmarker_version_before_update' );
 	}
+	//info: delete pro options
+	delete_option('leafletmapsmarkerpro_pluginupdatechecker');
 	//info: dont remove files if pro version exists
-	$lmm_pro_readme = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'leaflet-maps-marker-pro' . DIRECTORY_SEPARATOR . 'readme.txt';
-	if (!file_exists($lmm_pro_readme)) {
+	$lmm_free_readme = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'leaflet-maps-marker' . DIRECTORY_SEPARATOR . 'readme.txt';
+	if (!file_exists($lmm_free_readme)) {
 		delete_option('leafletmapsmarker_options');
 		delete_option('leafletmapsmarker_version');
 		delete_option('leafletmapsmarker_version_before_update');
