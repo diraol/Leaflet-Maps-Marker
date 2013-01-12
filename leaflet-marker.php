@@ -474,7 +474,37 @@ echo '<p><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.
 					if ($current_editor == 'simplified') {
 						echo '<div id="mapiconscollection" style="display:none;">';
 					} ?>
-					<a tabindex="122" title="Maps Icons Collection - http://mapicons.nicolasmollet.com" href="http://mapicons.nicolasmollet.com" target="_blank"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/logo-mapicons.gif" width="88" heigh="31" /></a><br/>
+					<a tabindex="122" title="Maps Icons Collection - http://mapicons.nicolasmollet.com" href="http://mapicons.nicolasmollet.com" target="_blank"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/logo-mapicons.gif" width="88" heigh="31" /></a>
+                    <?php 
+						if (current_user_can( $lmm_options[ 'capabilities_delete' ])) {
+							
+							echo '<input type="button" id="uploadss" value="' . esc_attr__('upload icon','lmm') . '" style="float:right;margin-top:4px;" />';
+						}
+						$noncelink_uploadicon = wp_create_nonce('icon-upload-nonce');
+					?>							
+						<script type="text/javascript">
+						jQuery(function($) { 
+						$(document).ready(function(){
+							var info = $("<div id='uploader' style='overflow: hidden' />");
+							info.html('<iframe width="450" height="130" scrolling="no" src = "<?php echo LEAFLET_PLUGIN_URL . 'inc/icon-upload.php?_wpnonceicon=' . $noncelink_uploadicon; ?>" />')
+								info.wpdialog({ 
+									title : '<?php esc_attr_e('Upload icon','lmm'); ?>',
+									dialogClass: 'wp-dialog',
+									width : 450,
+									height : 130,
+									modal : true,
+									autoOpen : false,
+									closeOnEscape : true,            
+								});
+								$('#uploadss').live('click',function(){
+									info.wpdialog('open');
+									return false;
+								});
+							});
+							});
+						</script>
+                 		</div>
+					<br/>
 					<small>
 					<?php	
 					$mapicons_admin = sprintf( __('If you want to use different icons, please visit the %1$s (offering more than 700 compatible icons) and upload the new icons to the directory %2$s/','lmm'), '<a tabindex="112" href="http://mapicons.nicolasmollet.com" target="_blank">Map Icons Collection</a>', LEAFLET_PLUGIN_ICONS_URL); 
