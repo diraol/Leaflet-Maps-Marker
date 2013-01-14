@@ -474,37 +474,7 @@ echo '<p><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.
 					if ($current_editor == 'simplified') {
 						echo '<div id="mapiconscollection" style="display:none;">';
 					} ?>
-					<a tabindex="122" title="Maps Icons Collection - http://mapicons.nicolasmollet.com" href="http://mapicons.nicolasmollet.com" target="_blank"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/logo-mapicons.gif" width="88" heigh="31" /></a>
-                    <?php 
-						if (current_user_can( $lmm_options[ 'capabilities_delete' ])) {
-							
-							echo '<input type="button" id="uploadss" value="' . esc_attr__('upload icon','lmm') . '" style="float:right;margin-top:4px;" />';
-						}
-						$noncelink_uploadicon = wp_create_nonce('icon-upload-nonce');
-					?>							
-						<script type="text/javascript">
-						jQuery(function($) { 
-						$(document).ready(function(){
-							var info = $("<div id='uploader' style='overflow: hidden' />");
-							info.html('<iframe width="450" height="130" scrolling="no" src = "<?php echo LEAFLET_PLUGIN_URL . 'inc/icon-upload.php?_wpnonceicon=' . $noncelink_uploadicon; ?>" />')
-								info.wpdialog({ 
-									title : '<?php esc_attr_e('Upload icon','lmm'); ?>',
-									dialogClass: 'wp-dialog',
-									width : 450,
-									height : 130,
-									modal : true,
-									autoOpen : false,
-									closeOnEscape : true,            
-								});
-								$('#uploadss').live('click',function(){
-									info.wpdialog('open');
-									return false;
-								});
-							});
-							});
-						</script>
-                 		</div>
-					<br/>
+					<a tabindex="122" title="Maps Icons Collection - http://mapicons.nicolasmollet.com" href="http://mapicons.nicolasmollet.com" target="_blank"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/logo-mapicons.gif" width="88" heigh="31" /></a><br/>
 					<small>
 					<?php	
 					$mapicons_admin = sprintf( __('If you want to use different icons, please visit the %1$s (offering more than 700 compatible icons) and upload the new icons to the directory %2$s/','lmm'), '<a tabindex="112" href="http://mapicons.nicolasmollet.com" target="_blank">Map Icons Collection</a>', LEAFLET_PLUGIN_ICONS_URL); 
@@ -538,13 +508,43 @@ echo '<p><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.
 							echo '<div style="text-align:center;float:left;line-height:0px;margin-bottom:3px;"><label for="'.$row.'"><img src="' . LEAFLET_PLUGIN_ICONS_URL . '/' . $row . '" title="' . esc_attr__('filename','lmm') . ': ' . $row . ', ' . esc_attr__('CSS classname','lmm') . ': lmm_marker_icon_' . substr($row, 0, -4) . '" alt="' . $row . '" width="' . $lmm_options['defaults_marker_icon_iconsize_x'] . '" height="' . $lmm_options['defaults_marker_icon_iconsize_y'] . '" /></label><br/><input id="'.$row.'" style="margin:1px 0 0 1px;" onchange="updateicon(this.value);" type="radio" name="icon" value="'.$row.'"'.($row == $icon ? ' checked' : '').'/></div>'; 
 							}
 							echo '<div style="text-align:center;float:left;line-height:0px;margin:23px 10px;" id="showlessicons"><a href="javascript:();">' . __('show fewer icons','lmm') . '</a></div>';
+							if (current_user_can( $lmm_options[ 'capabilities_delete' ])) {
+								echo '<input type="button" id="uploadss" value="' . esc_attr__('upload icon','lmm') . '" style="margin-top:7px;" />';
+							}
+							$noncelink_uploadicon = wp_create_nonce('icon-upload-nonce');
 
 						echo '</div>';							
 					} else if ($current_editor == 'advanced') {
 							echo '<div style="text-align:center;float:left;line-height:0px;margin-bottom:3px;"><label for="default_icon"><img src="' . LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png' . '" width="' . $lmm_options['defaults_marker_icon_iconsize_x'] . '" height="' . $lmm_options['defaults_marker_icon_iconsize_y'] . '" title="' . esc_attr__('filename','lmm') . ': marker.png, ' . esc_attr__('CSS classname','lmm') . ': lmm_marker_icon_default" alt="default.png" /></label><br/><input id="default_icon" style="margin:1px 0 0 1px;" onchange="updateicon(this.value);" type="radio" name="icon" value="" ' . ($icon == NULL ? ' checked' : '') . '/></div>';
-							foreach ($iconlist as $row)
+							foreach ($iconlist as $row) {
 								echo '<div style="text-align:center;float:left;line-height:0px;margin-bottom:3px;"><label for="'.$row.'"><img src="' . LEAFLET_PLUGIN_ICONS_URL . '/' . $row . '" title="' . esc_attr__('filename','lmm') . ': ' . $row . ', ' . esc_attr__('CSS classname','lmm') . ': lmm_marker_icon_' . substr($row, 0, -4) . '" alt="' . $row . '" width="' . $lmm_options['defaults_marker_icon_iconsize_x'] . '" height="' . $lmm_options['defaults_marker_icon_iconsize_y'] . '" /></label><br/><input id="'.$row.'" style="margin:1px 0 0 1px;" onchange="updateicon(this.value);" type="radio" name="icon" value="'.$row.'"'.($row == $icon ? ' checked' : '').'></div>'; 
+							}
+							if (current_user_can( $lmm_options[ 'capabilities_delete' ])) {
+								echo '<input type="button" id="uploadss" value="' . esc_attr__('upload icon','lmm') . '" style="margin-top:7px;" />';
+							}
+							$noncelink_uploadicon = wp_create_nonce('icon-upload-nonce');
 					} ?>
+					<script type="text/javascript">
+					jQuery(function($) { 
+					$(document).ready(function(){
+						var info = $("<div id='uploader' style='overflow: hidden' />");
+						info.html('<iframe width="450" height="130" scrolling="no" src = "<?php echo LEAFLET_PLUGIN_URL . 'inc/icon-upload.php?_wpnonceicon=' . $noncelink_uploadicon; ?>" />')
+							info.wpdialog({ 
+								title : '<?php esc_attr_e('Upload icon','lmm'); ?>',
+								dialogClass: 'wp-dialog',
+								width : 450,
+								height : 130,
+								modal : true,
+								autoOpen : false,
+								closeOnEscape : true,            
+							});
+							$('#uploadss').live('click',function(){
+								info.wpdialog('open');
+								return false;
+							});
+						});
+						});
+					</script></div>
 				</td>
 			</tr>
 			<tr>
@@ -909,7 +909,7 @@ var marker,selectlayer,googleLayer_roadmap,googleLayer_satellite,googleLayer_hyb
 		$google_from = urlencode($address);
 	}	
 	 $address = (($address == NULL) ? esc_attr__('if set, address will be displayed here','lmm') : $address);
-	 $popuptext_css = ($popuptext != NULL) ? "border-top:1px solid #f0f0e7;padding-top:5px;margin-top:5px;" : "";
+	 $popuptext_css = ($popuptext != NULL) ? "border-top:1px solid #f0f0e7;padding-top:5px;margin-top:5px;clear:both;" : "";
 	 $popuptext = $popuptext . '<div style="' . $popuptext_css . '">' . $address . ' ';
 
 	 if ($lmm_options['directions_provider'] == 'googlemaps') { 
