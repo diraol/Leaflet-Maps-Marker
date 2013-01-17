@@ -1,4 +1,4 @@
-=== Leaflet Maps Marker (Google Maps, OpenStreetMap, Bing Maps) ===
+=== Leaflet Maps Marker Pro (Google Maps, OpenStreetMap, Bing Maps) ===
 Contributors:      harmr
 Plugin Name:       Leaflet Maps Marker Pro
 Plugin URI:        http://www.mapsmarker.com
@@ -9,7 +9,6 @@ Donate link:       http://www.mapsmarker.com/donations
 Requires at least: 3.0 
 Tested up to:      3.6-alpha-23288
 Stable tag:        0.1
-License:           GPLv2
 
 Pin, organize & show your favorite places through OpenStreetMap, Google Maps, Google Earth (KML), Bing Maps, APIs or Augmented-Reality browsers
 
@@ -221,10 +220,6 @@ For demo maps please visit [http://www.mapsmarker.com/demo](http://www.mapsmarke
 15. [youtube http://www.youtube.com/watch?v=LXliLaZ4u-E]
 
 == Other Notes ==
-
-= Licence =
-Good news, this plugin is free for everyone! Since it's released under the GPL, you can use it free of charge on your personal or commercial blog. But if you enjoy this plugin, you can thank me and leave a small donation for the time I've spent writing and supporting this plugin. Please see [http://www.mapsmarker.com/donations](http://www.mapsmarker.com/donations) for details.
-This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License included with this plugin for more details. 
 
 = Licenses for used libraries, services and images =
 * Leaflet - Copyright (c) 2010-2012, CloudMade, Vladimir Agafonkin [http://www.leafletjs.com](http://www.leafletjs.com)
