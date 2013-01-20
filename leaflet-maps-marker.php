@@ -16,6 +16,11 @@ MapsMarker &reg; - registration pending
 if (basename($_SERVER['SCRIPT_FILENAME']) == 'leaflet-maps-marker.php') { die ("Please do not access this file directly. Thanks!<br/><a href='http://www.mapsmarker.com/go'>www.mapsmarker.com</a>"); }
 //info: Compatibility checks
 global $wp_version;
+include_once( ABSPATH . 'wp-admin' . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'plugin.php' );
+if (is_plugin_active('leaflet-maps-marker/leaflet-maps-marker.php') ) {
+	deactivate_plugins('leaflet-maps-marker/leaflet-maps-marker.php');
+	activate_plugin('leaflet-maps-marker-pro/leaflet-maps-marker.php', $redirect = 'plugins.php?activate=true');
+} 
 if (version_compare($wp_version,"3.0","<")){
   exit('[Leaflet Maps Marker Plugin - installation failed!]: WordPress Version 3.0 or higher is needed for this plugin (you are using version '.$wp_version.') - please upgrade your WordPress installation!');
 }
@@ -37,13 +42,12 @@ if ( ! defined( 'LEAFLET_PLUGIN_ICONS_DIR' ) )
 //info: not in class Leafletmapsmarker as otherwise warnings on resetting defaults options
 require_once( plugin_dir_path( __FILE__ ) . 'inc' . DIRECTORY_SEPARATOR . 'class-leaflet-options.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'inc' . DIRECTORY_SEPARATOR . 'class-plugin-update-checker.php' );
-class Leafletmapsmarker
+class LeafletmapsmarkerPro
 {
 function __construct() {
 	global $wp_version;
 	$lmm_options = get_option( 'leafletmapsmarker_options' );
 	add_action('init', array(&$this, 'lmm_load_translation_files'),1);
-	add_action( 'admin_init', array(&$this, 'lmm_deactivate_free_version_if_active' ),2);
 	add_action('admin_init', array(&$this, 'lmm_install_and_updates'),3); //info: register_action_hook not used as otherwise Wordpress Network installs break
 	add_action('wp_enqueue_scripts', array(&$this, 'lmm_frontend_enqueue_scripts') );
 	add_action('wp_print_styles', array(&$this, 'lmm_frontend_enqueue_stylesheets'),4);
@@ -665,11 +669,6 @@ function __construct() {
 	wp_register_style( 'jquery-ui-timepicker-addon', LEAFLET_PLUGIN_URL . 'inc/css/jquery-datepicker-theme/jquery-ui-timepicker-addon.css', array('jquery-ui-all'), NULL );
 	wp_enqueue_style( 'jquery-ui-timepicker-addon' );
    }
-  function lmm_deactivate_free_version_if_active() {
-	if (is_plugin_active('leaflet-maps-marker/leaflet-maps-marker.php') ) {
-		deactivate_plugins('leaflet-maps-marker/leaflet-maps-marker.php');
-	}
-  }
   function lmm_install_and_updates() {
 	//info: set transient to execute install & update-routine only once a day
 	$current_version = "v34"; //2do - mandatory: change on each update to new version!
@@ -699,7 +698,7 @@ function __construct() {
 	add_filter( 'plugin_action_links', 'leafletmapsmarker_filter_plugin_meta', 10, 2 );
   } //info: end plugin_meta_links()
 }  //info: end class
-$run_leafletmapsmarker = new Leafletmapsmarker();
+$run_leafletmapsmarker_pro = new LeafletmapsmarkerPro();
 $run_PluginUpdateChecker = new PluginUpdateChecker(
     'http://www.mapsmarker.com/downloads/version.json',
     __FILE__,
@@ -709,6 +708,6 @@ $run_PluginUpdateChecker = new PluginUpdateChecker(
 );
 //info: include widget class
 require_once( plugin_dir_path( __FILE__ ) . 'inc' . DIRECTORY_SEPARATOR . 'class-leaflet-recent-marker-widget.php' );
-unset($run_leafletmapsmarker);
+unset($run_leafletmapsmarker_pro);
 unset($run_PluginUpdateChecker);
 ?>
