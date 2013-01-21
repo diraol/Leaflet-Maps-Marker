@@ -509,7 +509,7 @@ echo '<p><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.
 							}
 							echo '<div style="text-align:center;float:left;line-height:0px;margin:23px 10px;" id="showlessicons"><a href="javascript:();">' . __('show fewer icons','lmm') . '</a></div>';
 							if (current_user_can( $lmm_options[ 'capabilities_delete' ])) {
-								echo '<input type="button" id="uploadss" value="' . esc_attr__('upload icon','lmm') . '" style="margin-top:7px;" />';
+								echo '<input type="button" id="upload-new-icon" value="' . esc_attr__('upload new icon','lmm') . '" style="margin-top:7px;" />';
 							}
 							$noncelink_uploadicon = wp_create_nonce('icon-upload-nonce');
 
@@ -520,7 +520,7 @@ echo '<p><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.
 								echo '<div style="text-align:center;float:left;line-height:0px;margin-bottom:3px;"><label for="'.$row.'"><img src="' . LEAFLET_PLUGIN_ICONS_URL . '/' . $row . '" title="' . esc_attr__('filename','lmm') . ': ' . $row . ', ' . esc_attr__('CSS classname','lmm') . ': lmm_marker_icon_' . substr($row, 0, -4) . '" alt="' . $row . '" width="' . $lmm_options['defaults_marker_icon_iconsize_x'] . '" height="' . $lmm_options['defaults_marker_icon_iconsize_y'] . '" /></label><br/><input id="'.$row.'" style="margin:1px 0 0 1px;" onchange="updateicon(this.value);" type="radio" name="icon" value="'.$row.'"'.($row == $icon ? ' checked' : '').'></div>'; 
 							}
 							if (current_user_can( $lmm_options[ 'capabilities_delete' ])) {
-								echo '<input type="button" id="uploadss" value="' . esc_attr__('upload icon','lmm') . '" style="margin-top:7px;" />';
+								echo '<input type="button" id="upload-new-icon" value="' . esc_attr__('upload new icon','lmm') . '" style="margin-top:7px;" />';
 							}
 							$noncelink_uploadicon = wp_create_nonce('icon-upload-nonce');
 					} ?>
@@ -530,15 +530,20 @@ echo '<p><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.
 						var info = $("<div id='uploader' style='overflow: hidden' />");
 						info.html('<iframe width="450" height="130" scrolling="no" src = "<?php echo LEAFLET_PLUGIN_URL . 'inc/icon-upload.php?_wpnonceicon=' . $noncelink_uploadicon; ?>" />')
 							info.wpdialog({ 
-								title : '<?php esc_attr_e('Upload icon','lmm'); ?>',
-								dialogClass: 'wp-dialog',
+								title : '<span style="color:#000000;"><?php esc_attr_e('Upload new icon','lmm'); ?></span>',
+								//dialogClass: 'wp-dialog',
+								open: function(event, ui) { 
+										$(".ui-dialog-titlebar-close").css('top','13px'); 
+										$(".ui-dialog-titlebar-close").addClass('ui-state-hover'); 
+									},
 								width : 450,
 								height : 130,
 								modal : true,
 								autoOpen : false,
-								closeOnEscape : true,            
+								draggable : false,
+								closeOnEscape : true            
 							});
-							$('#uploadss').live('click',function(){
+							$('#upload-new-icon').live('click',function(){
 								info.wpdialog('open');
 								return false;
 							});

@@ -1,6 +1,6 @@
 /*Marker-Tabelle*/
-.fixed .column-id { width: 3%; }
-.fixed .column-type { width: 4%; } 
+.fixed .column-id { width: 4%; }
+.fixed .column-type { width: 5%; } 
 .fixed .column-markername { width: 20%; }
 .fixed .column-layername { width: 240px; }
 .fixed .column-address { width: 20%; } 
@@ -8,7 +8,7 @@
 .fixed .column-count { width: 5%;text-align:center; }
 .fixed .column-mapsize { width: 90px; }
 .fixed .column-zoom { width: 45px; }
-.fixed .column-icon { width: 4%; } 
+.fixed .column-icon { width: 5%; } 
 .fixed .column-popuptext { width: 210px; }
 .fixed .column-openpopup { width: 60px; }
 .fixed .column-code { width: 150px; }
