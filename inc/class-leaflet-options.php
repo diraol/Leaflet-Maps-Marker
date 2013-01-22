@@ -6883,6 +6883,19 @@ class Class_leaflet_options {
 			'desc'    => '', //empty for not breaking settings layout
 			'type'    => 'helptext'
 		);
+		$this->settings['misc_backlink'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section1',
+			'title'   => __('MapsMarker.com backlinks','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => '<img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-backlink.jpg" />',
+			'type'    => 'radio',
+			'std'     => 'show',
+			'choices' => array(
+				'show' => __('show','lmm'),
+				'hide' => __('hide','lmm')
+			)
+		);
 		$this->settings['capabilities_edit'] = array(
 			'version' => '1.0',
 			'pane'    => 'misc',
@@ -8116,7 +8129,7 @@ class Class_leaflet_options {
 		$options_new = array_merge($options_current, $new_options_defaults);
 		update_option( 'leafletmapsmarker_options', $options_new );
 		}
-		/* template for plugin updates 
+		/* template for free plugin updates - has to be kept up to date!
 		//info:  set defaults for options introduced in v3.5
 		if (get_option('leafletmapsmarker_version') == '3.4.1' )
 		{
@@ -8124,6 +8137,43 @@ class Class_leaflet_options {
 			foreach ( $this->settings as $id => $setting ) 
 			{
 				if ( $setting['type'] != 'heading' && $setting['type'] != 'helptext' && $setting['version'] == '3.5')
+				{
+				$new_options_defaults[$id] = $setting['std'];
+				}
+			}
+		$options_current = get_option( 'leafletmapsmarker_options' );
+		$options_new = array_merge($options_current, $new_options_defaults);
+		update_option( 'leafletmapsmarker_options', $options_new );
+		}
+		*/
+
+		/*//////////////////////////////////////////////////////////////////
+		/ Pro version settings update routine starting here
+		//////////////////////////////////////////////////////////////////*/
+
+		if (get_option('leafletmapsmarker_version_pro') == 'init' )
+		{
+			$new_options_defaults = array();
+			foreach ( $this->settings as $id => $setting ) 
+			{
+				if ( $setting['type'] != 'heading' && $setting['type'] != 'helptext' && $setting['version'] == 'p1.0')
+				{
+				$new_options_defaults[$id] = $setting['std'];
+				}
+			}
+		$options_current = get_option( 'leafletmapsmarker_options' );
+		$options_new = array_merge($options_current, $new_options_defaults);
+		update_option( 'leafletmapsmarker_options', $options_new );
+		}
+
+		/* template for pro plugin updates 
+		//info:  set defaults for options introduced in version p1.1
+		if (get_option('leafletmapsmarker_version_pro') == 'p1.0' )
+		{
+			$new_options_defaults = array();
+			foreach ( $this->settings as $id => $setting ) 
+			{
+				if ( $setting['type'] != 'heading' && $setting['type'] != 'helptext' && $setting['version'] == 'p1.1')
 				{
 				$new_options_defaults[$id] = $setting['std'];
 				}
