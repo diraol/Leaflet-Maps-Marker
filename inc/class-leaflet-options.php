@@ -6883,7 +6883,7 @@ class Class_leaflet_options {
 			'desc'    => '', //empty for not breaking settings layout
 			'type'    => 'helptext'
 		);
-		$this->settings['misc_backlink'] = array(
+		$this->settings['misc_backlinks'] = array(
 			'version' => 'p1.0',
 			'pane'    => 'misc',
 			'section' => 'misc-section1',

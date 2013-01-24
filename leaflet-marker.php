@@ -345,7 +345,13 @@ echo '<p><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.
 					<?php }; ?>
 					<label for="kml_timestamp"><strong><?php _e('Timestamp for KML animation','lmm') ?>:</strong></label> <a tabindex="104" href="http://www.mapsmarker.com/kml-timestamp" target="_blank"><img src="<?php echo LEAFLET_PLUGIN_URL; ?>inc/img/icon-question-mark.png" title="<?php esc_attr_e('Click here for more information on animations in KML/Google Earth','lmm'); ?>" width="12" height="12" border="0"/></a><br/>
 					<input type="text" id="kml_timestamp" name="kml_timestamp" value="<?php echo $kml_timestamp ; ?>" style="width:145px;background-image:url(<?php echo LEAFLET_PLUGIN_URL; ?>inc/img/icon-calendar.png);background-position:123px center;background-repeat:no-repeat;" /><br/>
-					<small><?php _e('If empty, marker creation date will be used','lmm') ?><br/></small>
+					<small><?php _e('If empty, marker creation date will be used','lmm') ?></small>
+					<?php 
+						if ( $lmm_options['misc_backlinks'] == 'show' ) {
+							echo '<br/><br/><strong>' . __('Hide MapsMarker.com backlinks','lmm') .'</strong>';
+							echo '<br/><small><a tabindex="110" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings#misc">' . __('Please visit Settings / Misc to disable MapsMarker.com backlinks','lmm') . '</a></small>';
+						}
+					?>
 					</p>
 					</div>
 				</td>
@@ -479,7 +485,8 @@ echo '<p><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.
 					<?php	
 					$mapicons_admin = sprintf( __('If you want to use different icons, please visit the %1$s (offering more than 700 compatible icons) and upload the new icons to the directory %2$s/','lmm'), '<a tabindex="112" href="http://mapicons.nicolasmollet.com" target="_blank">Map Icons Collection</a>', LEAFLET_PLUGIN_ICONS_URL); 
 					$mapicons_user = sprintf( __('If you want to use different icons, please visit the %1$s (offering more than 700 compatible icons) and ask your WordPress admin to upload the new icons to the directory %2$s/','lmm'), '<a tabindex="113" href="http://mapicons.nicolasmollet.com" target="_blank">Map Icons Collection</a>', LEAFLET_PLUGIN_ICONS_URL); 
-					if (current_user_can('activate_plugins')) { echo $mapicons_admin; } else { echo $mapicons_user; } 
+					$upload_icons_button_text = '<br/><br/>' . __('You can also upload the icons by clicking the button "upload new icon"','lmm');
+					if (current_user_can('activate_plugins')) { echo $mapicons_admin . $upload_icons_button_text; } else { echo $mapicons_user . $upload_icons_button_text; } 
 					if (is_multisite()) {					
 					$mapicons_directory = sprintf( __('As you are running your blog within a WordPress Multisite installation, please use this icon directory on your server: %2$s/','lmm'), '<a tabindex="114" href="http://mapicons.nicolasmollet.com" target="_blank">Map Icons Collection</a>', LEAFLET_PLUGIN_ICONS_DIR); 
 					echo '<br/><br/>' . $mapicons_directory;
@@ -504,25 +511,25 @@ echo '<p><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.
 						} else {
 							echo '<div id="moreiconslink" style="display:block;margin:15px 0 0 45px;"><a href="javascript:();">' . __('show more icons','lmm') . '</a></div>';
 							echo '<div id="moreicons" style="display:none;">';
-							foreach ($iconlist as $row)
-							echo '<div style="text-align:center;float:left;line-height:0px;margin-bottom:3px;"><label for="'.$row.'"><img src="' . LEAFLET_PLUGIN_ICONS_URL . '/' . $row . '" title="' . esc_attr__('filename','lmm') . ': ' . $row . ', ' . esc_attr__('CSS classname','lmm') . ': lmm_marker_icon_' . substr($row, 0, -4) . '" alt="' . $row . '" width="' . $lmm_options['defaults_marker_icon_iconsize_x'] . '" height="' . $lmm_options['defaults_marker_icon_iconsize_y'] . '" /></label><br/><input id="'.$row.'" style="margin:1px 0 0 1px;" onchange="updateicon(this.value);" type="radio" name="icon" value="'.$row.'"'.($row == $icon ? ' checked' : '').'/></div>'; 
+							foreach ($iconlist as $row) {
+								echo '<div style="text-align:center;float:left;line-height:0px;margin-bottom:3px;"><label for="'.$row.'"><img src="' . LEAFLET_PLUGIN_ICONS_URL . '/' . $row . '" title="' . esc_attr__('filename','lmm') . ': ' . $row . ', ' . esc_attr__('CSS classname','lmm') . ': lmm_marker_icon_' . substr($row, 0, -4) . '" alt="' . $row . '" width="' . $lmm_options['defaults_marker_icon_iconsize_x'] . '" height="' . $lmm_options['defaults_marker_icon_iconsize_y'] . '" /></label><br/><input id="'.$row.'" style="margin:1px 0 0 1px;" onchange="updateicon(this.value);" type="radio" name="icon" value="'.$row.'"'.($row == $icon ? ' checked' : '').'/></div>'; 
 							}
-							echo '<div style="text-align:center;float:left;line-height:0px;margin:23px 10px;" id="showlessicons"><a href="javascript:();">' . __('show fewer icons','lmm') . '</a></div>';
-							if (current_user_can( $lmm_options[ 'capabilities_delete' ])) {
-								echo '<input type="button" id="upload-new-icon" value="' . esc_attr__('upload new icon','lmm') . '" style="margin-top:7px;" />';
-							}
-							$noncelink_uploadicon = wp_create_nonce('icon-upload-nonce');
-
+						}
+						echo '<div style="text-align:center;float:left;line-height:0px;margin:23px 10px;" id="showlessicons"><a href="javascript:();">' . __('show fewer icons','lmm') . '</a></div>';
+						if (current_user_can( $lmm_options[ 'capabilities_delete' ])) {
+							echo '<input type="button" id="upload-new-icon" value="' . esc_attr__('upload new icon','lmm') . '" style="margin-top:7px;" />';
+						}
+						$noncelink_uploadicon = wp_create_nonce('icon-upload-nonce');
 						echo '</div>';							
 					} else if ($current_editor == 'advanced') {
-							echo '<div style="text-align:center;float:left;line-height:0px;margin-bottom:3px;"><label for="default_icon"><img src="' . LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png' . '" width="' . $lmm_options['defaults_marker_icon_iconsize_x'] . '" height="' . $lmm_options['defaults_marker_icon_iconsize_y'] . '" title="' . esc_attr__('filename','lmm') . ': marker.png, ' . esc_attr__('CSS classname','lmm') . ': lmm_marker_icon_default" alt="default.png" /></label><br/><input id="default_icon" style="margin:1px 0 0 1px;" onchange="updateicon(this.value);" type="radio" name="icon" value="" ' . ($icon == NULL ? ' checked' : '') . '/></div>';
-							foreach ($iconlist as $row) {
-								echo '<div style="text-align:center;float:left;line-height:0px;margin-bottom:3px;"><label for="'.$row.'"><img src="' . LEAFLET_PLUGIN_ICONS_URL . '/' . $row . '" title="' . esc_attr__('filename','lmm') . ': ' . $row . ', ' . esc_attr__('CSS classname','lmm') . ': lmm_marker_icon_' . substr($row, 0, -4) . '" alt="' . $row . '" width="' . $lmm_options['defaults_marker_icon_iconsize_x'] . '" height="' . $lmm_options['defaults_marker_icon_iconsize_y'] . '" /></label><br/><input id="'.$row.'" style="margin:1px 0 0 1px;" onchange="updateicon(this.value);" type="radio" name="icon" value="'.$row.'"'.($row == $icon ? ' checked' : '').'></div>'; 
-							}
-							if (current_user_can( $lmm_options[ 'capabilities_delete' ])) {
-								echo '<input type="button" id="upload-new-icon" value="' . esc_attr__('upload new icon','lmm') . '" style="margin-top:7px;" />';
-							}
-							$noncelink_uploadicon = wp_create_nonce('icon-upload-nonce');
+						echo '<div style="text-align:center;float:left;line-height:0px;margin-bottom:3px;"><label for="default_icon"><img src="' . LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png' . '" width="' . $lmm_options['defaults_marker_icon_iconsize_x'] . '" height="' . $lmm_options['defaults_marker_icon_iconsize_y'] . '" title="' . esc_attr__('filename','lmm') . ': marker.png, ' . esc_attr__('CSS classname','lmm') . ': lmm_marker_icon_default" alt="default.png" /></label><br/><input id="default_icon" style="margin:1px 0 0 1px;" onchange="updateicon(this.value);" type="radio" name="icon" value="" ' . ($icon == NULL ? ' checked' : '') . '/></div>';
+						foreach ($iconlist as $row) {
+							echo '<div style="text-align:center;float:left;line-height:0px;margin-bottom:3px;"><label for="'.$row.'"><img src="' . LEAFLET_PLUGIN_ICONS_URL . '/' . $row . '" title="' . esc_attr__('filename','lmm') . ': ' . $row . ', ' . esc_attr__('CSS classname','lmm') . ': lmm_marker_icon_' . substr($row, 0, -4) . '" alt="' . $row . '" width="' . $lmm_options['defaults_marker_icon_iconsize_x'] . '" height="' . $lmm_options['defaults_marker_icon_iconsize_y'] . '" /></label><br/><input id="'.$row.'" style="margin:1px 0 0 1px;" onchange="updateicon(this.value);" type="radio" name="icon" value="'.$row.'"'.($row == $icon ? ' checked' : '').'></div>'; 
+						}
+						if (current_user_can( $lmm_options[ 'capabilities_delete' ])) {
+							echo '<input type="button" id="upload-new-icon" value="' . esc_attr__('upload new icon','lmm') . '" style="margin-top:7px;" />';
+						}
+						$noncelink_uploadicon = wp_create_nonce('icon-upload-nonce');
 					} ?>
 					<script type="text/javascript">
 					jQuery(function($) { 
@@ -658,7 +665,11 @@ var marker,selectlayer,googleLayer_roadmap,googleLayer_satellite,googleLayer_hyb
 (function($) {
   selectlayer = new L.Map("selectlayer", { dragging: <?php echo $lmm_options['misc_map_dragging'] ?>, touchZoom: <?php echo $lmm_options['misc_map_touchzoom'] ?>, scrollWheelZoom: <?php echo $lmm_options['misc_map_scrollwheelzoom'] ?>, doubleClickZoom: <?php echo $lmm_options['misc_map_doubleclickzoom'] ?>, boxzoom: <?php echo $lmm_options['map_interaction_options_boxzoom'] ?>, trackResize: <?php echo $lmm_options['misc_map_trackresize'] ?>, worldCopyJump: <?php echo $lmm_options['map_interaction_options_worldcopyjump'] ?>, closePopupOnClick: <?php echo $lmm_options['misc_map_closepopuponclick'] ?>, keyboard: <?php echo $lmm_options['map_keyboard_navigation_options_keyboard'] ?>, keyboardPanOffset: <?php echo intval($lmm_options['map_keyboard_navigation_options_keyboardpanoffset']) ?>, keyboardZoomOffset: <?php echo intval($lmm_options['map_keyboard_navigation_options_keyboardzoomoffset']) ?>, inertia: <?php echo $lmm_options['map_panning_inertia_options_inertia'] ?>, inertiaDeceleration: <?php echo intval($lmm_options['map_panning_inertia_options_inertiadeceleration']) ?>, inertiaMaxSpeed: <?php echo intval($lmm_options['map_panning_inertia_options_inertiamaxspeed']) ?>, zoomControl: <?php echo $lmm_options['misc_map_zoomcontrol'] ?>, crs: <?php echo $lmm_options['misc_projections'] ?> });
 	<?php 
-		$attrib_prefix = '<a tabindex=\"115\" href=\"http://mapsmarker.com/go\" target=\"_blank\" title=\"powered by \'Leaflet Maps Marker\'-Plugin for WordPress\">MapsMarker.com</a> (<a tabindex=\"116\" href=\"http://www.leafletjs.com\" target=\"_blank\" title=\"\'Leaflet Maps Marker\' uses the JavaScript library \'Leaflet\' for interactive maps by CloudMade\">Leaflet</a>, <a tabindex=\"117\" href=\"http://mapicons.nicolasmollet.com\" target=\"_blank\" title=\"\'Leaflet Maps Marker\' uses icons from the \'Maps Icons Collection\'\">Icons</a>)';
+		if ( $lmm_options['misc_backlinks'] == 'show' ) {
+			$attrib_prefix = '<a tabindex=\"115\" href=\"http://mapsmarker.com/go\" target=\"_blank\" title=\"powered by \'Leaflet Maps Marker\'-Plugin for WordPress\">MapsMarker.com</a> (<a tabindex=\"116\" href=\"http://www.leafletjs.com\" target=\"_blank\" title=\"\'Leaflet Maps Marker\' uses the JavaScript library \'Leaflet\' for interactive maps by CloudMade\">Leaflet</a>, <a tabindex=\"117\" href=\"http://mapicons.nicolasmollet.com\" target=\"_blank\" title=\"\'Leaflet Maps Marker\' uses icons from the \'Maps Icons Collection\'\">Icons</a>)';
+		} else { 
+			$attrib_prefix = ''; 
+		}
 		$attrib_osm_mapnik = __("Map",'lmm').': &copy; ' . date("Y") . ' <a tabindex=\"118\" href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap contributors</a>, <a tabindex=\"119\" class=\"editlink\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a>';
 		$attrib_mapquest_osm = __("Map",'lmm').': Tiles Courtesy of <a tabindex=\"118\" href=\"http://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"' . LEAFLET_PLUGIN_URL . 'inc/img/logo-mapquest.png\" style=\"display:inline;\" /> - <a tabindex=\"119\" href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap</a>, <a tabindex=\"120\" class=\"editlink\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a>';
 		$attrib_mapquest_aerial = __("Map",'lmm').': <a href=\"http://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"' . LEAFLET_PLUGIN_URL . 'inc/img/logo-mapquest.png\" style=\"display:inline;\" />, Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency';
@@ -670,6 +681,7 @@ var marker,selectlayer,googleLayer_roadmap,googleLayer_satellite,googleLayer_hyb
 		$attrib_custom_basemap3 = __("Map",'lmm').': ' . addslashes($lmm_options[ 'custom_basemap3_attribution' ]);
 	?>
 	selectlayer.attributionControl.setPrefix("<?php echo $attrib_prefix; ?>");
+
 	osm_mapnik = new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {mmid: 'osm_mapnik', maxZoom: 18, minZoom: 0, errorTileUrl: "<?php echo LEAFLET_PLUGIN_URL ?>inc/img/error-tile-image.png", attribution: "<?php echo $attrib_osm_mapnik; ?>", detectRetina: <?php echo $lmm_options['map_retina_detection'] ?>});
 	mapquest_osm = new L.TileLayer("http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png", {mmid: 'mapquest_osm', maxZoom: 18, minZoom: 1, errorTileUrl: "<?php echo LEAFLET_PLUGIN_URL ?>inc/img/error-tile-image.png", attribution: "<?php echo $attrib_mapquest_osm; ?>", subdomains: ['otile1','otile2','otile3','otile4'], detectRetina: <?php echo $lmm_options['map_retina_detection'] ?>});
 	mapquest_aerial = new L.TileLayer("http://{s}.mqcdn.com/naip/{z}/{x}/{y}.png", {mmid: 'mapquest_aerial', maxZoom: 18, minZoom: 1, errorTileUrl: "<?php echo LEAFLET_PLUGIN_URL ?>inc/img/error-tile-image.png", attribution: "<?php echo $attrib_mapquest_aerial; ?>", subdomains: ['oatile1','oatile2','oatile3','oatile4'], detectRetina: <?php echo $lmm_options['map_retina_detection'] ?>});

@@ -408,7 +408,13 @@ echo '<p><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.
 				<input id="controlbox_expanded" type="radio" name="controlbox" value="2" <?php checked($lcontrolbox, 2); ?>><label for="controlbox_expanded"><?php _e('expanded','lmm') ?></label>
 				<br/><br/>
 				<strong><?php _e('Display panel','lmm') ?></strong>&nbsp;&nbsp;<input type="checkbox" name="panel" id="panel" <?php checked($panel, 1 ); ?>><br/>
-				<small><?php _e('If checked, panel on top of map is displayed','lmm') ?></small>		
+				<small><?php _e('If checked, panel on top of map is displayed','lmm') ?></small>
+				<?php 
+					if ( $lmm_options['misc_backlinks'] == 'show' ) {
+						echo '<br/><br/><strong>' . __('Hide MapsMarker.com backlinks','lmm') .'</strong>';
+						echo '<br/><small><a tabindex="110" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings#misc">' . __('Please visit Settings / Misc to disable MapsMarker.com backlinks','lmm') . '</a></small>';
+					}
+				?>
 				</p>
 				</div>
 				</td>
@@ -887,7 +893,11 @@ var markers = {};
 (function($) {
   selectlayer = new L.Map("selectlayer", { dragging: <?php echo $lmm_options['misc_map_dragging'] ?>, touchZoom: <?php echo $lmm_options['misc_map_touchzoom'] ?>, scrollWheelZoom: <?php echo $lmm_options['misc_map_scrollwheelzoom'] ?>, doubleClickZoom: <?php echo $lmm_options['misc_map_doubleclickzoom'] ?>, boxzoom: <?php echo $lmm_options['map_interaction_options_boxzoom'] ?>, trackResize: <?php echo $lmm_options['misc_map_trackresize'] ?>, worldCopyJump: <?php echo $lmm_options['map_interaction_options_worldcopyjump'] ?>, closePopupOnClick: <?php echo $lmm_options['misc_map_closepopuponclick'] ?>, keyboard: <?php echo $lmm_options['map_keyboard_navigation_options_keyboard'] ?>, keyboardPanOffset: <?php echo intval($lmm_options['map_keyboard_navigation_options_keyboardpanoffset']) ?>, keyboardZoomOffset: <?php echo intval($lmm_options['map_keyboard_navigation_options_keyboardzoomoffset']) ?>, inertia: <?php echo $lmm_options['map_panning_inertia_options_inertia'] ?>, inertiaDeceleration: <?php echo intval($lmm_options['map_panning_inertia_options_inertiadeceleration']) ?>, inertiaMaxSpeed: <?php echo intval($lmm_options['map_panning_inertia_options_inertiamaxspeed']) ?>, zoomControl: <?php echo $lmm_options['misc_map_zoomcontrol'] ?>, crs: <?php echo $lmm_options['misc_projections'] ?> });
 	<?php 
-		$attrib_prefix = '<a tabindex=\"120\" href=\"http://mapsmarker.com/go\" target=\"_blank\" title=\"powered by \'Leaflet Maps Marker\'-Plugin for WordPress\">MapsMarker.com</a> (<a tabindex=\"121\" href=\"http://www.leafletjs.com\" target=\"_blank\" title=\"\'Leaflet Maps Marker\' uses the JavaScript library \'Leaflet\' for interactive maps by CloudMade\">Leaflet</a>, <a tabindex=\"122\" href=\"http://mapicons.nicolasmollet.com\" target=\"_blank\" title=\"\'Leaflet Maps Marker\' uses icons from the \'Maps Icons Collection\'\">Icons</a>)';
+		if ( $lmm_options['misc_backlinks'] == 'show' ) {
+			$attrib_prefix = '<a tabindex=\"115\" href=\"http://mapsmarker.com/go\" target=\"_blank\" title=\"powered by \'Leaflet Maps Marker\'-Plugin for WordPress\">MapsMarker.com</a> (<a tabindex=\"116\" href=\"http://www.leafletjs.com\" target=\"_blank\" title=\"\'Leaflet Maps Marker\' uses the JavaScript library \'Leaflet\' for interactive maps by CloudMade\">Leaflet</a>, <a tabindex=\"117\" href=\"http://mapicons.nicolasmollet.com\" target=\"_blank\" title=\"\'Leaflet Maps Marker\' uses icons from the \'Maps Icons Collection\'\">Icons</a>)';
+		} else { 
+			$attrib_prefix = ''; 
+		}
 		$attrib_osm_mapnik = __("Map",'lmm').': &copy; ' . date("Y") . ' <a tabindex=\"123\" href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap contributors</a>, <a tabindex=\"124\" class=\"editlink\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a>';
 		$attrib_mapquest_osm = __("Map",'lmm').': Tiles Courtesy of <a tabindex=\"125\" href=\"http://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"' . LEAFLET_PLUGIN_URL . 'inc/img/logo-mapquest.png\" style=\"display:inline;\" /> - <a tabindex=\"126\" href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap</a>, <a tabindex=\"127\" class=\"editlink\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a>';
 		$attrib_mapquest_aerial = __("Map",'lmm').': <a href=\"http://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"' . LEAFLET_PLUGIN_URL . 'inc/img/logo-mapquest.png\" style=\"display:inline;\" />, Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency';

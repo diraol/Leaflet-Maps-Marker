@@ -339,11 +339,11 @@ function __construct() {
 	$page3 = add_submenu_page('leafletmapsmarker_markers', 'Maps Marker Pro - ' . __('add/edit marker', 'lmm'), '<img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-add.png"> ' . $marker_menu_name, $lmm_options[ 'capabilities_edit' ], 'leafletmapsmarker_marker', array(&$this, 'lmm_marker') );
 	$page4 = add_submenu_page('leafletmapsmarker_markers', 'Maps Marker Pro - ' . __('List all layers', 'lmm'), '<img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-list.png"> ' . __('List all layers', 'lmm'), $lmm_options[ 'capabilities_edit' ], 'leafletmapsmarker_layers', array(&$this, 'lmm_list_layers') );
 	$page5 = add_submenu_page('leafletmapsmarker_markers', 'Maps Marker Pro - ' . __('add/edit layer', 'lmm'), '<img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-add.png"> ' . $layer_menu_name, $lmm_options[ 'capabilities_edit' ], 'leafletmapsmarker_layer', array(&$this, 'lmm_layer') );
-	$page6 = add_submenu_page('leafletmapsmarker_markers', 'Maps Marker Pro - ' . __('Tools', 'lmm'), '<hr noshade size="1"/>' . '<img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-tools.png"> ' . __('Tools', 'lmm'), 'activate_plugins','leafletmapsmarker_tools', array(&$this, 'lmm_tools') );
+	$page6 = add_submenu_page('leafletmapsmarker_markers', 'Maps Marker Pro - ' . __('Tools', 'lmm'), '<hr noshade size="1"/><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-tools.png"> ' . __('Tools', 'lmm'), 'activate_plugins','leafletmapsmarker_tools', array(&$this, 'lmm_tools') );
 	$page7 = add_submenu_page('leafletmapsmarker_markers', 'Maps Marker - ' . __('Settings', 'lmm'), '<img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-settings.png"> ' . __('Settings', 'lmm'), 'activate_plugins','leafletmapsmarker_settings', array(&$this, 'lmm_settings') );
-	$page8 = add_submenu_page('leafletmapsmarker_markers', 'Maps Marker Pro - ' . __('Help & Credits', 'lmm'), '<img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-help.png"> ' . __('Help', 'lmm'), $lmm_options[ 'capabilities_edit' ], 'leafletmapsmarker_help', array(&$this, 'lmm_help') );
+	$page8 = add_submenu_page('leafletmapsmarker_markers', 'Maps Marker Pro - ' . __('Support', 'lmm'), '<img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-help.png"> ' . __('Support', 'lmm'), $lmm_options[ 'capabilities_edit' ], 'leafletmapsmarker_help', array(&$this, 'lmm_help') );
 	$page9 = add_submenu_page('leafletmapsmarker_markers', 'www.mapsmarker.com', '<img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-external.png"> ' . 'mapsmarker.com', $lmm_options[ 'capabilities_edit' ], 'www_mapsmarker_com', array(&$this, 'lmm_mapsmarker_com') );
-	$page10 = add_submenu_page('leafletmapsmarker_markers', 'Maps Marker Pro - ' . __('License settings', 'lmm'), '<img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-settings.png"> ' . __('License settings', 'lmm'), 'activate_plugins', 'leafletmapsmarker_license', array(&$this, 'lmm_license') );
+	$page10 = add_submenu_page('leafletmapsmarker_markers', 'Maps Marker Pro - ' . __('License settings', 'lmm'), '<hr noshade size="1"/><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-settings.png"> ' . __('License settings', 'lmm'), 'activate_plugins', 'leafletmapsmarker_license', array(&$this, 'lmm_license') );
 
 	//info: add javascript - leaflet.js - for admin area
 	add_action('admin_print_scripts-'.$page3, array(&$this, 'lmm_admin_enqueue_scripts'),7);
@@ -441,7 +441,7 @@ function __construct() {
 					array(
 						'id' => 'lmm-help-credits',
 						'parent' => 'lmm',
-						'title' => '<img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-help.png"> ' . __('Help & Credits','lmm'),
+						'title' => '<img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-help.png"> ' . __('Support','lmm'),
 						'href' => admin_url('admin.php?page=leafletmapsmarker_help')
 					),
 					array(
@@ -450,6 +450,12 @@ function __construct() {
 						'title' => '<img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-external.png"> ' . 'mapsmarker.com',
 						'href' => 'http://www.mapsmarker.com',
 						'meta' => array( 'target' => '_blank', 'title' => __('Open plugin website','lmm') )
+					),
+					array(
+						'id' => 'lmm-license',
+						'parent' => 'lmm',
+						'title' => '<hr style="margin:3px 0;" noshade size="1"/><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-settings.png"> ' . __('License settings','lmm'),
+						'href' => admin_url('admin.php?page=leafletmapsmarker_license')
 					)
 				));
 
