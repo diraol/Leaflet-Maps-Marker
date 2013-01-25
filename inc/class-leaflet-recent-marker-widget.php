@@ -27,7 +27,11 @@ class Class_leaflet_recent_marker_widget extends WP_Widget {
 			'lmm-widget-orderby' => 'createdon',
 			'lmm-widget-orderby-sortorder' => 'desc',
 			'lmm-widget-georss' => 'on',
-			'lmm-widget-attributionlink' => 'on'
+			'lmm-widget-attributionlink' => 'on',
+			'lmm-widget-textbeforelist' => '',
+			'lmm-widget-textafterlist' => '',
+			'lmm-widget-exclude-markers' => '',			
+			'lmm-widget-exclude-layers' => ''			
 		));
 		echo '<p><label for="lmm-widget-title">' . __('Title', 'lmm') . ':</label>';
 		echo '<input type="text" value="' . $instance['lmm-widget-title'] . '" name="' . $this->get_field_name('lmm-widget-title') . '" id="' . $this->get_field_id('lmm-widget-title') . '" class="widefat" /></p>';
@@ -79,6 +83,11 @@ class Class_leaflet_recent_marker_widget extends WP_Widget {
 		echo '<option value="desc" ' . selected($orderbysortorder, 'desc', false) . '>' . __('desc','lmm') . '</option>';
 		echo '<option value="asc" ' . selected($orderbysortorder, 'asc', false) . '>' . __('asc','lmm') . '</option></select></p>';
 		echo '<hr style="border:0;height:1px;background-color:#d8d8d8;">';
+		echo '<p><label for="lmm-widget-exclude-markers">' . __('Exclude markers', 'lmm') . ' <img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-question-mark.png" width="12" height="12" border="0" title="' . esc_attr__('Please enter marker ID. Use commas to separate multiple markers','lmm') . '" />:</label>';
+		echo '<input type="text" value="' . $instance['lmm-widget-exclude-markers'] . '" name="' . $this->get_field_name('lmm-widget-exclude-markers') . '" id="' . $this->get_field_id('lmm-widget-exclude-markers') . '" class="widefat" /></p>';
+		echo '<p><label for="lmm-widget-exclude-layers">' . __('Exclude layers', 'lmm') . ' <img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-question-mark.png" width="12" height="12" border="0" title="' . esc_attr__('Please enter layer ID. Use commas to separate multiple layers. Use 0 for markers not assigned to a layer.','lmm') . '" />:</label>';
+		echo '<input type="text" value="' . $instance['lmm-widget-exclude-layers'] . '" name="' . $this->get_field_name('lmm-widget-exclude-layers') . '" id="' . $this->get_field_id('lmm-widget-exclude-layers') . '" class="widefat" /></p>';
+		echo '<hr style="border:0;height:1px;background-color:#d8d8d8;">';
 		echo '<p><label for="lmm-widget-textafterlist">' . __('Text after list of markers', 'lmm') . ':</label>';
 		echo '<input type="text" value="' . $instance['lmm-widget-textafterlist'] . '" name="' . $this->get_field_name('lmm-widget-textafterlist') . '" id="' . $this->get_field_id('lmm-widget-textafterlist') . '" class="widefat" /></p>';
 		$georss = $instance['lmm-widget-georss'];
@@ -110,6 +119,8 @@ class Class_leaflet_recent_marker_widget extends WP_Widget {
 		$instance['lmm-widget-textafterlist'] = (string) strip_tags($new_instance['lmm-widget-textafterlist']);
 		$instance['lmm-widget-georss'] = (string) strip_tags($new_instance['lmm-widget-georss']);
 		$instance['lmm-widget-attributionlink'] = (string) strip_tags($new_instance['lmm-widget-attributionlink']);
+		$instance['lmm-widget-exclude-markers'] = (string) strip_tags($new_instance['lmm-widget-exclude-markers']);
+		$instance['lmm-widget-exclude-layers'] = (string) strip_tags($new_instance['lmm-widget-exclude-layers']);
 		return $instance;
 	}//info: END function update($new_instance, $old_instance)
 	public function widget($args, $instance) {
@@ -124,7 +135,18 @@ class Class_leaflet_recent_marker_widget extends WP_Widget {
 		}
 		$orderby = ($instance['lmm-widget-orderby'] == 'createdon') ? 'createdon' : 'updatedon';
 		$orderbysortorder = ($instance['lmm-widget-orderby-sortorder'] == 'desc') ? 'desc' : 'asc';
-		$result = $wpdb->get_results("SELECT ID,markername,icon,popuptext,createdon FROM $table_name_markers ORDER BY $orderby $orderbysortorder LIMIT $limiter", ARRAY_A);
+		$exclude_markers = ($instance['lmm-widget-exclude-markers'] == NULL) ? '' : mysql_real_escape_string($instance['lmm-widget-exclude-markers']);
+		$exclude_layers = ($instance['lmm-widget-exclude-layers'] == NULL) ? '' : mysql_real_escape_string($instance['lmm-widget-exclude-layers']);
+		if ( ($exclude_markers != NULL) && ($exclude_layers == NULL) ) {
+			$where_statement = 'WHERE ID NOT IN (' . $exclude_markers . ')';
+		} else if ( ($exclude_markers != NULL) && ($exclude_layers != NULL) ) {
+			$where_statement = 'WHERE ID NOT IN (' . $exclude_markers . ') AND layer NOT IN (' . $exclude_layers . ')';
+		} else if ( ($exclude_markers == NULL) && ($exclude_layers == NULL) ) {
+			$where_statement = '';
+		} else if ( ($exclude_markers == NULL) && ($exclude_layer != NULL) ) {
+			$where_statement = 'WHERE layer NOT IN (' . $exclude_layers . ')';
+		}	
+		$result = $wpdb->get_results("SELECT ID,markername,layer,icon,popuptext,createdon FROM $table_name_markers $where_statement ORDER BY $orderby $orderbysortorder LIMIT $limiter", ARRAY_A);
 		$title = (empty($instance['lmm-widget-title'])) ? '' : $instance['lmm-widget-title'];
 		if (!empty($title)) { 
 			echo $before_title . $title . $after_title; 
