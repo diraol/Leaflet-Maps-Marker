@@ -14,7 +14,6 @@ MapsMarker &reg; - registration pending
 
 //info prevent file from being accessed directly
 if (basename($_SERVER['SCRIPT_FILENAME']) == 'leaflet-maps-marker.php') { die ("Please do not access this file directly. Thanks!<br/><a href='http://www.mapsmarker.com/go'>www.mapsmarker.com</a>"); }
-//info: Compatibility checks
 global $wp_version;
 include_once( ABSPATH . 'wp-admin' . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'plugin.php' );
 if (is_plugin_active('leaflet-maps-marker/leaflet-maps-marker.php') ) {
@@ -60,7 +59,9 @@ function __construct() {
 	add_action('admin_bar_menu', array(&$this, 'lmm_add_admin_bar_menu'),149);
 	add_shortcode($lmm_options['shortcode'], array(&$this, 'lmm_showmap'));
 	add_filter('widget_text', 'do_shortcode'); //info: needed for widgets
-	add_action('admin_notices', array(&$this, 'lmm_compatibility_checks'));
+	if ( isset($lmm_options['misc_global_admin_notices']) && ($lmm_options['misc_global_admin_notices'] == 'show') ){
+		add_action('admin_notices', array(&$this, 'lmm_compatibility_checks'));
+	}
 	if ($lmm_options['misc_add_georss_to_head'] == 'enabled') {
 		add_action( 'wp_head', array( &$this, 'lmm_add_georss_to_head' ) );
 	}

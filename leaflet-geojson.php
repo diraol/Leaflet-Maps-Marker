@@ -35,6 +35,7 @@ $table_name_markers = $wpdb->prefix.'leafletmapsmarker_markers';
 $table_name_layers = $wpdb->prefix.'leafletmapsmarker_layers';
 $lmm_options = get_option( 'leafletmapsmarker_options' );
 $full = ( isset($_GET['full']) && ($_GET['full'] == 'yes') ) ? '1' : '0'; 
+$full_icon_url = ( isset($_GET['full_icon_url']) && ($_GET['full_icon_url'] == 'yes') ) ? 'yes' : 'no'; 
 //info: Google language localization (JSON API)
 if ($lmm_options['google_maps_language_localization'] == 'browser_setting') {
 	$google_language = '';
@@ -97,6 +98,10 @@ if (isset($_GET['layer'])) {
 			echo '"lon":"'.$marker['mlon'].'",'.PHP_EOL;
 		}
 		echo '"icon":"'.$marker['micon'].'",'.PHP_EOL;
+		if ($full_icon_url == 'yes') {
+			$marker_full_url = ($marker['micon'] == NULL) ? LEAFLET_PLUGIN_URL . "leaflet-dist/images/marker.png" : LEAFLET_PLUGIN_ICONS_URL . "/" . $marker['micon'];
+			echo '"iconUrl":"'.$marker_full_url.'",'.PHP_EOL;
+		}
 		$maddress = stripslashes(str_replace('"', '\'', $marker['maddress']));
 		if ( ($full == 0) && ($lmm_options['directions_popuptext_panel'] == 'yes') ) {
 			echo '"address":"'.$maddress.'",'.PHP_EOL;
@@ -216,6 +221,10 @@ elseif (isset($_GET['marker'])) {
 		echo '"lon":"'.$marker['mlon'].'",'.PHP_EOL;
 	}
 	echo '"icon":"'.$marker['micon'].'",'.PHP_EOL;
+	if ($full_icon_url == 'yes') {
+		$marker_full_url = ($marker['micon'] == NULL) ? LEAFLET_PLUGIN_URL . "leaflet-dist/images/marker.png" : LEAFLET_PLUGIN_ICONS_URL . "/" . $marker['micon'];
+		echo '"iconUrl":"'.$marker_full_url.'",'.PHP_EOL;
+	}
 	$maddress = stripslashes(str_replace('"', '\'', $marker['maddress']));
 	if ( ($full == 0) && ($lmm_options['directions_popuptext_panel'] == 'yes') ) {
 		echo '"address":"'.$maddress.'",'.PHP_EOL;
