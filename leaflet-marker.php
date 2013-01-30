@@ -480,7 +480,7 @@ echo '<p><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.
 					if ($current_editor == 'simplified') {
 						echo '<div id="mapiconscollection" style="display:none;">';
 					} ?>
-					<a tabindex="122" title="Maps Icons Collection - http://mapicons.nicolasmollet.com" href="http://mapicons.nicolasmollet.com" target="_blank"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/logo-mapicons.gif" width="88" heigh="31" /></a><br/>
+					<a tabindex="122" title="Maps Icons Collection - http://mapicons.nicolasmollet.com" href="http://mapicons.nicolasmollet.com" target="_blank"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/logo-mapicons.png" width="88" heigh="31" /></a><br/>
 					<small>
 					<?php	
 					$mapicons_admin = sprintf( __('If you want to use different icons, please visit the %1$s (offering more than 700 compatible icons) and upload the new icons to the directory %2$s/','lmm'), '<a tabindex="112" href="http://mapicons.nicolasmollet.com" target="_blank">Map Icons Collection</a>', LEAFLET_PLUGIN_ICONS_URL); 
@@ -670,8 +670,8 @@ var marker,selectlayer,googleLayer_roadmap,googleLayer_satellite,googleLayer_hyb
 		} else { 
 			$attrib_prefix = ''; 
 		}
-		$attrib_osm_mapnik = __("Map",'lmm').': &copy; ' . date("Y") . ' <a tabindex=\"118\" href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap contributors</a>, <a tabindex=\"119\" class=\"editlink\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a>';
-		$attrib_mapquest_osm = __("Map",'lmm').': Tiles Courtesy of <a tabindex=\"118\" href=\"http://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"' . LEAFLET_PLUGIN_URL . 'inc/img/logo-mapquest.png\" style=\"display:inline;\" /> - <a tabindex=\"119\" href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap</a>, <a tabindex=\"120\" class=\"editlink\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a>';
+		$attrib_osm_mapnik = __("Map",'lmm').': &copy; ' . date("Y") . ' <a tabindex=\"118\" href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap contributors</a>, <a tabindex=\"119\" id=\"editlink\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a>';
+		$attrib_mapquest_osm = __("Map",'lmm').': Tiles Courtesy of <a tabindex=\"118\" href=\"http://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"' . LEAFLET_PLUGIN_URL . 'inc/img/logo-mapquest.png\" style=\"display:inline;\" /> - <a tabindex=\"119\" href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap</a>, <a tabindex=\"120\" id=\"editlink\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a>';
 		$attrib_mapquest_aerial = __("Map",'lmm').': <a href=\"http://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"' . LEAFLET_PLUGIN_URL . 'inc/img/logo-mapquest.png\" style=\"display:inline;\" />, Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency';
 		$attrib_ogdwien_basemap = __("Map",'lmm').': ' . __("City of Vienna","lmm") . ' (<a href=\"http://data.wien.gv.at\" target=\"_blank\" >data.wien.gv.at</a>)';
 		$attrib_ogdwien_satellite = __("Map",'lmm').': ' . __("City of Vienna","lmm") . ' (<a href=\"http://data.wien.gv.at\" target=\"_blank\">data.wien.gv.at</a>)';
@@ -1104,7 +1104,7 @@ var marker,selectlayer,googleLayer_roadmap,googleLayer_satellite,googleLayer_hyb
 			function appendeditlink() {
 				var boundingbox = selectlayer.getBounds().toBBoxString();
 				var editlink = ' (<a href=\"http://www.openstreetmap.org/edit?editor=potlatch2&bbox='+boundingbox+'\" target=\"_blank\" title=\"" . esc_attr__('help OpenStreetMap.org to improve map details','lmm') . "\">" . __('edit','lmm') . "</a>)';
-				$('.editlink').append(editlink);	
+				$('#editlink').append(editlink);	
 			}
 			appendeditlink();
 		})".PHP_EOL;
