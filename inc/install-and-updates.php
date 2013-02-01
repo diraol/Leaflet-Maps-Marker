@@ -567,6 +567,15 @@ if (get_option('leafletmapsmarker_version') == '3.4.2' ) {
 	}
 	update_option('leafletmapsmarker_version', '3.4.3');
 }
+if (get_option('leafletmapsmarker_version') == '3.4.3' ) {
+	delete_transient( 'leafletmapsmarker_install_update_cache_v343'); 
+	$version_before_update = get_transient( 'leafletmapsmarker_version_before_update' );
+	if ( $version_before_update === FALSE ) {
+		set_transient( 'leafletmapsmarker_version_before_update', 'deleted-in-1-hour', 60*3 );
+		update_option('leafletmapsmarker_version_before_update', '3.4.3'); //2do - update to version before update
+	}
+	update_option('leafletmapsmarker_version', '3.5');
+}
 /* template for free plugin updates 
 if (get_option('leafletmapsmarker_version') == 'x.x' ) {
 	delete_transient( 'leafletmapsmarker_install_update_cache_vx.x');

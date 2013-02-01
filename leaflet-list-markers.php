@@ -89,16 +89,16 @@ if ($mcount > intval($lmm_options[ 'markers_per_page' ])) {
 		echo '<p><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_markers\'>' . __('show all markers','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_marker\'>' . __('add new maker','lmm') . '</a></p>';
 	} else if ( ($deleteselected == '1') && isset($_POST['checkedmarkers']) ) {
 		if (! wp_verify_nonce($massactionnonce, 'massaction-nonce') ) die('<br/>'.__('Security check failed - please call this function from the according Leaflet Maps Marker admin page!','lmm').'');
-		$checked_markers_prepared = implode(",", $_POST['checkedmarkers']);
-		$checked_markers = preg_replace('/[a-z|A-Z| |\=]/', '', $checked_markers_prepared);
+		$checked_markers_prepared = implode(",", strtolower($_POST['checkedmarkers']));
+		$checked_markers = str_replace(array("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","$","%","#","-","_","'","\"","\\"), "", $checked_markers_prepared);
 		$wpdb->query( "DELETE FROM $table_name_markers WHERE id IN (" . htmlspecialchars($checked_markers) . ")");
 		$wpdb->query( "OPTIMIZE TABLE $table_name_markers" );
 		echo '<p><div class="updated" style="padding:10px;">' . __('The selected markers have been deleted','lmm') . ' (ID ' . htmlspecialchars($checked_markers) . ')</div>';
 		echo '<p><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_markers\'>' . __('show all markers','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_marker\'>' . __('add new maker','lmm') . '</a></p>';
 	} else if ( ($assignselected == '1') && isset($_POST['checkedmarkers']) ) {
 		if (! wp_verify_nonce($massactionnonce, 'massaction-nonce') ) die('<br/>'.__('Security check failed - please call this function from the according Leaflet Maps Marker admin page!','lmm').'');
-		$checked_markers_prepared = implode(",", $_POST['checkedmarkers']);
-		$checked_markers = preg_replace('/[a-z|A-Z| |\=]/', '', $checked_markers_prepared);
+		$checked_markers_prepared = implode(",", strtolower($_POST['checkedmarkers']));
+		$checked_markers = str_replace(array("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","$","%","#","-","_","'","\"","\\"), "", $checked_markers_prepared);
 		$wpdb->query( "UPDATE $table_name_markers SET layer = " . intval($_POST['layer']) . " where id IN (" . $checked_markers . ")");
 		echo '<p><div class="updated" style="padding:10px;">' . __('The selected markers have been assigned to the selected layer','lmm') . ' (' . __('Marker','lmm') . ' ID ' . htmlspecialchars($checked_markers) . ', ' . __('Layer','lmm') . ' ID ' . htmlspecialchars($_POST['layer']) . ')</div>';
 		echo '<p><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_markers\'>' . __('show all markers','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_marker\'>' . __('add new maker','lmm') . '</a></p>';

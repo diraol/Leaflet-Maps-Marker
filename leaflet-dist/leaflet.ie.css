@@ -7,11 +7,9 @@
 	display: inline-block;
 	position: absolute;
 	}
-
 .leaflet-control {
 	display: inline;
 	}
-
 .leaflet-popup-tip {
 	width: 21px;
 	_width: 27px;
@@ -30,7 +28,6 @@
 .leaflet-popup-content-wrapper {
 	zoom: 1;
 	}
-
 .leaflet-control-zoom,
 .leaflet-control-layers {
 	border: 3px solid #999;
