@@ -1178,7 +1178,7 @@ class Class_leaflet_options {
 			'pane'    => 'mapdefaults',
 			'section' => 'mapdefaults-section5',
 			'title'   => __( 'Default icon', 'lmm' ),
-			'desc'    => sprintf(__( 'If you want to use another icon than the blue pin (<img src="%sleaflet-dist/images/marker.png">), please enter the file name of the icon (located in the directory %s) in the form field - e.g. smiley_happy.png', 'lmm' ),LEAFLET_PLUGIN_URL,LEAFLET_PLUGIN_ICONS_URL),
+			'desc'    => sprintf(__( 'If you want to use another icon than the blue pin (<img src="%sleaflet-dist/images/marker.png">), please enter the file name of the icon in the form field - e.g. smiley_happy.png', 'lmm' ),LEAFLET_PLUGIN_URL),
 			'std'     => '',
 			'type'    => 'text'
 		);

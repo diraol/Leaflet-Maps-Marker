@@ -6,6 +6,7 @@
 if (basename($_SERVER['SCRIPT_FILENAME']) == 'leaflet-list-markers.php') { die ("Please do not access this file directly. Thanks!<br/><a href='http://www.mapsmarker.com/go'>www.mapsmarker.com</a>"); }
 global $wpdb;
 $lmm_options = get_option( 'leafletmapsmarker_options' );
+$defaults_marker_icon_url = $lmm_options['defaults_marker_icon_url'];
 $table_name_markers = $wpdb->prefix.'leafletmapsmarker_markers';
 $table_name_layers = $wpdb->prefix.'leafletmapsmarker_layers';
 $radius = 1;
@@ -293,7 +294,7 @@ $csvexportlink = LEAFLET_PLUGIN_URL . 'leaflet-exportcsv.php?_wpnonce=' . $nonce
       <td>' . $row['id'] . '</td>
       <td>';
       if ($row['icon'] != null) { 
-         echo '<img src="' . LEAFLET_PLUGIN_ICONS_URL . '/' . $row['icon'] . '" title="' . $row['icon'] . '" />'; 
+         echo '<img src="' . $defaults_marker_icon_url . '/' . $row['icon'] . '" title="' . $row['icon'] . '" />'; 
          } else { 
          echo '<img src="' . LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png" title="' . esc_attr__('standard icon','lmm') . '" />';};
       echo '</td>

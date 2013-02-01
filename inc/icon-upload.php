@@ -88,12 +88,15 @@ require_once( ABSPATH . 'wp-admin' . DIRECTORY_SEPARATOR . 'includes' . DIRECTOR
 <input type="submit" name="upload-submit" class="button-primary" value="<?php esc_attr_e('upload','lmm'); ?>"/>
 </form>
 <?php
+$lmm_options = get_option( 'leafletmapsmarker_options' );
+$defaults_marker_icon_dir = $lmm_options['defaults_marker_icon_dir'];
+
 if ( isset($_FILES['uploadFile']['name']) && ($_FILES['uploadFile']['name'] == TRUE) ){
 	if ( ($_FILES['uploadFile']['type'] == 'image/png') || ($_FILES['uploadFile']['type'] == 'image/gif') ) {
 		WP_Filesystem();
 		global $wp_filesystem; 
 		$wp_filesystem->put_contents(
-		LEAFLET_PLUGIN_ICONS_DIR . DIRECTORY_SEPARATOR . basename($_FILES['uploadFile']['name']),
+		$defaults_marker_icon_dir . DIRECTORY_SEPARATOR . basename($_FILES['uploadFile']['name']),
 		file_get_contents($_FILES['uploadFile']['tmp_name']),
 		FS_CHMOD_FILE);
 		echo '<span style="font-size:14px;color:green;font-weight:bold;">' . sprintf(__('Upload successful - <a href="%1$s" target="_top">please reload page</a>','lmm'), LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_marker') . '</span>';
