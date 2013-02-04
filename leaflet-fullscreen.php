@@ -117,7 +117,13 @@ if (isset($_GET['layer'])) {
 	} else {
 		$gmaps_base_domain = "&base_domain=" . $lmm_options['google_maps_base_domain_custom'];
 	}
-	if ( is_admin() ) { $gmaps_libraries = '&libraries=places'; } else { $gmaps_libraries =  ''; }
+	//info: load needed Google libraries only
+	$google_adsense_status = $lmm_options['google_adsense_status'];
+	if ($google_adsense_status == 'enabled') {
+		$gmaps_libraries = '&libraries=adsense';
+	} else {
+		$gmaps_libraries = '';
+	}
   	//info: Bing culture code
 	if ($lmm_options['bingmaps_culture'] == 'automatic') {
 		if ( defined('WPLANG') ) { $bing_culture = WPLANG; } else { $bing_culture =  'en_us'; }
@@ -126,7 +132,20 @@ if (isset($_GET['layer'])) {
 	}
 	$lmm_out .= '<script type="text/javascript">'.PHP_EOL;
 	$lmm_out .= '/* <![CDATA[ */'.PHP_EOL;
-	$lmm_out .= 'var leafletmapsmarker_L10n = {"lmm_zoom_in":"' . __('Zoom in','lmm') . '","lmm_zoom_out":"' . __('Zoom out','lmm') . '","lmm_googlemaps_language":"' . $google_language . '","lmm_googlemaps_libraries":"' . $gmaps_libraries . '","lmm_googlemaps_base_domain":"' . $gmaps_base_domain . '","lmm_bing_culture":"' . $bing_culture . '"};'.PHP_EOL;
+
+	if ($google_adsense_status == 'disabled') {
+		$lmm_out .= 'var mapsmarkerjs = {"zoom_in":"' . __('Zoom in','lmm') . '","zoom_out":"' . __('Zoom out','lmm') . '","googlemaps_language":"' . $google_language . '","googlemaps_libraries":"' . $gmaps_libraries . '","googlemaps_base_domain":"' . $gmaps_base_domain . '","bing_culture":"' . $bing_culture . '","google_adsense_status":"' . $google_adsense_status . '"};'.PHP_EOL;
+	} else {
+		$google_adsense_format = $lmm_options['google_adsense_format'];
+		$google_adsense_position = $lmm_options['google_adsense_position'];
+		$google_adsense_backgroundColor = $lmm_options['google_adsense_backgroundColor'];
+		$google_adsense_borderColor = $lmm_options['google_adsense_borderColor'];
+		$google_adsense_titleColor = $lmm_options['google_adsense_titleColor'];
+		$google_adsense_textColor = $lmm_options['google_adsense_textColor'];
+		$google_adsense_urlColor = $lmm_options['google_adsense_urlColor'];
+		$google_adsense_publisherId = $lmm_options['google_adsense_publisherId'];
+		$lmm_out .= 'var mapsmarkerjs = {"zoom_in":"' . __('Zoom in','lmm') . '","zoom_out":"' . __('Zoom out','lmm') . '","googlemaps_language":"' . $google_language . '","googlemaps_libraries":"' . $gmaps_libraries . '","googlemaps_base_domain":"' . $gmaps_base_domain . '","bing_culture":"' . $bing_culture . '","google_adsense_status":"' . $google_adsense_status . '","google_adsense_format":"' . $google_adsense_format . '","google_adsense_position":"' . $google_adsense_position . '","google_adsense_backgroundColor":"' . $google_adsense_backgroundColor . '","google_adsense_borderColor":"' . $google_adsense_borderColor . '","google_adsense_titleColor":"' . $google_adsense_titleColor . '","google_adsense_textColor":"' . $google_adsense_textColor . '","google_adsense_urlColor":"' . $google_adsense_urlColor . '","google_adsense_publisherId":"' . $google_adsense_publisherId . '"};'.PHP_EOL;
+	}
 	$lmm_out .= '/* ]]> */'.PHP_EOL;
 	$lmm_out .= '</script>'.PHP_EOL;
 	$lmm_out .= '<style>form { margin: 0 ; } </style>'.PHP_EOL; //info: for layer controlbox
@@ -604,7 +623,13 @@ elseif (isset($_GET['marker'])) {
 	} else {
 		$gmaps_base_domain = "&base_domain=" . $lmm_options['google_maps_base_domain_custom'];
 	}
-	if ( is_admin() ) { $gmaps_libraries = '&libraries=places'; } else { $gmaps_libraries =  ''; }
+	//info: load needed Google libraries only
+	$google_adsense_status = $lmm_options['google_adsense_status'];
+	if ($google_adsense_status == 'enabled') {
+		$gmaps_libraries = '&libraries=adsense';
+	} else {
+		$gmaps_libraries = '';
+	}
 	//info: Bing culture code
 	if ($lmm_options['bingmaps_culture'] == 'automatic') {
 		if ( defined('WPLANG') ) { $bing_culture = WPLANG; } else { $bing_culture =  'en_us'; }
@@ -613,7 +638,19 @@ elseif (isset($_GET['marker'])) {
 	}
 	$lmm_out .= '<script type="text/javascript">'.PHP_EOL;
 	$lmm_out .= '/* <![CDATA[ */'.PHP_EOL;
-	$lmm_out .= 'var leafletmapsmarker_L10n = {"lmm_zoom_in":"' . __('Zoom in','lmm') . '","lmm_zoom_out":"' . __('Zoom out','lmm') . '","lmm_googlemaps_language":"' . $google_language . '","lmm_googlemaps_libraries":"' . $gmaps_libraries . '","lmm_googlemaps_base_domain":"' . $gmaps_base_domain . '","lmm_bing_culture":"' . $bing_culture . '"};'.PHP_EOL;
+	if ($google_adsense_status == 'disabled') {
+		$lmm_out .= 'var mapsmarkerjs = {"zoom_in":"' . __('Zoom in','lmm') . '","zoom_out":"' . __('Zoom out','lmm') . '","googlemaps_language":"' . $google_language . '","googlemaps_libraries":"' . $gmaps_libraries . '","googlemaps_base_domain":"' . $gmaps_base_domain . '","bing_culture":"' . $bing_culture . '","google_adsense_status":"' . $google_adsense_status . '"};'.PHP_EOL;
+	} else {
+		$google_adsense_format = $lmm_options['google_adsense_format'];
+		$google_adsense_position = $lmm_options['google_adsense_position'];
+		$google_adsense_backgroundColor = $lmm_options['google_adsense_backgroundColor'];
+		$google_adsense_borderColor = $lmm_options['google_adsense_borderColor'];
+		$google_adsense_titleColor = $lmm_options['google_adsense_titleColor'];
+		$google_adsense_textColor = $lmm_options['google_adsense_textColor'];
+		$google_adsense_urlColor = $lmm_options['google_adsense_urlColor'];
+		$google_adsense_publisherId = $lmm_options['google_adsense_publisherId'];
+		$lmm_out .= 'var mapsmarkerjs = {"zoom_in":"' . __('Zoom in','lmm') . '","zoom_out":"' . __('Zoom out','lmm') . '","googlemaps_language":"' . $google_language . '","googlemaps_libraries":"' . $gmaps_libraries . '","googlemaps_base_domain":"' . $gmaps_base_domain . '","bing_culture":"' . $bing_culture . '","google_adsense_status":"' . $google_adsense_status . '","google_adsense_format":"' . $google_adsense_format . '","google_adsense_position":"' . $google_adsense_position . '","google_adsense_backgroundColor":"' . $google_adsense_backgroundColor . '","google_adsense_borderColor":"' . $google_adsense_borderColor . '","google_adsense_titleColor":"' . $google_adsense_titleColor . '","google_adsense_textColor":"' . $google_adsense_textColor . '","google_adsense_urlColor":"' . $google_adsense_urlColor . '","google_adsense_publisherId":"' . $google_adsense_publisherId . '"};'.PHP_EOL;
+	}
 	$lmm_out .= '/* ]]> */'.PHP_EOL;
 	$lmm_out .= '</script>'.PHP_EOL;
 	$lmm_out .= '<style>form { margin: 0 ; } </style>'.PHP_EOL; //info: for layer controlbox

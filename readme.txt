@@ -127,6 +127,7 @@ to the visitors of your website.
 * Hungarian (hu_HU) thanks to István Pintér
 * Italian (it_IT) thanks to Luca Barbetti
 * Japanese (ja) thanks to Shu Higashi
+* Portuguese (pt_BR) thanks to Andre Santos and Antonio Hammerl
 * Polish (pl_PL) translation thanks to Pawel Wyszynski and Tomasz Rudnicki
 * Portuguese (pt_PT) translation thanks to Joao Campos
 * Russian (ru_RU) thanks to Ekaterina Golubina, supported by Teplitsa of Social Technologies
@@ -136,7 +137,7 @@ to the visitors of your website.
 * Ukrainian (uk_UK) thanks to Andrexj
 * Yiddish (yi) thanks to Raphael Finkel
 
-For full credits of each translations please visit [http://www.mapsmarker.com/languages](http://www.mapsmarker.com/languages) (had to remove backlinks from readme-file as it is considered as spam by WordPress :-/ )
+For full credits of each translations please visit [http://www.mapsmarker.com/languages](http://www.mapsmarker.com/languages)
 
 Leaflet Maps Marker also supports easy switching between translations through a specific plugin setting.
 For more information on translations and how to contribute a new translation, please visit [http://translate.mapsmarker.com](http://translate.mapsmarker.com/projects/lmm).

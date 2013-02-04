@@ -82,6 +82,7 @@ class Class_leaflet_options {
 		$this->sections['google-section3']			= esc_attr__('Google Maps base domain','lmm');
 		$this->sections['google-section4']			= esc_attr__('Google Places bounds','lmm');
 		$this->sections['google-section5']			= esc_attr__('Google Places search prefix','lmm');
+		$this->sections['google-section6']			= esc_attr__('Google Adsense settings','lmm');
 
 		$this->sections['bing-section1']			= esc_attr__('Bing Maps API Key','lmm');
 		$this->sections['bing-section2']			= esc_attr__('Bing Culture Parameter','lmm');
@@ -6193,6 +6194,138 @@ class Class_leaflet_options {
 			'std'     => 'Wien, ',
 			'type'    => 'text'
 		);	
+		/*
+		* Google Adsense Settings
+		*/
+		$this->settings['google_adsense_helptext1'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'google',
+			'section' => 'google-section6',
+			'std'     => '', 
+			'title'   => '',
+			'desc'    => __( 'Use the settings below to customize the display of ads on Google basemaps.', 'lmm'),
+			'type'    => 'helptext'
+		);
+		$this->settings['google_adsense_status'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'google',
+			'section' => 'google-section6',
+			'title'   => 'Google Adsense<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Please set to disabled if you do not want to display ads on Google basemaps','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-adsense.jpg" />',
+			'type'    => 'radio',
+			'std'     => 'disabled',
+			'choices' => array(
+				'enabled' => __('enabled','lmm'),
+				'disabled' => __('disabled','lmm')
+			)
+		);	
+		$this->settings['google_adsense_format'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'google',
+			'section' => 'google-section6',
+			'title'   => __('Format','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => sprintf(__('Display formats of type google.maps.adsense.AdFormat, both text ads and link units are supported. Please see %1s for more details and examples','lmm'),'<a href="https://support.google.com/adsense/bin/answer.py?hl=de&utm_medium=link&utm_campaign=ww-ww-et-asfe_&utm_source=aso&answer=185665" target="_blank">https://support.google.com/adsense/...</a>'),
+			'type'    => 'radio',
+			'std'     => 'HALF_BANNER',
+			'choices' => array(
+				'LEADERBOARD' => 'LEADERBOARD',
+				'BANNER' => 'BANNER',
+				'HALF_BANNER' => 'HALF_BANNER',
+				'SKYSCRAPER' => 'SKYSCRAPER',
+				'WIDE_SKYSCRAPER' => 'WIDE_SKYSCRAPER',
+				'VERTICAL_BANNER' => 'VERTICAL_BANNER',
+				'BUTTON' => 'BUTTON',
+				'SMALL_SQUARE' => 'SMALL_SQUARE',
+				'SQUARE' => 'SQUARE',
+				'SMALL_RECTANGLE' => 'SMALL_RECTANGLE',
+				'MEDIUM_RECTANGLE' => 'MEDIUM_RECTANGLE',
+				'LARGE_RECTANGLE' => 'LARGE_RECTANGLE',
+				'SMALL_VERTICAL_LINK_UNIT' => 'SMALL_VERTICAL_LINK_UNIT',
+				'MEDIUM_VERTICAL_LINK_UNIT' => 'MEDIUM_VERTICAL_LINK_UNIT',
+				'LARGE_VERTICAL_LINK_UNIT' => 'LARGE_VERTICAL_LINK_UNIT',
+				'X_LARGE_VERTICAL_LINK_UNIT' => 'X_LARGE_VERTICAL_LINK_UNIT',
+				'SMALL_HORIZONTAL_LINK_UNIT' => 'SMALL_HORIZONTAL_LINK_UNIT',
+				'LARGE_HORIZONTAL_LINK_UNIT' => 'LARGE_HORIZONTAL_LINK_UNIT'
+			)
+		);	
+		$this->settings['google_adsense_position'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'google',
+			'section' => 'google-section6',
+			'title'   => __('Position','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-google-adsense-positions.jpg" />',
+			'type'    => 'radio',
+			'std'     => 'TOP_CENTER',
+			'choices' => array(
+				'TOP_CENTER' => 'TOP_CENTER',
+				'TOP_LEFT' => 'TOP_LEFT',
+				'TOP_RIGHT' => 'TOP_RIGHT',
+				'LEFT_TOP' => 'LEFT_TOP',
+				'RIGHT_TOP' => 'RIGHT_TOP',
+				'LEFT_CENTER' => 'LEFT_CENTER',
+				'RIGHT_CENTER' => 'RIGHT_CENTER',
+				'LEFT_BOTTOM' => 'LEFT_BOTTOM',
+				'RIGHT_BOTTOM' => 'RIGHT_BOTTOM',
+				'BOTTOM_LEFT' => 'BOTTOM_LEFT',
+				'BOTTOM_CENTER' => 'BOTTOM_CENTER',
+				'BOTTOM_RIGHT' => 'BOTTOM_RIGHT'
+			)
+		);	
+		$this->settings['google_adsense_backgroundColor'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'google',
+			'section' => 'google-section6',
+			'title'   => 'backgroundColor<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Ad unit background color','lmm'),
+			'std'     => '#c4d4f3',
+			'type'    => 'text'
+		);				
+		$this->settings['google_adsense_borderColor'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'google',
+			'section' => 'google-section6',
+			'title'   => 'borderColor<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Ad unit border color','lmm'),
+			'std'     => '#e5ecf9',
+			'type'    => 'text'
+		);				
+		$this->settings['google_adsense_titleColor'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'google',
+			'section' => 'google-section6',
+			'title'   => 'titleColor<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Ad title link color','lmm'),
+			'std'     => '#0000cc',
+			'type'    => 'text'
+		);				
+		$this->settings['google_adsense_textColor'] = array(
+			'version' => 'p1.0',
+
+			'pane'    => 'google',
+			'section' => 'google-section6',
+			'title'   => 'textColor<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Ad creative text color','lmm'),
+			'std'     => '#000000',
+			'type'    => 'text'
+		);				
+		$this->settings['google_adsense_urlColor'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'google',
+			'section' => 'google-section6',
+			'title'   => 'urlColor<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Ad attribution URL link color','lmm'),
+			'std'     => '#009900',
+			'type'    => 'text'
+		);				
+		$this->settings['google_adsense_publisherId'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'google',
+			'section' => 'google-section6',
+			'title'   => 'publisherId<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => sprintf(__('Adding display ads to your map requires that you have an AdSense account enabled for AdSense for Content. If you do not yet have an AdSense account, <a href="%1s" target="_blank">sign up for one</a>. Once you have done so (or if you already have an account) make sure you have also enabled the account with <a href="%2s" target="_blank">AdSense for Content</a>. Once you have an Adsense for Content account, you will have received an AdSense for Content (AFC) publisher ID. This publisher ID is used within your code to link any advertising shown to your AdSense account, allowing you to share in advertising revenue when a user clicks on one of the ads shown on your map.','lmm'), 'https://www.google.com/adsense/support/bin/answer.py?answer=10162', 'https://www.google.com/adsense/support/bin/answer.py?hl=en&answer=17470'),
+			'std'     => 'pub-4906650925210476',
+			'type'    => 'text'
+		);		
 		
 		/*===========================================
 		*
@@ -7122,7 +7255,8 @@ class Class_leaflet_options {
 				'it_IT' => __('Italian','lmm') . ' (it_IT)',
 				'ja' => __('Japanese','lmm') . ' (ja)',
 				'pl_PL' => __('Polish','lmm') . ' (pl_PL)',
-				'pt_PT' => __('Portuguese','lmm') . ' (pt_PT)',
+				'pt_BR' => __('Portuguese','lmm') . ' - ' . __('Brazil','lmm') . ' (pt_BR)',
+				'pt_PT' => __('Portuguese','lmm') . ' - ' . __('Portugal','lmm') . ' (pt_PT)',
 				'ru_RU' => __('Russian','lmm') . ' (ru_RU)',
 				'sk_SK' => __('Slovak','lmm') . ' (sk_SK)',
 				'es_ES' => __('Spanish','lmm') . ' (es_ES)',

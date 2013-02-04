@@ -499,7 +499,13 @@ function __construct() {
 	global $wp_version;
 	$lmm_options = get_option( 'leafletmapsmarker_options' );
 	$plugin_version = get_option('leafletmapsmarker_version_pro');
-	if ( is_admin() ) { $gmaps_libraries = '&libraries=places'; } else { $gmaps_libraries =  ''; }
+	//info: load needed Google libraries only
+	$google_adsense_status = $lmm_options['google_adsense_status'];
+	if ($google_adsense_status == 'enabled') {
+		$gmaps_libraries = '&libraries=adsense';
+	} else {
+		$gmaps_libraries = '';
+	}
 	//info: Google language localization (JSON API)
 	if ($lmm_options['google_maps_language_localization'] == 'browser_setting') {
 		$google_language = '';
@@ -536,19 +542,54 @@ function __construct() {
 	} else if ( (version_compare( $wp_version, '3.3', '<' )) || ((version_compare( $wp_version, '3.3', '>=' )) && ($lmm_options['misc_javascript_header_footer'] == 'header')) ) {
 		wp_enqueue_script( 'leafletmapsmarker', LEAFLET_PLUGIN_URL . 'leaflet-dist/leaflet.js', array('leafletmapsmarker-googlemaps-loader'), $plugin_version); 
 	}
-	wp_localize_script('leafletmapsmarker', 'leafletmapsmarker_L10n', array(
-		'lmm_zoom_in' => __( 'Zoom in', 'lmm' ),
-		'lmm_zoom_out' => __( 'Zoom out', 'lmm' ),
-		'lmm_googlemaps_language' => $google_language,
-		'lmm_googlemaps_libraries' => $gmaps_libraries,
-		'lmm_googlemaps_base_domain' => $gmaps_base_domain,
-		'lmm_bing_culture' => $bing_culture
+	if ($google_adsense_status == 'disabled') {
+		wp_localize_script('leafletmapsmarker', 'mapsmarkerjs', array(
+			'zoom_in' => __( 'Zoom in', 'lmm' ),
+			'zoom_out' => __( 'Zoom out', 'lmm' ),
+			'googlemaps_language' => $google_language,
+			'googlemaps_libraries' => $gmaps_libraries,
+			'googlemaps_base_domain' => $gmaps_base_domain,
+			'bing_culture' => $bing_culture,
+			'google_adsense_status' => $google_adsense_status
+			) );
+	} else {
+		$google_adsense_format = $lmm_options['google_adsense_format'];
+		$google_adsense_position = $lmm_options['google_adsense_position'];
+		$google_adsense_backgroundColor = $lmm_options['google_adsense_backgroundColor'];
+		$google_adsense_borderColor = $lmm_options['google_adsense_borderColor'];
+		$google_adsense_titleColor = $lmm_options['google_adsense_titleColor'];
+		$google_adsense_textColor = $lmm_options['google_adsense_textColor'];
+		$google_adsense_urlColor = $lmm_options['google_adsense_urlColor'];
+		$google_adsense_publisherId = $lmm_options['google_adsense_publisherId'];
+		wp_localize_script('leafletmapsmarker', 'mapsmarkerjs', array(
+			'zoom_in' => __( 'Zoom in', 'lmm' ),
+			'zoom_out' => __( 'Zoom out', 'lmm' ),
+			'googlemaps_language' => $google_language,
+			'googlemaps_libraries' => $gmaps_libraries,
+			'googlemaps_base_domain' => $gmaps_base_domain,
+			'bing_culture' => $bing_culture,
+			'google_adsense_status' => $google_adsense_status,
+			'google_adsense_format' => $google_adsense_format,
+			'google_adsense_position' => $google_adsense_position,
+			'google_adsense_backgroundColor' => $google_adsense_backgroundColor,
+			'google_adsense_borderColor' => $google_adsense_borderColor,
+			'google_adsense_titleColor' => $google_adsense_titleColor,
+			'google_adsense_textColor' => $google_adsense_textColor,
+			'google_adsense_urlColor' => $google_adsense_urlColor,
+			'google_adsense_publisherId' => $google_adsense_publisherId			
 		) );
+	}		
   }
   function lmm_admin_enqueue_scripts() {
 	$lmm_options = get_option( 'leafletmapsmarker_options' );
 	$plugin_version = get_option('leafletmapsmarker_version_pro');
-	if ( is_admin() ) { $gmaps_libraries = '&libraries=places'; } else { $gmaps_libraries =  ''; }
+	//info: load needed Google libraries only
+	$google_adsense_status = $lmm_options['google_adsense_status'];
+	if ($google_adsense_status == 'enabled') {
+		$gmaps_libraries = '&libraries=places,adsense';
+	} else {
+		$gmaps_libraries = '&libraries=places';
+	}
 	if ( defined('WPLANG') ) { $lang = substr(WPLANG, 0, 2); } else { $lang =  'en'; }
 	//info: Google language localization (JSON API)
 	if ($lmm_options['google_maps_language_localization'] == 'browser_setting') {
@@ -575,14 +616,43 @@ function __construct() {
 	}
 	//info: load leaflet.js + plugins
 	wp_enqueue_script( 'leafletmapsmarker', LEAFLET_PLUGIN_URL . 'leaflet-dist/leaflet.js', array('leafletmapsmarker-googlemaps-loader'), $plugin_version);
-	wp_localize_script('leafletmapsmarker', 'leafletmapsmarker_L10n', array(
-		'lmm_zoom_in' => __( 'Zoom in', 'lmm' ),
-		'lmm_zoom_out' => __( 'Zoom out', 'lmm' ),
-		'lmm_googlemaps_language' => $google_language,
-		'lmm_googlemaps_libraries' => $gmaps_libraries,
-		'lmm_googlemaps_base_domain' => $gmaps_base_domain,
-		'lmm_bing_culture' => $bing_culture
+	if ($google_adsense_status == 'disabled') {
+		wp_localize_script('leafletmapsmarker', 'mapsmarkerjs', array(
+			'zoom_in' => __( 'Zoom in', 'lmm' ),
+			'zoom_out' => __( 'Zoom out', 'lmm' ),
+			'googlemaps_language' => $google_language,
+			'googlemaps_libraries' => $gmaps_libraries,
+			'googlemaps_base_domain' => $gmaps_base_domain,
+			'bing_culture' => $bing_culture,
+			'google_adsense_status' => $google_adsense_status
+			) );
+	} else {
+		$google_adsense_format = $lmm_options['google_adsense_format'];
+		$google_adsense_position = $lmm_options['google_adsense_position'];
+		$google_adsense_backgroundColor = $lmm_options['google_adsense_backgroundColor'];
+		$google_adsense_borderColor = $lmm_options['google_adsense_borderColor'];
+		$google_adsense_titleColor = $lmm_options['google_adsense_titleColor'];
+		$google_adsense_textColor = $lmm_options['google_adsense_textColor'];
+		$google_adsense_urlColor = $lmm_options['google_adsense_urlColor'];
+		$google_adsense_publisherId = $lmm_options['google_adsense_publisherId'];
+		wp_localize_script('leafletmapsmarker', 'mapsmarkerjs', array(
+			'zoom_in' => __( 'Zoom in', 'lmm' ),
+			'zoom_out' => __( 'Zoom out', 'lmm' ),
+			'googlemaps_language' => $google_language,
+			'googlemaps_libraries' => $gmaps_libraries,
+			'googlemaps_base_domain' => $gmaps_base_domain,
+			'bing_culture' => $bing_culture,
+			'google_adsense_status' => $google_adsense_status,
+			'google_adsense_format' => $google_adsense_format,
+			'google_adsense_position' => $google_adsense_position,
+			'google_adsense_backgroundColor' => $google_adsense_backgroundColor,
+			'google_adsense_borderColor' => $google_adsense_borderColor,
+			'google_adsense_titleColor' => $google_adsense_titleColor,
+			'google_adsense_textColor' => $google_adsense_textColor,
+			'google_adsense_urlColor' => $google_adsense_urlColor,
+			'google_adsense_publisherId' => $google_adsense_publisherId			
 		) );
+	}
   }
   function lmm_image_css_override() {
 	$lmm_options = get_option( 'leafletmapsmarker_options' );
