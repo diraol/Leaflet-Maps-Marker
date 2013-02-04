@@ -73,7 +73,7 @@ function get_mm_list(){
 	<?php 
 	//info: load js if no internet connection available
 	if  (in_array  ('curl', get_loaded_extensions())) {
-		if (!$check = curl_init('http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js')) {
+		if (!$check = curl_init('http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js')) {
 			echo "<script type='text/javascript' src='" . LEAFLET_PLUGIN_URL . "inc/js/jquery_for_tinymce_button.js' ?>'></script>";
 		} 
 	} ?>
