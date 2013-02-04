@@ -21,8 +21,6 @@ if (basename($_SERVER['SCRIPT_FILENAME']) == 'leaflet-help-credits.php') { die (
 		<li>- <a href="http://www.mapsmarker.com/docs/" target="_blank"><?php _e('Documentation','lmm') ?></a></li>
 		<li>- <a href="http://www.mapsmarker.com/docs/changelog/" target="_blank"><?php _e('Changelog','lmm') ?></a></li>
 		<li>- <a href="http://wordpress.org/support/plugin/leaflet-maps-marker" target="_blank">WordPress Support Forum</a> <?php _e('(free community support)','lmm') ?></li>
-		<li>- <a href="http://wpquestions.com/affiliates/register/name/robertharm" target="_blank">WP Questions</a>	<?php _e('(paid community support)','lmm') ?></li>
-		<li>- <a href="http://wphelpcenter.com/" target="_blank">WordPress HelpCenter</a> <?php _e('(paid professional support)','lmm') ?></li>
 	</ul>
 	<p>
 		<?php _e('More information on support','lmm') ?>: <a href="http://www.mapsmarker.com/support/" target="_blank">http://www.mapsmarker.com/support</a></p>

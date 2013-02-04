@@ -560,6 +560,7 @@ function __construct() {
 		$google_adsense_titleColor = $lmm_options['google_adsense_titleColor'];
 		$google_adsense_textColor = $lmm_options['google_adsense_textColor'];
 		$google_adsense_urlColor = $lmm_options['google_adsense_urlColor'];
+		$google_adsense_channelNumber = $lmm_options['google_adsense_channelNumber'];
 		$google_adsense_publisherId = $lmm_options['google_adsense_publisherId'];
 		wp_localize_script('leafletmapsmarker', 'mapsmarkerjs', array(
 			'zoom_in' => __( 'Zoom in', 'lmm' ),
@@ -576,6 +577,7 @@ function __construct() {
 			'google_adsense_titleColor' => $google_adsense_titleColor,
 			'google_adsense_textColor' => $google_adsense_textColor,
 			'google_adsense_urlColor' => $google_adsense_urlColor,
+			'google_adsense_channelNumber' => $google_adsense_channelNumber,			
 			'google_adsense_publisherId' => $google_adsense_publisherId			
 		) );
 	}		
@@ -634,6 +636,7 @@ function __construct() {
 		$google_adsense_titleColor = $lmm_options['google_adsense_titleColor'];
 		$google_adsense_textColor = $lmm_options['google_adsense_textColor'];
 		$google_adsense_urlColor = $lmm_options['google_adsense_urlColor'];
+		$google_adsense_channelNumber = $lmm_options['google_adsense_channelNumber'];
 		$google_adsense_publisherId = $lmm_options['google_adsense_publisherId'];
 		wp_localize_script('leafletmapsmarker', 'mapsmarkerjs', array(
 			'zoom_in' => __( 'Zoom in', 'lmm' ),
@@ -650,6 +653,7 @@ function __construct() {
 			'google_adsense_titleColor' => $google_adsense_titleColor,
 			'google_adsense_textColor' => $google_adsense_textColor,
 			'google_adsense_urlColor' => $google_adsense_urlColor,
+			'google_adsense_channelNumber' => $google_adsense_channelNumber,			
 			'google_adsense_publisherId' => $google_adsense_publisherId			
 		) );
 	}

@@ -6317,6 +6317,15 @@ class Class_leaflet_options {
 			'std'     => '#009900',
 			'type'    => 'text'
 		);				
+		$this->settings['google_adsense_channelNumber'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'google',
+			'section' => 'google-section6',
+			'title'   => 'channelNumber<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('The AdSense For Content channel number for tracking the performance of this AdUnit. It must be stored as a string as it will typically be a large UINT64.','lmm'),
+			'std'     => '',
+			'type'    => 'text'
+		);		
 		$this->settings['google_adsense_publisherId'] = array(
 			'version' => 'p1.0',
 			'pane'    => 'google',
