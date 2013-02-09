@@ -30,7 +30,12 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
    $noncelink = isset($_GET['_wpnonce']) ? $_GET['_wpnonce'] : ''; 
    if (! wp_verify_nonce($noncelink, 'exportcsv-nonce') ) die("".__('Security check failed - please call this function from the according Leaflet Maps Marker admin page!','lmm')."");
    $lmm_options = get_option( 'leafletmapsmarker_options' );
-   $defaults_marker_icon_url = $lmm_options['defaults_marker_icon_url'];
+   //info: set custom marker icon dir/url
+	if ( $lmm_options['defaults_marker_custom_icon_url_dir'] == 'no' ) {
+		$defaults_marker_icon_url = LEAFLET_PLUGIN_ICONS_URL;
+	} else {
+		$defaults_marker_icon_url = htmlspecialchars($lmm_options['defaults_marker_icon_url']);
+	}
    if (current_user_can($lmm_options[ 'capabilities_edit' ])) { 
    $rows = array();
         $table_name_markers = $wpdb->prefix.'leafletmapsmarker_markers';

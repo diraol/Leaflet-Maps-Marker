@@ -113,6 +113,7 @@ to the visitors of your website.
 * uninstall function to completely remove the plugin and its data (also on WordPress Multisite installations)
 
 = Available translations =
+* Bengali (ba_BD) thanks to Nur Hasan
 * Bosnian (bs_BA) thanks to Kenan Dervišević
 * Bulgarian (bg_BG) thanks to Andon Ivanov
 * Catalan (ca) thanks to Vicent Cubells

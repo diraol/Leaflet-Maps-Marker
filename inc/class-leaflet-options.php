@@ -1156,23 +1156,36 @@ class Class_leaflet_options {
 			'desc'    => '',
 			'type'    => 'helptext'
 		);
-		$this->settings['defaults_marker_icon_url'] = array(
-			'version' => '2.7.1',
+		$this->settings['defaults_marker_custom_icon_url_dir'] = array(
+			'version' => 'p1.0',
 			'pane'    => 'mapdefaults',
 			'section' => 'mapdefaults-section5',
-			'title'   => __( 'Icons URL', 'lmm' ),
-			'desc'    => __( 'Icons copied to this directory will automatically be available when creating or editing marker maps', 'lmm' ),
-			'std'     => LEAFLET_PLUGIN_ICONS_URL,
-			'type'    => 'text'
+			'title'   => __('Use custom icon URL and directory','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('If set to yes, please be aware that the pro settings below have to be changed when you move your WordPress installation to another server for example!','lmm'),
+			'type'    => 'radio',
+			'std'     => 'no',
+			'choices' => array(
+				'no' => __('no','lmm'),
+				'yes' => __('yes','lmm'),
+			)
+		);			
+		$this->settings['defaults_marker_icon_url'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section5',
+			'title'   => __( 'Custom icons URL', 'lmm' ) . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __( 'If the option above is set to yes, icons will automatically be loaded from this URL. If the option above is set to no, the following marker icons url will be used:','lmm') . '<br/><strong>' . LEAFLET_PLUGIN_ICONS_URL . '</strong>',
+			'std'     => '',
+			'type'    => 'text-deletable'
 		);		
 		$this->settings['defaults_marker_icon_dir'] = array(
-			'version' => '2.7.1',
+			'version' => 'p1.0',
 			'pane'    => 'mapdefaults',
 			'section' => 'mapdefaults-section5',
-			'title'   => __( 'Icons directory', 'lmm' ),
-			'desc'    => __( 'Directory on server where icons are stored - needed especially for WordPress Multisite blogs', 'lmm' ),
-			'std'     => LEAFLET_PLUGIN_ICONS_DIR,
-			'type'    => 'text'
+			'title'   => __( 'Custom icons directory', 'lmm' ) . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __( 'If option above is set to yes, the directory on server where icons are stored will be used (needed for backend only). If the option above is set to no, the following marker icons directory will be used:','lmm') . '<br/><strong>' . LEAFLET_PLUGIN_ICONS_DIR . '</strong>',
+			'std'     => '',
+			'type'    => 'text-deletable'
 		);	
 		$this->settings['defaults_marker_icon'] = array(
 			'version' => '1.8',
@@ -1183,11 +1196,33 @@ class Class_leaflet_options {
 			'std'     => '',
 			'type'    => 'text'
 		);
+		$this->settings['defaults_marker_icon_shadow_url_status'] = array(
+			'version' => '3.5.2',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section5',
+			'title'   => '<br/>' . __('Marker shadow','lmm'),
+			'desc'    => '',
+			'type'    => 'radio',
+			'std'     => 'default',
+			'choices' => array(
+				'default' => __('use default shadow','lmm') . ' (' . LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker-shadow.png, ' . __('preview','lmm') . ': <img src="' . LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker-shadow.png">)',
+				'custom' => __('use custom shadow (please enter URL below)','lmm')
+			)
+		);		
+		$this->settings['defaults_marker_icon_shadow_url'] = array(
+			'version' => '2.7.1',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section5',
+			'title'   => __( 'Custom marker shadow URL', 'lmm' ),
+			'desc'    => __( 'The URL to the custom icons shadow image. If empty, no shadow image will be used (even if the option above is set to default).', 'lmm' ) . '',
+			'std'     => LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker-shadow.png',
+			'type'    => 'text-deletable'
+		);
 		$this->settings['defaults_marker_icon_title'] = array(
 			'version' => '2.7.1',
 			'pane'    => 'mapdefaults',
 			'section' => 'mapdefaults-section5',
-			'title'   => 'title' . '<br/><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/help-marker-title.jpg">',
+			'title'   => __('Marker tooltip','lmm') . '<br/><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/help-marker-title.jpg">',
 			'desc'    => __('Show marker name for the browser tooltip that appear on marker hover (tooltip is always hidden if marker name is empty).','lmm'),
 			'type'    => 'radio',
 			'std'     => 'show',
@@ -1268,15 +1303,6 @@ class Class_leaflet_options {
 			'std'     => '-32',
 			'type'    => 'text'
 		);		
-		$this->settings['defaults_marker_icon_shadow_url'] = array(
-			'version' => '2.7.1',
-			'pane'    => 'mapdefaults',
-			'section' => 'mapdefaults-section5',
-			'title'   => __( 'Shadow URL', 'lmm' ),
-			'desc'    => __( 'The URL to the icons shadow image. If not specified, no shadow image will be created. Default shadow icon:', 'lmm' ) . '<img src="' . LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker-shadow.png">',
-			'std'     => LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker-shadow.png',
-			'type'    => 'text-deletable'
-		);
 		$this->settings['defaults_marker_icon_shadowsize_x'] = array(
 			'version' => '2.7.1',
 			'pane'    => 'mapdefaults',
@@ -7249,6 +7275,7 @@ class Class_leaflet_options {
 			'std'     => 'automatic',
 			'choices' => array(
 				'automatic' => __('automatic (use WordPress default)','lmm'),
+				'bn_BD' => __('Bengali','lmm') . ' (bn_BD)',
 				'bs_BA' => __('Bosnian','lmm') . ' (bs_BA)',
 				'bg_BG' => __('Bulgarian','lmm') . ' (bg_BG)',
 				'ca' => __('Catalan','lmm') . ' (ca)',
@@ -8301,7 +8328,7 @@ class Class_leaflet_options {
 		}
 		/* template for free plugin updates - has to be kept up to date!
 		//info:  set defaults for options introduced in v3.6
-		if (get_option('leafletmapsmarker_version') == '3.5' )
+		if (get_option('leafletmapsmarker_version') == '3.5.2' )
 		{
 			$new_options_defaults = array();
 			foreach ( $this->settings as $id => $setting ) 

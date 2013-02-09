@@ -10,7 +10,12 @@ if (basename($_SERVER['SCRIPT_FILENAME']) == 'leaflet-layer.php') { die ("Please
 <?php
 global $wpdb;
 $lmm_options = get_option( 'leafletmapsmarker_options' );
-$defaults_marker_icon_url = $lmm_options['defaults_marker_icon_url'];
+//info: set custom marker icon dir/url
+if ( $lmm_options['defaults_marker_custom_icon_url_dir'] == 'no' ) {
+	$defaults_marker_icon_url = LEAFLET_PLUGIN_ICONS_URL;
+} else {
+	$defaults_marker_icon_url = htmlspecialchars($lmm_options['defaults_marker_icon_url']);
+}
 $current_editor = get_option( 'leafletmapsmarker_editor' );
 $new_editor = isset($_GET['new_editor']) ? $_GET['new_editor'] : '';
 $current_editor_css = ($current_editor == 'simplified') ? 'display:none;' : '';
@@ -91,7 +96,7 @@ if (!empty($action)) {
 		$panel_checkbox = isset($_POST['panel']) ? '1' : '0';
 		$layername_quotes = str_replace("\"", "'", $_POST['name']);
 		$multi_layer_map_checkbox = isset($_POST['multi_layer_map']) ? '1' : '0';
-		$multi_layer_map_edit_link = ($_POST['multi_layer_map'] == 0) ? '<a class=\'button-primary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_marker&addtoLayer=' . intval($_POST['id']) . '&Layername=' . urlencode($_POST['name']) . '\'>' . __('add new marker to this layer','lmm') . '</a>&nbsp;&nbsp;&nbsp;' : '';
+		$multi_layer_map_edit_link = ($multi_layer_map_checkbox == 0) ? '<a class=\'button-primary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_marker&addtoLayer=' . intval($_POST['id']) . '&Layername=' . urlencode($_POST['name']) . '\'>' . __('add new marker to this layer','lmm') . '</a>&nbsp;&nbsp;&nbsp;' : '';
 		$mlm_checked_imploded = isset($_POST['mlm-all']) ? 'all' : '';
 		if ($mlm_checked_imploded != 'all') {
 			$mlm_checked_temp = '';

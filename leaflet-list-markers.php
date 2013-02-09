@@ -6,7 +6,12 @@
 if (basename($_SERVER['SCRIPT_FILENAME']) == 'leaflet-list-markers.php') { die ("Please do not access this file directly. Thanks!<br/><a href='http://www.mapsmarker.com/go'>www.mapsmarker.com</a>"); }
 global $wpdb;
 $lmm_options = get_option( 'leafletmapsmarker_options' );
-$defaults_marker_icon_url = $lmm_options['defaults_marker_icon_url'];
+//info: set custom marker icon dir/url
+if ( $lmm_options['defaults_marker_custom_icon_url_dir'] == 'no' ) {
+	$defaults_marker_icon_url = LEAFLET_PLUGIN_ICONS_URL;
+} else {
+	$defaults_marker_icon_url = htmlspecialchars($lmm_options['defaults_marker_icon_url']);
+}
 $table_name_markers = $wpdb->prefix.'leafletmapsmarker_markers';
 $table_name_layers = $wpdb->prefix.'leafletmapsmarker_layers';
 $radius = 1;

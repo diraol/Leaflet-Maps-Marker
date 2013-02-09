@@ -157,7 +157,12 @@ class Class_leaflet_recent_marker_widget extends WP_Widget {
 		if ($result != NULL) {
 			echo '<table style="border:none;">';
 			$lmm_options = get_option( 'leafletmapsmarker_options' );
-			$defaults_marker_icon_url = $lmm_options['defaults_marker_icon_url'];
+			//info: set custom marker icon dir/url
+			if ( $lmm_options['defaults_marker_custom_icon_url_dir'] == 'no' ) {
+				$defaults_marker_icon_url = LEAFLET_PLUGIN_ICONS_URL;
+			} else {
+				$defaults_marker_icon_url = htmlspecialchars($lmm_options['defaults_marker_icon_url']);
+			}
 			foreach ($result as $row ) {
 				echo '<tr>';
 				if (!empty($instance['lmm-widget-showicons'])) {

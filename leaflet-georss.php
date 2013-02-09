@@ -31,7 +31,12 @@ global $wpdb;
 $table_name_markers = $wpdb->prefix.'leafletmapsmarker_markers';
 $table_name_layers = $wpdb->prefix.'leafletmapsmarker_layers';
 $lmm_options = get_option( 'leafletmapsmarker_options' );
-$defaults_marker_icon_url = $lmm_options['defaults_marker_icon_url'];
+//info: set custom marker icon dir/url
+if ( $lmm_options['defaults_marker_custom_icon_url_dir'] == 'no' ) {
+	$defaults_marker_icon_url = LEAFLET_PLUGIN_ICONS_URL;
+} else {
+	$defaults_marker_icon_url = htmlspecialchars($lmm_options['defaults_marker_icon_url']);
+}
 if (isset($_GET['layer'])) {
   $layer_prepared = mysql_real_escape_string(strtolower($_GET['layer'])); 
   $layer = str_replace(array("b","c","d","e","f","g","h","i","j","k","m","n","o","p","q","r","s","t","u","v","w","x","y","z","$","%","#","-","_","'","\"","\\"), "", $layer_prepared);

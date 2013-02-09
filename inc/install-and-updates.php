@@ -563,22 +563,47 @@ if (get_option('leafletmapsmarker_version') == '3.4.2' ) {
 	$version_before_update = get_transient( 'leafletmapsmarker_version_before_update' );
 	if ( $version_before_update === FALSE ) {
 		set_transient( 'leafletmapsmarker_version_before_update', 'deleted-in-1-hour', 60*3 );
-		update_option('leafletmapsmarker_version_before_update', '3.4.2'); //2do - update to version before update
+		update_option('leafletmapsmarker_version_before_update', '3.4.2');
 	}
 	update_option('leafletmapsmarker_version', '3.4.3');
 }
 if (get_option('leafletmapsmarker_version') == '3.4.3' ) {
 	delete_transient( 'leafletmapsmarker_install_update_cache_v343'); 
+	$save_defaults_for_new_options = new Class_leaflet_options();
+	$save_defaults_for_new_options->save_defaults_for_new_options();
 	$version_before_update = get_transient( 'leafletmapsmarker_version_before_update' );
 	if ( $version_before_update === FALSE ) {
 		set_transient( 'leafletmapsmarker_version_before_update', 'deleted-in-1-hour', 60*3 );
-		update_option('leafletmapsmarker_version_before_update', '3.4.3'); //2do - update to version before update
+		update_option('leafletmapsmarker_version_before_update', '3.4.3');
 	}
 	update_option('leafletmapsmarker_version', '3.5');
+}
+if (get_option('leafletmapsmarker_version') == '3.5' ) {
+	delete_transient( 'leafletmapsmarker_install_update_cache_v35'); 
+	$version_before_update = get_transient( 'leafletmapsmarker_version_before_update' );
+	if ( $version_before_update === FALSE ) {
+		set_transient( 'leafletmapsmarker_version_before_update', 'deleted-in-1-hour', 60*3 );
+		update_option('leafletmapsmarker_version_before_update', '3.5');
+	}
+	update_option('leafletmapsmarker_version', '3.5.1');
+}
+if (get_option('leafletmapsmarker_version') == '3.5.1' ) {
+	delete_transient( 'leafletmapsmarker_install_update_cache_v351'); 
+	$save_defaults_for_new_options = new Class_leaflet_options();
+	$save_defaults_for_new_options->save_defaults_for_new_options();
+	$version_before_update = get_transient( 'leafletmapsmarker_version_before_update' );
+	if ( $version_before_update === FALSE ) {
+		set_transient( 'leafletmapsmarker_version_before_update', 'deleted-in-1-hour', 60*3 );
+		update_option('leafletmapsmarker_version_before_update', '3.5.1');
+	}
+	update_option('leafletmapsmarker_version', '3.5.2');
 }
 /* template for free plugin updates 
 if (get_option('leafletmapsmarker_version') == 'x.x' ) {
 	delete_transient( 'leafletmapsmarker_install_update_cache_vx.x');
+	//2do - mandatory if new options in class-leaflet-options.php were added & update /inc/class-leaflet-options.php update routine
+	$save_defaults_for_new_options = new Class_leaflet_options();
+	$save_defaults_for_new_options->save_defaults_for_new_options();
 	$version_before_update = get_transient( 'leafletmapsmarker_version_before_update' );
 	if ( $version_before_update === FALSE ) {
 		set_transient( 'leafletmapsmarker_version_before_update', 'deleted-in-1-hour', 60*3 );
@@ -629,9 +654,10 @@ if (get_option('leafletmapsmarker_version_pro') == '1.0' ) {
 		update_option('leafletmapsmarker_version_pro_before_update', '1.0'); //2do - update to version before update
 	}
 	update_option('leafletmapsmarker_version_pro', '1.1');
-	//mandatory: move code for redirect-on-first-activation-check and hide changelog for new installs to here
+	//2do - mandatory: move code for redirect-on-first-activation-check and hide changelog for new installs to here
 	//2do - mandatory: set $current_version in leaflet-maps-marker.php / function lmm_install_and_updates()
 	//2do - mandatory: set $current_version in uninstall.php
+	//2do - mandatory: set current free version in leaflet-maps-marker.php to check if latest free version is used
 }
 */
 ?>

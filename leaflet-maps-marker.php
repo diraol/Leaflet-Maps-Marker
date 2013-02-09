@@ -15,17 +15,24 @@ MapsMarker &reg; - registration pending
 //info prevent file from being accessed directly
 if (basename($_SERVER['SCRIPT_FILENAME']) == 'leaflet-maps-marker.php') { die ("Please do not access this file directly. Thanks!<br/><a href='http://www.mapsmarker.com/go'>www.mapsmarker.com</a>"); }
 global $wp_version;
-include_once( ABSPATH . 'wp-admin' . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'plugin.php' );
-if (is_plugin_active('leaflet-maps-marker/leaflet-maps-marker.php') ) {
-	deactivate_plugins('leaflet-maps-marker/leaflet-maps-marker.php');
-	activate_plugin('leaflet-maps-marker-pro/leaflet-maps-marker.php', $redirect = 'plugins.php?activate=true');
-} 
 if (version_compare($wp_version,"3.0","<")){
   exit('[Leaflet Maps Marker Plugin - installation failed!]: WordPress Version 3.0 or higher is needed for this plugin (you are using version '.$wp_version.') - please upgrade your WordPress installation!');
 }
 if (version_compare(phpversion(),"5.2","<")){
   exit('[Leaflet Maps Marker Plugin - installation failed]: PHP 5.2 is needed for this plugin (you are using PHP '.phpversion().'; note: support for PHP 4 has been officially discontinued since 2007-12-31!) - please upgrade your PHP installation!');
 }
+//info: check if latest free version is used (run only on pro initialization - needed if users wants to switch back to free version)
+$lmm_free_version_number = get_option( 'leafletmapsmarker_version' );
+$lmm_pro_version_old = get_option( 'leafletmapsmarker_version_pro_before_update' );
+if ( (($lmm_free_version_number != NULL) && ($lmm_free_version_number < '3.5.1' )) && ($lmm_pro_version_old == NULL) ) { //2do: update to latest free version
+	die ("Before activating Leaflet Maps Marker Pro, please update the free version first!<br/>This helps ensuring that a hassle-free downgrade is possible - which we hope you will not want anyway ;-)");
+}
+//info: deactive free version first
+include_once( ABSPATH . 'wp-admin' . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'plugin.php' );
+if (is_plugin_active('leaflet-maps-marker/leaflet-maps-marker.php') ) {
+	deactivate_plugins('leaflet-maps-marker/leaflet-maps-marker.php');
+	activate_plugin('leaflet-maps-marker-pro/leaflet-maps-marker.php', $redirect = 'plugins.php?activate=true');
+} 
 //info: define necessary paths and urls
 if ( ! defined( 'LEAFLET_WP_ADMIN_URL' ) )
 	define( 'LEAFLET_WP_ADMIN_URL', get_admin_url() );
@@ -38,8 +45,10 @@ if ( ! defined( 'LEAFLET_PLUGIN_ICONS_URL' ) )
 	define ("LEAFLET_PLUGIN_ICONS_URL", $lmm_upload_dir['baseurl'] . "/leaflet-maps-marker-icons");
 if ( ! defined( 'LEAFLET_PLUGIN_ICONS_DIR' ) )
 	define ("LEAFLET_PLUGIN_ICONS_DIR", $lmm_upload_dir['basedir'] . DIRECTORY_SEPARATOR . "leaflet-maps-marker-icons");
-//info: not in class Leafletmapsmarker as otherwise warnings on resetting defaults options
-require_once( plugin_dir_path( __FILE__ ) . 'inc' . DIRECTORY_SEPARATOR . 'class-leaflet-options.php' );
+//info: not in class Leafletmapsmarker as otherwise warnings on resetting defaults options & is_admin() for reduced memory usage
+if ( is_admin() ) {
+	require_once( plugin_dir_path( __FILE__ ) . 'inc' . DIRECTORY_SEPARATOR . 'class-leaflet-options.php' );
+}
 require_once( plugin_dir_path( __FILE__ ) . 'inc' . DIRECTORY_SEPARATOR . 'class-plugin-update-checker.php' );
 class LeafletmapsmarkerPro
 {
@@ -181,8 +190,14 @@ function __construct() {
   function lmm_dashboard_widget(){
 	global $wpdb;
 	$lmm_options = get_option( 'leafletmapsmarker_options' );
-	$defaults_marker_icon_dir = $lmm_options['defaults_marker_icon_dir'];
-	$defaults_marker_icon_url = $lmm_options['defaults_marker_icon_url'];
+	//info: set custom marker icon dir/url
+	if ( $lmm_options['defaults_marker_custom_icon_url_dir'] == 'no' ) {
+		$defaults_marker_icon_dir = LEAFLET_PLUGIN_ICONS_DIR;
+		$defaults_marker_icon_url = LEAFLET_PLUGIN_ICONS_URL;
+	} else {
+		$defaults_marker_icon_dir = htmlspecialchars($lmm_options['defaults_marker_icon_dir']);
+		$defaults_marker_icon_url = htmlspecialchars($lmm_options['defaults_marker_icon_url']);
+	}
 	$table_name_markers = $wpdb->prefix.'leafletmapsmarker_markers';
 	$widgets = get_option( 'dashboard_widget_options' );
 	$widget_id = 'lmm-admin-dashboard-widget';

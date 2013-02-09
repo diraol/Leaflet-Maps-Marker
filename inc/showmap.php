@@ -10,7 +10,12 @@ if (basename($_SERVER['SCRIPT_FILENAME']) == 'showmap.php') { die ("Please do no
     }
     global $wpdb, $wp_version;
     $lmm_options = get_option( 'leafletmapsmarker_options' );
-	$defaults_marker_icon_url = $lmm_options['defaults_marker_icon_url'];
+	//info: set custom marker icon dir/url
+	if ( $lmm_options['defaults_marker_custom_icon_url_dir'] == 'no' ) {
+		$defaults_marker_icon_url = LEAFLET_PLUGIN_ICONS_URL;
+	} else {
+		$defaults_marker_icon_url = htmlspecialchars($lmm_options['defaults_marker_icon_url']);
+	}
     $uid = substr(md5(''.rand()), 0, 8);
     extract(shortcode_atts(array(
         'lat' => '', 'lon' => '',

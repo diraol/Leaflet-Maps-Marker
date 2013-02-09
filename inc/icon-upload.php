@@ -89,8 +89,12 @@ require_once( ABSPATH . 'wp-admin' . DIRECTORY_SEPARATOR . 'includes' . DIRECTOR
 </form>
 <?php
 $lmm_options = get_option( 'leafletmapsmarker_options' );
-$defaults_marker_icon_dir = $lmm_options['defaults_marker_icon_dir'];
-
+//info: set custom marker icon dir/url
+if ( $lmm_options['defaults_marker_custom_icon_url_dir'] == 'no' ) {
+	$defaults_marker_icon_dir = LEAFLET_PLUGIN_ICONS_DIR;
+} else {
+	$defaults_marker_icon_dir = htmlspecialchars($lmm_options['defaults_marker_icon_dir']);
+}
 if ( isset($_FILES['uploadFile']['name']) && ($_FILES['uploadFile']['name'] == TRUE) ){
 	if ( ($_FILES['uploadFile']['type'] == 'image/png') || ($_FILES['uploadFile']['type'] == 'image/gif') ) {
 		WP_Filesystem();

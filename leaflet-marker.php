@@ -10,8 +10,14 @@ if (basename($_SERVER['SCRIPT_FILENAME']) == 'leaflet-marker.php') { die ("Pleas
 <?php
 global $wpdb;
 $lmm_options = get_option( 'leafletmapsmarker_options' );
-$defaults_marker_icon_dir = $lmm_options['defaults_marker_icon_dir'];
-$defaults_marker_icon_url = $lmm_options['defaults_marker_icon_url'];
+//info: set custom marker icon dir/url
+if ( $lmm_options['defaults_marker_custom_icon_url_dir'] == 'no' ) {
+	$defaults_marker_icon_dir = LEAFLET_PLUGIN_ICONS_DIR;
+	$defaults_marker_icon_url = LEAFLET_PLUGIN_ICONS_URL;
+} else {
+	$defaults_marker_icon_dir = htmlspecialchars($lmm_options['defaults_marker_icon_dir']);
+	$defaults_marker_icon_url = htmlspecialchars($lmm_options['defaults_marker_icon_url']);
+}
 $current_editor = get_option( 'leafletmapsmarker_editor' );
 $new_editor = isset($_GET['new_editor']) ? $_GET['new_editor'] : '';
 $current_editor_css = ($current_editor == 'simplified') ? 'display:none;' : '';
