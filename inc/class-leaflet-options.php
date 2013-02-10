@@ -6902,8 +6902,17 @@ class Class_leaflet_options {
 			'title'   => __( 'Short name', 'lmm' ),
 			'desc'    => __( 'A short name for your World, should only be up to 20 characters, to be used when there is not enough space.', 'lmm' ),
 			'std'     => 'www.mapsmarker.com',
-			'type'    => 'text'
+			'type'    => 'textwww.mapsmarker.com'
 		);
+		$this->settings['ar_wikitude_description'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'ar',
+			'section' => 'ar-section1',
+			'title'   => __( 'Description', 'lmm' ) . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __( 'Description of the content provider that provides additional information about the content displayed.', 'lmm' ),
+			'std'     => __('Wikitude API powered by www.mapsmarker.com','lmm'),
+			'type'    => 'text-deletable'
+		);	
 		$this->settings['ar_wikitude_promotiontext'] = array(
 			'version' => '3.3',
 			'pane'    => 'ar',
@@ -6911,7 +6920,7 @@ class Class_leaflet_options {
 			'title'   => __( 'Promotion text', 'lmm' ),
 			'desc'    => __( 'A promotion text describing your World in more details.', 'lmm' ),
 			'std'     => 'Wikitude API powered by www.mapsmarker.com',
-			'type'    => 'text'
+			'type'    => 'text-deletable'
 		);
 		$this->settings['ar_wikitude_promotiongraphic'] = array(
 			'version' => '3.3',
@@ -6920,7 +6929,7 @@ class Class_leaflet_options {
 			'title'   => __( 'Promotion graphic', 'lmm' ),
 			'desc'    => __( 'A graphic advertising your World. Format: 180x120 pixel, transparent PNG', 'lmm' ),
 			'std'     => LEAFLET_PLUGIN_URL . 'inc/img/wikitude-promotiongraphic-180x200.png',
-			'type'    => 'text'
+			'type'    => 'text-deletable'
 		);
 		$this->settings['ar_wikitude_optout'] = array(
 			'version' => '3.3',
@@ -6942,7 +6951,7 @@ class Class_leaflet_options {
 			'title'   => __( 'Feature graphic', 'lmm' ),
 			'desc'    => __( 'A graphic spotlighting your World in promotions. Format: 1024x500 pixel, transparent PNG', 'lmm' ),
 			'std'     => LEAFLET_PLUGIN_URL . 'inc/img/wikitude-featuregraphic-1024x500.png',
-			'type'    => 'text'
+			'type'    => 'text-deletable'
 		);
 		$this->settings['ar_wikitude_provider_url'] = array(
 			'version' => '1.0',
@@ -6951,7 +6960,7 @@ class Class_leaflet_options {
 			'title'   => __( 'Provider URL', 'lmm' ),
 			'desc'    => __( 'Link to content provider', 'lmm' ),
 			'std'     => 'http://www.mapsmarker.com',
-			'type'    => 'text'
+			'type'    => 'text-deletable'
 		);
 		$this->settings['ar_wikitude_logo'] = array(
 			'version' => '3.3',
@@ -6960,7 +6969,7 @@ class Class_leaflet_options {
 			'title'   => __( 'Logo', 'lmm' ),
 			'desc'    => __( 'The logo is displayed on the left bottom corner on Wikitude when an icon is selected - 96x96 pixel, transparent PNG', 'lmm' ),
 			'std'     => LEAFLET_PLUGIN_URL . 'inc/img/wikitude-logo-96x96.png',
-			'type'    => 'text'
+			'type'    => 'text-deletable'
 		);
 		$this->settings['ar_wikitude_icon'] = array(
 			'version' => '3.3',
@@ -6969,7 +6978,7 @@ class Class_leaflet_options {
 			'title'   => __( 'Icon', 'lmm' ),
 			'desc'    => __( 'The icon is displayed in the cam view of Wikitude to indicate a marker - 32x32 pixel, transparent PNG', 'lmm' ),
 			'std'     => LEAFLET_PLUGIN_URL . 'inc/img/wikitude-icon-32x32.png',
-			'type'    => 'text'
+			'type'    => 'text-deletable'
 		);		
 		$this->settings['ar_wikitude_hiresicon'] = array(
 			'version' => '3.3',
@@ -6978,7 +6987,7 @@ class Class_leaflet_options {
 			'title'   => __( 'High Resolution Icon', 'lmm' ),
 			'desc'    => __( 'A high resolution icon for your World which can be included in features. Format: 512x512 pixel, transparent PNG', 'lmm' ),
 			'std'     => '',
-			'type'    => 'text'
+			'type'    => 'text-deletable'
 		);		
 		$this->settings['ar_wikitude_tags'] = array(
 			'version' => '3.3',
@@ -6987,7 +6996,7 @@ class Class_leaflet_options {
 			'title'   => __( 'Tags', 'lmm' ),
 			'desc'    => __( 'Comma separated list of keywords that characterize the content provider. When users search for content in Wikitude the tags will be searched as well. A match in the tags is higher ranked than in the description.', 'lmm' ),
 			'std'     => 'mapsmarker',
-			'type'    => 'text'
+			'type'    => 'text-deletable'
 		);		
 		$this->settings['ar_wikitude_email'] = array(
 			'version' => '1.0',
@@ -6996,7 +7005,7 @@ class Class_leaflet_options {
 			'title'   => __( 'E-Mail', 'lmm' ),
 			'desc'    => __( 'Optional: displayed on each marker; used for sending an email directly from Wikitude', 'lmm' ),
 			'std'     => '',
-			'type'    => 'text'
+			'type'    => 'text-deletable'
 		);		
 		$this->settings['ar_wikitude_phone'] = array(
 			'version' => '1.0',
@@ -7005,7 +7014,7 @@ class Class_leaflet_options {
 			'title'   => __( 'Phone', 'lmm' ),
 			'desc'    => __( 'Optional: example: +4312345 - when a phone number is given, Wikitude displays a "call me" button in the bubble; used for every marker.', 'lmm' ),
 			'std'     => '',
-			'type'    => 'text'
+			'type'    => 'text-deletable'
 		);		
 		$this->settings['ar_wikitude_attachment'] = array(
 			'version' => '1.0',
@@ -7014,7 +7023,7 @@ class Class_leaflet_options {
 			'title'   => __( 'Attachment', 'lmm' ),
 			'desc'    => __( 'Optional: displayed on each marker; can be a link to a resource (image, PDF file...). You could use this to issue coupons or vouchers for potential clients that found you via Wikitude.', 'lmm' ),
 			'std'     => '',
-			'type'    => 'text'
+			'type'    => 'text-deletable'
 		);		
 		$this->settings['ar_wikitude_radius'] = array(
 			'version' => '1.0',
@@ -7056,7 +7065,7 @@ class Class_leaflet_options {
 			'pane'    => 'misc',
 			'section' => 'misc-section1',
 			'title'   => __('MapsMarker.com backlinks','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
-			'desc'    => '<img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-backlink.jpg" />',
+			'desc'    => __('Option to hide backlinks to Mapsmarker.com on maps and screen overlays in KML files.','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-backlink.jpg" /><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-backlink-kml.jpg" />',
 			'type'    => 'radio',
 			'std'     => 'show',
 			'choices' => array(

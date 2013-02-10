@@ -184,16 +184,18 @@ if (isset($_GET['layer'])) {
 			if ( ($lmm_options[ 'wms_wms10_kml_support' ] == 'yes') && ($layer['lwms10'] == '1') ) { echo $wms10_kml_output; }
 		}	
 	}
-  echo PHP_EOL . '<ScreenOverlay>'.PHP_EOL;
-  echo '<name><![CDATA[powered by WordPress & MapsMarker.com]]></name>'.PHP_EOL;
-  echo '<Icon>'.PHP_EOL;
-  echo '<href>' . LEAFLET_PLUGIN_URL . 'inc/img/kml-overlay-powered-by.png</href>'.PHP_EOL;
-  echo '</Icon>'.PHP_EOL;
-  echo '<overlayXY x="0" y="1" xunits="fraction" yunits="fraction"/>'.PHP_EOL;
-  echo '<screenXY x="0" y="1" xunits="fraction" yunits="fraction"/>'.PHP_EOL;
-  echo '<rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>'.PHP_EOL;
-  echo '<size x="0" y="0" xunits="fraction" yunits="fraction"/>'.PHP_EOL;
-  echo '</ScreenOverlay>'.PHP_EOL;
+  if ( $lmm_options['misc_backlinks'] == 'show' ) {
+	  echo PHP_EOL . '<ScreenOverlay>'.PHP_EOL;
+	  echo '<name><![CDATA[powered by WordPress & MapsMarker.com]]></name>'.PHP_EOL;
+	  echo '<Icon>'.PHP_EOL;
+	  echo '<href>' . LEAFLET_PLUGIN_URL . 'inc/img/kml-overlay-powered-by.png</href>'.PHP_EOL;
+	  echo '</Icon>'.PHP_EOL;
+	  echo '<overlayXY x="0" y="1" xunits="fraction" yunits="fraction"/>'.PHP_EOL;
+	  echo '<screenXY x="0" y="1" xunits="fraction" yunits="fraction"/>'.PHP_EOL;
+	  echo '<rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>'.PHP_EOL;
+	  echo '<size x="0" y="0" xunits="fraction" yunits="fraction"/>'.PHP_EOL;
+	  echo '</ScreenOverlay>'.PHP_EOL;
+  }
   echo '</Document>'.PHP_EOL;
   echo '</kml>';
   } //info: check if layer exists end
@@ -301,16 +303,18 @@ elseif (isset($_GET['marker'])) {
 			if ( ($lmm_options[ 'wms_wms9_kml_support' ] == 'yes') && ($layer['mwms9'] == '1') ) { echo $wms9_kml_output; }
 			if ( ($lmm_options[ 'wms_wms10_kml_support' ] == 'yes') && ($layer['mwms10'] == '1') ) { echo $wms10_kml_output; }
 	}  
-  echo PHP_EOL.'<ScreenOverlay>'.PHP_EOL;
-  echo '<name><![CDATA[powered by WordPress & MapsMarker.com]]></name>'.PHP_EOL;
-  echo '<Icon>'.PHP_EOL;
-  echo '<href>' . LEAFLET_PLUGIN_URL . 'inc/img/kml-overlay-powered-by.png</href>'.PHP_EOL;
-  echo '</Icon>'.PHP_EOL;
-  echo '<overlayXY x="0" y="1" xunits="fraction" yunits="fraction"/>'.PHP_EOL;
-  echo '<screenXY x="0" y="1" xunits="fraction" yunits="fraction"/>'.PHP_EOL;
-  echo '<rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>'.PHP_EOL;
-  echo '<size x="0" y="0" xunits="fraction" yunits="fraction"/>'.PHP_EOL;
-  echo '</ScreenOverlay>'.PHP_EOL;
+  if ( $lmm_options['misc_backlinks'] == 'show' ) {	
+	  echo PHP_EOL.'<ScreenOverlay>'.PHP_EOL;
+	  echo '<name><![CDATA[powered by WordPress & MapsMarker.com]]></name>'.PHP_EOL;
+	  echo '<Icon>'.PHP_EOL;
+	  echo '<href>' . LEAFLET_PLUGIN_URL . 'inc/img/kml-overlay-powered-by.png</href>'.PHP_EOL;
+	  echo '</Icon>'.PHP_EOL;
+	  echo '<overlayXY x="0" y="1" xunits="fraction" yunits="fraction"/>'.PHP_EOL;
+	  echo '<screenXY x="0" y="1" xunits="fraction" yunits="fraction"/>'.PHP_EOL;
+	  echo '<rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>'.PHP_EOL;
+	  echo '<size x="0" y="0" xunits="fraction" yunits="fraction"/>'.PHP_EOL;
+	  echo '</ScreenOverlay>'.PHP_EOL;
+  }
   echo '</Document>'.PHP_EOL;
   echo '</kml>';
   } //info: check if marker exists end

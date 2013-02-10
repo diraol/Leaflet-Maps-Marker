@@ -114,7 +114,7 @@ if (isset($_GET['layer'])) {
 			$layername = $wpdb->get_var('SELECT l.name FROM '.$table_name_layers.' as l WHERE l.id='.$layer);
 		}
 		echo '<ar:name><![CDATA[' . $layername . ']]></ar:name>'.PHP_EOL;
-		echo '<ar:description>' . __('Wikitude API powered by www.mapsmarker.com','lmm') . '</ar:description>'.PHP_EOL;
+		echo '<ar:description><![CDATA[' . $lmm_options[ 'ar_wikitude_description' ] . ']]></ar:description>'.PHP_EOL;
 		echo '<wikitude:providerUrl><![CDATA[' . $lmm_options[ 'ar_wikitude_provider_url' ] . ']]></wikitude:providerUrl>'.PHP_EOL;
 		echo '<wikitude:tags><![CDATA[' . $lmm_options[ 'ar_wikitude_tags' ] . ']]></wikitude:tags>'.PHP_EOL;
 		echo '<wikitude:shortName><![CDATA[' . $lmm_options[ 'ar_wikitude_shortname' ] . ']]></wikitude:shortName>'.PHP_EOL;
@@ -198,7 +198,7 @@ if (isset($_GET['layer'])) {
 			$layername = $wpdb->get_var('SELECT l.name FROM '.$table_name_layers.' as l WHERE l.id='.$layer);
 		}
 		echo '<ar:name><![CDATA[' . $layername . ']]></ar:name>'.PHP_EOL;
-		echo '<ar:description>' . __('Wikitude API powered by www.mapsmarker.com','lmm') . '</ar:description>'.PHP_EOL;
+		echo '<ar:description><![CDATA[' . $lmm_options[ 'ar_wikitude_description' ] . ']]></ar:description>'.PHP_EOL;
 		echo '<wikitude:providerUrl><![CDATA[' . $lmm_options[ 'ar_wikitude_provider_url' ] . ']]></wikitude:providerUrl>'.PHP_EOL;
 		echo '<wikitude:tags><![CDATA[' . $lmm_options[ 'ar_wikitude_tags' ] . ']]></wikitude:tags>'.PHP_EOL;
 		echo '<wikitude:shortName><![CDATA[' . $lmm_options[ 'ar_wikitude_shortname' ] . ']]></wikitude:shortName>'.PHP_EOL;
@@ -282,7 +282,7 @@ elseif (isset($_GET['marker'])) {
 		  foreach ($markers as $marker) {
 		  echo '<ar:name><![CDATA[' . $marker[ 'mmarkername' ] . ']]></ar:name>'.PHP_EOL;
 		  }
-		  echo '<ar:description>' . __('Wikitude API powered by www.mapsmarker.com','lmm') . '</ar:description>'.PHP_EOL;
+		  echo '<ar:description><![CDATA[' . $lmm_options[ 'ar_wikitude_description' ] . ']]></ar:description>'.PHP_EOL;
 		  echo '<wikitude:providerUrl><![CDATA[' . $lmm_options[ 'ar_wikitude_provider_url' ] . ']]></wikitude:providerUrl>'.PHP_EOL;
 		  echo '<wikitude:tags><![CDATA[' . $lmm_options[ 'ar_wikitude_tags' ] . ']]></wikitude:tags>'.PHP_EOL;
 		  echo '<wikitude:shortName><![CDATA[' . $lmm_options[ 'ar_wikitude_shortname' ] . ']]></wikitude:shortName>'.PHP_EOL;
@@ -357,7 +357,7 @@ elseif (isset($_GET['marker'])) {
 		  foreach ($markers as $marker) {
 		  echo '<ar:name><![CDATA[' . $marker[ 'mmarkername' ] . ']]></ar:name>'.PHP_EOL;
 		  }
-		  echo '<ar:description>' . __('Wikitude API powered by www.mapsmarker.com','lmm') . '</ar:description>'.PHP_EOL;
+		  echo '<ar:description><![CDATA[' . $lmm_options[ 'ar_wikitude_description' ] . ']]></ar:description>'.PHP_EOL;
 		  echo '<wikitude:providerUrl><![CDATA[' . $lmm_options[ 'ar_wikitude_provider_url' ] . ']]></wikitude:providerUrl>'.PHP_EOL;
 		  echo '<wikitude:tags><![CDATA[' . $lmm_options[ 'ar_wikitude_tags' ] . ']]></wikitude:tags>'.PHP_EOL;
 		  echo '<wikitude:shortName><![CDATA[' . $lmm_options[ 'ar_wikitude_shortname' ] . ']]></wikitude:shortName>'.PHP_EOL;
