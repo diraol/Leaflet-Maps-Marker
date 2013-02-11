@@ -8,9 +8,9 @@ class Class_leaflet_recent_marker_widget extends WP_Widget {
 	public function __construct() {
 		$widget_options = array(
 			'classname' => 'Class_leaflet_recent_marker_widget',
-			'description' => __('Widget to show the most recent Leaflet Maps Marker entries - please see www.mapsmarker.com for more info', 'lmm'));
+			'description' => __('Widget to show the most recent Leaflet Maps Marker entries', 'lmm'));
 		$control_options = array();
-		parent::__construct( __CLASS__, '<span>' . __('Leaflet Maps Marker - recent markers', 'lmm') . '</span>', $widget_options, $control_options);
+		parent::__construct( __CLASS__, '<span>' . __('Maps Marker Pro - recent markers', 'lmm') . '</span>', $widget_options, $control_options);
 	}
 	public function form($instance) {
 		$instance = wp_parse_args((array) $instance, array(

@@ -716,6 +716,8 @@ $layerlist = $wpdb->get_results('SELECT * FROM ' . $table_name_layers . ' WHERE 
 <div style="display:none;">
 <?php //info: translations strings for Glotpress
 __('Free Edition','lmm'); 
+__('Widget to show the most recent Leaflet Maps Marker entries - please see www.mapsmarker.com for more info', 'lmm')
+__('Leaflet Maps Marker - recent markers', 'lmm')
 ?>	
 </div>
 <!--wrap--> 

@@ -152,7 +152,7 @@ if (isset($plugin_updates->response['leaflet-maps-marker-pro/leaflet-maps-marker
 ?>
 <table cellpadding="5" cellspacing="0" class="widefat fixed">
   <tr>
-    <td><div style="float:left;margin:2px 10px 0 0;"><a href="http://www.mapsmarker.com/go" target="_blank" title="www.mapsmarker.com"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/logo-mapsmarker.png" width="65" height="65" alt="Leaflet Maps Marker Plugin Logo by Julia Loew, www.weiderand.net" /></a></div>
+    <td><div style="float:left;margin:2px 10px 0 0;"><a href="http://www.mapsmarker.com/go" target="_blank" title="www.mapsmarker.com"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/logo-mapsmarker-pro.png" width="65" height="65" alt="Leaflet Maps Marker Plugin Logo by Julia Loew, www.weiderand.net" /></a></div>
 
 <div style="font-size:1.5em;margin-bottom:5px;padding:2px 0 0 0;"><span style="font-weight:bold;">Maps Marker<sup style="font-size:75%;">&reg;</sup> v<?php echo get_option("leafletmapsmarker_version_pro") ?> - <?php _e('Pro Edition','lmm'); ?></span></div>
   <p style="margin:1.4em 0 0 0;">
