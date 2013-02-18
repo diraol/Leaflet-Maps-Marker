@@ -7924,7 +7924,7 @@ class Class_leaflet_options {
 			'type'    => 'radio',
 			'std'     => 'visualead',
 			'choices' => array(
-				'visualead' => 'Visualead.com' . __('(allows using a custom background for your QR codes)','lmm'),
+				'visualead' => 'Visualead.com ' . __('(allows using a custom background for your QR codes)','lmm'),
 				'google' => 'Google'
 			)
 		);		
@@ -7995,7 +7995,7 @@ class Class_leaflet_options {
 			'version' => 'p1.0',
 			'pane'    => 'misc',
 			'section' => 'misc-section8',
-			'title'   => __( 'QR grafvity', 'lmm' ) . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'title'   => __( 'QR gravity', 'lmm' ) . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
 			'desc'    => esc_attr__('center/N/S/W/E (Or common combinations such as NW or Scenter) – will position the QR Code accordingly. Once this parameter is used then the "qr_x and "qr_y" parameters are ignored.','lmm'),
 			'std'     => '',
 			'type'    => 'text'

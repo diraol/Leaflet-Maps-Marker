@@ -40,7 +40,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 		curl_setopt($ch, CURLOPT_HTTPHEADER,array("Content-type: application/json")); 
 		curl_setopt($ch, CURLOPT_POST,true); 
 		$filedata = ( $lmm_options['qrcode_visualead_image_url'] == NULL ) ? urlencode(LEAFLET_PLUGIN_URL . 'inc/img/logo-qr-code.png') : urlencode(htmlspecialchars($lmm_options['qrcode_visualead_image_url']));
-		$api_key = ($lmm_options['qrcode_visualead_api_key'] == NULL) ? '511e2952-b43c-4b44-884c-057e0a1f8a7b' : htmlspecialchars($lmm_options['qrcode_visualead_api_key']); 
+		$api_key = ($lmm_options['qrcode_visualead_api_key'] == NULL) ? strrev('b7a8f1a0e750-c488-44b4-c34b-2592e115') : htmlspecialchars($lmm_options['qrcode_visualead_api_key']); 
 		if ($lmm_options['qrcode_visualead_qr_cell_size'] == NULL) {
 			$qr_cell_size = '';
 		} else {
