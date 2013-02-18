@@ -102,6 +102,7 @@ class Class_leaflet_options {
 		$this->sections['misc-section5']			= esc_attr__('Sort order for marker listing page','lmm');
 		$this->sections['misc-section6']			= esc_attr__('Available columns for layer listing page','lmm');
 		$this->sections['misc-section7']			= esc_attr__('Sort order for layer listing page','lmm');
+		$this->sections['misc-section8']			= esc_attr__('QR code settings','lmm');
 
 		$this->sections['reset-section1']			= esc_attr__('Reset Settings','lmm');
 
@@ -7188,16 +7189,7 @@ class Class_leaflet_options {
 				'disabled' => __('disabled','lmm')
 			)
 		);
-		$this->settings['misc_qrcode_size'] = array(
-			'version' => '1.1',
-			'pane'    => 'misc',
-			'section' => 'misc-section1',
-			'title'   => __( 'QR code image size', 'lmm' ),
-			'desc'    => __( 'Width and height in pixel of QR code image for marker/layer standalone fullscreen map links', 'lmm' ),
-			'std'     => '150',
-			'type'    => 'text'
-		);
-		$this->settings['misc_projections'] = array(
+	$this->settings['misc_projections'] = array(
 			'version' => '1.0',
 			'pane'    => 'misc',
 			'section' => 'misc-section1',
@@ -7262,7 +7254,8 @@ class Class_leaflet_options {
 				'show' => __('show','lmm'),
 				'hide' => __('hide','lmm')
 			)
-		);		/*
+		);		
+		/*
 		* Language Settings
 		*/
 		$this->settings['misc_language_helptext'] = array(
@@ -7910,6 +7903,140 @@ class Class_leaflet_options {
 			'desc'    => '<div style="height:0px;"></div>',
 			'type'    => 'helptext'
 		);
+		/*
+		* QR Code settings
+		*/
+		$this->settings['qrcode_provider_helptext'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section8',
+			'std'     => '', 
+			'title'   => '',
+			'desc'    => '',
+			'type'    => 'helptext'
+		);
+		$this->settings['qrcode_provider'] = array(
+			'version' => '3.6',
+			'pane'    => 'misc',
+			'section' => 'misc-section8',
+			'title'   => __('QR code provider','lmm'),
+			'desc'    => __('Service provider used for creating QR codes for links to full screen maps','lmm'),
+			'type'    => 'radio',
+			'std'     => 'visualead',
+			'choices' => array(
+				'visualead' => 'Visualead.com' . __('(allows using a custom background for your QR codes)','lmm'),
+				'google' => 'Google'
+			)
+		);		
+		$this->settings['qrcode_visualead_helptext'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section8',
+			'std'     => '', 
+			'title'   => '<strong>' . __('Visualead settings','lmm') . '</strong><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => '',
+			'type'    => 'helptext'
+		);
+		$this->settings['qrcode_visualead_api_key'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section8',
+			'title'   => __( 'API key', 'lmm' ) . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('If empty, the (unlimited) API key from MapsMarker.com will be used','lmm'),
+			'std'     => '',
+			'type'    => 'text'
+		);
+		$this->settings['qrcode_visualead_image_url'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section8',
+			'title'   => __( 'Image URL', 'lmm' ) . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => sprintf(__( 'If empty, the default image url %s will be used', 'lmm' ),LEAFLET_PLUGIN_URL . 'inc/img/logo-qr-code.png'),
+			'std'     => '',
+			'type'    => 'text'
+		);
+		$this->settings['qrcode_visualead_qr_size'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section8',
+			'title'   => __( 'QR size', 'lmm' ) . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('The width/height of the Visual QR Code (minimum: 124 pixel)','lmm'),
+			'std'     => '124',
+			'type'    => 'text'
+		);
+		$this->settings['qrcode_visualead_qr_cell_size'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section8',
+			'title'   => __( 'QR cell size', 'lmm' ) . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => esc_attr__('Force a specific size of the QR Code cell (Measured in pixels). Once this parameter is used then the "QR size" parameter is ignored. If the resulting QR Code size is bigger than the image, then the image is extended.','lmm'),
+			'std'     => '',
+			'type'    => 'text'
+		);
+		$this->settings['qrcode_visualead_qr_x'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section8',
+			'title'   => 'QR x<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('The top left x position of the QR Code. (Measured in pixels)','lmm'),
+			'std'     => '4',
+			'type'    => 'text'
+		);
+		$this->settings['qrcode_visualead_qr_y'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section8',
+			'title'   => 'QR y<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('The top left y position of the QR Code. (Measured in pixels)','lmm'),
+			'std'     => '5',
+			'type'    => 'text'
+		);
+		$this->settings['qrcode_visualead_qr_gravity'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section8',
+			'title'   => __( 'QR grafvity', 'lmm' ) . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => esc_attr__('center/N/S/W/E (Or common combinations such as NW or Scenter) – will position the QR Code accordingly. Once this parameter is used then the "qr_x and "qr_y" parameters are ignored.','lmm'),
+			'std'     => '',
+			'type'    => 'text'
+		);
+		$this->settings['qrcode_visualead_qr_rotation'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section8',
+			'title'   => __( 'QR rotation', 'lmm' ) . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('The angle of the QR Code rotation. Allowed angles: 0/90/180/270.','lmm'),
+			'std'     => '0',
+			'type'    => 'text'
+		);
+		$this->settings['qrcode_visualead_output_image_width'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section8',
+			'title'   => __( 'Output image width', 'lmm' ) . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('The desired image width returned in the response. If empty, the width of the image from image url will be used.','lmm'),
+			'std'     => '',
+			'type'    => 'text'
+		);		
+		$this->settings['qrcode_google_helptext'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section8',
+			'std'     => '', 
+			'title'   => '<strong>' . __('Google QR settings','lmm') . '</strong>',
+			'desc'    => '',
+			'type'    => 'helptext'
+		);
+		$this->settings['misc_qrcode_size'] = array(
+			'version' => '1.1',
+			'pane'    => 'misc',
+			'section' => 'misc-section8',
+			'title'   => __( 'QR code image size', 'lmm' ),
+			'desc'    => __( 'Width and height in pixel of QR code image for marker/layer standalone fullscreen map links', 'lmm' ),
+			'std'     => '150',
+			'type'    => 'text'
+		);
+
 		/*===========================================
 		*
 		*
