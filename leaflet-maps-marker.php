@@ -540,7 +540,6 @@ function __construct() {
 	if ( (version_compare( $wp_version, '3.3', '>=' )) && ($lmm_options['misc_javascript_header_footer'] == 'footer') ) {
 		wp_register_script( 'leafletmapsmarker-googlemaps-loader', 'https://www.google.com/jsapi?key='.$google_maps_api_key, array(), 3.7, true);		
 	} else if ( (version_compare( $wp_version, '3.3', '<' )) || ((version_compare( $wp_version, '3.3', '>=' )) && ($lmm_options['misc_javascript_header_footer'] == 'header')) ) {
-		wp_enqueue_script( array ( 'jquery' ) );
 		wp_enqueue_script( 'leafletmapsmarker-googlemaps-loader', 'https://www.google.com/jsapi?key='.$google_maps_api_key, array(), NULL);
 	}
 	//info: Bing culture code
@@ -552,7 +551,7 @@ function __construct() {
 	//info: load leaflet.js + plugins
 	//info: fallback for adding js to footer 2
 	if ( (version_compare( $wp_version, '3.3', '>=' )) && ($lmm_options['misc_javascript_header_footer'] == 'footer')) {
-		wp_register_script( 'leafletmapsmarker', LEAFLET_PLUGIN_URL . 'leaflet-dist/leaflet.js', array('leafletmapsmarker-googlemaps-loader', 'jquery' ), $plugin_version, true);
+		wp_register_script( 'leafletmapsmarker', LEAFLET_PLUGIN_URL . 'leaflet-dist/leaflet.js', array('leafletmapsmarker-googlemaps-loader' ), $plugin_version, true);
 		wp_register_script( 'show_map', LEAFLET_PLUGIN_URL . 'inc/js/show_map.js', array('leafletmapsmarker' ), $plugin_version, true);
 	} else if ( (version_compare( $wp_version, '3.3', '<' )) || ((version_compare( $wp_version, '3.3', '>=' )) && ($lmm_options['misc_javascript_header_footer'] == 'header')) ) {
 		wp_enqueue_script( 'leafletmapsmarker', LEAFLET_PLUGIN_URL . 'leaflet-dist/leaflet.js', array('leafletmapsmarker-googlemaps-loader'), $plugin_version); 

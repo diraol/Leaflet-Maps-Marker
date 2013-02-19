@@ -109,7 +109,6 @@ if (isset($_GET['layer'])) {
 	$lmm_out .= '<link rel="stylesheet" id="leafletmapsmarker-ie-only-css" href="' . LEAFLET_PLUGIN_URL . 'leaflet-dist/leaflet.ie.css?ver=' . $plugin_version . '" type="text/css" media="all" / >'.PHP_EOL;
 	$lmm_out .= '<![endif]-->'.PHP_EOL;
 	$lmm_out .= '<style type="text/css" id="leafletmapsmarker-image-css-override">.leaflet-popup-content img { max-width:' . intval($lmm_options['defaults_marker_popups_image_max_width']) . 'px !important; height:auto; margin: 0px !important; padding: 0px !important; box-shadow:none !important; width:auto !important; }</style>'.PHP_EOL;
-	$lmm_out .= '<script type="text/javascript" src="' . site_url() . '/wp-includes/js/jquery/jquery.js"></script>'.PHP_EOL;
 	//info: Google API key
 	if ( isset($lmm_options['google_maps_api_key']) && ($lmm_options['google_maps_api_key'] != NULL) ) { $google_maps_api_key = $lmm_options['google_maps_api_key']; } else { $google_maps_api_key = ''; }
 	$lmm_out .= '<script type="text/javascript" src="https://www.google.com/jsapi?key=' .$google_maps_api_key . '"></script>'.PHP_EOL;
@@ -224,7 +223,6 @@ if (isset($_GET['layer'])) {
 	$attrib_custom_basemap = __("Map",'lmm').': ' . addslashes($lmm_options[ 'custom_basemap_attribution' ]);
 	$attrib_custom_basemap2 = __("Map",'lmm').': ' . addslashes($lmm_options[ 'custom_basemap2_attribution' ]);
 	$attrib_custom_basemap3 = __("Map",'lmm').': ' . addslashes($lmm_options[ 'custom_basemap3_attribution' ]);
-	$lmm_out .= '(function($) {'.PHP_EOL;
 	$lmm_out .= $mapname.' = new L.Map("'.$mapname.'", { dragging: ' . $lmm_options['misc_map_dragging'] . ', touchZoom: ' . $lmm_options['misc_map_touchzoom'] . ', scrollWheelZoom: ' . $lmm_options['misc_map_scrollwheelzoom'] . ', doubleClickZoom: ' . $lmm_options['misc_map_doubleclickzoom'] . ', boxzoom: ' . $lmm_options['map_interaction_options_boxzoom'] . ', trackResize: ' . $lmm_options['misc_map_trackresize'] . ', worldCopyJump: ' . $lmm_options['map_interaction_options_worldcopyjump'] . ', closePopupOnClick: ' . $lmm_options['misc_map_closepopuponclick'] . ', keyboard: ' . $lmm_options['map_keyboard_navigation_options_keyboard'] . ', keyboardPanOffset: ' . intval($lmm_options['map_keyboard_navigation_options_keyboardpanoffset']) . ', keyboardZoomOffset: ' . intval($lmm_options['map_keyboard_navigation_options_keyboardzoomoffset']) . ', inertia: ' . $lmm_options['map_panning_inertia_options_inertia'] . ', inertiaDeceleration: ' . intval($lmm_options['map_panning_inertia_options_inertiadeceleration']) . ', inertiaMaxSpeed: ' . intval($lmm_options['map_panning_inertia_options_inertiamaxspeed']) . ', zoomControl: ' . $lmm_options['misc_map_zoomcontrol'] . ', crs: ' . $lmm_options['misc_projections'] . ' });'.PHP_EOL;
 	$lmm_out .= $mapname.'.attributionControl.setPrefix("' . $attrib_prefix . '");'.PHP_EOL;
 	//info: define basemaps
@@ -466,14 +464,14 @@ if (isset($_GET['layer'])) {
 	if (!empty($mpopuptext)) $lmm_out .= 'marker.bindPopup("' . preg_replace('/(\015\012)|(\015)|(\012)/','<br/>',$mpopuptext) . '", {maxWidth: ' . intval($lmm_options['defaults_marker_popups_maxwidth']) . ', minWidth: ' . intval($lmm_options['defaults_marker_popups_minwidth']) . ', maxHeight: ' . intval($lmm_options['defaults_marker_popups_maxheight']) . ', autoPan: ' . $lmm_options['defaults_marker_popups_autopan'] . ', closeButton: ' . $lmm_options['defaults_marker_popups_closebutton'] . ', autoPanPadding: new L.Point(' . intval($lmm_options['defaults_marker_popups_autopanpadding_x']) . ', ' . intval($lmm_options['defaults_marker_popups_autopanpadding_y']) . ')})'.$mopenpopup.';'.PHP_EOL;
 	} else if (!empty($geojson) or !empty($geojsonurl) or !empty($layer) ) {
 		$lmm_out .= 'var geojsonObj, mapIcon, marker_clickable, marker_title;'.PHP_EOL;
-		//info: added for next versions
+		//info: added for next versions - 2do: remove jquery!
 		if (!empty($geojson)) {
 		$lmm_out .= 'geojsonObj = eval("'.$geojson.'");'.PHP_EOL;
 		}
 		if (!empty($geojsonurl)) {
 		$lmm_out .= 'geojsonObj = eval("(" + jQuery.ajax({url: "'.$geojsonurl.'", async: false, cache: true}).responseText + ")");'.PHP_EOL;
 		}
-		//2do: check if loading marker via GeoJSON has advantages 
+		//2do: check if loading marker via GeoJSON has advantages + remove jquery!
 		/*
 		if ( !empty($marker) ) {
 		$lmm_out .= 'geojsonObj = eval("(" + jQuery.ajax({url: "' . LEAFLET_PLUGIN_URL . 'leaflet-geojson.php?marker='.$marker.'", async: false, cache: true}).responseText + ")");'.PHP_EOL;
@@ -481,9 +479,15 @@ if (isset($_GET['layer'])) {
 		*/		
 		//info: load GeoJSON for layer maps
 		if (!empty($layer) && ($multi_layer_map == 0) ) {
-			$lmm_out .= 'geojsonObj = eval("(" + jQuery.ajax({url: "' . LEAFLET_PLUGIN_URL . 'leaflet-geojson.php?layer=' . $id . '", async: false, cache: true}).responseText + ")");'.PHP_EOL;
+			$lmm_out .= 'var xhReq = new XMLHttpRequest();'.PHP_EOL;
+			$lmm_out .= 'xhReq.open("GET", "' . LEAFLET_PLUGIN_URL . 'leaflet-geojson.php?layer=' . $id . '", false);'.PHP_EOL; //info: for caching add &timestamp=' . time() . '
+			$lmm_out .= 'xhReq.send(null);'.PHP_EOL;
+			$lmm_out .= 'geojsonObj = eval("(" + xhReq.responseText + ")");'.PHP_EOL;
 		} else if (!empty($layer) && ($multi_layer_map == 1) ) {
-			$lmm_out .= 'geojsonObj = eval("(" + jQuery.ajax({url: "' . LEAFLET_PLUGIN_URL . 'leaflet-geojson.php?layer=' . $multi_layer_map_list . '", async: false, cache: true}).responseText + ")");'.PHP_EOL;
+			$lmm_out .= 'var xhReq = new XMLHttpRequest();'.PHP_EOL;
+			$lmm_out .= 'xhReq.open("GET", "' . LEAFLET_PLUGIN_URL . 'leaflet-geojson.php?layer=' . $multi_layer_map_list . '", false);'.PHP_EOL; //info: for caching add &timestamp=' . time() . '
+			$lmm_out .= 'xhReq.send(null);'.PHP_EOL;
+			$lmm_out .= 'geojsonObj = eval("(" + xhReq.responseText + ")");'.PHP_EOL;
 		}
 		$lmm_out .= 'L.geoJson(geojsonObj, {'.PHP_EOL;
 		$lmm_out .= '		onEachFeature: function(feature, marker) {'.PHP_EOL;
@@ -516,20 +520,18 @@ if (isset($_GET['layer'])) {
 		$lmm_out .= 'return L.marker(latlng, {icon: mapIcon, clickable: marker_clickable, title: marker_title, opacity: ' . floatval($lmm_options[ 'defaults_marker_icon_opacity' ]) . '});'.PHP_EOL;
 		$lmm_out .= '}'.PHP_EOL;
 		$lmm_out .= '}).addTo(' . $mapname . ');'.PHP_EOL;
-		
+		//info: add edit link to OSM and Mapnik maps
 		if ($lmm_options['misc_map_osm_editlink'] == 'show') {
-			$lmm_out .= "
-			jQuery(document).ready( function($) {
-				function appendeditlink() {
+			$lmm_out .= "function lmm_addEditLink() {
 					var boundingbox = ".$mapname.".getBounds().toBBoxString();
-					var editlink = ' (<a href=\"http://www.openstreetmap.org/edit?editor=potlatch2&bbox='+boundingbox+'\" target=\"_blank\" title=\"" . esc_attr__('help OpenStreetMap.org to improve map details','lmm') . "\">" . __('edit','lmm') . "</a>)';
-					$('#editlink_" . $uid . "').append(editlink);	
+					if ( document.getElementById('editlink_" . $uid . "') != undefined ) {
+						var editlink = document.getElementById('editlink_" . $uid . "').innerHTML;
+						document.getElementById('editlink_" . $uid . "').innerHTML=editlink +' (<a href=\"http://www.openstreetmap.org/edit?editor=potlatch2&bbox='+boundingbox+'\" target=\"_blank\" title=\"" . esc_attr__('help OpenStreetMap.org to improve map details','lmm') . "\">" . __('edit','lmm') . "</a>)';
+					}
 				}
-				appendeditlink();
-			})".PHP_EOL;
+				lmm_addEditLink();".PHP_EOL;
 		}
     }
-  $lmm_out .= '})(jQuery);'.PHP_EOL;
   $lmm_out .= '/* ]] > */'.PHP_EOL;
   $lmm_out .= '</script>';
   $lmm_out .= '</body>';
@@ -620,7 +622,6 @@ elseif (isset($_GET['marker'])) {
 	$lmm_out .= '<link rel="stylesheet" id="leafletmapsmarker-ie-only-css" href="' . LEAFLET_PLUGIN_URL . 'leaflet-dist/leaflet.ie.css?ver=' . $plugin_version . '" type="text/css" media="all" / >'.PHP_EOL;
 	$lmm_out .= '<![endif]-->'.PHP_EOL;
 	$lmm_out .= '<style type="text/css" id="leafletmapsmarker-image-css-override">.leaflet-popup-content img { max-width:' . intval($lmm_options['defaults_marker_popups_image_max_width']) . 'px !important; height:auto; margin: 0px !important; padding: 0px !important; box-shadow:none !important; width:auto !important; }</style>'.PHP_EOL;
-	$lmm_out .= '<script type="text/javascript" src="' . site_url() . '/wp-includes/js/jquery/jquery.js"></script>'.PHP_EOL;
 	//info: Google API key
 	if ( isset($lmm_options['google_maps_api_key']) && ($lmm_options['google_maps_api_key'] != NULL) ) { $google_maps_api_key = $lmm_options['google_maps_api_key']; } else { $google_maps_api_key = ''; }
 	$lmm_out .= '<script type="text/javascript" src="https://www.google.com/jsapi?key=' .$google_maps_api_key . '"></script>'.PHP_EOL;
@@ -756,7 +757,6 @@ elseif (isset($_GET['marker'])) {
 	$attrib_custom_basemap = __("Map",'lmm').': ' . addslashes($lmm_options[ 'custom_basemap_attribution' ]);
 	$attrib_custom_basemap2 = __("Map",'lmm').': ' . addslashes($lmm_options[ 'custom_basemap2_attribution' ]);
 	$attrib_custom_basemap3 = __("Map",'lmm').': ' . addslashes($lmm_options[ 'custom_basemap3_attribution' ]);
-	$lmm_out .= '(function($) {'.PHP_EOL;
 	$lmm_out .= $mapname.' = new L.Map("'.$mapname.'", { dragging: ' . $lmm_options['misc_map_dragging'] . ', touchZoom: ' . $lmm_options['misc_map_touchzoom'] . ', scrollWheelZoom: ' . $lmm_options['misc_map_scrollwheelzoom'] . ', doubleClickZoom: ' . $lmm_options['misc_map_doubleclickzoom'] . ', boxzoom: ' . $lmm_options['map_interaction_options_boxzoom'] . ', trackResize: ' . $lmm_options['misc_map_trackresize'] . ', worldCopyJump: ' . $lmm_options['map_interaction_options_worldcopyjump'] . ', closePopupOnClick: ' . $lmm_options['misc_map_closepopuponclick'] . ', keyboard: ' . $lmm_options['map_keyboard_navigation_options_keyboard'] . ', keyboardPanOffset: ' . intval($lmm_options['map_keyboard_navigation_options_keyboardpanoffset']) . ', keyboardZoomOffset: ' . intval($lmm_options['map_keyboard_navigation_options_keyboardzoomoffset']) . ', inertia: ' . $lmm_options['map_panning_inertia_options_inertia'] . ', inertiaDeceleration: ' . intval($lmm_options['map_panning_inertia_options_inertiadeceleration']) . ', inertiaMaxSpeed: ' . intval($lmm_options['map_panning_inertia_options_inertiamaxspeed']) . ', zoomControl: ' . $lmm_options['misc_map_zoomcontrol'] . ', crs: ' . $lmm_options['misc_projections'] . ' });'.PHP_EOL;
 	$lmm_out .= $mapname.'.attributionControl.setPrefix("' . $attrib_prefix . '");'.PHP_EOL;
 	//info: define basemaps
@@ -1029,14 +1029,14 @@ elseif (isset($_GET['marker'])) {
 	if (!empty($mpopuptext)) $lmm_out .= 'marker.bindPopup("' . preg_replace('/(\015\012)|(\015)|(\012)/','<br/>',$mpopuptext) . '", {maxWidth: ' . intval($lmm_options['defaults_marker_popups_maxwidth']) . ', minWidth: ' . intval($lmm_options['defaults_marker_popups_minwidth']) . ', maxHeight: ' . intval($lmm_options['defaults_marker_popups_maxheight']) . ', autoPan: ' . $lmm_options['defaults_marker_popups_autopan'] . ', closeButton: ' . $lmm_options['defaults_marker_popups_closebutton'] . ', autoPanPadding: new L.Point(' . intval($lmm_options['defaults_marker_popups_autopanpadding_x']) . ', ' . intval($lmm_options['defaults_marker_popups_autopanpadding_y']) . ')})'.$mopenpopup.';'.PHP_EOL;
 	} else if (!empty($geojson) or !empty($geojsonurl) or !empty($layer) ) {
 		$lmm_out .= 'var geojsonObj, mapIcon, marker_clickable, marker_title;'.PHP_EOL;
-		//info: added for next versions
+		//info: added for next versions - 2do: remove jquery!
 		if (!empty($geojson)) {
 		$lmm_out .= 'geojsonObj = eval("'.$geojson.'");'.PHP_EOL;
 		}
 		if (!empty($geojsonurl)) {
 		$lmm_out .= 'geojsonObj = eval("(" + jQuery.ajax({url: "'.$geojsonurl.'", async: false, cache: true}).responseText + ")");'.PHP_EOL;
 		}
-		//2do: check if loading marker via GeoJSON has advantages 
+		//2do: check if loading marker via GeoJSON has advantages + remove jquery
 		/*
 		if ( !empty($marker) ) {
 		$lmm_out .= 'geojsonObj = eval("(" + jQuery.ajax({url: "' . LEAFLET_PLUGIN_URL . 'leaflet-geojson.php?marker='.$marker.'", async: false, cache: true}).responseText + ")");'.PHP_EOL;
@@ -1044,9 +1044,15 @@ elseif (isset($_GET['marker'])) {
 		*/		
 		//info: load GeoJSON for layer maps
 		if (!empty($layer) && ($multi_layer_map == 0) ) {
-			$lmm_out .= 'geojsonObj = eval("(" + jQuery.ajax({url: "' . LEAFLET_PLUGIN_URL . 'leaflet-geojson.php?layer=' . $id . '", async: false, cache: true}).responseText + ")");'.PHP_EOL;
+			$lmm_out .= 'var xhReq = new XMLHttpRequest();'.PHP_EOL;
+			$lmm_out .= 'xhReq.open("GET", "' . LEAFLET_PLUGIN_URL . 'leaflet-geojson.php?layer=' . $id . '", false);'.PHP_EOL; //info: for caching add &timestamp=' . time() . '
+			$lmm_out .= 'xhReq.send(null);'.PHP_EOL;
+			$lmm_out .= 'geojsonObj = eval("(" + xhReq.responseText + ")");'.PHP_EOL;
 		} else if (!empty($layer) && ($multi_layer_map == 1) ) {
-			$lmm_out .= 'geojsonObj = eval("(" + jQuery.ajax({url: "' . LEAFLET_PLUGIN_URL . 'leaflet-geojson.php?layer=' . $multi_layer_map_list . '", async: false, cache: true}).responseText + ")");'.PHP_EOL;
+			$lmm_out .= 'var xhReq = new XMLHttpRequest();'.PHP_EOL;
+			$lmm_out .= 'xhReq.open("GET", "' . LEAFLET_PLUGIN_URL . 'leaflet-geojson.php?layer=' . $multi_layer_map_list . '", false);'.PHP_EOL; //info: for caching add &timestamp=' . time() . '
+			$lmm_out .= 'xhReq.send(null);'.PHP_EOL;
+			$lmm_out .= 'geojsonObj = eval("(" + xhReq.responseText + ")");'.PHP_EOL;
 		}
 		$lmm_out .= 'L.geoJson(geojsonObj, {'.PHP_EOL;
 		$lmm_out .= '		onEachFeature: function(feature, marker) {'.PHP_EOL;
@@ -1079,19 +1085,18 @@ elseif (isset($_GET['marker'])) {
 		$lmm_out .= 'return L.marker(latlng, {icon: mapIcon, clickable: marker_clickable, title: marker_title, opacity: ' . floatval($lmm_options[ 'defaults_marker_icon_opacity' ]) . '});'.PHP_EOL;
 		$lmm_out .= '}'.PHP_EOL;
 		$lmm_out .= '}).addTo(' . $mapname . ');'.PHP_EOL;
+		//info: add edit link to OSM and Mapnik maps
 		if ($lmm_options['misc_map_osm_editlink'] == 'show') {
-			$lmm_out .= "
-			jQuery(document).ready( function($) {
-				function appendeditlink() {
+			$lmm_out .= "function lmm_addEditLink() {
 					var boundingbox = ".$mapname.".getBounds().toBBoxString();
-					var editlink = ' (<a href=\"http://www.openstreetmap.org/edit?editor=potlatch2&bbox='+boundingbox+'\" target=\"_blank\" title=\"" . esc_attr__('help OpenStreetMap.org to improve map details','lmm') . "\">" . __('edit','lmm') . "</a>)';
-					$('#editlink_" . $uid . "').append(editlink);	
+					if ( document.getElementById('editlink_" . $uid . "') != undefined ) {
+						var editlink = document.getElementById('editlink_" . $uid . "').innerHTML;
+						document.getElementById('editlink_" . $uid . "').innerHTML=editlink +' (<a href=\"http://www.openstreetmap.org/edit?editor=potlatch2&bbox='+boundingbox+'\" target=\"_blank\" title=\"" . esc_attr__('help OpenStreetMap.org to improve map details','lmm') . "\">" . __('edit','lmm') . "</a>)';
+					}
 				}
-				appendeditlink();
-			})".PHP_EOL;
+				lmm_addEditLink();".PHP_EOL;
 		}
     }
-  $lmm_out .= '})(jQuery);'.PHP_EOL;
   $lmm_out .= '/* ]] > */'.PHP_EOL;
   $lmm_out .= '</script>';
   $lmm_out .= '</body>';

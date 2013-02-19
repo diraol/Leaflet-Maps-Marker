@@ -1141,9 +1141,9 @@ var markers = {};
   var layers = {};
   var geojsonObj, mapIcon, marker_clickable, marker_title;
   <?php if ($multi_layer_map == 0) { 
-	  echo 'geojsonObj = eval("(" + jQuery.ajax({url: "' . LEAFLET_PLUGIN_URL . 'leaflet-geojson.php?layer=' . $id . '", async: false, cache: false}).responseText + ")");';
+	  echo 'geojsonObj = eval("(" + jQuery.ajax({url: "' . LEAFLET_PLUGIN_URL . 'leaflet-geojson.php?layer=' . $id . '", async: false, cache: true}).responseText + ")");';
   } else if ($multi_layer_map == 1) {
-	  echo 'geojsonObj = eval("(" + jQuery.ajax({url: "' . LEAFLET_PLUGIN_URL . 'leaflet-geojson.php?layer=' . $multi_layer_map_list . '", async: false, cache: false}).responseText + ")");';
+	  echo 'geojsonObj = eval("(" + jQuery.ajax({url: "' . LEAFLET_PLUGIN_URL . 'leaflet-geojson.php?layer=' . $multi_layer_map_list . '", async: false, cache: true}).responseText + ")");';
   };?>
 	L.geoJson(geojsonObj, {
 		onEachFeature: function(feature, marker) {
@@ -1318,15 +1318,14 @@ var markers = {};
 	});
 	<?php 
 	if ($lmm_options['misc_map_osm_editlink'] == 'show') {
-		echo "
-		jQuery(document).ready( function($) {
-			function appendeditlink() {
-				var boundingbox = selectlayer.getBounds().toBBoxString();
-				var editlink = ' (<a href=\"http://www.openstreetmap.org/edit?editor=potlatch2&bbox='+boundingbox+'\" target=\"_blank\" title=\"" . esc_attr__('help OpenStreetMap.org to improve map details','lmm') . "\">" . __('edit','lmm') . "</a>)';
-				$('#editlink').append(editlink);	
-			}
-			appendeditlink();
-		})".PHP_EOL;
+		echo "function lmm_addEditLink() {
+					var boundingbox = selectlayer.getBounds().toBBoxString();
+					if ( document.getElementById('editlink') != undefined ) {
+						var editlink = document.getElementById('editlink').innerHTML;
+						document.getElementById('editlink').innerHTML=editlink +' (<a href=\"http://www.openstreetmap.org/edit?editor=potlatch2&bbox='+boundingbox+'\" target=\"_blank\" title=\"" . esc_attr__('help OpenStreetMap.org to improve map details','lmm') . "\">" . __('edit','lmm') . "</a>)';
+					}
+				}
+				lmm_addEditLink();".PHP_EOL;
 	} ?>	
 })(jQuery)
 //info: Google address autocomplete
