@@ -104,6 +104,50 @@ if (isset($_GET['layer'])) {
 	$lmm_out .= '<meta name="geo.position" content="' . $lat . ';' . $lon . '" />'.PHP_EOL;
 	$lmm_out .= '<meta name="ICBM" content="' . $lat . ', ' . $lon . '" />'.PHP_EOL;
 	$lmm_out .= '<meta name="page-type" content="' . __('map','lmm') . '" />'.PHP_EOL;
+	//info: viewport + mobile web app settings, details: https://gist.github.com/jdaihl/472519 & https://gist.github.com/tfausak/2222823 & http://developer.apple.com/library/ios/#documentation/userexperience/conceptual/mobilehig/IconsImages/IconsImages.html
+	$lmm_out .= '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">'.PHP_EOL;
+	$lmm_out .= '<meta name="apple-mobile-web-app-capable" content="yes">'.PHP_EOL;
+	$lmm_out .= '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">'.PHP_EOL;
+	$lmm_out .= '<meta name="HandheldFriendly" content="true">'.PHP_EOL;
+	if ( $lmm_options['map_webapp_images'] == 'default' ) {
+		$ios_icon_57 = LEAFLET_PLUGIN_URL . 'inc/img/ios-app-icon-iphone-57x57.png';
+		$ios_icon_114 = LEAFLET_PLUGIN_URL . 'inc/img/ios-app-icon-iphone-retina-114x114.png';
+		$ios_icon_72 = LEAFLET_PLUGIN_URL . 'inc/img/ios-app-icon-ipad-72x72.png';
+		$ios_icon_144 = LEAFLET_PLUGIN_URL . 'inc/img/ios-app-icon-ipad-retina-144x144.png';
+		$ios_launch_1024 = LEAFLET_PLUGIN_URL . 'inc/img/ios-launch-image-ipad-landscape-1024x748.png';
+		$ios_launch_2048 = LEAFLET_PLUGIN_URL . 'inc/img/ios-launch-image-ipad-landscape-retina-2048x1496.png';
+		$ios_launch_768 = LEAFLET_PLUGIN_URL . 'inc/img/ios-launch-image-ipad-portrait-768x1004.png';
+		$ios_launch_1536 = LEAFLET_PLUGIN_URL . 'inc/img/ios-launch-image-ipad-portrait-retina-1536x2008.png';
+		$ios_launch_320 = LEAFLET_PLUGIN_URL . 'inc/img/iso-launch-image-iphone-320x460.png';
+		$ios_launch_640 = LEAFLET_PLUGIN_URL . 'inc/img/ios-launch-image-iphone-retina-640x920.png';
+		$ios_launch_640_1096 = LEAFLET_PLUGIN_URL . 'inc/img/ios-launch-image-iphone-retina-640x1096.png';
+	} else if ( $lmm_options['map_webapp_images'] == 'custom' ) {
+		$ios_icon_57 = htmlspecialchars($lmm_options['map_webapp_icon57']);
+		$ios_icon_114 = htmlspecialchars($lmm_options['map_webapp_icon114']);
+		$ios_icon_72 = htmlspecialchars($lmm_options['map_webapp_icon72']);
+		$ios_icon_144 = htmlspecialchars($lmm_options['map_webapp_icon144']);
+		$ios_launch_1024 = htmlspecialchars($lmm_options['map_webapp_launch1024']);
+		$ios_launch_2048 = htmlspecialchars($lmm_options['map_webapp_launch2048']);
+		$ios_launch_768 = htmlspecialchars($lmm_options['map_webapp_launch768']);
+		$ios_launch_1536 = htmlspecialchars($lmm_options['map_webapp_launch1536']);
+		$ios_launch_320 = htmlspecialchars($lmm_options['map_webapp_launch320']);
+		$ios_launch_640 = htmlspecialchars($lmm_options['map_webapp_launch640']);
+		$ios_launch_640_1096 = htmlspecialchars($lmm_options['map_webapp_launch640_1096']);
+	}
+	if ( $lmm_options['map_webapp_images'] != 'none' ) {
+		$lmm_out .= '<link rel="apple-touch-icon" href="' . $ios_icon_57 . '">'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-icon-precomposed" href="' . $ios_icon_57 . '" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-icon" sizes="114x114" href="' . $ios_icon_114 . '" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-icon" sizes="72x72" href="' . $ios_icon_72 . '" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-icon" sizes="144x144" href="' . $ios_icon_144 . '" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-startup-image" href="' . $ios_launch_1024 . '" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-startup-image" href="' . $ios_launch_2048 . '" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) and (-webkit-min-device-pixel-ratio: 2)" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-startup-image" href="' . $ios_launch_768 . '" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-startup-image" href="' . $ios_launch_1536 . '" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) and (-webkit-min-device-pixel-ratio: 2)" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-startup-image" href="' . $ios_launch_320 . '" media="screen and (max-device-width: 320px)" />'.PHP_EOL; 
+		$lmm_out .= '<link rel="apple-touch-startup-image" href="' . $ios_launch_640 . '" media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-startup-image" href="' . $ios_launch_640_1096 . '" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" />'.PHP_EOL;
+	}
 	$lmm_out .= '<link rel="stylesheet" id="leafletmapsmarker-css" href="' . LEAFLET_PLUGIN_URL . 'leaflet-dist/leaflet.css?ver=' . $plugin_version . '" type="text/css" media="all">'.PHP_EOL;
 	$lmm_out .= '<!--[if lt IE 9]>'.PHP_EOL;
 	$lmm_out .= '<link rel="stylesheet" id="leafletmapsmarker-ie-only-css" href="' . LEAFLET_PLUGIN_URL . 'leaflet-dist/leaflet.ie.css?ver=' . $plugin_version . '" type="text/css" media="all" / >'.PHP_EOL;
@@ -185,6 +229,9 @@ if (isset($_GET['layer'])) {
 		}
 		$lmm_out .= '</span></div>'.PHP_EOL;
 	}
+
+	//info: set margin top & hide api icon links for iOS fullscreen view
+	$lmm_out .= '<script type="text/javascript">if (window.navigator.standalone == true) { document.body.style.margin = "21px 0 0 0"; document.getElementById("lmm-panel-api-fullscreen").style.display = "none"; } </script>'.PHP_EOL;
 	
 	//info: if panel enabled, only 94% height as otherwise attribution wont be visible
 	if ($panel == 1) {
@@ -617,6 +664,50 @@ elseif (isset($_GET['marker'])) {
 	$lmm_out .= '<meta name="geo.position" content="' . $lat . ';' . $lon . '" />'.PHP_EOL;
 	$lmm_out .= '<meta name="ICBM" content="' . $lat . ', ' . $lon . '" />'.PHP_EOL;
 	$lmm_out .= '<meta name="page-type" content="' . __('map','lmm') . '" />'.PHP_EOL;
+	//info: viewport + mobile web app settings, details: https://gist.github.com/jdaihl/472519 & https://gist.github.com/tfausak/2222823 & http://developer.apple.com/library/ios/#documentation/userexperience/conceptual/mobilehig/IconsImages/IconsImages.html
+	$lmm_out .= '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">'.PHP_EOL;
+	$lmm_out .= '<meta name="apple-mobile-web-app-capable" content="yes">'.PHP_EOL;
+	$lmm_out .= '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">'.PHP_EOL;
+	$lmm_out .= '<meta name="HandheldFriendly" content="true">'.PHP_EOL;
+	if ( $lmm_options['map_webapp_images'] == 'default' ) {
+		$ios_icon_57 = LEAFLET_PLUGIN_URL . 'inc/img/ios-app-icon-iphone-57x57.png';
+		$ios_icon_114 = LEAFLET_PLUGIN_URL . 'inc/img/ios-app-icon-iphone-retina-114x114.png';
+		$ios_icon_72 = LEAFLET_PLUGIN_URL . 'inc/img/ios-app-icon-ipad-72x72.png';
+		$ios_icon_144 = LEAFLET_PLUGIN_URL . 'inc/img/ios-app-icon-ipad-retina-144x144.png';
+		$ios_launch_1024 = LEAFLET_PLUGIN_URL . 'inc/img/ios-launch-image-ipad-landscape-1024x748.png';
+		$ios_launch_2048 = LEAFLET_PLUGIN_URL . 'inc/img/ios-launch-image-ipad-landscape-retina-2048x1496.png';
+		$ios_launch_768 = LEAFLET_PLUGIN_URL . 'inc/img/ios-launch-image-ipad-portrait-768x1004.png';
+		$ios_launch_1536 = LEAFLET_PLUGIN_URL . 'inc/img/ios-launch-image-ipad-portrait-retina-1536x2008.png';
+		$ios_launch_320 = LEAFLET_PLUGIN_URL . 'inc/img/iso-launch-image-iphone-320x460.png';
+		$ios_launch_640 = LEAFLET_PLUGIN_URL . 'inc/img/ios-launch-image-iphone-retina-640x920.png';
+		$ios_launch_640_1096 = LEAFLET_PLUGIN_URL . 'inc/img/ios-launch-image-iphone-retina-640x1096.png';
+	} else if ( $lmm_options['map_webapp_images'] == 'custom' ) {
+		$ios_icon_57 = htmlspecialchars($lmm_options['map_webapp_icon57']);
+		$ios_icon_114 = htmlspecialchars($lmm_options['map_webapp_icon114']);
+		$ios_icon_72 = htmlspecialchars($lmm_options['map_webapp_icon72']);
+		$ios_icon_144 = htmlspecialchars($lmm_options['map_webapp_icon144']);
+		$ios_launch_1024 = htmlspecialchars($lmm_options['map_webapp_launch1024']);
+		$ios_launch_2048 = htmlspecialchars($lmm_options['map_webapp_launch2048']);
+		$ios_launch_768 = htmlspecialchars($lmm_options['map_webapp_launch768']);
+		$ios_launch_1536 = htmlspecialchars($lmm_options['map_webapp_launch1536']);
+		$ios_launch_320 = htmlspecialchars($lmm_options['map_webapp_launch320']);
+		$ios_launch_640 = htmlspecialchars($lmm_options['map_webapp_launch640']);
+		$ios_launch_640_1096 = htmlspecialchars($lmm_options['map_webapp_launch640_1096']);
+	}
+	if ( $lmm_options['map_webapp_images'] != 'none' ) {
+		$lmm_out .= '<link rel="apple-touch-icon" href="' . $ios_icon_57 . '">'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-icon-precomposed" href="' . $ios_icon_57 . '" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-icon" sizes="114x114" href="' . $ios_icon_114 . '" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-icon" sizes="72x72" href="' . $ios_icon_72 . '" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-icon" sizes="144x144" href="' . $ios_icon_144 . '" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-startup-image" href="' . $ios_launch_1024 . '" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-startup-image" href="' . $ios_launch_2048 . '" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) and (-webkit-min-device-pixel-ratio: 2)" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-startup-image" href="' . $ios_launch_768 . '" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-startup-image" href="' . $ios_launch_1536 . '" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) and (-webkit-min-device-pixel-ratio: 2)" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-startup-image" href="' . $ios_launch_320 . '" media="screen and (max-device-width: 320px)" />'.PHP_EOL; 
+		$lmm_out .= '<link rel="apple-touch-startup-image" href="' . $ios_launch_640 . '" media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)" />'.PHP_EOL;
+		$lmm_out .= '<link rel="apple-touch-startup-image" href="' . $ios_launch_640_1096 . '" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" />'.PHP_EOL;
+	}
 	$lmm_out .= '<link rel="stylesheet" id="leafletmapsmarker-css" href="' . LEAFLET_PLUGIN_URL . 'leaflet-dist/leaflet.css?ver=' . $plugin_version . '" type="text/css" media="all">'.PHP_EOL;
 	$lmm_out .= '<!--[if lt IE 9]>'.PHP_EOL;
 	$lmm_out .= '<link rel="stylesheet" id="leafletmapsmarker-ie-only-css" href="' . LEAFLET_PLUGIN_URL . 'leaflet-dist/leaflet.ie.css?ver=' . $plugin_version . '" type="text/css" media="all" / >'.PHP_EOL;
@@ -672,11 +763,12 @@ elseif (isset($_GET['marker'])) {
 	$lmm_out .= '<style>form { margin: 0 ; } </style>'.PHP_EOL; //info: for layer controlbox
 	$lmm_out .= '<script type="text/javascript" src="' . LEAFLET_PLUGIN_URL . 'leaflet-dist/leaflet.js?ver=' . $plugin_version . '"></script>'.PHP_EOL;
 	$lmm_out .= '</head>'.PHP_EOL;
-	$lmm_out .= '<body style="margin:0;padding:0;height:100%;background: ' . addslashes($lmm_options[ 'defaults_marker_panel_background_color' ]) . ';overflow:hidden;">'.PHP_EOL;
+	$lmm_out .= '<body id="body" style="margin:0;padding:0;height:100%;background: ' . addslashes($lmm_options[ 'defaults_marker_panel_background_color' ]) . ';overflow:hidden;">'.PHP_EOL;
 	//info: panel for layer/marker name and API URLs
 	if ($panel == 1) {
+		//info: set panel margin top for iOS fullscreen maps
 		$lmm_out .= '<div id="panel_top_' . $uid . '" style="background: ' . addslashes($lmm_options[ 'defaults_marker_panel_background_color' ]) . '; width:99%; padding:5px;">'.PHP_EOL;
-		$lmm_out .= '<span style="' . addslashes($lmm_options[ 'defaults_marker_panel_paneltext_css' ]) . '">' . $paneltext . '</span><span class="lmm-panel-api-fullscreen">';
+		$lmm_out .= '<span style="' . addslashes($lmm_options[ 'defaults_marker_panel_paneltext_css' ]) . '">' . $paneltext . '</span><span id="lmm-panel-api-fullscreen" class="lmm-panel-api-fullscreen">';
 		if ( (isset($lmm_options[ 'defaults_marker_panel_directions' ] ) == TRUE ) && ( $lmm_options[ 'defaults_marker_panel_directions' ] == 1 ) ) {
 				//info: Google language localization (directions)
 				if ($lmm_options['google_maps_language_localization'] == 'browser_setting') {
@@ -727,6 +819,9 @@ elseif (isset($_GET['marker'])) {
 		$lmm_out .= '</span></div>'.PHP_EOL;
 	}
 	
+	//info: set margin top & hide api icon links for iOS fullscreen view
+	$lmm_out .= '<script type="text/javascript">if (window.navigator.standalone == true) { document.body.style.margin = "21px 0 0 0"; document.getElementById("lmm-panel-api-fullscreen").style.display = "none"; } </script>'.PHP_EOL;
+
 	//info: if panel enabled, only 94% height as otherwise attribution wont be visible
 	if ($panel == 1) {
 	$lmm_out .= '<div id="'.$mapname.'" style="width:100%; height:94%; height:auto !important; min-height: 94%; overflow: hidden !important; background:#ccc; padding:0; border:none; position:absolute;"><noscript><br/><strong>' . __('Map could not be loaded - please enable Javascript!','lmm') . '</strong><br/><a style="text-decoration:none;" href="http://www.mapsmarker.com/js-disabled" target="_blank">&rarr; ' . __('more information','lmm') . '</a></noscript></div>'. PHP_EOL;	

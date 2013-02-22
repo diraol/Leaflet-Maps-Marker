@@ -48,6 +48,7 @@ class Class_leaflet_options {
 		$this->sections['mapdefaults-section13']	= esc_attr__('Control options','lmm');
 		$this->sections['mapdefaults-section14']	= esc_attr__('Scale control','lmm');
 		$this->sections['mapdefaults-section15']	= esc_attr__('Retina display detection','lmm');
+		$this->sections['mapdefaults-section16']	= esc_attr__('Mobile web app settings','lmm');
 	
 		$this->sections['basemaps-section1']		= esc_attr__('Cloudmade 1 settings','lmm');
 		$this->sections['basemaps-section2']		= esc_attr__('Cloudmade 2 settings','lmm');
@@ -2517,6 +2518,131 @@ class Class_leaflet_options {
 			'desc'    => '<div style="height:430px;"></div>',
 			'type'    => 'helptext'
 		);			
+		/*
+		* Mobile web app detection
+		*/
+		$this->settings['map_webapp_helptext'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section16',
+			'std'     => '', 
+			'title'   => '',
+			'desc'    => __( 'Fullscreen maps are optimized for mobile devices in the pro version. This means that the viewport of the map automatically adjusts to the width of the device used.<br/><br/>For iOS devices (iphone, ipad, ipod) it is also possible to add maps with a custom icon to the homescreen and open them as web apps with a custom launch image and without the address bar of the browser.', 'lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-webapp.jpg" />',
+			'type'    => 'helptext'
+		);	
+		$this->settings['map_webapp_images'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section16',
+			'title'   => __('Images to use','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('If you want to use custom images, please enter the URL to app icons and launch images below:','lmm'),
+			'type'    => 'radio',
+			'std'     => 'default',
+			'choices' => array(
+				'none' => __('disable images','lmm'),
+				'default' => __('use default images','lmm'),
+				'custom' => __('use custom images','lmm')
+			)
+		);	
+		$this->settings['map_webapp_icon57'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section16',
+			'title'   => __('App icon URL','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Size for iPhone and iPod touch','lmm') . ' (57x57px)',
+			'std'     => '',
+			'type'    => 'text'
+		);
+		$this->settings['map_webapp_icon114'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section16',
+			'title'   => __('App icon URL','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Size for high-resolution iPhone and iPod touch','lmm') . ' (114x114px)',
+			'std'     => '',
+			'type'    => 'text'
+		);
+		$this->settings['map_webapp_icon72'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section16',
+			'title'   => __('App icon URL','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Size for iPad','lmm') . ' (72x72px)',
+			'std'     => '',
+			'type'    => 'text'
+		);
+		$this->settings['map_webapp_icon144'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section16',
+			'title'   => __('App icon URL','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Size for high-resolution iPad','lmm') . ' (144x144px)',
+			'std'     => '',
+			'type'    => 'text'
+		);
+		$this->settings['map_webapp_launch1024'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section16',
+			'title'   => __('Launch image URL','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Size for iPad','lmm') . ' (1024x748px)',
+			'std'     => '',
+			'type'    => 'text'
+		);
+		$this->settings['map_webapp_launch2048'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section16',
+			'title'   => __('Launch image URL','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Size for high-resolution iPad','lmm') . ' (2048x1496px)',
+			'std'     => '',
+			'type'    => 'text'
+		);
+		$this->settings['map_webapp_launch768'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section16',
+			'title'   => __('Launch image URL','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Size for iPad','lmm') . ' (768x1004px)',
+			'std'     => '',
+			'type'    => 'text'
+		);
+		$this->settings['map_webapp_launch1536'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section16',
+			'title'   => __('Launch image URL','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Size for high-resolution iPad','lmm') . ' (1536x2008px)',
+			'std'     => '',
+			'type'    => 'text'
+		);
+		$this->settings['map_webapp_launch320'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section16',
+			'title'   => __('Launch image URL','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Size for iPhone and iPod touch','lmm') . ' (320x460px)',
+			'std'     => '',
+			'type'    => 'text'
+		);
+		$this->settings['map_webapp_launch640'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section16',
+			'title'   => __('Launch image URL','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Size for high-resolution iPhone and iPod touch','lmm') . ' (640x920px)',
+			'std'     => '',
+			'type'    => 'text'
+		);
+		$this->settings['map_webapp_launch640_1096'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section16',
+			'title'   => __('Launch image URL','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Size for iPhone 5 and iPod 5','lmm') . ' (640x1096px)',
+			'std'     => '',
+			'type'    => 'text'
+		);
 		
 		/*===========================================
 		*
