@@ -6,7 +6,6 @@
 if (basename($_SERVER['SCRIPT_FILENAME']) == 'admin-header.php') { die ("Please do not access this file directly. Thanks!<br/><a href='http://www.mapsmarker.com/go'>www.mapsmarker.com</a>"); }
 require_once(ABSPATH . WPINC . DIRECTORY_SEPARATOR . "pluggable.php");
 $lmm_options = get_option( 'leafletmapsmarker_options' ); //info: required for bing maps api key check
-
 //info: make to menu buttons active depended on page you´re on
 $page = (isset($_GET['page']) ? $_GET['page'] : '');
 $oid = isset($_POST['id']) ? intval($_POST['id']) : (isset($_GET['id']) ? intval($_GET['id']) : '');
@@ -153,9 +152,9 @@ if (isset($plugin_updates->response['leaflet-maps-marker-pro/leaflet-maps-marker
 <table cellpadding="5" cellspacing="0" class="widefat fixed">
   <tr>
     <td><div style="float:left;margin:2px 10px 0 0;"><a href="http://www.mapsmarker.com/go" target="_blank" title="www.mapsmarker.com"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/logo-mapsmarker-pro.png" width="65" height="65" alt="Leaflet Maps Marker Plugin Logo by Julia Loew, www.weiderand.net" /></a></div>
-
-<div style="font-size:1.5em;margin-bottom:5px;padding:2px 0 0 0;"><span style="font-weight:bold;">Maps Marker<sup style="font-size:75%;">&reg;</sup> v<?php echo get_option("leafletmapsmarker_version_pro") ?> - <?php _e('Pro Edition','lmm'); ?></span></div>
-  <p style="margin:1.4em 0 0 0;">
+<?php $pro_version = get_option("leafletmapsmarker_version_pro"); ?>
+<div style="font-size:1.5em;margin-bottom:5px;padding:2px 0 0 0;"><span style="font-weight:bold;">Maps Marker<sup style="font-size:75%;">&reg;</sup> <a href="http://www.mapsmarker.com/v<?php echo $pro_version; ?>p" target="_blank" title="<?php esc_attr_e('view blogpost for current version','lmm');?>">v<?php echo $pro_version; ?></a> - <?php _e('Pro Edition','lmm'); ?></span></div>
+  <p style="margin:1em 0 0 0;">
   <a class="<?php echo $buttonclass1; ?>" href="<?php echo LEAFLET_WP_ADMIN_URL ?>admin.php?page=leafletmapsmarker_markers"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/icon-menu-list.png"> <?php _e("List all markers", "lmm") ?></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <a class="<?php echo $buttonclass2; ?>" href="<?php echo LEAFLET_WP_ADMIN_URL ?>admin.php?page=leafletmapsmarker_marker"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/icon-menu-add.png"> 
     <?php 

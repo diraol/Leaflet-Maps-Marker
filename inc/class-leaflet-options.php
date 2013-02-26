@@ -84,6 +84,7 @@ class Class_leaflet_options {
 		$this->sections['google-section4']			= esc_attr__('Google Places bounds','lmm');
 		$this->sections['google-section5']			= esc_attr__('Google Places search prefix','lmm');
 		$this->sections['google-section6']			= esc_attr__('Google Adsense settings','lmm');
+		$this->sections['google-section7']			= esc_attr__('Google Maps styling','lmm');
 
 		$this->sections['bing-section1']			= esc_attr__('Bing Maps API Key','lmm');
 		$this->sections['bing-section2']			= esc_attr__('Bing Culture Parameter','lmm');
@@ -2527,7 +2528,7 @@ class Class_leaflet_options {
 			'section' => 'mapdefaults-section16',
 			'std'     => '', 
 			'title'   => '',
-			'desc'    => __( 'Fullscreen maps are optimized for mobile devices in the pro version. This means that the viewport of the map automatically adjusts to the width of the device used.<br/><br/>For iOS devices (iphone, ipad, ipod) it is also possible to add maps with a custom icon to the homescreen and open them as web apps with a custom launch image and without the address bar of the browser.', 'lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-webapp.jpg" />',
+			'desc'    => __( 'Fullscreen maps are optimized for mobile devices in the pro version. This means that the viewport of the map automatically adjusts to the width of the device used and native javascript is used instead of jQuery which results in higher performance when loading maps.<br/><br/>For iOS devices (iphone, ipad, ipod) it is also possible to add maps with a custom icon to the homescreen and open them as web apps with a custom launch image and without the address bar of the browser.', 'lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-webapp.jpg" />',
 			'type'    => 'helptext'
 		);	
 		$this->settings['map_webapp_images'] = array(
@@ -6488,7 +6489,28 @@ class Class_leaflet_options {
 			'std'     => 'pub-4906650925210476',
 			'type'    => 'text'
 		);		
-		
+		/*
+		* Google Maps styling
+		*/
+		$this->settings['google_styling_helptext1'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'google',
+			'section' => 'google-section7',
+			'std'     => '', 
+			'title'   => '',
+			'desc'    => __( 'Styled maps allow you to customize the presentation of the standard Google base maps, changing the visual display of such elements as roads, parks, and built-up areas.', 'lmm') . '<br/><a href="http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/examplestyles.html" target="_blank" title="' . esc_attr__('show examples','lmm') . '"><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-google-styling-preview.jpg" /></a>',
+			'type'    => 'helptext'
+		);
+		$this->settings['google_styling_json'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'google',
+			'section' => 'google-section7',
+			'title'   => 'JSON<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => sprintf(__('Please enter the custom JSON array to style your Google maps (you can use the <a href="%1s" target="_blank">Google Styled Maps Wizard</a> to create custom styles easily). Example for hiding roads:','lmm'), 'http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html') . ' <br/><strong>[ { &#39;featureType&#39;: &#39;road.highway&#39;, &#39;elementType&#39;: &#39;geometry&#39;, &#39;stylers&#39;: [ { &#39;visibility&#39;: &#39;off&#39; } ] },{ &#39;featureType&#39;: &#39;road.arterial&#39;, &#39;stylers&#39;: [ { &#39;visibility&#39;: &#39;off&#39; } ] },{ &#39;featureType&#39;: &#39;road.local&#39;, &#39;stylers&#39;: [ { &#39;visibility&#39;: &#39;off&#39; } ] } ]</strong>',
+			'std'     => '',
+			'type'    => 'text'
+		);
+	
 		/*===========================================
 		*
 		*

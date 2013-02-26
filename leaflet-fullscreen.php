@@ -153,9 +153,11 @@ if (isset($_GET['layer'])) {
 	$lmm_out .= '<link rel="stylesheet" id="leafletmapsmarker-ie-only-css" href="' . LEAFLET_PLUGIN_URL . 'leaflet-dist/leaflet.ie.css?ver=' . $plugin_version . '" type="text/css" media="all" / >'.PHP_EOL;
 	$lmm_out .= '<![endif]-->'.PHP_EOL;
 	$lmm_out .= '<style type="text/css" id="leafletmapsmarker-image-css-override">.leaflet-popup-content img { max-width:' . intval($lmm_options['defaults_marker_popups_image_max_width']) . 'px !important; height:auto; margin: 0px !important; padding: 0px !important; box-shadow:none !important; width:auto !important; }</style>'.PHP_EOL;
+
 	//info: Google API key
 	if ( isset($lmm_options['google_maps_api_key']) && ($lmm_options['google_maps_api_key'] != NULL) ) { $google_maps_api_key = $lmm_options['google_maps_api_key']; } else { $google_maps_api_key = ''; }
 	$lmm_out .= '<script type="text/javascript" src="https://www.google.com/jsapi?key=' .$google_maps_api_key . '"></script>'.PHP_EOL;
+
 	//info: Google language localization (JSON API)
 	if ($lmm_options['google_maps_language_localization'] == 'browser_setting') {
 		$google_language = '';
@@ -169,6 +171,7 @@ if (isset($_GET['layer'])) {
 	} else {
 		$gmaps_base_domain = "&base_domain=" . $lmm_options['google_maps_base_domain_custom'];
 	}
+
 	//info: load needed Google libraries only
 	$google_adsense_status = $lmm_options['google_adsense_status'];
 	if ($google_adsense_status == 'enabled') {
@@ -176,6 +179,10 @@ if (isset($_GET['layer'])) {
 	} else {
 		$gmaps_libraries = '';
 	}
+
+	//info: Google Maps styling
+	$google_styling_json = ($lmm_options['google_styling_json'] == NULL) ? 'disabled' : str_replace("\"", "'", $lmm_options['google_styling_json']);
+
   	//info: Bing culture code
 	if ($lmm_options['bingmaps_culture'] == 'automatic') {
 		if ( defined('WPLANG') ) { $bing_culture = WPLANG; } else { $bing_culture =  'en_us'; }
@@ -186,7 +193,7 @@ if (isset($_GET['layer'])) {
 	$lmm_out .= '/* <![CDATA[ */'.PHP_EOL;
 
 	if ($google_adsense_status == 'disabled') {
-		$lmm_out .= 'var mapsmarkerjs = {"zoom_in":"' . __('Zoom in','lmm') . '","zoom_out":"' . __('Zoom out','lmm') . '","googlemaps_language":"' . $google_language . '","googlemaps_libraries":"' . $gmaps_libraries . '","googlemaps_base_domain":"' . $gmaps_base_domain . '","bing_culture":"' . $bing_culture . '","google_adsense_status":"' . $google_adsense_status . '"};'.PHP_EOL;
+		$lmm_out .= 'var mapsmarkerjs = {"zoom_in":"' . __('Zoom in','lmm') . '","zoom_out":"' . __('Zoom out','lmm') . '","googlemaps_language":"' . $google_language . '","googlemaps_libraries":"' . $gmaps_libraries . '","googlemaps_base_domain":"' . $gmaps_base_domain . '","bing_culture":"' . $bing_culture . '","google_adsense_status":"' . $google_adsense_status . '","google_styling_json":"' . $google_styling_json . '"};'.PHP_EOL;
 	} else {
 		$google_adsense_format = $lmm_options['google_adsense_format'];
 		$google_adsense_position = $lmm_options['google_adsense_position'];
@@ -197,7 +204,7 @@ if (isset($_GET['layer'])) {
 		$google_adsense_urlColor = $lmm_options['google_adsense_urlColor'];
 		$google_adsense_channelNumber = $lmm_options['google_adsense_channelNumber'];
 		$google_adsense_publisherId = $lmm_options['google_adsense_publisherId'];
-		$lmm_out .= 'var mapsmarkerjs = {"zoom_in":"' . __('Zoom in','lmm') . '","zoom_out":"' . __('Zoom out','lmm') . '","googlemaps_language":"' . $google_language . '","googlemaps_libraries":"' . $gmaps_libraries . '","googlemaps_base_domain":"' . $gmaps_base_domain . '","bing_culture":"' . $bing_culture . '","google_adsense_status":"' . $google_adsense_status . '","google_adsense_format":"' . $google_adsense_format . '","google_adsense_position":"' . $google_adsense_position . '","google_adsense_backgroundColor":"' . $google_adsense_backgroundColor . '","google_adsense_borderColor":"' . $google_adsense_borderColor . '","google_adsense_titleColor":"' . $google_adsense_titleColor . '","google_adsense_textColor":"' . $google_adsense_textColor . '","google_adsense_urlColor":"' . $google_adsense_urlColor . '","google_adsense_channelNumber":"' . $google_adsense_channelNumber . '","google_adsense_publisherId":"' . $google_adsense_publisherId . '"};'.PHP_EOL;
+		$lmm_out .= 'var mapsmarkerjs = {"zoom_in":"' . __('Zoom in','lmm') . '","zoom_out":"' . __('Zoom out','lmm') . '","googlemaps_language":"' . $google_language . '","googlemaps_libraries":"' . $gmaps_libraries . '","googlemaps_base_domain":"' . $gmaps_base_domain . '","bing_culture":"' . $bing_culture . '","google_adsense_status":"' . $google_adsense_status . '","google_adsense_format":"' . $google_adsense_format . '","google_adsense_position":"' . $google_adsense_position . '","google_adsense_backgroundColor":"' . $google_adsense_backgroundColor . '","google_adsense_borderColor":"' . $google_adsense_borderColor . '","google_adsense_titleColor":"' . $google_adsense_titleColor . '","google_adsense_textColor":"' . $google_adsense_textColor . '","google_adsense_urlColor":"' . $google_adsense_urlColor . '","google_adsense_channelNumber":"' . $google_adsense_channelNumber . '","google_adsense_publisherId":"' . $google_adsense_publisherId . '","google_styling_json":"' . $google_styling_json . '"};'.PHP_EOL;
 	}
 	$lmm_out .= '/* ]]> */'.PHP_EOL;
 	$lmm_out .= '</script>'.PHP_EOL;
@@ -713,9 +720,11 @@ elseif (isset($_GET['marker'])) {
 	$lmm_out .= '<link rel="stylesheet" id="leafletmapsmarker-ie-only-css" href="' . LEAFLET_PLUGIN_URL . 'leaflet-dist/leaflet.ie.css?ver=' . $plugin_version . '" type="text/css" media="all" / >'.PHP_EOL;
 	$lmm_out .= '<![endif]-->'.PHP_EOL;
 	$lmm_out .= '<style type="text/css" id="leafletmapsmarker-image-css-override">.leaflet-popup-content img { max-width:' . intval($lmm_options['defaults_marker_popups_image_max_width']) . 'px !important; height:auto; margin: 0px !important; padding: 0px !important; box-shadow:none !important; width:auto !important; }</style>'.PHP_EOL;
+
 	//info: Google API key
 	if ( isset($lmm_options['google_maps_api_key']) && ($lmm_options['google_maps_api_key'] != NULL) ) { $google_maps_api_key = $lmm_options['google_maps_api_key']; } else { $google_maps_api_key = ''; }
 	$lmm_out .= '<script type="text/javascript" src="https://www.google.com/jsapi?key=' .$google_maps_api_key . '"></script>'.PHP_EOL;
+
 	//info: Google language localization (JSON API)
 	if ($lmm_options['google_maps_language_localization'] == 'browser_setting') {
 		$google_language = '';
@@ -729,6 +738,7 @@ elseif (isset($_GET['marker'])) {
 	} else {
 		$gmaps_base_domain = "&base_domain=" . $lmm_options['google_maps_base_domain_custom'];
 	}
+
 	//info: load needed Google libraries only
 	$google_adsense_status = $lmm_options['google_adsense_status'];
 	if ($google_adsense_status == 'enabled') {
@@ -736,6 +746,10 @@ elseif (isset($_GET['marker'])) {
 	} else {
 		$gmaps_libraries = '';
 	}
+
+	//info: Google Maps styling
+	$google_styling_json = ($lmm_options['google_styling_json'] == NULL) ? 'disabled' : str_replace("\"", "'", $lmm_options['google_styling_json']);
+
 	//info: Bing culture code
 	if ($lmm_options['bingmaps_culture'] == 'automatic') {
 		if ( defined('WPLANG') ) { $bing_culture = WPLANG; } else { $bing_culture =  'en_us'; }
@@ -745,7 +759,7 @@ elseif (isset($_GET['marker'])) {
 	$lmm_out .= '<script type="text/javascript">'.PHP_EOL;
 	$lmm_out .= '/* <![CDATA[ */'.PHP_EOL;
 	if ($google_adsense_status == 'disabled') {
-		$lmm_out .= 'var mapsmarkerjs = {"zoom_in":"' . __('Zoom in','lmm') . '","zoom_out":"' . __('Zoom out','lmm') . '","googlemaps_language":"' . $google_language . '","googlemaps_libraries":"' . $gmaps_libraries . '","googlemaps_base_domain":"' . $gmaps_base_domain . '","bing_culture":"' . $bing_culture . '","google_adsense_status":"' . $google_adsense_status . '"};'.PHP_EOL;
+		$lmm_out .= 'var mapsmarkerjs = {"zoom_in":"' . __('Zoom in','lmm') . '","zoom_out":"' . __('Zoom out','lmm') . '","googlemaps_language":"' . $google_language . '","googlemaps_libraries":"' . $gmaps_libraries . '","googlemaps_base_domain":"' . $gmaps_base_domain . '","bing_culture":"' . $bing_culture . '","google_adsense_status":"' . $google_adsense_status . '","google_styling_json":"' . $google_styling_json . '"};'.PHP_EOL;
 	} else {
 		$google_adsense_format = $lmm_options['google_adsense_format'];
 		$google_adsense_position = $lmm_options['google_adsense_position'];
@@ -756,7 +770,7 @@ elseif (isset($_GET['marker'])) {
 		$google_adsense_urlColor = $lmm_options['google_adsense_urlColor'];
 		$google_adsense_channelNumber = $lmm_options['google_adsense_channelNumber'];
 		$google_adsense_publisherId = $lmm_options['google_adsense_publisherId'];
-		$lmm_out .= 'var mapsmarkerjs = {"zoom_in":"' . __('Zoom in','lmm') . '","zoom_out":"' . __('Zoom out','lmm') . '","googlemaps_language":"' . $google_language . '","googlemaps_libraries":"' . $gmaps_libraries . '","googlemaps_base_domain":"' . $gmaps_base_domain . '","bing_culture":"' . $bing_culture . '","google_adsense_status":"' . $google_adsense_status . '","google_adsense_format":"' . $google_adsense_format . '","google_adsense_position":"' . $google_adsense_position . '","google_adsense_backgroundColor":"' . $google_adsense_backgroundColor . '","google_adsense_borderColor":"' . $google_adsense_borderColor . '","google_adsense_titleColor":"' . $google_adsense_titleColor . '","google_adsense_textColor":"' . $google_adsense_textColor . '","google_adsense_urlColor":"' . $google_adsense_urlColor . '","google_adsense_channelNumber":"' . $google_adsense_channelNumber . '","google_adsense_publisherId":"' . $google_adsense_publisherId . '"};'.PHP_EOL;
+		$lmm_out .= 'var mapsmarkerjs = {"zoom_in":"' . __('Zoom in','lmm') . '","zoom_out":"' . __('Zoom out','lmm') . '","googlemaps_language":"' . $google_language . '","googlemaps_libraries":"' . $gmaps_libraries . '","googlemaps_base_domain":"' . $gmaps_base_domain . '","bing_culture":"' . $bing_culture . '","google_adsense_status":"' . $google_adsense_status . '","google_adsense_format":"' . $google_adsense_format . '","google_adsense_position":"' . $google_adsense_position . '","google_adsense_backgroundColor":"' . $google_adsense_backgroundColor . '","google_adsense_borderColor":"' . $google_adsense_borderColor . '","google_adsense_titleColor":"' . $google_adsense_titleColor . '","google_adsense_textColor":"' . $google_adsense_textColor . '","google_adsense_urlColor":"' . $google_adsense_urlColor . '","google_adsense_channelNumber":"' . $google_adsense_channelNumber . '","google_adsense_publisherId":"' . $google_adsense_publisherId . '","google_styling_json":"' . $google_styling_json . '"};'.PHP_EOL;
 	}
 	$lmm_out .= '/* ]]> */'.PHP_EOL;
 	$lmm_out .= '</script>'.PHP_EOL;

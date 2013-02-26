@@ -388,6 +388,7 @@ function __construct() {
 	add_action('admin_print_scripts-'.$page6, array(&$this, 'lmm_add_contextual_help'));
 	add_action('admin_print_scripts-'.$page7, array(&$this, 'lmm_add_contextual_help'));
 	add_action('admin_print_scripts-'.$page8, array(&$this, 'lmm_add_contextual_help'));
+	add_action('admin_print_scripts-'.$page10, array(&$this, 'lmm_add_contextual_help'));
 	//info: add jquery datepicker on marker page
 	add_action('admin_print_scripts-'.$page3, array(&$this, 'lmm_admin_enqueue_scripts_jquerydatepicker'));
 	//info: add image css override for marker+layer edit page
@@ -492,10 +493,8 @@ function __construct() {
 	$helptext .= '<li><a href="http://www.mapsmarker.com/faq/" target="_blank">' . __('FAQ','lmm') . '</a> (' . __('frequently asked questions','lmm') . ')</li>';
 	$helptext .= '<li><a href="http://www.mapsmarker.com/docs/" target="_blank">' . __('Documentation','lmm') . '</a></li>';
 	$helptext .= '<li><a href="http://wordpress.org/support/plugin/leaflet-maps-marker" target="_blank">WordPress Support Forum</a> (' . __('free community support','lmm') . ')</li>';
-	$helptext .= '<li><a href="http://wpquestions.com/affiliates/register/name/robertharm" target="_blank">WP Questions</a> (' . __('paid community support','lmm') . ')</li>';
-	$helptext .= '<li><a href="http://wphelpcenter.com/" target="_blank">WordPress HelpCenter</a> (' . __('paid professional support','lmm') . ')</li>';
+	$helptext .= '<li><a href="http://www.mapsmarker.com/customers" target="_blank">mapsmarker.com/customers</a> (' . __('support for pro users','lmm') . ')</li>';
 	$helptext .= '</ul>';
-	$helptext .= '<p>' . __('More information on support','lmm') . ': <a href="http://www.mapsmarker.com/support/" target="_blank">http://www.mapsmarker.com/support</a></p>';
 	if ( version_compare( $wp_version, '3.3', '<' ) )
 	{
 		global $current_screen;
@@ -514,6 +513,7 @@ function __construct() {
 	global $wp_version;
 	$lmm_options = get_option( 'leafletmapsmarker_options' );
 	$plugin_version = get_option('leafletmapsmarker_version_pro');
+
 	//info: load needed Google libraries only
 	$google_adsense_status = $lmm_options['google_adsense_status'];
 	if ($google_adsense_status == 'enabled') {
@@ -521,6 +521,7 @@ function __construct() {
 	} else {
 		$gmaps_libraries = '';
 	}
+
 	//info: Google language localization (JSON API)
 	if ($lmm_options['google_maps_language_localization'] == 'browser_setting') {
 		$google_language = '';
@@ -534,6 +535,7 @@ function __construct() {
 	} else {
 		$gmaps_base_domain = "&base_domain=" . $lmm_options['google_maps_base_domain_custom'];
 	}
+
 	//info: Google API key
 	if ( isset($lmm_options['google_maps_api_key']) && ($lmm_options['google_maps_api_key'] != NULL) ) { $google_maps_api_key = $lmm_options['google_maps_api_key']; } else { $google_maps_api_key = ''; }
 	//info: fallback for adding js to footer 1
@@ -542,6 +544,9 @@ function __construct() {
 	} else if ( (version_compare( $wp_version, '3.3', '<' )) || ((version_compare( $wp_version, '3.3', '>=' )) && ($lmm_options['misc_javascript_header_footer'] == 'header')) ) {
 		wp_enqueue_script( 'leafletmapsmarker-googlemaps-loader', 'https://www.google.com/jsapi?key='.$google_maps_api_key, array(), NULL);
 	}
+
+	//info: Google Maps styling
+	$google_styling_json = ($lmm_options['google_styling_json'] == NULL) ? 'disabled' : str_replace("\"", "'", $lmm_options['google_styling_json']);
 	//info: Bing culture code
 	if ($lmm_options['bingmaps_culture'] == 'automatic') {
 		if ( defined('WPLANG') ) { $bing_culture = WPLANG; } else { $bing_culture =  'en_us'; }
@@ -564,7 +569,8 @@ function __construct() {
 			'googlemaps_libraries' => $gmaps_libraries,
 			'googlemaps_base_domain' => $gmaps_base_domain,
 			'bing_culture' => $bing_culture,
-			'google_adsense_status' => $google_adsense_status
+			'google_adsense_status' => $google_adsense_status,
+			'google_styling_json' => $google_styling_json
 			) );
 	} else {
 		$google_adsense_format = $lmm_options['google_adsense_format'];
@@ -592,13 +598,15 @@ function __construct() {
 			'google_adsense_textColor' => $google_adsense_textColor,
 			'google_adsense_urlColor' => $google_adsense_urlColor,
 			'google_adsense_channelNumber' => $google_adsense_channelNumber,			
-			'google_adsense_publisherId' => $google_adsense_publisherId			
+			'google_adsense_publisherId' => $google_adsense_publisherId,			
+			'google_styling_json' => $google_styling_json
 		) );
 	}		
   }
   function lmm_admin_enqueue_scripts() {
 	$lmm_options = get_option( 'leafletmapsmarker_options' );
 	$plugin_version = get_option('leafletmapsmarker_version_pro');
+
 	//info: load needed Google libraries only
 	$google_adsense_status = $lmm_options['google_adsense_status'];
 	if ($google_adsense_status == 'enabled') {
@@ -607,6 +615,7 @@ function __construct() {
 		$gmaps_libraries = '&libraries=places';
 	}
 	if ( defined('WPLANG') ) { $lang = substr(WPLANG, 0, 2); } else { $lang =  'en'; }
+
 	//info: Google language localization (JSON API)
 	if ($lmm_options['google_maps_language_localization'] == 'browser_setting') {
 		$google_language = '';
@@ -621,9 +630,14 @@ function __construct() {
 		$gmaps_base_domain = "&base_domain=" . $lmm_options['google_maps_base_domain_custom'];
 	}
 	wp_enqueue_script( array ( 'jquery' ) );
+
 	//info: Google API key
 	if ( isset($lmm_options['google_maps_api_key']) && ($lmm_options['google_maps_api_key'] != NULL) ) { $google_maps_api_key = $lmm_options['google_maps_api_key']; } else { $google_maps_api_key = ''; }
 	wp_enqueue_script( 'leafletmapsmarker-googlemaps-loader', 'https://www.google.com/jsapi?key='.$google_maps_api_key, array(), NULL);
+
+	//info: Google Maps styling
+	$google_styling_json = ($lmm_options['google_styling_json'] == NULL) ? 'disabled' : str_replace("\"", "'", $lmm_options['google_styling_json']);
+
 	//info: Bing culture code
 	if ($lmm_options['bingmaps_culture'] == 'automatic') {
 		if ( defined('WPLANG') ) { $bing_culture = WPLANG; } else { $bing_culture =  'en_us'; }
@@ -640,7 +654,8 @@ function __construct() {
 			'googlemaps_libraries' => $gmaps_libraries,
 			'googlemaps_base_domain' => $gmaps_base_domain,
 			'bing_culture' => $bing_culture,
-			'google_adsense_status' => $google_adsense_status
+			'google_adsense_status' => $google_adsense_status,
+			'google_styling_json' => $google_styling_json
 			) );
 	} else {
 		$google_adsense_format = $lmm_options['google_adsense_format'];
@@ -668,7 +683,8 @@ function __construct() {
 			'google_adsense_textColor' => $google_adsense_textColor,
 			'google_adsense_urlColor' => $google_adsense_urlColor,
 			'google_adsense_channelNumber' => $google_adsense_channelNumber,			
-			'google_adsense_publisherId' => $google_adsense_publisherId			
+			'google_adsense_publisherId' => $google_adsense_publisherId,
+			'google_styling_json' => $google_styling_json
 		) );
 	}
   }
