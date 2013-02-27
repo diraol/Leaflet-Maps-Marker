@@ -39,12 +39,12 @@ $lmm_options = get_option( 'leafletmapsmarker_options' );
 
   header('Cache-Control: no-cache, must-revalidate');
   header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-  header('Content-Type:text/xml; charset=utf-8'); 
+  header('Content-Type:text/xml; charset=utf-8');
   echo '<?xml version="1.0" encoding="UTF-8"?>'.PHP_EOL;
   echo '<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'.PHP_EOL;
 
   foreach ($markers as $marker) {
-	if  ( ($marker['mupdatedon'] == NULL) || ($marker['mupdatedon'] == '0000-00-00 00:00:00') ){ 
+	if  ( ($marker['mupdatedon'] == NULL) || ($marker['mupdatedon'] == '0000-00-00 00:00:00') ){
 		$date_kml =  strtotime($marker['mcreatedon']);
 	} else {
 		$date_kml =  strtotime($marker['mupdatedon']);
@@ -56,7 +56,7 @@ $lmm_options = get_option( 'leafletmapsmarker_options' );
   }
 
   foreach ($layers as $layer) {
-	if  ( ($layer['lupdatedon'] == NULL) || ($layer['lupdatedon'] == '0000-00-00 00:00:00') ){ 
+	if  ( ($layer['lupdatedon'] == NULL) || ($layer['lupdatedon'] == '0000-00-00 00:00:00') ){
 		$date_kml =  strtotime($layer['lcreatedon']);
 	} else {
 		$date_kml =  strtotime($layer['lupdatedon']);

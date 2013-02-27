@@ -42,7 +42,7 @@ if (is_multisite()) {
 		}
 		delete_option('leafletmapsmarker_version_pro');
 		delete_option('leafletmapsmarker_version_pro_before_update');
-		delete_option('leafletmapsmarkerpro_pluginupdatechecker');		
+		delete_option('leafletmapsmarkerpro_pluginupdatechecker');
 	if ($blogs) {
 		foreach($blogs as $blog) {
 			switch_to_blog($blog['blog_id']);
@@ -91,7 +91,7 @@ if (is_multisite()) {
 		delete_option('leafletmapsmarker_version_pro_before_update');
 		delete_option('leafletmapsmarkerpro_pluginupdatechecker');
 	}
-} 
+}
 else
 {
 	//info: delete transients (needed for reinstalls within validity of transients)
@@ -125,7 +125,7 @@ else
 				unlink($v);
 			}
 		rmdir($icons_directory);
-		}			
+		}
 	}
 	//info: delete pro options only
 	$pro_version_before_update = get_transient( 'leafletmapsmarker_version_pro_before_update' );

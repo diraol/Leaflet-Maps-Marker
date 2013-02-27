@@ -46,10 +46,10 @@ if ($lmm_options[ 'wms_wms7_kml_support' ] == 'yes') { $wms7_kml_output = '<Netw
 if ($lmm_options[ 'wms_wms8_kml_support' ] == 'yes') { $wms8_kml_output = '<NetworkLink id="mapsmarker_wms8"><name><![CDATA[' . $lmm_options[ 'wms_wms8_name' ] . ']]></name><visibility>1</visibility><open>0</open><atom:author><![CDATA[' . $lmm_options[ 'wms_wms8_attribution' ] . ']]></atom:author><Snippet maxLines="2"><![CDATA[' . $lmm_options[ 'wms_wms8_attribution' ] . ']]></Snippet><Link><href><![CDATA[' . $lmm_options[ 'wms_wms8_kml_href' ] . ']]></href><refreshMode>' . $lmm_options[ 'wms_wms8_kml_refreshMode' ] . '</refreshMode><refreshInterval>' . $lmm_options[ 'wms_wms8_kml_refreshInterval' ] . '</refreshInterval><viewRefreshMode>' . $lmm_options[ 'wms_wms8_kml_viewRefreshMode' ] . '</viewRefreshMode><viewRefreshTime>' . $lmm_options[ 'wms_wms8_kml_viewRefreshTime' ] . '</viewRefreshTime></Link></NetworkLink>'; };
 if ($lmm_options[ 'wms_wms9_kml_support' ] == 'yes') { $wms9_kml_output = '<NetworkLink id="mapsmarker_wms9"><name><![CDATA[' . $lmm_options[ 'wms_wms9_name' ] . ']]></name><visibility>1</visibility><open>0</open><atom:author><![CDATA[' . $lmm_options[ 'wms_wms9_attribution' ] . ']]></atom:author><Snippet maxLines="2"><![CDATA[' . $lmm_options[ 'wms_wms9_attribution' ] . ']]></Snippet><Link><href><![CDATA[' . $lmm_options[ 'wms_wms9_kml_href' ] . ']]></href><refreshMode>' . $lmm_options[ 'wms_wms9_kml_refreshMode' ] . '</refreshMode><refreshInterval>' . $lmm_options[ 'wms_wms9_kml_refreshInterval' ] . '</refreshInterval><viewRefreshMode>' . $lmm_options[ 'wms_wms9_kml_viewRefreshMode' ] . '</viewRefreshMode><viewRefreshTime>' . $lmm_options[ 'wms_wms9_kml_viewRefreshTime' ] . '</viewRefreshTime></Link></NetworkLink>'; };
 if ($lmm_options[ 'wms_wms10_kml_support' ] == 'yes') { $wms10_kml_output = '<NetworkLink id="mapsmarker_wms10"><name><![CDATA[' . $lmm_options[ 'wms_wms10_name' ] . ']]></name><visibility>1</visibility><open>0</open><atom:author><![CDATA[' . $lmm_options[ 'wms_wms10_attribution' ] . ']]></atom:author><Snippet maxLines="2"><![CDATA[' . $lmm_options[ 'wms_wms10_attribution' ] . ']]></Snippet><Link><href><![CDATA[' . $lmm_options[ 'wms_wms10_kml_href' ] . ']]></href><refreshMode>' . $lmm_options[ 'wms_wms10_kml_refreshMode' ] . '</refreshMode><refreshInterval>' . $lmm_options[ 'wms_wms10_kml_refreshInterval' ] . '</refreshInterval><viewRefreshMode>' . $lmm_options[ 'wms_wms10_kml_viewRefreshMode' ] . '</viewRefreshMode><viewRefreshTime>' . $lmm_options[ 'wms_wms10_kml_viewRefreshTime' ] . '</viewRefreshTime></Link></NetworkLink>'; };
-  
+
 if (isset($_GET['layer'])) {
   $layer = intval($_GET['layer']);
-  
+
   $q = ''; //info: removed limit 5000
   if ($layer == '*' or $layer == 'all')
     $q = ''; //info: removed limit 5000
@@ -91,35 +91,35 @@ if (isset($_GET['layer'])) {
 	}
   //info: check if layer result is not null
   if (empty($markers)) {
-  $error_layers_not_exists = sprintf( esc_attr__('Warning: no markers are assigned to the layer with the ID %1$s or the layer does not exist!','lmm'), $layer); 
+  $error_layers_not_exists = sprintf( esc_attr__('Warning: no markers are assigned to the layer with the ID %1$s or the layer does not exist!','lmm'), $layer);
   echo $error_layers_not_exists;
   } else {
   header('Cache-Control: no-cache, must-revalidate');
   header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-  header('Content-type: application/vnd.google-earth.kml+xml; charset=utf-8'); 
+  header('Content-type: application/vnd.google-earth.kml+xml; charset=utf-8');
   header('Content-Disposition: attachment; filename="' .   preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), get_bloginfo('name')) . '-layer-' . intval($_GET['layer']) . '.kml"');
   echo '<?xml version="1.0" encoding="UTF-8"?>'.PHP_EOL;
   echo '<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2">'.PHP_EOL;
   echo '<Document>'.PHP_EOL;
-  echo '<description><![CDATA[powered by <a href="http://www.wordpress.org">WordPress</a> &amp; <a href="http://www.mapsmarker.com">MapsMarker.com</a>]]></description>'.PHP_EOL;    
-  echo '<open>1</open>'.PHP_EOL;  
+  echo '<description><![CDATA[powered by <a href="http://www.wordpress.org">WordPress</a> &amp; <a href="http://www.mapsmarker.com">MapsMarker.com</a>]]></description>'.PHP_EOL;
+  echo '<open>1</open>'.PHP_EOL;
   foreach ($styles_distinct as $marker_icon) {
     if ($marker_icon['micon'] == null) {
-        $micon_url = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';  
+        $micon_url = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';
 		$micon_name = 'default';
     } else {
-        $micon_url = $defaults_marker_icon_url . '/' . $marker_icon['micon']; 
-		$micon_name = substr($marker_icon['micon'],0,-4);		
+        $micon_url = $defaults_marker_icon_url . '/' . $marker_icon['micon'];
+		$micon_name = substr($marker_icon['micon'],0,-4);
     }
 	echo '<Style id="' . $micon_name . '"><IconStyle><Icon><href>' . $micon_url . '</href></Icon></IconStyle></Style>'.PHP_EOL;
   }
-  
+
   $layername = $wpdb->get_var('SELECT name FROM '.$table_name_layers.' WHERE id = '.intval($_GET['layer']).'');
 	if ($_GET['layer'] != 'all') {
 	  echo '<Folder>'.PHP_EOL;
 	  echo '<name>' . htmlspecialchars($layername) . '</name>'.PHP_EOL;
 	}
-	
+
   foreach ($markers as $marker) {
     if ( isset($_GET['name']) && ($_GET['name'] == 'show') ) {
 	$name = stripslashes(htmlspecialchars($marker['mmarkername']));
@@ -137,9 +137,9 @@ if (isset($_GET['layer'])) {
     if ($marker['micon'] == NULL) {
 		$micon_name = 'default';
     } else {
-		$micon_name = substr($marker['micon'],0,-4);		
+		$micon_name = substr($marker['micon'],0,-4);
     }
-	if ($marker['mkml_timestamp'] == NULL) { 
+	if ($marker['mkml_timestamp'] == NULL) {
 		$date_kml =  strtotime($marker['mcreatedon']);
 		$time_kml =  strtotime($marker['mcreatedon']);
 	} else {
@@ -165,7 +165,7 @@ if (isset($_GET['layer'])) {
 	echo '</Point>'.PHP_EOL;
 	echo '</Placemark>'.PHP_EOL;
   }
-  
+
   	if ($_GET['layer'] != 'all') {
 	  echo '</Folder>';
 	}
@@ -182,7 +182,7 @@ if (isset($_GET['layer'])) {
 			if ( ($lmm_options[ 'wms_wms8_kml_support' ] == 'yes') && ($layer['lwms8'] == '1') ) { echo $wms8_kml_output; }
 			if ( ($lmm_options[ 'wms_wms9_kml_support' ] == 'yes') && ($layer['lwms9'] == '1') ) { echo $wms9_kml_output; }
 			if ( ($lmm_options[ 'wms_wms10_kml_support' ] == 'yes') && ($layer['lwms10'] == '1') ) { echo $wms10_kml_output; }
-		}	
+		}
 	}
   if ( $lmm_options['misc_backlinks'] == 'show' ) {
 	  echo PHP_EOL . '<ScreenOverlay>'.PHP_EOL;
@@ -221,30 +221,30 @@ elseif (isset($_GET['marker'])) {
   $wmslayer_kml = $wpdb->get_results($sql_wms_layer_for_kml, ARRAY_A);
   //info: check if marker result is not null
   if ($markers == NULL) {
-  $error_marker_not_exists = sprintf( esc_attr__('Error: a marker with the ID %1$s does not exist!','lmm'), $markerid); 
+  $error_marker_not_exists = sprintf( esc_attr__('Error: a marker with the ID %1$s does not exist!','lmm'), $markerid);
   echo $error_marker_not_exists;
   } else {
   header('Cache-Control: no-cache, must-revalidate');
   header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-  header('Content-type: application/vnd.google-earth.kml+xml; charset=utf-8'); 
+  header('Content-type: application/vnd.google-earth.kml+xml; charset=utf-8');
   header('Content-Disposition: attachment; filename="' .   preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), get_bloginfo('name')) . '-marker-' . intval($_GET['marker']) . '.kml"');
   echo '<?xml version="1.0" encoding="UTF-8"?>'.PHP_EOL;
   echo '<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2">'.PHP_EOL;
   echo '<Document>'.PHP_EOL;
-  echo '<description><![CDATA[powered by <a href="http://www.wordpress.org">WordPress</a> &amp; <a href="http://www.mapsmarker.com">MapsMarker.com</a>]]></description>'.PHP_EOL;    
-  echo '<open>0</open>'.PHP_EOL;  
+  echo '<description><![CDATA[powered by <a href="http://www.wordpress.org">WordPress</a> &amp; <a href="http://www.mapsmarker.com">MapsMarker.com</a>]]></description>'.PHP_EOL;
+  echo '<open>0</open>'.PHP_EOL;
   foreach ($styles_distinct as $marker_icon) {
     if ($marker_icon['micon'] == null) {
-        $micon_url = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';  
+        $micon_url = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';
 		$micon_name = 'default';
     } else {
-        $micon_url = $defaults_marker_icon_url . '/' . $marker_icon['micon']; 
-		$micon_name = substr($marker_icon['micon'],0,-4);		
+        $micon_url = $defaults_marker_icon_url . '/' . $marker_icon['micon'];
+		$micon_name = substr($marker_icon['micon'],0,-4);
     }
 	echo '<Style id="' . $micon_name . '"><IconStyle><Icon><href>' . $micon_url . '</href></Icon></IconStyle></Style>'.PHP_EOL;
   }
-  
-  echo '<name>' . get_bloginfo('name') . '</name>'.PHP_EOL;  
+
+  echo '<name>' . get_bloginfo('name') . '</name>'.PHP_EOL;
   foreach ($markers as $marker) {
 	if ( isset($_GET['name']) && ($_GET['name'] == 'show') ) {
 		$name = stripslashes(htmlspecialchars($marker['mmarkername']));
@@ -262,9 +262,9 @@ elseif (isset($_GET['marker'])) {
 	if ($marker['micon'] == null) {
 		$micon_name = 'default';
 	} else {
-		$micon_name = substr($marker['micon'],0,-4);		
+		$micon_name = substr($marker['micon'],0,-4);
 	}
-	if ($marker['mkml_timestamp'] == NULL) { 
+	if ($marker['mkml_timestamp'] == NULL) {
 		$date_kml =  strtotime($marker['mcreatedon']);
 		$time_kml =  strtotime($marker['mcreatedon']);
 	} else {
@@ -302,8 +302,8 @@ elseif (isset($_GET['marker'])) {
 			if ( ($lmm_options[ 'wms_wms8_kml_support' ] == 'yes') && ($layer['mwms8'] == '1') ) { echo $wms8_kml_output; }
 			if ( ($lmm_options[ 'wms_wms9_kml_support' ] == 'yes') && ($layer['mwms9'] == '1') ) { echo $wms9_kml_output; }
 			if ( ($lmm_options[ 'wms_wms10_kml_support' ] == 'yes') && ($layer['mwms10'] == '1') ) { echo $wms10_kml_output; }
-	}  
-  if ( $lmm_options['misc_backlinks'] == 'show' ) {	
+	}
+  if ( $lmm_options['misc_backlinks'] == 'show' ) {
 	  echo PHP_EOL.'<ScreenOverlay>'.PHP_EOL;
 	  echo '<name><![CDATA[powered by WordPress & MapsMarker.com]]></name>'.PHP_EOL;
 	  echo '<Icon>'.PHP_EOL;

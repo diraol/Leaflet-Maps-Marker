@@ -14,7 +14,7 @@ License stuff gets here:<br />
 - Pro version key<br />
 - update license valid yes/no, if yes - valid until when?
 </p>
-<!--wrap--> 
-<?php 
+<!--wrap-->
+<?php
 include('inc' . DIRECTORY_SEPARATOR . 'admin-footer.php');
 ?>

@@ -101,9 +101,9 @@ if ( isset($lmm_options['misc_global_admin_notices']) && ($lmm_options['misc_glo
 			curl_setopt($curl, CURLOPT_NOBODY, true);
 			$result = curl_exec($curl);
 			if ($result !== false) {
-				$statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);  
+				$statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 				if ($statusCode == 200) {
-					$ret = true;   
+					$ret = true;
 				}
 			}
 			curl_close($curl);
@@ -117,7 +117,7 @@ if ( isset($lmm_options['misc_global_admin_notices']) && ($lmm_options['misc_glo
 		$custom_shadow_icon_url_exists = checkUrlExists($custom_shadow_icon_url);
 		if ( ($custom_shadow_icon_url != NULL) && (!$custom_shadow_icon_url_exists) ) {
 			echo '<div class="error" style="padding:10px;"><strong>' . sprintf(__('Leaflet Maps Marker Warning: the setting for the marker shadow url (%1s) seems to be invalid. This can happen when you moved your WordPress installation from one server to another one.<br/>Please navigate to <a href="%2s">Settings / Map Defaults / "Default values for marker icons"</a> and update the option "Shadow URL". If you do not know which values to enter, please <a href="%3s">reset all plugins options to their defaults</a>', 'lmm'), $shadow_icon_url, LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings#mapdefaults-section5', LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings#reset') . '</strong></div>';
-		} 
+		}
 	}
 	//info: check if custom marker icon dir/url is available
 	if ( $lmm_options['defaults_marker_custom_icon_url_dir'] == 'yes') {
@@ -138,14 +138,14 @@ if ( isset($lmm_options['misc_global_admin_notices']) && ($lmm_options['misc_glo
 }//info: end misc_global_admin_notices check
 //info: check if newer plugin version is available
 $plugin_updates = get_site_transient( 'update_plugins' );
-if (isset($plugin_updates->response['leaflet-maps-marker-pro/leaflet-maps-marker.php']->new_version)) { 
+if (isset($plugin_updates->response['leaflet-maps-marker-pro/leaflet-maps-marker.php']->new_version)) {
 	$plugin_updates_lmm_installed = get_option("leafletmapsmarker_version_pro");
 	$plugin_updates_lmm_new_version = $plugin_updates->response['leaflet-maps-marker-pro/leaflet-maps-marker.php']->new_version;
 	echo '<p><div class="updated" style="padding:5px;"><strong>' . __('Leaflet Maps Marker Pro - plugin update available!','lmm') . '</strong><br/>' . sprintf(__('You are currently using v%1s and the plugin author highly recommends updating to v%2s for new features, bugfixes and updated translations (please see <a href="http://mapsmarker.com/v%3s" target="_blank">this blog post</a> for more details about the latest release).','lmm'), $plugin_updates_lmm_installed, $plugin_updates_lmm_new_version, $plugin_updates_lmm_new_version) . '<br/>';
-	if ( current_user_can( 'update_plugins' ) ) { 
-		echo sprintf(__('Update instruction: please start the update from the <a href="%1s">Updates-page</a>.','lmm'), get_admin_url() . 'update-core.php' ) . '</div></p>'; 
+	if ( current_user_can( 'update_plugins' ) ) {
+		echo sprintf(__('Update instruction: please start the update from the <a href="%1s">Updates-page</a>.','lmm'), get_admin_url() . 'update-core.php' ) . '</div></p>';
 	} else {
-		echo sprintf(__('Update instruction: as your user does not have the right to update plugins, please contact your <a href="mailto:%1s?subject=Please update plugin -Leaflet Maps Marker- on %2s">administrator</a>','lmm'), get_settings('admin_email'), site_url() ) . '</div></p>'; 
+		echo sprintf(__('Update instruction: as your user does not have the right to update plugins, please contact your <a href="mailto:%1s?subject=Please update plugin -Leaflet Maps Marker- on %2s">administrator</a>','lmm'), get_settings('admin_email'), site_url() ) . '</div></p>';
 	}
 }
 ?>
@@ -156,25 +156,25 @@ if (isset($plugin_updates->response['leaflet-maps-marker-pro/leaflet-maps-marker
 <div style="font-size:1.5em;margin-bottom:5px;padding:2px 0 0 0;"><span style="font-weight:bold;">Maps Marker<sup style="font-size:75%;">&reg;</sup> <a href="http://www.mapsmarker.com/v<?php echo $pro_version; ?>p" target="_blank" title="<?php esc_attr_e('view blogpost for current version','lmm');?>">v<?php echo $pro_version; ?></a> - <?php _e('Pro Edition','lmm'); ?></span></div>
   <p style="margin:1em 0 0 0;">
   <a class="<?php echo $buttonclass1; ?>" href="<?php echo LEAFLET_WP_ADMIN_URL ?>admin.php?page=leafletmapsmarker_markers"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/icon-menu-list.png"> <?php _e("List all markers", "lmm") ?></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <a class="<?php echo $buttonclass2; ?>" href="<?php echo LEAFLET_WP_ADMIN_URL ?>admin.php?page=leafletmapsmarker_marker"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/icon-menu-add.png"> 
-    <?php 
-  if ( ($oid == NULL) && ($page == 'leafletmapsmarker_marker') ) { 
-  		_e("Add new marker", "lmm"); 
-  } else if ( ($oid != NULL) && ($page == 'leafletmapsmarker_marker') ) { 
-		_e("Edit marker", "lmm"); 
+  <a class="<?php echo $buttonclass2; ?>" href="<?php echo LEAFLET_WP_ADMIN_URL ?>admin.php?page=leafletmapsmarker_marker"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/icon-menu-add.png">
+    <?php
+  if ( ($oid == NULL) && ($page == 'leafletmapsmarker_marker') ) {
+  		_e("Add new marker", "lmm");
+  } else if ( ($oid != NULL) && ($page == 'leafletmapsmarker_marker') ) {
+		_e("Edit marker", "lmm");
   } else {
-  		_e("Add new marker", "lmm"); 
+  		_e("Add new marker", "lmm");
   }?>
   </a>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
   <a class="<?php echo $buttonclass3; ?>" href="<?php echo LEAFLET_WP_ADMIN_URL ?>admin.php?page=leafletmapsmarker_layers"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/icon-menu-list.png"> <?php _e("List all layers", "lmm") ?></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <a class="<?php echo $buttonclass4; ?>" href="<?php echo LEAFLET_WP_ADMIN_URL ?>admin.php?page=leafletmapsmarker_layer"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/icon-menu-add.png"> 
-  <?php 
-  if ( ($oid == NULL) && ($page == 'leafletmapsmarker_layer') ) { 
-  		_e("Add new layer", "lmm"); 
-  } else if ( ($oid != NULL) && ($page == 'leafletmapsmarker_layer') ) { 
-		_e("Edit layer", "lmm"); 
+  <a class="<?php echo $buttonclass4; ?>" href="<?php echo LEAFLET_WP_ADMIN_URL ?>admin.php?page=leafletmapsmarker_layer"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/icon-menu-add.png">
+  <?php
+  if ( ($oid == NULL) && ($page == 'leafletmapsmarker_layer') ) {
+  		_e("Add new layer", "lmm");
+  } else if ( ($oid != NULL) && ($page == 'leafletmapsmarker_layer') ) {
+		_e("Edit layer", "lmm");
   } else {
-  		_e("Add new layer", "lmm"); 
+  		_e("Add new layer", "lmm");
   }?>
   </a>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
   <?php echo $admin_quicklink_tools_buttons ?>
@@ -186,9 +186,9 @@ if (isset($plugin_updates->response['leaflet-maps-marker-pro/leaflet-maps-marker
 
 <?php
 //info: display update info with current release notes
-$update_info_action = isset($_POST['update_info_action']) ? $_POST['update_info_action'] : ''; 
+$update_info_action = isset($_POST['update_info_action']) ? $_POST['update_info_action'] : '';
 //info: dont display on new installs
-$new_install = (isset($_GET['display']) ? 'true' : 'false'); 
+$new_install = (isset($_GET['display']) ? 'true' : 'false');
 if ( ($update_info_action == 'hide') && ($new_install == 'false') ) {
 	update_option('leafletmapsmarker_update_info', 'hide');
 }

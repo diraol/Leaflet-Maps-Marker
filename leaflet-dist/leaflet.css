@@ -1,7 +1,7 @@
 /* additional/changed styles - added by RH */
 .lmm-listmarkers-panel-icons {
 	float:right;
-	margin-right:5px !important;	
+	margin-right:5px !important;
 	position:relative;
 	z-index:5;
 	width:135px;
@@ -9,7 +9,7 @@
 	line-height:10px;
 }
 .lmm-listmarkers-panel-icons a {
-	border:none;	
+	border:none;
 }
 .lmm-listmarkers img {
 	max-width:440px !important;
@@ -72,14 +72,14 @@
 	border-radius:0 !important;
 	box-shadow:none !important;
 }
-.lmm-geo-tags { display:none!important; } 
+.lmm-geo-tags { display:none!important; }
 .leaflet-container {
   max-width: none;
   max-height: none;
   border: 1px solid #ccc;
 }
 .leaflet-popup-content {
-	word-wrap: break-word; 
+	word-wrap: break-word;
 }
 .leaflet-popup-content a:hover {
 	text-decoration:underline;
@@ -94,7 +94,7 @@
 }
 .leaflet-control-layers-overlays, .leaflet-control-layers-base {
 	margin:0 !important;
-}		
+}
 /* original leaflet.css styles (check on updates!) */
 .leaflet-map-pane,
 .leaflet-tile,
@@ -107,13 +107,13 @@
 .leaflet-popup-pane,
 .leaflet-overlay-pane svg,
 .leaflet-zoom-box,
-.leaflet-image-layer, 
+.leaflet-image-layer,
 .leaflet-layer { /* TODO optimize classes */
 	position: absolute;
 	left: 0;
 	top: 0;
 	}
-	
+
 .leaflet-container {
 	overflow: hidden;
 	-ms-touch-action: none;
@@ -131,7 +131,7 @@
 	}
 .leaflet-container img {
 	/* map is broken in FF if you have max-width: 100% on tiles */
-	max-width: none !important; 
+	max-width: none !important;
 	border:none !important; /*added RH*/
 	background:no-repeat !important; /*added RH*/
 	padding:0px !important; /*added RH*/
@@ -153,13 +153,13 @@
 .leaflet-zoom-box {
 	width: 0;
 	height: 0;
-	}	
-.leaflet-tile-pane    { z-index: 2; }	
+	}
+.leaflet-tile-pane    { z-index: 2; }
 .leaflet-objects-pane { z-index: 3; }
 .leaflet-overlay-pane { z-index: 4; }
 .leaflet-shadow-pane { z-index: 5; }
 .leaflet-marker-pane { z-index: 19; } /*changed RH*/
-.leaflet-popup-pane { z-index: 20; } /*changed RH*/	
+.leaflet-popup-pane { z-index: 20; } /*changed RH*/
 /* control positioning */
 .leaflet-control {
 	position: relative;
@@ -534,6 +534,52 @@
 	max-width:250px !important;
 	height:auto;
 	margin: 0px !important;
-	padding: 0px !important;	
+	padding: 0px !important;
 	box-shadow:none !important;
+}
+/* MarkerCluster.css */
+.leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
+	-webkit-transition: -webkit-transform 0.25s ease-out, opacity 0.25s ease-in;
+	-moz-transition: -moz-transform 0.25s ease-out, opacity 0.25s ease-in;
+	-o-transition: -o-transform 0.25s ease-out, opacity 0.25s ease-in;
+	transition: transform 0.25s ease-out, opacity 0.25s ease-in;
+}
+/* MarkerCluster.Default.css */
+.marker-cluster-small {
+	background-color: rgba(181, 226, 140, 0.6);
+	}
+.marker-cluster-small div {
+	background-color: rgba(110, 204, 57, 0.6);
+	}
+
+.marker-cluster-medium {
+	background-color: rgba(241, 211, 87, 0.6);
+	}
+.marker-cluster-medium div {
+	background-color: rgba(240, 194, 12, 0.6);
+	}
+
+.marker-cluster-large {
+	background-color: rgba(253, 156, 115, 0.6);
+	}
+.marker-cluster-large div {
+	background-color: rgba(241, 128, 23, 0.6);
+	}
+
+.marker-cluster {
+	background-clip: padding-box;
+	border-radius: 20px;
+	}
+.marker-cluster div {
+	width: 30px;
+	height: 30px;
+	margin-left: 5px;
+	margin-top: 5px;
+
+	text-align: center;
+	border-radius: 15px;
+	font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+	}
+.marker-cluster span {
+	line-height: 30px;
 }

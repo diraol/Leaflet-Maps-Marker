@@ -38,10 +38,10 @@ $table_name_markers = $wpdb->prefix.'leafletmapsmarker_markers';
 $table_name_layers = $wpdb->prefix.'leafletmapsmarker_layers';
 $ar_wikitude_provider_name_sanitized = strtolower(preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), $lmm_options[ 'ar_wikitude_provider_name' ]));
 if (isset($_GET['layer'])) {
-  $layer = mysql_real_escape_string($_GET['layer']); 
-  
+  $layer = mysql_real_escape_string($_GET['layer']);
+
   $maxNumberOfPois = isset($_GET['maxNumberOfPois']) ? intval($_GET['maxNumberOfPois']) : $lmm_options[ 'ar_wikitude_maxnumberpois' ];
-  
+
   if ($layer == '*' or $layer == 'all') {
 	//info: no exact results, but better than getting no results on calling Wikitude ARML links which might confuse users
 	$first_marker_lat = $wpdb->get_var('SELECT lat FROM '.$table_name_markers.' WHERE id = 1');
@@ -54,9 +54,9 @@ if (isset($_GET['layer'])) {
 	  foreach ($mlm_layers as $mlm_clayer) {
 		if (intval($mlm_clayer) > 0)
 		  $mlm_checkedlayers[] = intval($mlm_clayer);
-	  }	  
+	  }
 	if (count($mlm_checkedlayers) > 0)
-		$mlm_q = 'WHERE id IN ('.implode(',', $mlm_checkedlayers).')';			  
+		$mlm_q = 'WHERE id IN ('.implode(',', $mlm_checkedlayers).')';
 	$layerviewlat = $wpdb->get_var('SELECT layerviewlat FROM '.$table_name_layers.' '.$mlm_q);
 	$layerviewlon = $wpdb->get_var('SELECT layerviewlon FROM '.$table_name_layers.' '.$mlm_q);
  	$latUser = isset($_GET['latitude']) ? floatval($_GET['latitude']) : $layerviewlat;
@@ -67,8 +67,8 @@ if (isset($_GET['layer'])) {
   $boundingBoxLatitude1 = $latUser - $distanceLLA;
   $boundingBoxLatitude2 = $latUser + $distanceLLA;
   $boundingBoxLongitude1 = $lonUser - $distanceLLA;
-  $boundingBoxLongitude2 = $lonUser + $distanceLLA;  
-  
+  $boundingBoxLongitude2 = $lonUser + $distanceLLA;
+
   isset($_GET['searchterm']) ? $searchterm = mysql_real_escape_string($_GET['searchterm']) : $searchterm = NULL;
   if ($searchterm != NULL)
   {
@@ -97,7 +97,7 @@ if (isset($_GET['layer'])) {
 			} else if ( ($mlm_check == 1) && (in_array('all',$mlm_check_list) ) ) {
 				$clayer = 0;
 				$q = ''; //info: removed limit 5000
-			} 
+			}
 		}
 		$sql = 'SELECT m.id as mid, m.layer as mlayer, m.markername as mmarkername, m.icon as micon, m.lat as mlat, m.lon as mlon, m.popuptext as mpopuptext, m.address as maddress FROM '.$table_name_markers.' AS m INNER JOIN '.$table_name_layers.' AS l ON m.layer=l.id '.$q;
 		$markers = $wpdb->get_results($sql, ARRAY_A);
@@ -108,8 +108,8 @@ if (isset($_GET['layer'])) {
 		echo '<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:ar="http://www.openarml.org/arml/1.0" xmlns:wikitude="http://www.openarml.org/wikitude/1.0">'.PHP_EOL;
 		echo '<Document>'.PHP_EOL;
 		echo '<ar:provider id="' . $ar_wikitude_provider_name_sanitized . '">'.PHP_EOL;
-		if (($layer == '*' or $layer == 'all')  or (intval($clayer) > 0) ) { 
-			$layername = get_bloginfo('name'); 
+		if (($layer == '*' or $layer == 'all')  or (intval($clayer) > 0) ) {
+			$layername = get_bloginfo('name');
 		} else {
 			$layername = $wpdb->get_var('SELECT l.name FROM '.$table_name_layers.' as l WHERE l.id='.$layer);
 		}
@@ -125,15 +125,15 @@ if (isset($_GET['layer'])) {
 		echo '<wikitude:icon><![CDATA[' . $lmm_options[ 'ar_wikitude_icon' ] . ']]></wikitude:icon>'.PHP_EOL;
 		echo '<wikitude:hiResIcon><![CDATA[' . $lmm_options[ 'ar_wikitude_hiresicon' ] . ']]></wikitude:hiResIcon>'.PHP_EOL;
 		echo '</ar:provider>'.PHP_EOL;
-		
+
 		foreach ($markers as $marker) {
-			//info: get icon urls for each marker	
+			//info: get icon urls for each marker
 			if ($marker['micon'] == null) {
-				$micon_url = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';  
+				$micon_url = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';
 			} else {
-				$micon_url = $defaults_marker_icon_url . '/' . $marker['micon']; 
+				$micon_url = $defaults_marker_icon_url . '/' . $marker['micon'];
 			}
-		
+
 		echo '<Placemark id=\'' . $marker['mid'] . '\'>'.PHP_EOL;
 		echo '<ar:provider><![CDATA[' . $ar_wikitude_provider_name_sanitized . ']]></ar:provider>'.PHP_EOL;
 		echo '<name><![CDATA[' . stripslashes($marker['mmarkername']) . ']]></name>'.PHP_EOL;
@@ -181,7 +181,7 @@ if (isset($_GET['layer'])) {
 			} else if ( ($mlm_check == 1) && (in_array('all',$mlm_check_list) ) ) {
 				$clayer = 0;
 				$q = ''; //info: removed limit 5000
-			} 
+			}
 		}
 		$sql = 'SELECT m.id as mid, m.layer as mlayer, m.markername as mmarkername, m.icon as micon, m.lat as mlat, m.lon as mlon, m.popuptext as mpopuptext, m.address as maddress FROM '.$table_name_markers.' AS m INNER JOIN '.$table_name_layers.' AS l ON m.layer=l.id '.$q;
 		$markers = $wpdb->get_results($sql, ARRAY_A);
@@ -192,8 +192,8 @@ if (isset($_GET['layer'])) {
 		echo '<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:ar="http://www.openarml.org/arml/1.0" xmlns:wikitude="http://www.openarml.org/wikitude/1.0">'.PHP_EOL;
 		echo '<Document>'.PHP_EOL;
 		echo '<ar:provider id="' . $ar_wikitude_provider_name_sanitized . '">'.PHP_EOL;
-		if (($layer == '*' or $layer == 'all')  or (intval($clayer) > 0) ) { 
-			$layername = get_bloginfo('name'); 
+		if (($layer == '*' or $layer == 'all')  or (intval($clayer) > 0) ) {
+			$layername = get_bloginfo('name');
 		} else {
 			$layername = $wpdb->get_var('SELECT l.name FROM '.$table_name_layers.' as l WHERE l.id='.$layer);
 		}
@@ -209,15 +209,15 @@ if (isset($_GET['layer'])) {
 		echo '<wikitude:icon><![CDATA[' . $lmm_options[ 'ar_wikitude_icon' ] . ']]></wikitude:icon>'.PHP_EOL;
 		echo '<wikitude:hiResIcon><![CDATA[' . $lmm_options[ 'ar_wikitude_hiresicon' ] . ']]></wikitude:hiResIcon>'.PHP_EOL;
 		echo '</ar:provider>'.PHP_EOL;
-		
+
 		foreach ($markers as $marker) {
-			//info: get icon urls for each marker	
+			//info: get icon urls for each marker
 			if ($marker['micon'] == null) {
-				$micon_url = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';  
+				$micon_url = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';
 			} else {
-				$micon_url = $defaults_marker_icon_url . '/' . $marker['micon']; 
+				$micon_url = $defaults_marker_icon_url . '/' . $marker['micon'];
 			}
-			
+
 		echo '<Placemark id=\'' . $marker['mid'] . '\'>'.PHP_EOL;
 		echo '<ar:provider><![CDATA[' . $ar_wikitude_provider_name_sanitized . ']]></ar:provider>'.PHP_EOL;
 		echo '<name><![CDATA[' . stripslashes($marker['mmarkername']) . ']]></name>'.PHP_EOL;
@@ -246,16 +246,16 @@ elseif (isset($_GET['marker'])) {
   $maxNumberOfPois = isset($_GET['maxNumberOfPois']) ? intval($_GET['maxNumberOfPois']) : $lmm_options[ 'ar_wikitude_maxnumberpois' ];
   $markerlat = $wpdb->get_var('SELECT lat FROM '.$table_name_markers.' WHERE id IN ('.$markerid.')');
   $markerlon = $wpdb->get_var('SELECT lon FROM '.$table_name_markers.' WHERE id IN ('.$markerid.')');
- 
+
   $latUser = isset($_GET['latitude']) ? floatval($_GET['latitude']) : $markerlat;
   $lonUser = isset($_GET['longitude']) ? floatval($_GET['longitude']) : $markerlon;
- 
+
   $radius = $lmm_options[ 'ar_wikitude_radius' ];
   $distanceLLA = 0.01 * $radius / 1112;
   $boundingBoxLatitude1 = $latUser - $distanceLLA;
   $boundingBoxLatitude2 = $latUser + $distanceLLA;
   $boundingBoxLongitude1 = $lonUser - $distanceLLA;
-  $boundingBoxLongitude2 = $lonUser + $distanceLLA;  
+  $boundingBoxLongitude2 = $lonUser + $distanceLLA;
   isset($_GET['searchterm']) ? $searchterm = mysql_real_escape_string($_GET['searchterm']) : $searchterm = NULL;
   if ($searchterm != NULL)
   {
@@ -293,32 +293,32 @@ elseif (isset($_GET['marker'])) {
 		  echo '<wikitude:icon><![CDATA[' . $lmm_options[ 'ar_wikitude_icon' ] . ']]></wikitude:icon>'.PHP_EOL;
 		  echo '<wikitude:hiResIcon><![CDATA[' . $lmm_options[ 'ar_wikitude_hiresicon' ] . ']]></wikitude:hiResIcon>'.PHP_EOL;
 		  echo '</ar:provider>'.PHP_EOL;
-		
+
 		  foreach ($markers as $marker) {
-				//info: get icon urls for each marker	
+				//info: get icon urls for each marker
 				if ($marker['micon'] == null) {
-					$micon_url = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';  
+					$micon_url = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';
 				} else {
-					$micon_url = $defaults_marker_icon_url . '/' . $marker['micon']; 
+					$micon_url = $defaults_marker_icon_url . '/' . $marker['micon'];
 				}
-			
+
 			  echo '<Placemark id=\'' . $marker['mid'] . '\'>'.PHP_EOL;
 			  echo '<ar:provider><![CDATA[' . $ar_wikitude_provider_name_sanitized . ']]></ar:provider>'.PHP_EOL;
 			  echo '<name><![CDATA[' . stripslashes($marker['mmarkername']) . ']]></name>'.PHP_EOL;
 			  echo '<description><![CDATA[' . stripslashes(preg_replace('/(\015\012)|(\015)|(\012)/','<br/>',$marker['mpopuptext'])) . ']]></description>'.PHP_EOL;
 			  echo '<wikitude:info>'.PHP_EOL;
-		
+
 			  foreach ($markers as $marker) {
-					//info: get icon urls for each marker	
+					//info: get icon urls for each marker
 					if ($marker['micon'] == null) {
-						$micon_url = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';  
+						$micon_url = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';
 					} else {
-						$micon_url = $defaults_marker_icon_url . '/' . $marker['micon']; 
+						$micon_url = $defaults_marker_icon_url . '/' . $marker['micon'];
 					}
 			  echo '<wikitude:markerIconUrl><![CDATA[' . $micon_url . ']]></wikitude:markerIconUrl>'.PHP_EOL;
 			  echo '<wikitude:thumbnail><![CDATA[' . $micon_url . ']]></wikitude:thumbnail>'.PHP_EOL;
 			  }
-		
+
 			  echo '<wikitude:phone><![CDATA[' . $lmm_options[ 'ar_wikitude_phone' ] . ']]></wikitude:phone>'.PHP_EOL;
 			  //echo '<wikitude:url><![CDATA[]]></wikitude:url>'.PHP_EOL;
 			  echo '<wikitude:email><![CDATA[' . $lmm_options[ 'ar_wikitude_email' ] . ']]></wikitude:email>'.PHP_EOL;
@@ -332,9 +332,9 @@ elseif (isset($_GET['marker'])) {
 		  }
 		  echo '</Document>';
 		  echo '</kml>';
-		  
+
   //info: if no searchterm
-  }  else  {		  
+  }  else  {
 		  $checkedmarkers = array();
 		  foreach ($markers as $cmarker) {
 			if (intval($cmarker) > 0)
@@ -368,32 +368,32 @@ elseif (isset($_GET['marker'])) {
 		  echo '<wikitude:icon><![CDATA[' . $lmm_options[ 'ar_wikitude_icon' ] . ']]></wikitude:icon>'.PHP_EOL;
 		  echo '<wikitude:hiResIcon><![CDATA[' . $lmm_options[ 'ar_wikitude_hiresicon' ] . ']]></wikitude:hiResIcon>'.PHP_EOL;
 		  echo '</ar:provider>'.PHP_EOL;
-		
+
 		  foreach ($markers as $marker) {
-				//info: get icon urls for each marker	
+				//info: get icon urls for each marker
 				if ($marker['micon'] == null) {
-					$micon_url = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';  
+					$micon_url = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';
 				} else {
-					$micon_url = $defaults_marker_icon_url . '/' . $marker['micon']; 
+					$micon_url = $defaults_marker_icon_url . '/' . $marker['micon'];
 				}
-			
+
 			  echo '<Placemark id=\'' . $marker['mid'] . '\'>'.PHP_EOL;
 			  echo '<ar:provider><![CDATA[' . $ar_wikitude_provider_name_sanitized . ']]></ar:provider>'.PHP_EOL;
 			  echo '<name><![CDATA[' . stripslashes($marker['mmarkername']) . ']]></name>'.PHP_EOL;
 			  echo '<description><![CDATA[' . stripslashes(preg_replace('/(\015\012)|(\015)|(\012)/','<br/>',$marker['mpopuptext'])) . ']]></description>'.PHP_EOL;
 			  echo '<wikitude:info>'.PHP_EOL;
-		
+
 			  foreach ($markers as $marker) {
-					//info: get icon urls for each marker	
+					//info: get icon urls for each marker
 					if ($marker['micon'] == null) {
-						$micon_url = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';  
+						$micon_url = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';
 					} else {
-						$micon_url = $defaults_marker_icon_url . '/' . $marker['micon']; 
+						$micon_url = $defaults_marker_icon_url . '/' . $marker['micon'];
 					}
 			  echo '<wikitude:markerIconUrl><![CDATA[' . $micon_url . ']]></wikitude:markerIconUrl>'.PHP_EOL;
 			  echo '<wikitude:thumbnail><![CDATA[' . $micon_url . ']]></wikitude:thumbnail>'.PHP_EOL;
 			  }
-		
+
 			  echo '<wikitude:phone><![CDATA[' . $lmm_options[ 'ar_wikitude_phone' ] . ']]></wikitude:phone>'.PHP_EOL;
 			  //echo '<wikitude:url><![CDATA[]]></wikitude:url>'.PHP_EOL;
 			  echo '<wikitude:email><![CDATA[' . $lmm_options[ 'ar_wikitude_email' ] . ']]></wikitude:email>'.PHP_EOL;

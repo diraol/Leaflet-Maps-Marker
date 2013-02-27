@@ -30,8 +30,8 @@ class Class_leaflet_recent_marker_widget extends WP_Widget {
 			'lmm-widget-attributionlink' => 'on',
 			'lmm-widget-textbeforelist' => '',
 			'lmm-widget-textafterlist' => '',
-			'lmm-widget-exclude-markers' => '',			
-			'lmm-widget-exclude-layers' => ''			
+			'lmm-widget-exclude-markers' => '',
+			'lmm-widget-exclude-layers' => ''
 		));
 		echo '<p><label for="lmm-widget-title">' . __('Title', 'lmm') . ':</label>';
 		echo '<input type="text" value="' . $instance['lmm-widget-title'] . '" name="' . $this->get_field_name('lmm-widget-title') . '" id="' . $this->get_field_id('lmm-widget-title') . '" class="widefat" /></p>';
@@ -107,7 +107,7 @@ class Class_leaflet_recent_marker_widget extends WP_Widget {
 		$instance['lmm-widget-textbeforelist'] = (string) strip_tags($new_instance['lmm-widget-textbeforelist']);
 		$instance['lmm-widget-howmany'] = (int) strip_tags($new_instance['lmm-widget-howmany']);
 		$instance['lmm-widget-showicons'] = (string) strip_tags($new_instance['lmm-widget-showicons']);
-		$instance['lmm-widget-showpopuptext'] = (string) strip_tags($new_instance['lmm-widget-showpopuptext']);		
+		$instance['lmm-widget-showpopuptext'] = (string) strip_tags($new_instance['lmm-widget-showpopuptext']);
 		$instance['lmm-widget-linktarget'] = (string) strip_tags($new_instance['lmm-widget-linktarget']);
 		$instance['lmm-widget-iconsize'] = (int) strip_tags($new_instance['lmm-widget-iconsize']);
 		$instance['lmm-widget-createdon'] = (string) strip_tags($new_instance['lmm-widget-createdon']);
@@ -125,7 +125,7 @@ class Class_leaflet_recent_marker_widget extends WP_Widget {
 	}//info: END function update($new_instance, $old_instance)
 	public function widget($args, $instance) {
 		extract($args);
-		echo $before_widget;     
+		echo $before_widget;
 		global $wpdb;
 		$table_name_markers = $wpdb->prefix.'leafletmapsmarker_markers';
 		if ($instance['lmm-widget-howmany']){
@@ -145,15 +145,15 @@ class Class_leaflet_recent_marker_widget extends WP_Widget {
 			$where_statement = '';
 		} else if ( ($exclude_markers == NULL) && ($exclude_layer != NULL) ) {
 			$where_statement = 'WHERE layer NOT IN (' . $exclude_layers . ')';
-		}	
+		}
 		$result = $wpdb->get_results("SELECT ID,markername,layer,icon,popuptext,createdon FROM $table_name_markers $where_statement ORDER BY $orderby $orderbysortorder LIMIT $limiter", ARRAY_A);
 		$title = (empty($instance['lmm-widget-title'])) ? '' : $instance['lmm-widget-title'];
-		if (!empty($title)) { 
-			echo $before_title . $title . $after_title; 
+		if (!empty($title)) {
+			echo $before_title . $title . $after_title;
 		}
 		if (!empty($instance['lmm-widget-textbeforelist'])) {
 			echo '<p style="margin-bottom:5px;">' . $instance['lmm-widget-textbeforelist'] . '</p>';
-		} 
+		}
 		if ($result != NULL) {
 			echo '<table style="border:none;">';
 			$lmm_options = get_option( 'leafletmapsmarker_options' );
@@ -192,13 +192,13 @@ class Class_leaflet_recent_marker_widget extends WP_Widget {
 					echo '<tr><td colspan="2"><hr style="border:0;background-color:#' . htmlspecialchars(stripslashes($instance['lmm-widget-separatorline'])) . ';height:1px;padding:0;margin:0.5em 0 1em 0;"></td></tr>';
 				}
 			}
-			echo '</table>';	
+			echo '</table>';
 		} else {
 			echo '<p style="margin-bottom:5px;">' . __('No marker created yet','lmm') . '</p>';
 		}
 		if (!empty($instance['lmm-widget-textafterlist'])) {
 			echo '<p style="margin:0;">' . $instance['lmm-widget-textafterlist'] . '</p>';
-		} 
+		}
 		if (!empty($instance['lmm-widget-georss'])) {
 			echo '<p style="margin:0;"><a target="_blank" href="' . LEAFLET_PLUGIN_URL . 'leaflet-georss.php?layer=all" title="' . esc_attr__('via GeoRSS - please use RSS Reader like http://google.com/reader for example','lmm') . '"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-georss.png" alt="GeoRSS-Logo" /></a> <a target="_blank" href="' . LEAFLET_PLUGIN_URL . 'leaflet-georss.php?layer=all" title="' . esc_attr__('via GeoRSS - please use RSS Reader like http://google.com/reader for example','lmm') . '">' . __('Subscribe to markers','lmm') . '</a></p>';
 		}

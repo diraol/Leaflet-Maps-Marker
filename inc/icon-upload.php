@@ -1,11 +1,11 @@
-<?php 
+<?php
 header('Content-Type: text/html; charset=UTF-8');
 //info: construct path to wp-load.php and get $wp_path
 while(!is_file('wp-load.php')){
   if(is_dir('../')) chdir('../');
   else die('Error: Could not construct path to wp-load.php - please check <a href="http://mapsmarker.com/path-error">http://mapsmarker.com/path-error</a> for more details');
-}             
-include( 'wp-load.php' );   
+}
+include( 'wp-load.php' );
 //info: security check
 $wpnonceicon = isset($_GET['_wpnonceicon']) ? $_GET['_wpnonceicon'] : '';
 if (! wp_verify_nonce($wpnonceicon, 'icon-upload-nonce') ) { die(__('Security check failed - please call this function from the according Leaflet Maps Marker admin page!','lmm').''); };
@@ -98,7 +98,7 @@ if ( $lmm_options['defaults_marker_custom_icon_url_dir'] == 'no' ) {
 if ( isset($_FILES['uploadFile']['name']) && ($_FILES['uploadFile']['name'] == TRUE) ){
 	if ( ($_FILES['uploadFile']['type'] == 'image/png') || ($_FILES['uploadFile']['type'] == 'image/gif') ) {
 		WP_Filesystem();
-		global $wp_filesystem; 
+		global $wp_filesystem;
 		$wp_filesystem->put_contents(
 		$defaults_marker_icon_dir . DIRECTORY_SEPARATOR . basename($_FILES['uploadFile']['name']),
 		file_get_contents($_FILES['uploadFile']['tmp_name']),
@@ -106,8 +106,8 @@ if ( isset($_FILES['uploadFile']['name']) && ($_FILES['uploadFile']['name'] == T
 		echo '<span style="font-size:14px;color:green;font-weight:bold;">' . sprintf(__('Upload successful - <a href="%1$s" target="_top">please reload page</a>','lmm'), LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_marker') . '</span>';
 	} else {
 		echo '<span style="font-size:14px;color:red;font-weight:bold;">' . __('Upload failed - unsupported file type!','lmm') . '</span>';
-	} 
-}  
-?>     
+	}
+}
+?>
 </body>
 </html>

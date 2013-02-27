@@ -6,7 +6,7 @@ Tags:              map, maps, Leaflet, OpenStreetMap, geoJSON, json, jsonp, OSM,
 Author URI:        http://www.harm.co.at
 Author:            Robert Harm
 Donate link:       http://www.mapsmarker.com/donations
-Requires at least: 3.0 
+Requires at least: 3.0
 Tested up to:      3.6-alpha-23451
 Stable tag:        0.1
 
@@ -19,14 +19,14 @@ Maps Marker allows you to pin, organize and share your favorite spots through yo
 We are working hard on delivering the best mapping solution available for WordPress - helping you to share your favorite spots
 
 = Mission Statement =
-[Maps Marker](http://www.mapsmarker.com) helps you to share your favorite spots easily. The plugin is based on the famous [leaflet.js library](http://www.leaflet.js) from [CloudMade](http://www.cloudmade.com) which also powers maps on sites like [Flickr](http://www.flickr.com/map), [Foursquare](http://readwrite.com/2012/02/29/foursquare_dumps_google_goes_open-source_for_maps), [Craigslist](http://www.theverge.com/2012/10/4/3452526/craigslist-map-view-apartment-listings-roll-out), [Wikipedia](http://en.wikipedia.org/wiki/Wikipedia_App) and [Washington Post](http://www.washingtonpost.com/wp-srv/special/politics/election-map-2012/senate/). We use this library as the basis for our plugin and have integrated several other libraries for enhancing its functionality. Our main goal is to provide you with an intuitive and user-friendly interface for organizing your spots within your WordPress powered site. Furthermore we are constantly working on improving our plugin by adding new and innovative ways for managing and showing your spots. Our roadmap for new releases gets aligned to our users' needs - so giving support and talking to our users is essential. 
+[Maps Marker](http://www.mapsmarker.com) helps you to share your favorite spots easily. The plugin is based on the famous [leaflet.js library](http://www.leaflet.js) from [CloudMade](http://www.cloudmade.com) which also powers maps on sites like [Flickr](http://www.flickr.com/map), [Foursquare](http://readwrite.com/2012/02/29/foursquare_dumps_google_goes_open-source_for_maps), [Craigslist](http://www.theverge.com/2012/10/4/3452526/craigslist-map-view-apartment-listings-roll-out), [Wikipedia](http://en.wikipedia.org/wiki/Wikipedia_App) and [Washington Post](http://www.washingtonpost.com/wp-srv/special/politics/election-map-2012/senate/). We use this library as the basis for our plugin and have integrated several other libraries for enhancing its functionality. Our main goal is to provide you with an intuitive and user-friendly interface for organizing your spots within your WordPress powered site. Furthermore we are constantly working on improving our plugin by adding new and innovative ways for managing and showing your spots. Our roadmap for new releases gets aligned to our users' needs - so giving support and talking to our users is essential.
 
 = Plugin's Official Site =
 http://mapsmarker.com
 
 * [Demo](http://www.mapsmarker.com/demo/) - [FAQ](http://www.mapsmarker.com/faq/) - [Docs](http://www.mapsmarker.com/docs/) - [Support](http://mapsmarker.com/support/) - [Github](https://github.com/robertharm/Leaflet-Maps-Marker) - [Donations](http://mapsmarker.com/donations) - [Twitter](http://twitter.com/mapsmarker) - [Facebook](http://facebook.com/mapsmarker) - [Translations](http://translate.mapsmarker.com/projects/lmm)
 
-= Main features = 
+= Main features =
 Leaflet Maps Marker allows you to
 
 * pin your favorites places with markers,
@@ -35,7 +35,7 @@ Leaflet Maps Marker allows you to
 * add popup description text or images for each marker,
 * choose individual basemap, size and zoom level for each marker/layer map,
 * organize your markers in layers and
-* show them thanks to the [Leaflet library from Cloudmade](http://www.leafletjs.com) 
+* show them thanks to the [Leaflet library from Cloudmade](http://www.leafletjs.com)
 * by adding a shortcode (e.g. mapsmarker marker="1")] to posts, pages, widgets or template
 
 on basemaps from
@@ -60,7 +60,7 @@ to the visitors of your website.
 * export your markers as GeoRSS for embedding in external websites or apps
 * export your markers as ARML for displaying in the augmented-reality browser from Wikitude
 * export your markers as csv-file
-* option to switch between simplified and advanced editor 
+* option to switch between simplified and advanced editor
 * option to add widgets showing recent marker entries
 * configure up to 3 basemaps from Cloudmade with custom styles
 * option to add an unobtrusive scale control to maps
@@ -153,7 +153,7 @@ It is hard to continue development and support for this plugin without contribut
 
 1. Login on your WordPress site with your user account (needs to have admin rights!)
 2. Select "Add New" from the "Plugins" menu
-3. Search for **maps** or **Leaflet Maps Marker** 
+3. Search for **maps** or **Leaflet Maps Marker**
 4. Click on "Install now" below the entry "Leaflet Maps Marker (Google Maps, OpenStreetMap, Bing Maps)"
 5. Click on "OK" on the popup "Are you sure you want to install this plugin?"
 6. Click "Activate Plugin"
@@ -226,7 +226,7 @@ For demo maps please visit [http://www.mapsmarker.com/demo](http://www.mapsmarke
 
 = Licenses for used libraries, services and images =
 * Leaflet - Copyright (c) 2010-2012, CloudMade, Vladimir Agafonkin [http://www.leafletjs.com](http://www.leafletjs.com)
-* OpenStreetMap - The Free Wiki World Map: [OpenStreetMap License](http://wiki.openstreetmap.org/wiki/OpenStreetMap_License) 
+* OpenStreetMap - The Free Wiki World Map: [OpenStreetMap License](http://wiki.openstreetmap.org/wiki/OpenStreetMap_License)
 * Map Icons Collection by Nicolas Mollet - [http://mapicons.nicolasmollet.com](http://mapicons.nicolasmollet.com)
 * Datasource OGD Vienna maps: Stadt Wien, Creative Commons Attribution (by) [http://data.wien.gv.at](http://data.wien.gv.at)
 * Jquery TimePicker, by Trent Richardson, [http://trentrichardson.com/examples/timepicker/](http://trentrichardson.com/examples/timepicker/), licence: GPL

@@ -27,7 +27,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 	echo 'The WordPress plugin <a href="http://www.mapsmarker.com" target="_blank">Leaflet Maps Marker</a> is inactive on this site and therefore this API link is not working.<br/><br/>Please contact the site owner (' . hide_email(get_bloginfo('admin_email')) . ') who can activate this plugin again.';
 } else {
    global $wpdb;
-   $noncelink = isset($_GET['_wpnonce']) ? $_GET['_wpnonce'] : ''; 
+   $noncelink = isset($_GET['_wpnonce']) ? $_GET['_wpnonce'] : '';
    if (! wp_verify_nonce($noncelink, 'exportcsv-nonce') ) die("".__('Security check failed - please call this function from the according Leaflet Maps Marker admin page!','lmm')."");
    $lmm_options = get_option( 'leafletmapsmarker_options' );
    //info: set custom marker icon dir/url
@@ -36,7 +36,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 	} else {
 		$defaults_marker_icon_url = htmlspecialchars($lmm_options['defaults_marker_icon_url']);
 	}
-   if (current_user_can($lmm_options[ 'capabilities_edit' ])) { 
+   if (current_user_can($lmm_options[ 'capabilities_edit' ])) {
    $rows = array();
         $table_name_markers = $wpdb->prefix.'leafletmapsmarker_markers';
 	$table_name_layers = $wpdb->prefix.'leafletmapsmarker_layers';
@@ -51,11 +51,11 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 		$columns['lat'] = str_replace('.', ',', $row->lat);
 		$columns['lon'] = str_replace('.', ',', $row->lon);
 	    if ($row->icon == null) {
-	        $columns['icon'] = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';  
+	        $columns['icon'] = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker.png';
 	    } else {
-	        $columns['icon'] = $defaults_marker_icon_url . '/' . $row->icon; 
+	        $columns['icon'] = $defaults_marker_icon_url . '/' . $row->icon;
     	}
-		
+
 		$columns['zoom'] = $row->zoom;
 		$columns['mapwidth'] = $row->mapwidth;
 		$columns['mapwidthunit'] = $row->mapwidthunit;
@@ -85,14 +85,14 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 		$columns['m.wms10'] = $row->mwms10;
 		$columns['m.kml_timestamp'] = $row->mkml_timestamp;
 		$columns['m.address'] = $row->maddress;
-		$rows[] = join(';',$columns); 
+		$rows[] = join(';',$columns);
 	}
         $header = "Markerid;Markername;Layername;PopupText;OpenPopup;Latitude;Longitude;Icon;Zoom;Mapwidth;MapwidthUnit;Mapheight;MapheightUnit;MarkerCreatedBy;MarkerCreatedOn;MarkerUpdatedBy;MarkerUpdatedOn;LayerCreatedBy;LayerCreatedOn;LayerUpdatedBy;LayerUpdatedOn;Overlays_Custom;Overlays_Custom2;Overlays_Custom3;Overlays_Custom4;WMS;WMS2;WMS3;WMS4;WMS5;WMS6;WMS7;WMS8;WMS9;WMS10;KML_Timestamp;Address";
-	$file = $header."\n".join("\n",$rows); 
+	$file = $header."\n".join("\n",$rows);
 	header('Content-Type: text/plain; charset=UTF-8');
 	echo $file;
 exit;
-	
+
 } else {
 	_e('Error - CSV export of all markers not allowed.','lmm');
 }
