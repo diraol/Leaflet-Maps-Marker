@@ -563,7 +563,9 @@ class LeafletmapsmarkerPro
 				'googlemaps_base_domain' => $gmaps_base_domain,
 				'bing_culture' => $bing_culture,
 				'google_adsense_status' => $google_adsense_status,
-				'google_styling_json' => $google_styling_json
+				'google_styling_json' => $google_styling_json,
+				'minimap_button_text' => __( 'Minimap', 'lmm' ),
+				'minimap_status' => $lmm_options['minimap_status']
 				) );
 		} else {
 			$google_adsense_format = $lmm_options['google_adsense_format'];
@@ -592,7 +594,9 @@ class LeafletmapsmarkerPro
 				'google_adsense_urlColor' => $google_adsense_urlColor,
 				'google_adsense_channelNumber' => $google_adsense_channelNumber,
 				'google_adsense_publisherId' => $google_adsense_publisherId,
-				'google_styling_json' => $google_styling_json
+				'google_styling_json' => $google_styling_json,
+				'minimap_button_text' => __( 'Minimap', 'lmm' ),
+				'minimap_status' => $lmm_options['minimap_status']		
 			) );
 		}
 	}
@@ -648,7 +652,9 @@ class LeafletmapsmarkerPro
 				'googlemaps_base_domain' => $gmaps_base_domain,
 				'bing_culture' => $bing_culture,
 				'google_adsense_status' => $google_adsense_status,
-				'google_styling_json' => $google_styling_json
+				'google_styling_json' => $google_styling_json,
+				'minimap_button_text' => __( 'Minimap', 'lmm' ),
+				'minimap_status' => $lmm_options['minimap_status']
 				) );
 		} else {
 			$google_adsense_format = $lmm_options['google_adsense_format'];
@@ -677,8 +683,10 @@ class LeafletmapsmarkerPro
 				'google_adsense_urlColor' => $google_adsense_urlColor,
 				'google_adsense_channelNumber' => $google_adsense_channelNumber,
 				'google_adsense_publisherId' => $google_adsense_publisherId,
-				'google_styling_json' => $google_styling_json
-			) );
+				'google_styling_json' => $google_styling_json,
+				'minimap_button_text' => __( 'Minimap', 'lmm' ),
+				'minimap_status' => $lmm_options['minimap_status']
+				) );
 		}
 	}
 	function lmm_image_css_override() {

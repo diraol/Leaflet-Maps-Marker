@@ -49,6 +49,7 @@ class Class_leaflet_options {
 		$this->sections['mapdefaults-section14']	= esc_attr__('Scale control','lmm');
 		$this->sections['mapdefaults-section15']	= esc_attr__('Retina display detection','lmm');
 		$this->sections['mapdefaults-section16']	= esc_attr__('Mobile web app settings','lmm');
+		$this->sections['mapdefaults-section17']	= esc_attr__('Minimap settings','lmm');
 
 		$this->sections['basemaps-section1']		= esc_attr__('Cloudmade 1 settings','lmm');
 		$this->sections['basemaps-section2']		= esc_attr__('Cloudmade 2 settings','lmm');
@@ -2520,7 +2521,7 @@ class Class_leaflet_options {
 			'type'    => 'helptext'
 		);
 		/*
-		* Mobile web app detection
+		* Mobile web app settings
 		*/
 		$this->settings['map_webapp_helptext'] = array(
 			'version' => 'p1.0',
@@ -2644,7 +2645,141 @@ class Class_leaflet_options {
 			'std'     => '',
 			'type'    => 'text'
 		);
-
+		/*
+		* Minimap settings
+		*/
+		$this->settings['minimap_helptext'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section17',
+			'std'     => '',
+			'title'   => '',
+			'desc'    => __( 'Add an expandable minimap to your maps in the top right corner which shows the same as the main map with a set zoom offset', 'lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-minimap.jpg" />',
+			'type'    => 'helptext'
+		);
+		$this->settings['minimap_status'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section17',
+			'title'   => __('Status','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => '',
+			'type'    => 'radio',
+			'std'     => 'collapsed',
+			'choices' => array(
+				'collapsed' => __('collapsed','lmm'),
+				'expanded' => __('expanded','lmm'),
+				'hidden' => __('hidden','lmm')
+			)
+		);
+		$this->settings['minimap_basemap'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section17',
+			'title'   => __('Basemap','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Please select basemap which should be used for minimaps (bing maps currently not supported)','lmm'),
+			'type'    => 'radio',
+			'std'     => 'osm_mapnik_minimap',
+			'choices' => array(
+				'osm_mapnik_minimap' => __('OpenStreetMap (Mapnik, max zoom 18)','lmm'),
+				'mapquest_osm_minimap' => __('MapQuest (OSM, max zoom 18)','lmm'),
+				'mapquest_aerial_minimap' => __('MapQuest (Aerial, max zoom 12 globally, 12+ in the United States)','lmm'),
+				'googleLayer_roadmap_minimap' => __('Google Maps (Roadmap)','lmm'),
+				'googleLayer_satellite_minimap' => __('Google Maps (Satellite)','lmm'),
+				'googleLayer_hybrid_minimap' => __('Google Maps (Hybrid)','lmm'),
+				'googleLayer_terrain_minimap' => __('Google Maps (Terrain)','lmm')
+				)
+		);
+		$this->settings['minimap_position'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section17',
+			'title'   => __('Position','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => '',
+			'type'    => 'radio',
+			'std'     => 'bottomright',
+			'choices' => array(
+				'bottomleft' => __('Bottom left of the map','lmm'),
+				'bottomright' => __('Bottom right of the map','lmm'),
+				'topright' => __('Top right of the map','lmm'),
+				'topleft' => __('Top left of the map','lmm')
+			)
+		);
+		$this->settings['minimap_width'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section17',
+			'title'   => __('Width','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('The width of the minimap in pixels.','lmm'),
+			'std'     => '150',
+			'type'    => 'text'
+		);
+		$this->settings['minimap_height'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section17',
+			'title'   => __('Height','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __(' The height of the minimap in pixels.','lmm'),
+			'std'     => '150',
+			'type'    => 'text'
+		);
+		$this->settings['minimap_zoomLevelOffset'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section17',
+			'title'   => 'zoomLevelOffset<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('The offset applied to the zoom in the minimap compared to the zoom of the main map. Can be positive or negative.','lmm'),
+			'std'     => '-5',
+			'type'    => 'text'
+		);
+		$this->settings['minimap_zoomLevelFixed'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section17',
+			'title'   =>'zoomLevelFixed<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Overrides the offset to apply a fixed zoom level to the minimap regardless of the main map zoom. Set it to any valid zoom level, if unset zoomLevelOffset is used instead.','lmm'),
+			'std'     => '',
+			'type'    => 'text'
+		);
+		$this->settings['minimap_zoomAnimation'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section17',
+			'title'   => 'zoomAnimation<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Sets whether the minimap should have an animated zoom. (Will cause it to lag a bit after the movement of the main map.)','lmm'),
+			'type'    => 'radio',
+			'std'     => 'false',
+			'choices' => array(
+				'false' => __('false','lmm'),
+				'true' => __('true','lmm')
+			)
+		);
+		$this->settings['minimap_toggleDisplay'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section17',
+			'title'   => 'toggleDisplay<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Sets whether the minimap should have a button to minimise it','lmm'),
+			'type'    => 'radio',
+			'std'     => 'true',
+			'choices' => array(
+				'false' => __('false','lmm'),
+				'true' => __('true','lmm')
+			)
+		);
+		$this->settings['minimap_autoToggleDisplay'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section17',
+			'title'   => 'autoToggleDisplay<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Sets whether the minimap should hide automatically if the parent map bounds does not fit within the minimap bounds. Especially useful when zoomLevelFixed is set.','lmm'),
+			'type'    => 'radio',
+			'std'     => 'false',
+			'choices' => array(
+				'false' => __('false','lmm'),
+				'true' => __('true','lmm')
+			)
+		);
+			
 		/*===========================================
 		*
 		*
