@@ -2381,12 +2381,40 @@ class Class_leaflet_options {
 			'pane'    => 'mapdefaults',
 			'section' => 'mapdefaults-section13',
 			'title'   => 'zoomControl',
-			'desc'    => __('Whether the zoom control is added to the map by default.','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-zoomcontrol.jpg" />',
+			'desc'    => __('Whether the zoom control is added to the map by default.','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-zoomcontrol.png" />',
 			'type'    => 'radio',
 			'std'     => 'true',
 			'choices' => array(
 				'true' => __('true','lmm'),
 				'false' => __('false','lmm')
+			)
+		);
+		$this->settings['map_fullscreen_button'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section13',
+			'title'   => __('Fullscreen button','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Whether to add a button for displaying maps in fullscreen via HTML5','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-fullscreen.png" />',
+			'type'    => 'radio',
+			'std'     => 'true',
+			'choices' => array(
+				'true' => __('true','lmm'),
+				'false' => __('false','lmm'),
+			)
+		);
+		$this->settings['map_fullscreen_button_position'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section13',
+			'title'   => __('Fullscreen button position','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('The position of the fullscreen button (one of the map corners).','lmm'),
+			'type'    => 'radio',
+			'std'     => 'topleft',
+			'choices' => array(
+				'bottomleft' => __('Bottom left of the map','lmm'),
+				'bottomright' => __('Bottom right of the map','lmm'),
+				'topright' => __('Top right of the map','lmm'),
+				'topleft' => __('Top left of the map','lmm')
 			)
 		);
 		$this->settings['map_control_options_helptext2'] = array(

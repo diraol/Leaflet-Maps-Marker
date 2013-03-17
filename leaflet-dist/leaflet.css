@@ -198,7 +198,7 @@
 	margin-bottom: 10px;
 	}
 .leaflet-left .leaflet-control {
-	margin-left: 10px;
+	margin-left: 13px;/*RH*/
 	}
 .leaflet-right .leaflet-control {
 	margin-right: 10px;
@@ -614,4 +614,26 @@
     position: absolute;
     bottom: 0;
     right: 0; 
+}
+/* Fullscreen plugin */
+.leaflet-container:-webkit-full-screen {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.leaflet-pseudo-fullscreen {
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: 0px !important;
+    left: 0px !important;
+}
+.leaflet-control-fullscreen a {
+	border-radius: 4px;
+    background-image: url("images/fullscreen.png");
+	background-position: center center;
+	background-repeat: no-repeat;
+	width: 21px;
+	height: 21px;
+	display: block;
 }

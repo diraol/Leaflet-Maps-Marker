@@ -285,6 +285,7 @@ class LeafletmapsmarkerPro
 	}
 	function lmm_set_plugin_locale( $lang ) {
 		$lmm_options = get_option( 'leafletmapsmarker_options' );
+		global $locale;
 		if ($lmm_options['misc_plugin_language_area'] == 'backend') {
 			return is_admin() ? $lmm_options['misc_plugin_language'] : $locale;
 		} else if ($lmm_options['misc_plugin_language_area'] == 'frontend') {
@@ -565,7 +566,9 @@ class LeafletmapsmarkerPro
 				'google_adsense_status' => $google_adsense_status,
 				'google_styling_json' => $google_styling_json,
 				'minimap_button_text' => __( 'Minimap', 'lmm' ),
-				'minimap_status' => $lmm_options['minimap_status']
+				'minimap_status' => $lmm_options['minimap_status'],
+				'fullscreen_button_title' => __('View fullscreen','lmm'),
+				'fullscreen_button_position' => $lmm_options['map_fullscreen_button_position']
 				) );
 		} else {
 			$google_adsense_format = $lmm_options['google_adsense_format'];
@@ -596,7 +599,9 @@ class LeafletmapsmarkerPro
 				'google_adsense_publisherId' => $google_adsense_publisherId,
 				'google_styling_json' => $google_styling_json,
 				'minimap_button_text' => __( 'Minimap', 'lmm' ),
-				'minimap_status' => $lmm_options['minimap_status']		
+				'minimap_status' => $lmm_options['minimap_status'],
+				'fullscreen_button_title' => __('View fullscreen','lmm'),
+				'fullscreen_button_position' => $lmm_options['map_fullscreen_button_position']
 			) );
 		}
 	}
@@ -654,7 +659,9 @@ class LeafletmapsmarkerPro
 				'google_adsense_status' => $google_adsense_status,
 				'google_styling_json' => $google_styling_json,
 				'minimap_button_text' => __( 'Minimap', 'lmm' ),
-				'minimap_status' => $lmm_options['minimap_status']
+				'minimap_status' => $lmm_options['minimap_status'],
+				'fullscreen_button_title' => __('View fullscreen','lmm'),
+				'fullscreen_button_position' => $lmm_options['map_fullscreen_button_position']
 				) );
 		} else {
 			$google_adsense_format = $lmm_options['google_adsense_format'];
@@ -685,7 +692,9 @@ class LeafletmapsmarkerPro
 				'google_adsense_publisherId' => $google_adsense_publisherId,
 				'google_styling_json' => $google_styling_json,
 				'minimap_button_text' => __( 'Minimap', 'lmm' ),
-				'minimap_status' => $lmm_options['minimap_status']
+				'minimap_status' => $lmm_options['minimap_status'],
+				'fullscreen_button_title' => __('View fullscreen','lmm'),
+				'fullscreen_button_position' => $lmm_options['map_fullscreen_button_position']
 				) );
 		}
 	}

@@ -43,7 +43,8 @@ if (basename($_SERVER['SCRIPT_FILENAME']) == 'leaflet-help-credits.php') { die (
 		<li>- Home-Icon from <a href="http://prothemedesign.com/" target="_blank">Pro Theme Design</a>, licence: Creative Commons Attribution (by)</li>
 		<li>- Editor-Switch-Icon by AMAZIGH Aneglus, license: GNU/GPL</li>
 		<li>- Submenu icons from <a href="http://bijou.im/" target="_blank">Bijou</a> and <a href="http://somerandomdude.com/work/iconic/" target="_blank">Iconic</a> icon sets (GPL)</li>
-		<li>- MiniMap plugin by Norkart, <a href="https://github.com/Norkart/Leaflet-MiniMap" target="_blank">https://github.com/Norkart/Leaflet-MiniMap</a> (<a href="https://github.com/Norkart/Leaflet-MiniMap/blob/master/LICENSE.txt" target="_blank">License</a>)</li>
+		<li>- MiniMap plugin based on <a href="https://github.com/Norkart/Leaflet-MiniMap" target="_blank">https://github.com/Norkart/Leaflet-MiniMap</a> by Norkart (<a href="https://github.com/Norkart/Leaflet-MiniMap/blob/master/LICENSE.txt" target="_blank">License</a>)</li>
+		<li>- Fullscreen plugin based on <a href="https://github.com/mapbox/Leaflet.fullscreen" target="_blank">https://github.com/mapbox/Leaflet.fullscreen</a> by mapbox (<a href="https://github.com/mapbox/Leaflet.fullscreen/blob/master/LICENSE" target="_blank">License</a>)</li>
 	</ul>
 	<h3 style="font-size:23px;"><?php _e('Translations','lmm') ?></h3>
 	<p>
