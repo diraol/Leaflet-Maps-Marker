@@ -73,3 +73,11 @@
 .marker-cluster-large div {
 	background-color: rgb(241, 128, 23);
 }
+/* fullscreen plugin */
+.leaflet-control-fullscreen a {
+	background: #eeeeee;
+	background-image: url("images/fullscreen.png");
+	background-position: center center;
+	background-repeat: no-repeat;
+	border: #999 2px solid;
+}

@@ -239,7 +239,8 @@ For demo maps please visit [http://www.mapsmarker.com/demo](http://www.mapsmarke
 * Home-Icon from [Pro Theme Design](http://prothemedesign.com), licence: Creative Commons Attribution (by)
 * Editor-Switch-Icon by AMAZIGH Aneglus, license: GNU/GPL
 * Submenu icons from [Bijou](http://bijou.im) and [Iconic](http://somerandomdude.com/work/iconic/) icon sets (GPL)
-* MiniMap plugin by Norkart, [https://github.com/Norkart/Leaflet-MiniMap](https://github.com/Norkart/Leaflet-MiniMap) [License](https://github.com/Norkart/Leaflet-MiniMap/blob/master/LICENSE.txt)
+* MiniMap plugin based on [https://github.com/Norkart/Leaflet-MiniMap](https://github.com/Norkart/Leaflet-MiniMap) by Norkart, [License](https://github.com/Norkart/Leaflet-MiniMap/blob/master/LICENSE.txt)
+* Fullscreen plugin based on [https://github.com/mapbox/Leaflet.fullscreen](https://github.com/mapbox/Leaflet.fullscreen) by mapbox, [License](https://github.com/mapbox/Leaflet.fullscreen/blob/master/LICENSE)
 
 = Credits & special thanks to =
 * Sindre Wimberger ([http://www.sindre.at](http://www.sindre.at)) for help with bugfixing & geo-consulting
