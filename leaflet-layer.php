@@ -907,8 +907,8 @@ var markers = {};
 		} else {
 			$attrib_prefix = '';
 		}
-		$attrib_osm_mapnik = __("Map",'lmm').': &copy; ' . date("Y") . ' <a tabindex=\"123\" href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap contributors</a>, <a tabindex=\"124\" id=\"editlink\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a>';
-		$attrib_mapquest_osm = __("Map",'lmm').': Tiles Courtesy of <a tabindex=\"125\" href=\"http://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"' . LEAFLET_PLUGIN_URL . 'inc/img/logo-mapquest.png\" style=\"display:inline;\" /> - <a tabindex=\"126\" href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap</a>, <a tabindex=\"127\" id=\"editlink\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a>';
+		$attrib_osm_mapnik = __("Map",'lmm').': &copy; ' . date("Y") . ' <a tabindex=\"123\" href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap contributors</a>, <a tabindex=\"124\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a><span id=\"editlink\"></span>';
+		$attrib_mapquest_osm = __("Map",'lmm').': Tiles Courtesy of <a tabindex=\"125\" href=\"http://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"' . LEAFLET_PLUGIN_URL . 'inc/img/logo-mapquest.png\" style=\"display:inline;\" /> - <a tabindex=\"126\" href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap</a>, <a tabindex=\"127\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a><span id=\"editlink\"></span>';
 		$attrib_mapquest_aerial = __("Map",'lmm').': <a href=\"http://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"' . LEAFLET_PLUGIN_URL . 'inc/img/logo-mapquest.png\" style=\"display:inline;\" />, Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency';
 		$attrib_ogdwien_basemap = __("Map",'lmm').': ' . __("City of Vienna","lmm") . ' (<a href=\"http://data.wien.gv.at\" target=\"_blank\" style=\"\">data.wien.gv.at</a>)';
 		$attrib_ogdwien_satellite = __("Map",'lmm').': ' . __("City of Vienna","lmm") . ' (<a href=\"http://data.wien.gv.at\" target=\"_blank\">data.wien.gv.at</a>)';
@@ -1336,13 +1336,13 @@ var markers = {};
 	<?php
 	if ($lmm_options['misc_map_osm_editlink'] == 'show') {
 		echo "function lmm_addEditLink() {
+				var editlink_span = document.getElementById('editlink');
+				if ( editlink_span != undefined ) {
 					var boundingbox = selectlayer.getBounds().toBBoxString();
-					if ( document.getElementById('editlink') != undefined ) {
-						var editlink = document.getElementById('editlink').innerHTML;
-						document.getElementById('editlink').innerHTML=editlink +' (<a href=\"http://www.openstreetmap.org/edit?editor=potlatch2&bbox='+boundingbox+'\" target=\"_blank\" title=\"" . esc_attr__('help OpenStreetMap.org to improve map details','lmm') . "\">" . __('edit','lmm') . "</a>)';
-					}
+					editlink_span.innerHTML = '&nbsp;(<a href=\"http://www.openstreetmap.org/edit?editor=potlatch2&bbox='+boundingbox+'\" target=\"_blank\" title=\"" . esc_attr__('help OpenStreetMap.org to improve map details','lmm') . "\">" . __('edit','lmm') . "</a>)';
 				}
-				lmm_addEditLink();".PHP_EOL;
+			}
+			lmm_addEditLink();".PHP_EOL;
 	} ?>
 })(jQuery)
 //info: Google address autocomplete

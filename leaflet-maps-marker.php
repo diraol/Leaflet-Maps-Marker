@@ -106,6 +106,29 @@ class LeafletmapsmarkerPro
 		if ( (isset($lmm_options['misc_conditional_css_loading'])) && ($lmm_options['misc_conditional_css_loading'] == 'enabled') ){
 			add_action('template_include', array( &$this,'lmm_template_check_shortcode' ));
 		}
+		//info: style & add extra links to plugin page (to check if update license is still valid)
+		add_action('plugin_row_meta', array( &$this,'lmm_plugins_page_add_links' ), 10, 2);
+	}
+	function lmm_plugins_page_add_links($links, $file) {
+		$plugin = plugin_basename(__FILE__);
+		$plugin_version = get_option('leafletmapsmarker_version_pro');
+		if ($file == $plugin) {
+			$go_pro_link = '<a style="float:left;" href="http://www.mapsmarker.com/reviews" target="_blank"  title="' . esc_attr__('Upgrade to pro version for even more features - click here to find out how you can start a free 30-day-trial easily','lmm') . '"><img style="margin-top:4px;margin-right:5px;" src="' . LEAFLET_PLUGIN_URL . 'inc/img/pro-upgrade.png" width="80" height="15" alt="go pro"></a>';
+			$rate_link = '<a style="text-decoration:none;" href="http://www.mapsmarker.com/reviews" target="_blank" title="' . esc_attr__('please rate this plugin on wordpress.org','lmm') . '"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-star.png" width="16" height="16" alt="ratings"></a>';
+			$translation_link = '<a href="http://translate.mapsmarker.com/projects/lmm" target="_blank" title="' . esc_attr__('translations','lmm') . '"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-translations.png" width="16" height="16" alt="translations"></a>';
+			$fbook_link = '<a href="http://facebook.com/mapsmarker" target="_blank" title="' . esc_attr__('Follow MapsMarker on Facebook','lmm') . '"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-facebook.png" width="16" height="16" alt="facebook"></a>';
+			$twitter_link = '<a href="http://twitter.com/mapsmarker" target="_blank" title="' . esc_attr__('Follow @MapsMarker on Twitter','lmm') . '"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-twitter.png" width="16" height="16" alt="twitter"></a>';
+			$rss_link = '<a href="http://feeds.feedburner.com/MapsMarker" target="_blank" title="RSS"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-rss.png" width="16" height="16" alt="rss"></a>';
+			$rss_email_link = '<a href="http://feedburner.google.com/fb/a/mailverify?uri=MapsMarker" target="_blank" title="RSS (via Email)"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-rss-email.png" width="16" height="16" alt="rss-email"></a>';
+			//info: check if update license has expired
+			if (1 == 1) {
+				$pro_update_info = '<br/></td></tr><tr><td colspan="3"><div style="padding: 3px 5px;background-color: #FFEBE8;border: 1px solid #CC0000;border-radius: 3px;color: #333;"><strong>' . __('Warning: your access to updates and support for Leaflet Maps Marker Pro has expired!','lmm') . '</strong><br/>' . sprintf(__('You can continue using version %s without any limitations. Nevertheless you will not be able to get updates including bugfixes, new features and optimizations as well as access to our support system. ','lmm'), $plugin_version) . '<br/>' . sprintf(__('<a href="%s">Please renew your access to updates and support to keep your plugin up-to-date and safe</a>.','lmm'), LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_license') . '</div>';
+			} else {
+				$pro_update_info = '';
+			}
+			$links[] = $rate_link . '&nbsp;&nbsp;&nbsp;' . $translation_link . '&nbsp;&nbsp;&nbsp;&nbsp;' . $fbook_link . '&nbsp;&nbsp;&nbsp;&nbsp;' . $twitter_link . '&nbsp;&nbsp;&nbsp;&nbsp;' . $rss_link . '&nbsp;&nbsp;&nbsp;&nbsp;' . $rss_email_link . $pro_update_info;
+		}
+		return $links;
 	}
 	function lmm_delete_multisite_blog($blog_id) {
 		switch_to_blog($blog_id);
@@ -248,7 +271,7 @@ class LeafletmapsmarkerPro
 					echo '<p>' . $item->get_date('j F Y') . ': <strong><a href="' . $item->get_permalink() . '">' . $item->get_title() . '</a></strong><br/>' . $item->get_description() . '</p>'.PHP_EOL;
 				}
 				echo '<p><a style="text-decoration:none;" href="http://www.mapsmarker.com" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-website-home.png" width="16" height="16" alt="mapsmarker.com"> MapsMarker.com</a>&nbsp;&nbsp;
-				<a style="text-decoration:none;" href="http://wordpress.org/support/view/plugin-reviews/leaflet-maps-marker" target="_blank" title="' . esc_attr__('please rate this plugin on wordpress.org','lmm') . '"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-star.png" width="16" height="16" alt="ratings"> ' . __('rate plugin','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a href="http://translate.mapsmarker.com/projects/lmm" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-translations.png" width="16" height="16" alt="translations"> ' . __('translations','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a href="http://twitter.com/mapsmarker" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-twitter.png" width="16" height="16" alt="twitter"> Twitter</a>&nbsp;&nbsp;&nbsp;<a href="http://facebook.com/mapsmarker" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-facebook.png" width="16" height="16" alt="facebook"> Facebook</a>&nbsp;&nbsp;&nbsp;<a style="text-decoration:none;" href="http://www.mapsmarker.com/changelog" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-changelog-header.png" width="16" height="16" alt="changelog"> ' . __('Changelog','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a href="http://feeds.feedburner.com/MapsMarker" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-rss.png" width="16" height="16" alt="rss"> RSS</a>&nbsp;&nbsp;&nbsp;<a href="http://feedburner.google.com/fb/a/mailverify?uri=MapsMarker" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-rss-email.png" width="16" height="16" alt="rss-email"> ' . __('E-Mail','lmm') . '</a>&nbsp;&nbsp;&nbsp;</p>';
+				<a style="text-decoration:none;" href="http://www.mapsmarker.com/reviews" target="_blank" title="' . esc_attr__('please rate this plugin on wordpress.org','lmm') . '"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-star.png" width="16" height="16" alt="ratings"> ' . __('rate plugin','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a href="http://translate.mapsmarker.com/projects/lmm" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-translations.png" width="16" height="16" alt="translations"> ' . __('translations','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a href="http://twitter.com/mapsmarker" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-twitter.png" width="16" height="16" alt="twitter"> Twitter</a>&nbsp;&nbsp;&nbsp;<a href="http://facebook.com/mapsmarker" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-facebook.png" width="16" height="16" alt="facebook"> Facebook</a>&nbsp;&nbsp;&nbsp;<a style="text-decoration:none;" href="http://www.mapsmarker.com/changelog" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-changelog-header.png" width="16" height="16" alt="changelog"> ' . __('Changelog','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a href="http://feeds.feedburner.com/MapsMarker" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-rss.png" width="16" height="16" alt="rss"> RSS</a>&nbsp;&nbsp;&nbsp;<a href="http://feedburner.google.com/fb/a/mailverify?uri=MapsMarker" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-rss-email.png" width="16" height="16" alt="rss-email"> ' . __('E-Mail','lmm') . '</a>&nbsp;&nbsp;&nbsp;</p>';
 		}
 	}
 	function lmm_dashboard_widget_control(){
@@ -814,7 +837,8 @@ class LeafletmapsmarkerPro
 					$links,
 					'<a href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_markers">'.__('Markers','lmm').'</a>',
 					'<a href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_layers">'.__('Layers','lmm').'</a>' ,
-					'<a href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings">'.__('Settings','lmm').'</a>'
+					'<a href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings">'.__('Settings','lmm').'</a>',
+					'<a href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_license">'.__('License','lmm').'</a>'
 				);
 			}
 			return $links;
@@ -823,13 +847,17 @@ class LeafletmapsmarkerPro
 	  } //info: end plugin_meta_links()
 }  //info: end class
 $run_leafletmapsmarker_pro = new LeafletmapsmarkerPro();
-$run_PluginUpdateChecker = new PluginUpdateChecker(
-    'http://www.mapsmarker.com/downloads/version.json',
-    __FILE__,
-    'leaflet-maps-marker-pro',
-    '12',
-    'leafletmapsmarkerpro_pluginupdatechecker'
-);
+
+//info: only load plugin update if license hasnt expired
+if (1 == 1) {
+	$run_PluginUpdateChecker = new PluginUpdateChecker(
+		'http://www.mapsmarker.com/updates/?action=get_metadata&slug=leaflet-maps-marker-pro',
+		__FILE__,
+		'leaflet-maps-marker-pro',
+		'12',
+		'leafletmapsmarkerpro_pluginupdatechecker'
+	);
+}
 //info: include widget class
 require_once( plugin_dir_path( __FILE__ ) . 'inc' . DIRECTORY_SEPARATOR . 'class-leaflet-recent-marker-widget.php' );
 unset($run_leafletmapsmarker_pro);

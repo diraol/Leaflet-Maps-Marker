@@ -211,7 +211,7 @@ if (get_option('leafletmapsmarker_update_info') == 'show') {
 	echo '<p>' . sprintf(__('For more details about version %1s, please visit %2s','lmm'), $lmm_version_new, $lmm_changelog_new_version) . '</p>'.PHP_EOL;
 	echo '<iframe name="changelog" src="' . LEAFLET_PLUGIN_URL . 'inc/changelog.php" width="98%" height="285" marginwidth="0" marginheight="0" style="border:thin dashed #E6DB55;"></iframe>'.PHP_EOL;
 
-	echo '<p>' . __('If you like using the plugin, please consider <a href="http://www.mapsmarker.com/donations" target="_blank" style="text-decoration:none;">making a donation</a> and <a href="http://wordpress.org/support/view/plugin-reviews/leaflet-maps-marker" target="_blank" style="text-decoration:none;">review the plugin on wordpress.org</a> - thanks!','lmm') . '</p>'.PHP_EOL;
+	echo '<p>' . __('If you like using the plugin, please <a href="http://www.mapsmarker.com/reviews" target="_blank" style="text-decoration:none;">review the plugin on wordpress.org</a> - thanks!','lmm') . '</p>'.PHP_EOL;
 	echo '<form method="post" style="padding:2px 0 6px 0;">
 		<input type="hidden" name="update_info_action" value="hide" />
 		<input class="button-secondary" type="submit" value="' . __('remove message', 'lmm') . '"/></form></div>';

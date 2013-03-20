@@ -268,8 +268,8 @@ if (isset($_GET['layer'])) {
 	} else {
 		$attrib_prefix = '';
 	}
-	$attrib_osm_mapnik = __("Map",'lmm').': &copy; ' . date("Y") . ' <a href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap contributors</a>, <a id=\"editlink_'.$uid.'\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a>';
-	$attrib_mapquest_osm = __("Map",'lmm').': Tiles Courtesy of <a href=\"http://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"' . LEAFLET_PLUGIN_URL . 'inc/img/logo-mapquest.png\" style=\"display:inline;\" /> - <a href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap</a>, <a id=\"editlink_'.$uid.'\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a>';
+	$attrib_osm_mapnik = __("Map",'lmm').': &copy; ' . date("Y") . ' <a href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap contributors</a>, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a><span id=\"editlink_'.$uid.'\"></span>';
+	$attrib_mapquest_osm = __("Map",'lmm').': Tiles Courtesy of <a href=\"http://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"' . LEAFLET_PLUGIN_URL . 'inc/img/logo-mapquest.png\" style=\"display:inline;\" /> - <a href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap</a>, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a><span id=\"editlink_'.$uid.'\"></span>';
 	$attrib_mapquest_aerial = __("Map",'lmm').': <a href=\"http://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"' . LEAFLET_PLUGIN_URL . 'inc/img/logo-mapquest.png\" style=\"display:inline;\" />, Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency';
 	$attrib_ogdwien_basemap = __("Map",'lmm').': ' . __("City of Vienna","lmm") . ' (<a href=\"http://data.wien.gv.at\" target=\"_blank\" style=\"\">data.wien.gv.at</a>)';
 	$attrib_ogdwien_satellite = __("Map",'lmm').': ' . __("City of Vienna","lmm") . ' (<a href=\"http://data.wien.gv.at\" target=\"_blank\">data.wien.gv.at</a>)';
@@ -590,14 +590,15 @@ if (isset($_GET['layer'])) {
 		$lmm_out .= '}).addTo(' . $mapname . ');'.PHP_EOL;
 		//info: add edit link to OSM and Mapnik maps
 		if ($lmm_options['misc_map_osm_editlink'] == 'show') {
-			$lmm_out .= "function lmm_addEditLink() {
-					var boundingbox = ".$mapname.".getBounds().toBBoxString();
-					if ( document.getElementById('editlink_" . $uid . "') != undefined ) {
-						var editlink = document.getElementById('editlink_" . $uid . "').innerHTML;
-						document.getElementById('editlink_" . $uid . "').innerHTML=editlink +' (<a href=\"http://www.openstreetmap.org/edit?editor=potlatch2&bbox='+boundingbox+'\" target=\"_blank\" title=\"" . esc_attr__('help OpenStreetMap.org to improve map details','lmm') . "\">" . __('edit','lmm') . "</a>)';
+			$lmm_out .= "
+				function lmm_addEditLink".$uid."() {
+					var editlink_span = document.getElementById('editlink_" . $uid . "');
+					if ( editlink_span != undefined ) {
+						var boundingbox = ".$mapname.".getBounds().toBBoxString();
+						editlink_span.innerHTML = '&nbsp;(<a href=\"http://www.openstreetmap.org/edit?editor=potlatch2&bbox='+boundingbox+'\" target=\"_blank\" title=\"" . esc_attr__('help OpenStreetMap.org to improve map details','lmm') . "\">" . __('edit','lmm') . "</a>)';
 					}
 				}
-				lmm_addEditLink();".PHP_EOL;
+				lmm_addEditLink".$uid."();".PHP_EOL;
 		}
     }
   $lmm_out .= '/* ]] > */'.PHP_EOL;
@@ -871,8 +872,8 @@ elseif (isset($_GET['marker'])) {
 	} else {
 		$attrib_prefix = '';
 	}
-	$attrib_osm_mapnik = __("Map",'lmm').': &copy; ' . date("Y") . ' <a href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap contributors</a>, <a id=\"editlink_'.$uid.'\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a>';
-	$attrib_mapquest_osm = __("Map",'lmm').': Tiles Courtesy of <a href=\"http://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"' . LEAFLET_PLUGIN_URL . 'inc/img/logo-mapquest.png\" style=\"display:inline;\" /> - <a href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap</a>, <a id=\"editlink_'.$uid.'\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a>';
+	$attrib_osm_mapnik = __("Map",'lmm').': &copy; ' . date("Y") . ' <a href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap contributors</a>, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a><span id=\"editlink_'.$uid.'\"></span>';
+	$attrib_mapquest_osm = __("Map",'lmm').': Tiles Courtesy of <a href=\"http://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"' . LEAFLET_PLUGIN_URL . 'inc/img/logo-mapquest.png\" style=\"display:inline;\" /> - <a href=\"http://www.openstreetmap.org\" target=\"_blank\">OpenStreetMap</a>, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\">CC-BY-SA</a><span id=\"editlink_'.$uid.'\"></span>';
 	$attrib_mapquest_aerial = __("Map",'lmm').': <a href=\"http://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"' . LEAFLET_PLUGIN_URL . 'inc/img/logo-mapquest.png\" />, Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency';
 	$attrib_ogdwien_basemap = __("Map",'lmm').': ' . __("City of Vienna","lmm") . ' (<a href=\"http://data.wien.gv.at\" target=\"_blank\" style=\"\">data.wien.gv.at</a>)';
 	$attrib_ogdwien_satellite = __("Map",'lmm').': ' . __("City of Vienna","lmm") . ' (<a href=\"http://data.wien.gv.at\" target=\"_blank\">data.wien.gv.at</a>)';
@@ -1163,6 +1164,19 @@ elseif (isset($_GET['marker'])) {
 		$mpopuptext = $mpopuptext . ')</div>';
 	}
 
+	//info: add edit link to OSM and Mapnik maps
+	if ($lmm_options['misc_map_osm_editlink'] == 'show') {
+		$lmm_out .= "
+			function lmm_addEditLink".$uid."() {
+				var editlink_span = document.getElementById('editlink_" . $uid . "');
+				if ( editlink_span != undefined ) {
+					var boundingbox = ".$mapname.".getBounds().toBBoxString();
+					editlink_span.innerHTML = '&nbsp;(<a href=\"http://www.openstreetmap.org/edit?editor=potlatch2&bbox='+boundingbox+'\" target=\"_blank\" title=\"" . esc_attr__('help OpenStreetMap.org to improve map details','lmm') . "\">" . __('edit','lmm') . "</a>)';
+				}
+			}
+			lmm_addEditLink".$uid."();".PHP_EOL;
+	}
+
 	if (!empty($mpopuptext)) $lmm_out .= 'marker.bindPopup("' . preg_replace('/(\015\012)|(\015)|(\012)/','<br/>',$mpopuptext) . '", {maxWidth: ' . intval($lmm_options['defaults_marker_popups_maxwidth']) . ', minWidth: ' . intval($lmm_options['defaults_marker_popups_minwidth']) . ', maxHeight: ' . intval($lmm_options['defaults_marker_popups_maxheight']) . ', autoPan: ' . $lmm_options['defaults_marker_popups_autopan'] . ', closeButton: ' . $lmm_options['defaults_marker_popups_closebutton'] . ', autoPanPadding: new L.Point(' . intval($lmm_options['defaults_marker_popups_autopanpadding_x']) . ', ' . intval($lmm_options['defaults_marker_popups_autopanpadding_y']) . ')})'.$mopenpopup.';'.PHP_EOL;
 	} else if (!empty($geojson) or !empty($geojsonurl) or !empty($layer) ) {
 		$lmm_out .= 'var geojsonObj, mapIcon, marker_clickable, marker_title;'.PHP_EOL;
@@ -1222,17 +1236,6 @@ elseif (isset($_GET['marker'])) {
 		$lmm_out .= 'return L.marker(latlng, {icon: mapIcon, clickable: marker_clickable, title: marker_title, opacity: ' . floatval($lmm_options[ 'defaults_marker_icon_opacity' ]) . '});'.PHP_EOL;
 		$lmm_out .= '}'.PHP_EOL;
 		$lmm_out .= '}).addTo(' . $mapname . ');'.PHP_EOL;
-		//info: add edit link to OSM and Mapnik maps
-		if ($lmm_options['misc_map_osm_editlink'] == 'show') {
-			$lmm_out .= "function lmm_addEditLink() {
-					var boundingbox = ".$mapname.".getBounds().toBBoxString();
-					if ( document.getElementById('editlink_" . $uid . "') != undefined ) {
-						var editlink = document.getElementById('editlink_" . $uid . "').innerHTML;
-						document.getElementById('editlink_" . $uid . "').innerHTML=editlink +' (<a href=\"http://www.openstreetmap.org/edit?editor=potlatch2&bbox='+boundingbox+'\" target=\"_blank\" title=\"" . esc_attr__('help OpenStreetMap.org to improve map details','lmm') . "\">" . __('edit','lmm') . "</a>)';
-					}
-				}
-				lmm_addEditLink();".PHP_EOL;
-		}
     }
   $lmm_out .= '/* ]] > */'.PHP_EOL;
   $lmm_out .= '</script>';

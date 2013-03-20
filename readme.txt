@@ -5,10 +5,9 @@ Plugin URI:        http://www.mapsmarker.com
 Tags:              map, maps, Leaflet, OpenStreetMap, geoJSON, json, jsonp, OSM, travelblog, opendata, open data, opengov, open government, ogdwien, WMTS, geoRSS, location, geo, geo-mashup, geocoding, geolocation, travel, mapnick, osmarender, cloudmade, mapquest, geotag, geocaching, gpx, OpenLayers, mapping, bikemap, coordinates, geocode, geocoding, geotagging, latitude, longitude, position, route, tracks, google maps, googlemaps, gmaps, google map, google map short code, google map widget, google maps v3, google earth, gmaps, ar, augmented-reality, wikitude, wms, web map service, geocache, geocaching, qr, qr code, fullscreen, marker, marker icons, layer, multiple markers, karte, blogmap, geocms, geographic, routes, tracks, directions, navigation, routing, location plan, YOURS, yournavigation, ORS, openrouteservice, widget, bing, bing maps, microsoft, map short code, map widget, kml, cross-browser, fully documented, traffic, bike lanes, map short code, custom marker text, custom marker icons and text
 Author URI:        http://www.harm.co.at
 Author:            Robert Harm
-Donate link:       http://www.mapsmarker.com/donations
 Requires at least: 3.0
 Tested up to:      3.6-alpha-23451
-Stable tag:        0.1
+Stable tag:        1.0
 
 Pin, organize & show your favorite places through OpenStreetMap, Google Maps, Google Earth (KML), Bing Maps, APIs or Augmented-Reality browsers
 
@@ -24,7 +23,7 @@ We are working hard on delivering the best mapping solution available for WordPr
 = Plugin's Official Site =
 http://mapsmarker.com
 
-* [Demo](http://www.mapsmarker.com/demo/) - [FAQ](http://www.mapsmarker.com/faq/) - [Docs](http://www.mapsmarker.com/docs/) - [Support](http://mapsmarker.com/support/) - [Github](https://github.com/robertharm/Leaflet-Maps-Marker) - [Donations](http://mapsmarker.com/donations) - [Twitter](http://twitter.com/mapsmarker) - [Facebook](http://facebook.com/mapsmarker) - [Translations](http://translate.mapsmarker.com/projects/lmm)
+* [Demo](http://www.mapsmarker.com/demo/) - [FAQ](http://www.mapsmarker.com/faq/) - [Docs](http://www.mapsmarker.com/docs/) - [Support](http://mapsmarker.com/support/) - [Github](https://github.com/robertharm/Leaflet-Maps-Marker) - [Twitter](http://twitter.com/mapsmarker) - [Facebook](http://facebook.com/mapsmarker) - [Translations](http://translate.mapsmarker.com/projects/lmm)
 
 = Main features =
 Leaflet Maps Marker allows you to
@@ -88,7 +87,6 @@ to the visitors of your website.
 * "OGD Vienna selector": if a place within boundaries of Vienna/Austria is chosen, OGD Vienna basemaps are automatically selected
 * admin dashboard widget showing latest markers and blog posts from mapsmarker.com
 * support for google maps and bing map localization (cultures)
-* integrated [donation links](http://www.mapsmarker.com/donations) to show your support for this plugin :-)
 
 = Technical details =
 * full support for responsive designs (= automatic resizing of maps if viewport is wider than map width)
@@ -144,121 +142,10 @@ For full credits of each translations please visit [http://www.mapsmarker.com/la
 Leaflet Maps Marker also supports easy switching between translations through a specific plugin setting.
 For more information on translations and how to contribute a new translation, please visit [http://translate.mapsmarker.com](http://translate.mapsmarker.com/projects/lmm).
 
-= Leaflet Maps Marker Needs Your Support =
-It is hard to continue development and support for this plugin without contributions from users like you. If you enjoy using Leaflet Maps Marker - particularly within a commercial context - please consider [__making a donation__](http://www.mapsmarker.com/donations). Your donation will help keeping the plugin free for everyone and allow me to spend more time on developing, maintaining and support. I´d be happy to accept your donation! Thanks! [Robert Harm](http://www.harm.co.at)
-
-== Installation ==
-
-= The Famous 3-Minute Installation =
-
-1. Login on your WordPress site with your user account (needs to have admin rights!)
-2. Select "Add New" from the "Plugins" menu
-3. Search for **maps** or **Leaflet Maps Marker**
-4. Click on "Install now" below the entry "Leaflet Maps Marker (Google Maps, OpenStreetMap, Bing Maps)"
-5. Click on "OK" on the popup "Are you sure you want to install this plugin?"
-6. Click "Activate Plugin"
-
-Done. You can create your first marker map (you are getting redirected after first plugin activation automatically)
-
-After installation you will also find a 'Leaflet Maps Marker' menu in your WordPress admin panel and in WordPress Admin Bar.
-For basic usage and tutorials, you can also have a look at [http://www.mapsmarker.com/docs](http://www.mapsmarker.com/docs "Docs").
-
-= Detailed Installation Instructions =
-
-If you do not want to use the built-in plugin installation procedure from WordPress, you can also install the plugin manually:
-
-1. Navigate to [http://wordpress.org/extend/plugins/leaflet-maps-marker/](http://wordpress.org/extend/plugins/leaflet-maps-marker/)
-2. Click on red button "Download Version X.X" and download the plugin as ZIP-file
-3. Login on your WordPress site with your user account (needs to have admin rights!)
-4. Select "Add New" from the "Plugins" menu
-5. Select "Upload" from the "Install Plugins"-submenu
-6. Click on the button and select the previously downloaded ZIP-file
-7. Click "Install now"
-8. Click "Activate Plugin"
-
-Done. You can create your first marker map (you are getting redirected after first plugin activation automatically)
-
-= Detailed Installation Instructions (via FTP) =
-
-1. Navigate to [http://wordpress.org/extend/plugins/leaflet-maps-marker/](http://wordpress.org/extend/plugins/leaflet-maps-marker/)
-2. Click on red button "Download Version X.X" and download the plugin as ZIP-file
-3. Login on your WordPress site with your user account (needs to have admin rights!)
-4. unzip and upload the leaflet-maps-marker folder to the `/wp-content/plugins/` directory
-5. Login on your WordPress site with your user account (needs to have admin rights!)
-6. Activate the plugin "Leaflet Maps Marker" through the "Plugins" menu in WordPress
-
-Done. You can create your first marker map (you are getting redirected after first plugin activation automatically)
-
-Note: plugin requires at least PHP 5.2 and Wordpress 3.0!
-
-== Frequently Asked Questions ==
-Do you have questions or issues with Leaflet Maps Marker? Please use the following support channels appropriately.
-One personal request: before you post a new support ticket in the [Wordpress Support Forum](http://wordpress.org/support/plugin/leaflet-maps-marker), please follow the instructions from [http://www.mapsmarker.com/readme-first](http://www.mapsmarker.com/readme-first) which give you a guideline on how to deal with the most common issues.
-
-1. [FAQ](www.mapsmarker.com/faq/)
-2. [Docs](http://www.mapsmarker.com/docs/)
-3. [Wordpress Support Forum](http://wordpress.org/support/plugin/leaflet-maps-marker) (free community support)
-4. [WP Questions](http://wpquestions.com/affiliates/register/name/robertharm) (paid community support)
-5. [WordPress HelpCenter](http://wphelpcenter.com/) (paid professional support)
-
-[More info on support](http://mapsmarker.com/support/)
-
-== Screenshots ==
-For demo maps please visit [http://www.mapsmarker.com/demo](http://www.mapsmarker.com/demo).
-
-01. Frontend: marker map (with open popup and image, basemap: OGD Vienna satellite, overlay: OGD Vienna addresses, controlbox: expanded)
-02. Frontend: layer map (5 marker, different icons, basemap: OpenStreetMap, controlbox: collapsed)
-03. Frontend: map with WMS layer enabled and additional marker
-04. Frontend: layer map in Google Earth (via KML export)
-05. Frontend: layer map in Google Maps (via KML export)
-06. Frontend: showing marker in Wikitude (via Augmented-Reality API)
-07. Backend: simplified editor - create maps with an intuitive interface
-08. Backend: advanced editor (optional) - allows you to set all available options
-09. Backend: add/edit layer - allows you to fully customize the layer map (used basemap & overlays, set center, map size, zoom, controlbox status etc).
-10. Backend: markerlist - for easy administration of all your markers
-11. Backend: layerlist - for easy administration of all your layers
-12. Backend: plugin settings page allows you to easily set all necessary settings & restore the defaults if you messed something up
-13. Backend: csv-export of all markers - just copy and paste into your favorite spreadsheet application for use in other applications
-14. Backend: tools section - allows mass-actions more markers (assignements, deletions)
-15. [youtube http://www.youtube.com/watch?v=LXliLaZ4u-E]
-
-== Other Notes ==
-
-= Licenses for used libraries, services and images =
-* Leaflet - Copyright (c) 2010-2012, CloudMade, Vladimir Agafonkin [http://www.leafletjs.com](http://www.leafletjs.com)
-* OpenStreetMap - The Free Wiki World Map: [OpenStreetMap License](http://wiki.openstreetmap.org/wiki/OpenStreetMap_License)
-* Map Icons Collection by Nicolas Mollet - [http://mapicons.nicolasmollet.com](http://mapicons.nicolasmollet.com)
-* Datasource OGD Vienna maps: Stadt Wien, Creative Commons Attribution (by) [http://data.wien.gv.at](http://data.wien.gv.at)
-* Jquery TimePicker, by Trent Richardson, [http://trentrichardson.com/examples/timepicker/](http://trentrichardson.com/examples/timepicker/), licence: GPL
-* Adress autocompletion powered by [Google Places API](http://code.google.com/intl/de-AT/apis/maps/documentation/places/autocomplete.html)
-* Map center icon [Joseph Wain](http://glyphish.com/) - Creative Commons Attribution (by)
-* Plus-, json-, layer-, language- & csv-export icon by icon by [Yusuke Kamiyamane](http://www.pinvoke.com/) - Creative Commons Attribution (by)
-* Question Mark icon by [RandomJabber](http://www.randomjabber.com/)
-* Home icon by [ Pro Theme Design](http://prothemedesign.com/) - Creative Commons Attribution (by)
-* Images for changelog from [Firefox release notes](http://www.mozilla.org/en-US/firefox/11.0/releasenotes/), licence: Creative Commons Attribution ShareAlike (CC BY-SA 3.0)
-* Home-Icon from [Pro Theme Design](http://prothemedesign.com), licence: Creative Commons Attribution (by)
-* Editor-Switch-Icon by AMAZIGH Aneglus, license: GNU/GPL
-* Submenu icons from [Bijou](http://bijou.im) and [Iconic](http://somerandomdude.com/work/iconic/) icon sets (GPL)
-* MiniMap plugin based on [https://github.com/Norkart/Leaflet-MiniMap](https://github.com/Norkart/Leaflet-MiniMap) by Norkart, [License](https://github.com/Norkart/Leaflet-MiniMap/blob/master/LICENSE.txt)
-* Fullscreen plugin based on [https://github.com/mapbox/Leaflet.fullscreen](https://github.com/mapbox/Leaflet.fullscreen) by mapbox, [License](https://github.com/mapbox/Leaflet.fullscreen/blob/master/LICENSE)
-
-= Credits & special thanks to =
-* Sindre Wimberger ([http://www.sindre.at](http://www.sindre.at)) for help with bugfixing & geo-consulting
-* Julia Loew ([http://www.weiderand.net](http://www.weiderand.net)) for logo and corporate design
-* Wordpress-Settings-API-Class by Aliso the geek ([http://alisothegeek.com/2011/01/wordpress-settings-api-tutorial-1/](http://alisothegeek.com/2011/01/wordpress-settings-api-tutorial-1/))
-* [Hind](http://www.nanodesu.ru) who originally release a basic Leaflet plugin (not available anymore) which I used partly as a basis for Leaflet Maps Marker plugin
-* [shramov](http://psha.org.ru/b/leaflet-plugins.html) for bing and google maps plugins for leaflet
-
-For more information on translations of the plugin and how to contribute a new translation, please visit [http://www.mapsmarker.com/languages](http://www.mapsmarker.com/languages).
-
-= Trademark and copyright =
-MapsMarker &reg; - registration pending
-Copyright 2011-2012, Robert Harm, All Rights Reserved
-
-== Upgrade Notice ==
-= v3.4 =
-added Bosnian translation, backend usability fixes - see http://www.mapsmarker.com/v3.4 for more details
-
 == Changelog ==
 
-please visit [http://www.mapsmarker.com/changelog](http://www.mapsmarker.com/changelog) for a full list of changes
+= v1.0p =
+Initial release  - see [http://www.mapsmarker.com/v1.0p](http://www.mapsmarker.com/v1.0p) for more details
+
+= changelog for all versions =
+[http://www.mapsmarker.com/changelog](http://www.mapsmarker.com/changelog)
