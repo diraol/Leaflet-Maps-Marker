@@ -130,6 +130,7 @@ to the visitors of your website.
 * Portuguese (pt_BR) thanks to Andre Santos and Antonio Hammerl
 * Polish (pl_PL) translation thanks to Pawel Wyszynski and Tomasz Rudnicki
 * Portuguese (pt_PT) translation thanks to Joao Campos
+* Romanian (ro_RO) translation thanks to Daniel Codrea
 * Russian (ru_RU) thanks to Ekaterina Golubina, supported by Teplitsa of Social Technologies
 * Slovak (sk_SK) thanks to Zdenko Podobny
 * Spanish (es_ES) thanks to David Ramirez, Alvaro Lara, Ricardo Viteri and Victor Guevara
