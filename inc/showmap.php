@@ -137,6 +137,7 @@ if (basename($_SERVER['SCRIPT_FILENAME']) == 'showmap.php') { die ("Please do no
 		$wms10 = isset($lmm_options[ 'defaults_marker_shortcode_wms10_active' ]) == TRUE && ($lmm_options[ 'defaults_marker_shortcode_wms10_active' ] == 1 ) ? '1' : '0';
 		$mopenpopup = '';
 		$listmarkers = 0;
+		$address = '';
 	}
 
 	//info: show static image with link in feeds
