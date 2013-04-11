@@ -43,6 +43,8 @@ if (is_multisite()) {
 		delete_option('leafletmapsmarker_version_pro');
 		delete_option('leafletmapsmarker_version_pro_before_update');
 		delete_option('leafletmapsmarkerpro_pluginupdatechecker');
+		delete_option('leafletmapsmarkerpro_license_local_key');
+		delete_option('leafletmapsmarkerpro_license_key');
 	if ($blogs) {
 		foreach($blogs as $blog) {
 			switch_to_blog($blog['blog_id']);
@@ -90,6 +92,8 @@ if (is_multisite()) {
 		delete_option('leafletmapsmarker_version_pro');
 		delete_option('leafletmapsmarker_version_pro_before_update');
 		delete_option('leafletmapsmarkerpro_pluginupdatechecker');
+		delete_option('leafletmapsmarkerpro_license_local_key');
+		delete_option('leafletmapsmarkerpro_license_key');
 	}
 }
 else
@@ -135,5 +139,7 @@ else
 	delete_option('leafletmapsmarker_version_pro');
 	delete_option('leafletmapsmarker_version_pro_before_update');
 	delete_option('leafletmapsmarkerpro_pluginupdatechecker');
+	delete_option('leafletmapsmarkerpro_license_local_key');
+	delete_option('leafletmapsmarkerpro_license_key');
 }
 ?>

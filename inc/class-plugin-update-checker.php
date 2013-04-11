@@ -42,7 +42,7 @@ class PluginUpdateChecker_1_3 {
 	 */
 	public function __construct($metadataUrl, $pluginFile, $slug = '', $checkPeriod = 12, $optionName = ''){
 		$this->metadataUrl = $metadataUrl;
-		$this->pluginFile = plugin_basename($pluginFile);
+		$this->pluginFile = 'leaflet-maps-marker-pro/leaflet-maps-marker.php';
 		$this->checkPeriod = $checkPeriod;
 		$this->slug = $slug;
 		$this->optionName = $optionName;
