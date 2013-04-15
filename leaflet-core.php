@@ -11,7 +11,7 @@ if (version_compare(phpversion(),"5.2","<")){
 
 //2do: update on each release (MM/DD/YYYY) - preventing manual update without valid upgrade license
 if ( ! defined( 'VERSION_RELEASE_DATE' ) )
-	define( 'VERSION_RELEASE_DATE', '01/04/2013' );
+	define( 'VERSION_RELEASE_DATE', '01/04/2014' );
 
 //info: check if latest free version is used (run only on pro initialization - needed if users wants to switch back to free version)
 $lmm_free_version_number = get_option( 'leafletmapsmarker_version' );
@@ -112,8 +112,8 @@ class LeafletmapsmarkerPro
 			$googleplus_link = '<a href="http://www.mapsmarker.com/+" target="_blank" title="' . esc_attr__('Follow MapsMarker on Google+','lmm') . '"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-google-plus.png" width="16" height="16" alt="google+"></a>';
 			$rss_link = '<a href="http://feeds.feedburner.com/MapsMarker" target="_blank" title="RSS"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-rss.png" width="16" height="16" alt="rss"></a>';
 			$rss_email_link = '<a href="http://feedburner.google.com/fb/a/mailverify?uri=MapsMarker" target="_blank" title="RSS (via Email)"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-rss-email.png" width="16" height="16" alt="rss-email"></a>';
-			//info: check if update license has expired
-			if ( $spbas->license_key && (maps_marker_pro_validate_license()===true) && (maps_marker_pro_validate_access()===false) ) {
+			//info: check if update license has expired - dont check for valid license to show warning on invalid license too
+			if (maps_marker_pro_validate_access()===false) {
 				$pro_update_info = '<br/></td></tr><tr><td colspan="3"><div style="padding: 3px 5px;background-color: #FFEBE8;border: 1px solid #CC0000;border-radius: 3px;color: #333;"><strong>' . __('Warning: your access to updates and support for Leaflet Maps Marker Pro has expired!','lmm') . '</strong><br/>' . sprintf(__('You can continue using version %s without any limitations. Nevertheless you will not be able to get updates including bugfixes, new features and optimizations as well as access to our support system. ','lmm'), $plugin_version) . '<br/>' . sprintf(__('<a href="%s">Please renew your access to updates and support to keep your plugin up-to-date and safe</a>.','lmm'), LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_license') . '</div>';
 			} else {
 				$pro_update_info = '';
@@ -318,8 +318,8 @@ class LeafletmapsmarkerPro
 		include('leaflet-help-credits.php');
 	}
 	function lmm_settings() {
-		$lmm_options = new Class_leaflet_options();
-		$lmm_options->display_page();
+		global $leafletmapsmarker_options;
+		$leafletmapsmarker_options->display_page();
 	}
 	function lmm_list_layers() {
 		include('leaflet-list-layers.php');
@@ -844,6 +844,15 @@ class LeafletmapsmarkerPro
 if (maps_marker_pro_validate_license()!==true) { 
 	die(header('Location: '.self_admin_url('admin.php?page=leafletmapsmarker_license'))); 
 }
+if ( is_admin() ) {
+	if (maps_marker_pro_validate_access($release_date=VERSION_RELEASE_DATE,$license_only=false)===false) {
+		$current_page = isset($_GET['page']) ? $_GET['page'] : '';
+		$protected_pages = array('leafletmapsmarker_markers','leafletmapsmarker_marker','leafletmapsmarker_layers','leafletmapsmarker_layer','leafletmapsmarker_tools','leafletmapsmarker_settings','leafletmapsmarker_help');
+		if (in_array($current_page, $protected_pages)) {
+			echo '<script type="text/javascript">window.location.href = "' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_license&error=download_expired";</script>  ';	
+		} 
+	}
+}
 
 /**
 * The pages that should be validated
@@ -906,10 +915,12 @@ function maps_marker_pro_validate_license($raw=false) {
 /**
 * Validate the license, support and download access.
 * 
+* @param string $release_date MM/DD/YYYY; The date that you released this version. Will need to be updated with each release.
 * @return boolean true for valid access; false for access expired
 */
-function maps_marker_pro_validate_access() {
+function maps_marker_pro_validate_access($release_date=false, $license_only=false) {
 	$spbas=new spbas_maps_marker_pro;
+	if ($release_date !== false) { $spbas->release_date=strtotime($release_date);}
 	$spbas->local_key_storage='database';  
 	$spbas->read_query=array('local_key' => get_option('leafletmapsmarkerpro_license_local_key'));
 	$spbas->update_query=array('function' => 'update_option', 'key' => 'leafletmapsmarkerpro_license_local_key');
@@ -919,68 +930,38 @@ function maps_marker_pro_validate_access() {
 	$spbas->api_server='http://www.mapsmarker.com/store/api/index.php';
 	$spbas->validate();
 
+	//check validity of license only
+	if ($license_only !== false) { 
+		if ( $spbas->errors ) { return false; } else { return true; }
+	}
+
 	// USER-HAS-VALID-LICENSE
-	if (maps_marker_pro_validate_license() !== true) {
-		return false;
-	}
-	// Figure out when the support & download access expires. Use the most distant date.
-	$download_expires = $spbas->key_data['download_access_expires'];
-	//echo '$download_expires: ' . $download_expires;
-	$support_expires = $spbas->key_data['support_access_expires'];
-	//echo '$support_expires: ' . $support_expires;
-	$expires = abs(($download_expires > $support_expires)?$download_expires:$support_expires);
-	//echo '$expires: ' . $expires;
-	//echo 'time():&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' . time();
-
-	// Is the free version?
-	if (!maps_marker_pro_is_paid_version())	{
-		// USER-HAS-VALID-LICENSE (sanity check)
-		if ($spbas->key_data['license_expires'] == 'never')	{
-			return false;
-		}
-
-		// USER-IS-WITHIN-30-DAY-TRIAL-LICENSE-PERIOD
-		if (time() > $spbas->key_data['license_expires']) {
-			return false;
-		}
-		return true;
-	}
-	// USER-HAS-VALID-DOWNLOAD-ACCESS
-	return ($expires > time())?true:false;
-}
-
-/**
-* Validate the license, support and download access based on constant VERSION_RELEASE_DATE to prevent manual updating with expired download access
-* 
-* @param string $release_date MM/DD/YYYY; The date that you released this version. Will need to be updated with each release.
-* @return boolean true for valid access; false for access expired
-*/
-function maps_marker_pro_validate_access_releasedate($release_date) {
-		$spbas=new spbas_maps_marker_pro;
-		$spbas->release_date=strtotime($release_date);  
-		$spbas->local_key_storage='database';  
-		$spbas->read_query=array('local_key' => get_option('maps_marker_pro_license_local_key'));
-		$spbas->update_query=array('function' => 'update_option', 'key' => 'maps_marker_pro_license_local_key');
-		$spbas->local_key_grace_period='1,2,3,4,5,6,7,8,9,10';
-		$spbas->license_key=get_option('maps_marker_pro_license_key');
-		$spbas->secret_key='7ca99e156b5e30e0648f49b81178cd7e';
-		$spbas->api_server='http://www.mapsmarker.com/customers/api/index.php';
-		$spbas->validate();
-
-		// The license is not valid.
-		if (maps_marker_pro_validate_license() !== true) {
-			return false;
-		}
-
+	if ( $spbas->errors ) { return false; }
+	
+	if ($release_date === false) {
 		// Figure out when the support & download access expires. Use the most distant date.
 		$download_expires = $spbas->key_data['download_access_expires'];
 		$support_expires = $spbas->key_data['support_access_expires'];
 		$expires = abs(($download_expires > $support_expires)?$download_expires:$support_expires);
-
-		// Was this release pushed out during a period that the customer had a valid package in place?
-		if ($spbas->release_date > $expires) {
-			return false;
+	
+		// Is the free version?
+		if (!maps_marker_pro_is_paid_version())	{
+			// USER-HAS-VALID-LICENSE (sanity check)
+			if ($spbas->key_data['license_expires'] == 'never')	{
+				return false;
+			}
+			// USER-IS-WITHIN-30-DAY-TRIAL-LICENSE-PERIOD
+			if (time() > $spbas->key_data['license_expires']) {
+				return false;
+			}
+			return true;
 		}
+		// USER-HAS-VALID-DOWNLOAD-ACCESS
+		return ($expires > time())?true:false;
+	} else if ($release_date !== false) {
+		$download_expires = $spbas->key_data['download_access_expires'];
+		$support_expires = $spbas->key_data['support_access_expires'];
+		$expires = abs(($download_expires > $support_expires)?$download_expires:$support_expires);
 
 		// Is the free version?
 		if (!maps_marker_pro_is_paid_version()) {
@@ -994,8 +975,10 @@ function maps_marker_pro_validate_access_releasedate($release_date) {
 			}
 			return true;
 		}
-		// Validate the support & download access expiration.
-		return ($expires > time())?true:false;
+
+		// Was this release pushed out during a period that the customer had a valid package in place?
+		if ($spbas->release_date > $expires) { return false; } else { return true; }
+	}
 }
 
 function maps_marker_pro_is_paid_version($prefix = 'MapsMarkerPro-') {
@@ -2002,7 +1985,6 @@ class spbas_maps_marker_pro
 $run_leafletmapsmarker_pro = new LeafletmapsmarkerPro();
 if ( is_admin() ) {
 	if ( maps_marker_pro_validate_access() ) {
-//	if ( (maps_marker_pro_validate_license()===true) && maps_marker_pro_validate_access() ) {
 		$run_PluginUpdateChecker = new PluginUpdateChecker(
 			'http://www.mapsmarker.com/updates/?action=get_metadata&slug=leaflet-maps-marker-pro',
 			__FILE__,

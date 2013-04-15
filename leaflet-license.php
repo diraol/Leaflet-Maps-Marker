@@ -6,7 +6,9 @@
 if (basename($_SERVER['SCRIPT_FILENAME']) == 'leaflet-license.php') { die ("Please do not access this file directly. Thanks!<br/><a href='http://www.mapsmarker.com/go'>www.mapsmarker.com</a>"); }
 ?>
 <div class="wrap">
-<?php include('inc' . DIRECTORY_SEPARATOR . 'admin-header.php'); ?>
+<?php include('inc' . DIRECTORY_SEPARATOR . 'admin-header.php'); 
+$error_message = isset($_GET['error']) ? $_GET['error'] : '';
+?>
 <h3 style="font-size:23px;"><?php _e('Pro License Settings','lmm'); ?></h3>
 
 <div class="wrap">
@@ -69,6 +71,7 @@ if (basename($_SERVER['SCRIPT_FILENAME']) == 'leaflet-license.php') { die ("Plea
 	<?php endif; ?>
 
 	<form method="post">
+	
 	<?php wp_nonce_field('maps_marker_pro_license', 'maps_marker_pro_license'); ?>
 		<?php if (!$spbas->license_key): ?>	
 			<p class="howto"><?php _e('Already got a valid license key? Then please enter the license key that was e-mailed to you.','lmm'); ?></p>
@@ -79,14 +82,22 @@ if (basename($_SERVER['SCRIPT_FILENAME']) == 'leaflet-license.php') { die ("Plea
 	</form>
 	<p>
 	<?php 
-		if ( $spbas->license_key && (maps_marker_pro_validate_access()===true) ) {	
-			$download_expires = $spbas->key_data['download_access_expires'];
-			$download_expires_diff = abs(floor((time()-$download_expires)/(60*60*24)));
-			echo __('Access to plugin updates and support area valid until:','lmm') . date('d/m/Y', $download_expires) . ' (' . $download_expires_diff . ' ' . __('days left','lmm') . ')';
-		} else if (  $spbas->license_key && (maps_marker_pro_validate_access()!==true) ) {
-			$plugin_version = get_option('leafletmapsmarker_version_pro');
-			echo "<div id='message' class='error' style='padding:5px;'><strong>" . __('Warning: your access to updates and support for Leaflet Maps Marker Pro has expired!','lmm') . "</strong><br/>" . sprintf(__('You can continue using version %s without any limitations. Nevertheless you will not be able to get updates including bugfixes, new features and optimizations as well as access to our support system. ','lmm'), $plugin_version) . "<br/>" . sprintf(__('<a href="%s" target="_blank">Please renew your access to updates and support to keep your plugin up-to-date and safe</a>.','lmm'), 'http://www.mapsmarker.com/renew') . "</div>";
-		}
+	if ( $error_message == null ) { //info: dont show if get error
+			if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && (maps_marker_pro_validate_access()===true) ) {
+				if (!maps_marker_pro_is_paid_version()) {
+					$download_expires = $spbas->key_data['license_expires'];
+				} else {
+					$download_expires = $spbas->key_data['download_access_expires'];
+				}
+				$download_expires_diff = abs(floor((time()-$download_expires)/(60*60*24)));
+				echo __('Access to plugin updates and support area valid until:','lmm') . date('d/m/Y', $download_expires) . ' (' . $download_expires_diff . ' ' . __('days left','lmm') . ')';
+			} else if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && (maps_marker_pro_validate_access()===false) ) {
+				$plugin_version = get_option('leafletmapsmarker_version_pro');
+				echo "<div id='message' class='error' style='padding:5px;'><strong>" . __('Warning: your access to updates and support for Leaflet Maps Marker Pro has expired!','lmm') . "</strong><br/>" . sprintf(__('You can continue using version %s without any limitations. Nevertheless you will not be able to get updates including bugfixes, new features and optimizations as well as access to our support system. ','lmm'), $plugin_version) . "<br/>" . sprintf(__('<a href="%s" target="_blank">Please renew your access to updates and support to keep your plugin up-to-date and safe</a>.','lmm'), 'http://www.mapsmarker.com/renew') . "</div>";
+			}
+	} else {
+		echo "<div id='message' class='error' style='padding:5px;'><strong>" . __('Error: This version of the software was released after your download access expired. Please downgrade or contact support for more information.','lmm') . "</strong></div>";		
+	}
 	?>
 	</p>
 
