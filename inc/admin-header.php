@@ -6,6 +6,7 @@
 if (basename($_SERVER['SCRIPT_FILENAME']) == 'admin-header.php') { die ("Please do not access this file directly. Thanks!<br/><a href='http://www.mapsmarker.com/go'>www.mapsmarker.com</a>"); }
 //RH: debug info
 /*
+
 echo 'VERSION_RELEASE_DATE: ' . VERSION_RELEASE_DATE;
 echo '<br>';
 

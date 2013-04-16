@@ -2,7 +2,7 @@
 /**
  * Plugin Update Checker Library 1.3
  * http://w-shadow.com/
- *
+ * Last commit (https://github.com/YahnisElsts/plugin-update-checker/commits/): Feb 22, 2013 - Add a workaround for a bug in BackupBuddy...
  * Copyright 2012 Janis Elsts
  * Licensed under the GNU GPL license.
  * http://www.gnu.org/licenses/gpl.html
@@ -84,7 +84,7 @@ class PluginUpdateChecker_1_3 {
 		if ( $this->checkPeriod > 0 ){
 
 			//Trigger the check via Cron
-			add_filter('cron_schedules', array($this, '_addCustomSchedule'));
+			add_filter('cron_schedules', array($this, '_addCustomSchedule'), 20); 
 			if ( !wp_next_scheduled($this->cronHook) && !defined('WP_INSTALLING') ) {
 				$scheduleName = 'every' . $this->checkPeriod . 'hours';
 				wp_schedule_event(time(), $scheduleName, $this->cronHook);

@@ -40,6 +40,8 @@ if ( ! defined( 'LEAFLET_PLUGIN_ICONS_DIR' ) )
 if ( is_admin() ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'inc' . DIRECTORY_SEPARATOR . 'class-leaflet-options.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'inc' . DIRECTORY_SEPARATOR . 'class-plugin-update-checker.php' );
+	global $lmm_options_class;
+	$lmm_options_class = new Class_leaflet_options();
 }
 class LeafletmapsmarkerPro
 {
@@ -318,8 +320,8 @@ class LeafletmapsmarkerPro
 		include('leaflet-help-credits.php');
 	}
 	function lmm_settings() {
-		global $leafletmapsmarker_options;
-		$leafletmapsmarker_options->display_page();
+		global $lmm_options_class;
+		$lmm_options_class->display_page();
 	}
 	function lmm_list_layers() {
 		include('leaflet-list-layers.php');
@@ -845,12 +847,15 @@ if (maps_marker_pro_validate_license()!==true) {
 	die(header('Location: '.self_admin_url('admin.php?page=leafletmapsmarker_license'))); 
 }
 if ( is_admin() ) {
-	if (maps_marker_pro_validate_access($release_date=VERSION_RELEASE_DATE,$license_only=false)===false) {
-		$current_page = isset($_GET['page']) ? $_GET['page'] : '';
-		$protected_pages = array('leafletmapsmarker_markers','leafletmapsmarker_marker','leafletmapsmarker_layers','leafletmapsmarker_layer','leafletmapsmarker_tools','leafletmapsmarker_settings','leafletmapsmarker_help');
-		if (in_array($current_page, $protected_pages)) {
-			echo '<script type="text/javascript">window.location.href = "' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_license&error=download_expired";</script>  ';	
-		} 
+	$current_page = isset($_GET['page']) ? $_GET['page'] : '';
+	$check_pages = array('leafletmapsmarker_markers','leafletmapsmarker_marker','leafletmapsmarker_layers','leafletmapsmarker_layer','leafletmapsmarker_tools','leafletmapsmarker_settings','leafletmapsmarker_help');
+	if (in_array($current_page, $check_pages)) {
+		if (maps_marker_pro_validate_access($release_date=VERSION_RELEASE_DATE,$license_only=false)===false) {
+			$protected_pages = array('leafletmapsmarker_markers','leafletmapsmarker_marker','leafletmapsmarker_layers','leafletmapsmarker_layer','leafletmapsmarker_tools','leafletmapsmarker_settings','leafletmapsmarker_help');
+			if (in_array($current_page, $protected_pages)) {
+				echo '<script type="text/javascript">window.location.href = "' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_license&error=download_expired";</script>  ';	
+			} 
+		}
 	}
 }
 

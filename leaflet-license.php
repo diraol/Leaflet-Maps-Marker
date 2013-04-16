@@ -6,9 +6,8 @@
 if (basename($_SERVER['SCRIPT_FILENAME']) == 'leaflet-license.php') { die ("Please do not access this file directly. Thanks!<br/><a href='http://www.mapsmarker.com/go'>www.mapsmarker.com</a>"); }
 ?>
 <div class="wrap">
-<?php include('inc' . DIRECTORY_SEPARATOR . 'admin-header.php'); 
-$error_message = isset($_GET['error']) ? $_GET['error'] : '';
-?>
+<?php include('inc' . DIRECTORY_SEPARATOR . 'admin-header.php'); ?>
+
 <h3 style="font-size:23px;"><?php _e('Pro License Settings','lmm'); ?></h3>
 
 <div class="wrap">
@@ -82,7 +81,7 @@ $error_message = isset($_GET['error']) ? $_GET['error'] : '';
 	</form>
 	<p>
 	<?php 
-	if ( $error_message == null ) { //info: dont show if get error
+	if (maps_marker_pro_validate_access($release_date=VERSION_RELEASE_DATE,$license_only=false)===true) { 
 			if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && (maps_marker_pro_validate_access()===true) ) {
 				if (!maps_marker_pro_is_paid_version()) {
 					$download_expires = $spbas->key_data['license_expires'];
@@ -94,8 +93,8 @@ $error_message = isset($_GET['error']) ? $_GET['error'] : '';
 			} else if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && (maps_marker_pro_validate_access()===false) ) {
 				$plugin_version = get_option('leafletmapsmarker_version_pro');
 				echo "<div id='message' class='error' style='padding:5px;'><strong>" . __('Warning: your access to updates and support for Leaflet Maps Marker Pro has expired!','lmm') . "</strong><br/>" . sprintf(__('You can continue using version %s without any limitations. Nevertheless you will not be able to get updates including bugfixes, new features and optimizations as well as access to our support system. ','lmm'), $plugin_version) . "<br/>" . sprintf(__('<a href="%s" target="_blank">Please renew your access to updates and support to keep your plugin up-to-date and safe</a>.','lmm'), 'http://www.mapsmarker.com/renew') . "</div>";
-			}
-	} else {
+			} 
+	} else if (maps_marker_pro_validate_access($release_date=VERSION_RELEASE_DATE,$license_only=false)===false) {
 		echo "<div id='message' class='error' style='padding:5px;'><strong>" . __('Error: This version of the software was released after your download access expired. Please downgrade or contact support for more information.','lmm') . "</strong></div>";		
 	}
 	?>
