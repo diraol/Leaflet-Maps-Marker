@@ -10,7 +10,7 @@ if (basename($_SERVER['SCRIPT_FILENAME']) == 'admin-header.php') { die ("Please 
 echo 'VERSION_RELEASE_DATE: ' . VERSION_RELEASE_DATE;
 echo '<br>';
 
-echo 'strtotime(VERSION_RELEASE_DATE): ' . strtotime(VERSION_RELEASE_DATE);
+echo 'VERSION_RELEASE_DATE / strtotime(VERSION_RELEASE_DATE): ' . VERSION_RELEASE_DATE . ' / ' . strtotime(VERSION_RELEASE_DATE);
 echo '<br>';
 
 $maps_marker_pro_validate_access_releasedate = (maps_marker_pro_validate_access_releasedate(VERSION_RELEASE_DATE)) ? 'true' : 'false';
@@ -50,14 +50,14 @@ echo '<br>';
 */
 
 		$download_expires = $spbas->key_data['download_access_expires'];
-		echo '$download_expires: ' . $download_expires . '<br>';
+		echo '$download_expires: ' . gmdate("d M Y", $download_expires) . ' / ' . $download_expires . '<br>';
 		$support_expires = $spbas->key_data['support_access_expires'];
-		echo '$support_expires: ' . $support_expires . '<br>';
+		echo '$support_expires: ' .  gmdate("d M Y", $support_expires) . ' / ' . $support_expires . '<br>';
 		$expires = abs(($download_expires > $support_expires)?$download_expires:$support_expires);
-		echo '$expires: ' . $expires . '<br>';
+		echo '$expires: ' .  gmdate("d M Y", $expires) . ' / ' . $expires . '<br>';
 		echo 'time():&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' . time() . '<br>';
 echo 'license_expires: ' . $spbas->key_data['license_expires'] . '<br>';
-echo 'strtotime(VERSION_RELEASE_DATE): ' . strtotime(VERSION_RELEASE_DATE) . '<br>';
+echo 'VERSION_RELEASE_DATE / strtotime(VERSION_RELEASE_DATE): ' . VERSION_RELEASE_DATE . ' / ' . strtotime(VERSION_RELEASE_DATE) . '<br>';
 
 require_once(ABSPATH . WPINC . DIRECTORY_SEPARATOR . "pluggable.php");
 $lmm_options = get_option( 'leafletmapsmarker_options' ); //info: required for bing maps api key check
@@ -65,7 +65,7 @@ $lmm_options = get_option( 'leafletmapsmarker_options' ); //info: required for b
 $page = (isset($_GET['page']) ? $_GET['page'] : '');
 $oid = isset($_POST['id']) ? intval($_POST['id']) : (isset($_GET['id']) ? intval($_GET['id']) : '');
 if ($page == 'leafletmapsmarker_markers') {
-	$buttonclass1 = 'button-primary';
+	$buttonclass1 = 'button-primary leafletmapsmarker-nav';
 	$buttonclass2 = 'button-secondary';
 	$buttonclass3 = 'button-secondary';
 	$buttonclass4 = 'button-secondary';
@@ -75,7 +75,7 @@ if ($page == 'leafletmapsmarker_markers') {
 	$buttonclass8 = 'button-secondary';
 } else if ($page == 'leafletmapsmarker_marker') {
 	$buttonclass1 = 'button-secondary';
-	$buttonclass2 = 'button-primary';
+	$buttonclass2 = 'button-primary leafletmapsmarker-nav';
 	$buttonclass3 = 'button-secondary';
 	$buttonclass4 = 'button-secondary';
 	$buttonclass5 = 'button-secondary';
@@ -85,7 +85,7 @@ if ($page == 'leafletmapsmarker_markers') {
 } else if ($page == 'leafletmapsmarker_layers') {
 	$buttonclass1 = 'button-secondary';
 	$buttonclass2 = 'button-secondary';
-	$buttonclass3 = 'button-primary';
+	$buttonclass3 = 'button-primary leafletmapsmarker-nav';
 	$buttonclass4 = 'button-secondary';
 	$buttonclass5 = 'button-secondary';
 	$buttonclass6 = 'button-secondary';
@@ -95,7 +95,7 @@ if ($page == 'leafletmapsmarker_markers') {
 	$buttonclass1 = 'button-secondary';
 	$buttonclass2 = 'button-secondary';
 	$buttonclass3 = 'button-secondary';
-	$buttonclass4 = 'button-primary';
+	$buttonclass4 = 'button-primary leafletmapsmarker-nav';
 	$buttonclass5 = 'button-secondary';
 	$buttonclass6 = 'button-secondary';
 	$buttonclass7 = 'button-secondary';
@@ -105,7 +105,7 @@ if ($page == 'leafletmapsmarker_markers') {
 	$buttonclass2 = 'button-secondary';
 	$buttonclass3 = 'button-secondary';
 	$buttonclass4 = 'button-secondary';
-	$buttonclass5 = 'button-primary';
+	$buttonclass5 = 'button-primary leafletmapsmarker-nav';
 	$buttonclass6 = 'button-secondary';
 	$buttonclass7 = 'button-secondary';
 	$buttonclass8 = 'button-secondary';
@@ -115,7 +115,7 @@ if ($page == 'leafletmapsmarker_markers') {
 	$buttonclass3 = 'button-secondary';
 	$buttonclass4 = 'button-secondary';
 	$buttonclass5 = 'button-secondary';
-	$buttonclass6 = 'button-primary';
+	$buttonclass6 = 'button-primary leafletmapsmarker-nav';
 	$buttonclass7 = 'button-secondary';
 	$buttonclass8 = 'button-secondary';
 } else if ($page == 'leafletmapsmarker_help') {
@@ -125,7 +125,7 @@ if ($page == 'leafletmapsmarker_markers') {
 	$buttonclass4 = 'button-secondary';
 	$buttonclass5 = 'button-secondary';
 	$buttonclass6 = 'button-secondary';
-	$buttonclass7 = 'button-primary';
+	$buttonclass7 = 'button-primary leafletmapsmarker-nav';
 	$buttonclass8 = 'button-secondary';
 } else if ($page == 'leafletmapsmarker_license') {
 	$buttonclass1 = 'button-secondary';
@@ -135,7 +135,7 @@ if ($page == 'leafletmapsmarker_markers') {
 	$buttonclass5 = 'button-secondary';
 	$buttonclass6 = 'button-secondary';
 	$buttonclass7 = 'button-secondary';
-	$buttonclass8 = 'button-primary';
+	$buttonclass8 = 'button-primary leafletmapsmarker-nav';
 }
 $admin_quicklink_tools_buttons = ( current_user_can( "activate_plugins" ) ) ? "<a class='" . $buttonclass5 ."' href='" . LEAFLET_WP_ADMIN_URL . "admin.php?page=leafletmapsmarker_tools'><img src='" . LEAFLET_PLUGIN_URL . "inc/img/icon-menu-tools.png'> ".__('Tools','lmm')."</a>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;" : "";
 $admin_quicklink_settings_buttons = ( current_user_can( "activate_plugins" ) ) ? "<a class='" . $buttonclass6 ."' href='" . LEAFLET_WP_ADMIN_URL . "admin.php?page=leafletmapsmarker_settings'><img src='" . LEAFLET_PLUGIN_URL . "inc/img/icon-menu-settings.png'> ".__('Settings','lmm')."</a>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;" : "";

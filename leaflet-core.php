@@ -11,7 +11,7 @@ if (version_compare(phpversion(),"5.2","<")){
 
 //2do: update on each release (MM/DD/YYYY) - preventing manual update without valid upgrade license
 if ( ! defined( 'VERSION_RELEASE_DATE' ) )
-	define( 'VERSION_RELEASE_DATE', '01/04/2014' );
+	define( 'VERSION_RELEASE_DATE', '01/04/2013' );
 
 //info: check if latest free version is used (run only on pro initialization - needed if users wants to switch back to free version)
 $lmm_free_version_number = get_option( 'leafletmapsmarker_version' );
@@ -219,6 +219,13 @@ class LeafletmapsmarkerPro
 		$widgets = get_option( 'dashboard_widget_options' );
 		$widget_id = 'lmm-admin-dashboard-widget';
 		$number_of_markers =  isset( $widgets[$widget_id] ) && isset( $widgets[$widget_id]['items'] ) ? absint( $widgets[$widget_id]['items'] ) : 4;
+		//info: show license update warning
+		if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && (maps_marker_pro_validate_access()===false) ) {
+			$plugin_version = get_option('leafletmapsmarker_version_pro');
+			echo '<div style="padding: 3px 5px;background-color: #FFEBE8;border: 1px solid #CC0000;border-radius: 3px;color: #333;"><strong>' . __('Warning: your access to updates and support for Leaflet Maps Marker Pro has expired!','lmm') . '</strong><br/>' . sprintf(__('You can continue using version %s without any limitations. Nevertheless you will not be able to get updates including bugfixes, new features and optimizations as well as access to our support system. ','lmm'), $plugin_version) . '<br/>' . sprintf(__('<a href="%s">Please renew your access to updates and support to keep your plugin up-to-date and safe</a>.','lmm'), LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_license') . '</div>';
+			echo '<hr style="border:0;height:1px;background-color:#d8d8d8;"/>';
+		}
+
 		$result = $wpdb->get_results($wpdb->prepare("SELECT ID,markername,icon,createdon,createdby FROM $table_name_markers ORDER BY createdon desc LIMIT %d", $number_of_markers), ARRAY_A);
 		if ($result != NULL) {
 			echo '<table style="margin-bottom:5px;"><tr>';
@@ -388,6 +395,7 @@ class LeafletmapsmarkerPro
 		add_action('admin_print_styles-'.$page6, array(&$this, 'lmm_admin_enqueue_stylesheets'),22);
 		add_action('admin_print_styles-'.$page7, array(&$this, 'lmm_admin_enqueue_stylesheets'),23);
 		add_action('admin_print_styles-'.$page8, array(&$this, 'lmm_admin_enqueue_stylesheets'),23);
+		add_action('admin_print_styles-'.$page10, array(&$this, 'lmm_admin_enqueue_stylesheets'),23);
 		//info: add css styles for datepicker
 		add_action('admin_print_styles-'.$page3, array(&$this, 'lmm_admin_enqueue_stylesheets_datepicker'),24);
 		//info: add contextual help on all pages
@@ -579,7 +587,8 @@ class LeafletmapsmarkerPro
 				'bing_culture' => $bing_culture,
 				'google_adsense_status' => $google_adsense_status,
 				'google_styling_json' => $google_styling_json,
-				'minimap_button_text' => __( 'Minimap', 'lmm' ),
+				'minimap_show' => __( 'Show minimap', 'lmm' ),
+				'minimap_hide' => __( 'Hide minimap', 'lmm' ),
 				'minimap_status' => $lmm_options['minimap_status'],
 				'fullscreen_button_title' => __('View fullscreen','lmm'),
 				'fullscreen_button_position' => $lmm_options['map_fullscreen_button_position']
@@ -612,7 +621,8 @@ class LeafletmapsmarkerPro
 				'google_adsense_channelNumber' => $google_adsense_channelNumber,
 				'google_adsense_publisherId' => $google_adsense_publisherId,
 				'google_styling_json' => $google_styling_json,
-				'minimap_button_text' => __( 'Minimap', 'lmm' ),
+				'minimap_show' => __( 'Show minimap', 'lmm' ),
+				'minimap_hide' => __( 'Hide minimap', 'lmm' ),
 				'minimap_status' => $lmm_options['minimap_status'],
 				'fullscreen_button_title' => __('View fullscreen','lmm'),
 				'fullscreen_button_position' => $lmm_options['map_fullscreen_button_position']
@@ -672,7 +682,8 @@ class LeafletmapsmarkerPro
 				'bing_culture' => $bing_culture,
 				'google_adsense_status' => $google_adsense_status,
 				'google_styling_json' => $google_styling_json,
-				'minimap_button_text' => __( 'Minimap', 'lmm' ),
+				'minimap_show' => __( 'Show minimap', 'lmm' ),
+				'minimap_hide' => __( 'Hide minimap', 'lmm' ),
 				'minimap_status' => $lmm_options['minimap_status'],
 				'fullscreen_button_title' => __('View fullscreen','lmm'),
 				'fullscreen_button_position' => $lmm_options['map_fullscreen_button_position']
@@ -705,7 +716,8 @@ class LeafletmapsmarkerPro
 				'google_adsense_channelNumber' => $google_adsense_channelNumber,
 				'google_adsense_publisherId' => $google_adsense_publisherId,
 				'google_styling_json' => $google_styling_json,
-				'minimap_button_text' => __( 'Minimap', 'lmm' ),
+				'minimap_show' => __( 'Show minimap', 'lmm' ),
+				'minimap_hide' => __( 'Hide minimap', 'lmm' ),
 				'minimap_status' => $lmm_options['minimap_status'],
 				'fullscreen_button_title' => __('View fullscreen','lmm'),
 				'fullscreen_button_position' => $lmm_options['map_fullscreen_button_position']
