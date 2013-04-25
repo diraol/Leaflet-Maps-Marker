@@ -16,7 +16,7 @@ if ( ! defined( 'VERSION_RELEASE_DATE' ) )
 //info: check if latest free version is used (run only on pro initialization - needed if users wants to switch back to free version)
 $lmm_free_version_number = get_option( 'leafletmapsmarker_version' );
 $lmm_pro_version_old = get_option( 'leafletmapsmarker_version_pro_before_update' );
-if ( (($lmm_free_version_number != NULL) && ($lmm_free_version_number < '3.5.1' )) && ($lmm_pro_version_old == NULL) ) { //2do: update to latest free version
+if ( (($lmm_free_version_number != NULL) && ($lmm_free_version_number < '3.5.3' )) && ($lmm_pro_version_old == NULL) ) { //2do: update to latest free version
 	die ("Before activating Leaflet Maps Marker Pro, please update the free version first!<br/>This helps ensuring that a hassle-free downgrade is possible - which we hope you will not want anyway ;-)");
 }
 //info: deactive free version first
@@ -115,7 +115,16 @@ class LeafletmapsmarkerPro
 			$rss_link = '<a href="http://feeds.feedburner.com/MapsMarker" target="_blank" title="RSS"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-rss.png" width="16" height="16" alt="rss"></a>';
 			$rss_email_link = '<a href="http://feedburner.google.com/fb/a/mailverify?uri=MapsMarker" target="_blank" title="RSS (via Email)"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-rss-email.png" width="16" height="16" alt="rss-email"></a>';
 			//info: check if update license has expired - dont check for valid license to show warning on invalid license too
-			if (maps_marker_pro_validate_access()===false) {
+			$pluginpagelink_transient = 'leafletmapsmarkerpro_plugin_page_api_cache';
+			$pluginpagelink_schedule = get_transient( $pluginpagelink_transient );
+			if ( $pluginpagelink_schedule === FALSE ) {
+				if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && (maps_marker_pro_validate_access()===false) ) {
+					set_transient( $pluginpagelink_transient, 'false', 60*60*12 );
+				} else {
+					set_transient( $pluginpagelink_transient, 'true', 60*60*12 );
+				}
+			}
+			if ( get_transient( $pluginpagelink_transient ) == 'false' ) {
 				$pro_update_info = '<br/></td></tr><tr><td colspan="3"><div style="padding: 3px 5px;background-color: #FFEBE8;border: 1px solid #CC0000;border-radius: 3px;color: #333;"><strong>' . __('Warning: your access to updates and support for Leaflet Maps Marker Pro has expired!','lmm') . '</strong><br/>' . sprintf(__('You can continue using version %s without any limitations. Nevertheless you will not be able to get updates including bugfixes, new features and optimizations as well as access to our support system. ','lmm'), $plugin_version) . '<br/>' . sprintf(__('<a href="%s">Please renew your access to updates and support to keep your plugin up-to-date and safe</a>.','lmm'), LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_license') . '</div>';
 			} else {
 				$pro_update_info = '';
@@ -220,12 +229,20 @@ class LeafletmapsmarkerPro
 		$widget_id = 'lmm-admin-dashboard-widget';
 		$number_of_markers =  isset( $widgets[$widget_id] ) && isset( $widgets[$widget_id]['items'] ) ? absint( $widgets[$widget_id]['items'] ) : 4;
 		//info: show license update warning
-		if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && (maps_marker_pro_validate_access()===false) ) {
+		$dashboard_transient = 'leafletmapsmarkerpro_dashboard_api_cache';
+		$dashboard_schedule = get_transient( $dashboard_transient );
+		if ( $dashboard_schedule === FALSE ) {
+			if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && (maps_marker_pro_validate_access()===false) ) {
+				set_transient( $dashboard_transient, 'false', 60*60*12 );
+			} else {
+				set_transient( $dashboard_transient, 'true', 60*60*12 );
+			}
+		}
+		if ( get_transient( $dashboard_transient ) == 'false' ) {
 			$plugin_version = get_option('leafletmapsmarker_version_pro');
 			echo '<div style="padding: 3px 5px;background-color: #FFEBE8;border: 1px solid #CC0000;border-radius: 3px;color: #333;"><strong>' . __('Warning: your access to updates and support for Leaflet Maps Marker Pro has expired!','lmm') . '</strong><br/>' . sprintf(__('You can continue using version %s without any limitations. Nevertheless you will not be able to get updates including bugfixes, new features and optimizations as well as access to our support system. ','lmm'), $plugin_version) . '<br/>' . sprintf(__('<a href="%s">Please renew your access to updates and support to keep your plugin up-to-date and safe</a>.','lmm'), LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_license') . '</div>';
 			echo '<hr style="border:0;height:1px;background-color:#d8d8d8;"/>';
 		}
-
 		$result = $wpdb->get_results($wpdb->prepare("SELECT ID,markername,icon,createdon,createdby FROM $table_name_markers ORDER BY createdon desc LIMIT %d", $number_of_markers), ARRAY_A);
 		if ($result != NULL) {
 			echo '<table style="margin-bottom:5px;"><tr>';
@@ -351,6 +368,23 @@ class LeafletmapsmarkerPro
 	}
 	function lmm_showmap($atts) {
 		require('inc' . DIRECTORY_SEPARATOR . 'showmap.php');
+		if ( maps_marker_pro_is_free_version_and_license_entered() ) {
+			$showmap_transient = 'leafletmapsmarkerpro_showmap_api_cache';
+			$showmap_schedule = get_transient( $showmap_transient );
+			if ( $showmap_schedule === FALSE ) {
+				if ( (maps_marker_pro_validate_access($release_date=false, $license_only=false)===true) && (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) ) {
+					set_transient( $showmap_transient, 'true', 60*60*12 );
+				} else {
+					set_transient( $showmap_transient, 'false', 60*60*12 );
+				}
+			}
+			if ( get_transient( $showmap_transient ) == 'false' ) {
+				$licenseexpired = '<a style="color:white;text-decoration:none;" href="http://www.mapsmarker.com/expired" target="_blank"><div style="padding:5px;background:#FF4500;text-align:center;">MapsMarker.com: ' . __('please get a valid license key to activate the pro version','lmm') . '</div></a>';
+			} else {
+				$licenseexpired = '';
+			}
+			return $licenseexpired . $lmm_out . $licenseexpired;
+		}
 		return $lmm_out;
 	}
 	function lmm_admin_menu() {
@@ -820,7 +854,7 @@ class LeafletmapsmarkerPro
 		wp_enqueue_style( 'jquery-ui-timepicker-addon' );
 	}
 	function lmm_install_and_updates() {
-		//info: set transient to execute install & update-routine only once a day
+		//info: set transient to execute install & update-routine only once a day and on updates
 		$current_version = "vp10"; //2do - mandatory: change on each update to new version!
 		$schedule_transient = 'leafletmapsmarker_install_update_cache_' . $current_version;
 		$install_update_schedule = get_transient( $schedule_transient );
@@ -854,16 +888,17 @@ class LeafletmapsmarkerPro
 //info: SPBAS Licensing BEGIN */
 //*****************************/
 
-// Validate the license!
-if (maps_marker_pro_validate_license()!==true) { 
-	die(header('Location: '.self_admin_url('admin.php?page=leafletmapsmarker_license'))); 
-}
 if ( is_admin() ) {
 	$current_page = isset($_GET['page']) ? $_GET['page'] : '';
-	$check_pages = array('leafletmapsmarker_markers','leafletmapsmarker_marker','leafletmapsmarker_layers','leafletmapsmarker_layer','leafletmapsmarker_tools','leafletmapsmarker_settings','leafletmapsmarker_help');
+	$check_pages = array('leafletmapsmarker_markers','leafletmapsmarker_marker','leafletmapsmarker_layers','leafletmapsmarker_layer','leafletmapsmarker_tools','leafletmapsmarker_settings');
 	if (in_array($current_page, $check_pages)) {
+		// Validate the license!
+		if (maps_marker_pro_validate_license()!==true) { 
+			die(header('Location: '.self_admin_url('admin.php?page=leafletmapsmarker_license'))); 
+		}
+		//info: check release date vs. download expire date
 		if (maps_marker_pro_validate_access($release_date=VERSION_RELEASE_DATE,$license_only=false)===false) {
-			$protected_pages = array('leafletmapsmarker_markers','leafletmapsmarker_marker','leafletmapsmarker_layers','leafletmapsmarker_layer','leafletmapsmarker_tools','leafletmapsmarker_settings','leafletmapsmarker_help');
+			$protected_pages = array('leafletmapsmarker_markers','leafletmapsmarker_marker','leafletmapsmarker_layers','leafletmapsmarker_layer','leafletmapsmarker_tools','leafletmapsmarker_settings');
 			if (in_array($current_page, $protected_pages)) {
 				echo '<script type="text/javascript">window.location.href = "' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_license&error=download_expired";</script>  ';	
 			} 
@@ -908,7 +943,7 @@ function maps_marker_pro_validate_license($raw=false) {
 	$spbas->local_key_grace_period='1,2,3,4,5,6,7,8,9,10';
 	$spbas->license_key=get_option('leafletmapsmarkerpro_license_key');
 	$spbas->secret_key='7ca99e156b5e30e0648f49b81178cd7e';
-	$spbas->api_server='http://www.mapsmarker.com/store/api/index.php';
+	$spbas->api_server='https://www.mapsmarker.com/store/api/index.php';
 	$spbas->validate();
 
 	if ($raw) { return $spbas; }
@@ -919,8 +954,7 @@ function maps_marker_pro_validate_license($raw=false) {
 		'leafletmapsmarker_layers',
 		'leafletmapsmarker_layer',
 		'leafletmapsmarker_tools',
-		'leafletmapsmarker_settings',
-		'leafletmapsmarker_help'
+		'leafletmapsmarker_settings'
 	); 
 	if (is_admin()&&maps_marker_pro_do_validate_license($licensed_pages, true)&&$spbas->errors) {
 		return $spbas->errors;
@@ -944,7 +978,7 @@ function maps_marker_pro_validate_access($release_date=false, $license_only=fals
 	$spbas->local_key_grace_period='1,2,3,4,5,6,7,8,9,10';
 	$spbas->license_key=get_option('leafletmapsmarkerpro_license_key');
 	$spbas->secret_key='7ca99e156b5e30e0648f49b81178cd7e';
-	$spbas->api_server='http://www.mapsmarker.com/store/api/index.php';
+	$spbas->api_server='https://www.mapsmarker.com/store/api/index.php';
 	$spbas->validate();
 
 	//check validity of license only
@@ -997,8 +1031,21 @@ function maps_marker_pro_validate_access($release_date=false, $license_only=fals
 		if ($spbas->release_date > $expires) { return false; } else { return true; }
 	}
 }
-
 function maps_marker_pro_is_paid_version($prefix = 'MapsMarkerPro-') {
+	return substr(get_option('leafletmapsmarkerpro_license_key'), 0, strlen($prefix)) == $prefix;
+}
+function maps_marker_pro_is_free_version_and_license_entered($prefix = 'MapsMarkerFree-') {
+	$license_key = get_option('leafletmapsmarkerpro_license_key');
+	if ( (substr($license_key, 0, strlen($prefix)) == $prefix) || (substr($license_key, 0, 14) != 'MapsMarkerPro-') ) {
+		return true;
+	} else { 
+		return false; 
+	}
+}
+function maps_marker_pro_is_five_pack_license($prefix = 'MapsMarkerPro-5P-') {
+	return substr(get_option('leafletmapsmarkerpro_license_key'), 0, strlen($prefix)) == $prefix;
+}
+function maps_marker_pro_is_twentyfive_pack_license($prefix = 'MapsMarkerPro-25P-') {
 	return substr(get_option('leafletmapsmarkerpro_license_key'), 0, strlen($prefix)) == $prefix;
 }
 
@@ -1029,10 +1076,10 @@ function maps_marker_pro_license_activation_page() {
 		$spbas=new spbas_maps_marker_pro;
 		$maps_marker_pro_reg_success = '';
 		$maps_marker_pro_reg_errors=array();
-		if (!$_POST['maps_marker_pro_first_name']) { $maps_marker_pro_reg_errors[]='Please enter your first name to continue.'; }
-		if (!$_POST['maps_marker_pro_last_name']) { $maps_marker_pro_reg_errors[]='Please enter your last name to continue.'; }
-		if (!$_POST['maps_marker_pro_email']) { $maps_marker_pro_reg_errors[]='Please enter your email to continue.'; }
-		if (!$_POST['maps_marker_pro_tos']) { $maps_marker_pro_reg_errors[]='You must agree to the TOS to continue.'; }
+		if (!$_POST['maps_marker_pro_first_name']) { $maps_marker_pro_reg_errors[]=__('Please enter your first name to continue.','lmm'); }
+		if (!$_POST['maps_marker_pro_last_name']) { $maps_marker_pro_reg_errors[]=__('Please enter your last name to continue.','lmm'); }
+		if (!$_POST['maps_marker_pro_email']) { $maps_marker_pro_reg_errors[]=__('Please enter your email to continue.','lmm'); }
+		if (!$_POST['maps_marker_pro_tos']) { $maps_marker_pro_reg_errors[]=__('You must agree to the TOS to continue.','lmm'); }
 
 		if (empty($maps_marker_pro_reg_errors)) {
 			$qs=array();
@@ -1051,7 +1098,7 @@ function maps_marker_pro_license_activation_page() {
 				update_option('leafletmapsmarkerpro_license_key', $spbas->license_key = $response[0]);
 				update_option('leafletmapsmarkerpro_license_local_key', ''); 
 
-				$maps_marker_pro_reg_success='Your new license was registered successfully!';
+				$maps_marker_pro_reg_success=__('Your new license was registered successfully!','lmm');
 			}
 		}
 	} else {
@@ -1130,36 +1177,32 @@ class spbas_maps_marker_pro
 						);
 
 		$this->status_messages=array(
-						'active' => 'This license is active.', 
-						'suspended' => 'Error: This license has been suspended.', 
-						'expired' => 'Error: This license has expired.', 
-						'pending' => 'Error: This license is pending review.', 
-						'download_access_expired' => 'Error: This version of the software was released '.
-													'after your download access expired. Please '.
-													'downgrade or contact support for more information.', 
-						'missing_license_key' => __("Please enter a license key to continue.","lmm"),
-						'unknown_local_key_type' => 'Error: An unknown type of local key validation was requested.',
-						'could_not_obtain_local_key' => 'Error: I could not obtain a new local license key.', 
-						'maximum_grace_period_expired' => 'Error: The maximum local license key grace period has expired.',
-						'local_key_tampering' => 'Error: The local license key has been tampered with or is invalid.',
-						'local_key_invalid_for_location' => 'Error: The local license key is invalid for this location.',
-						'missing_license_file' => "Error: Please create the following file (and directories if they don't exist already):<br />\r\n<br />\r\n",
-						'license_file_not_writable' => 'Error: Please make the following path writable:<br />',
-						'invalid_local_key_storage' => 'Error: I could not determine the local key storage on clear.',
-						'could_not_save_local_key' => 'Error: I could not save the local license key.',
-						'license_key_string_mismatch' => 'Error: The local key is invalid for this license.',
+						'active' => __('This license is active.','lmm'), 
+						'suspended' => __('Error: This license has been suspended.','lmm'), 
+						'expired' => __('Error: This license has expired.','lmm'), 
+						'pending' => __('Error: This license is pending review.','lmm'), 
+						'download_access_expired' => __('Error: This version of the software was released after your download access expired. Please downgrade or contact support for more information.','lmm'), 
+						'missing_license_key' => __('Please enter a license key to continue.','lmm'),
+						'unknown_local_key_type' => __('Error: An unknown type of local key validation was requested.','lmm'),
+						'could_not_obtain_local_key' => __('Error: a new local license key could not be obtained.','lmm'), 
+						'maximum_grace_period_expired' => __('Error: The maximum local license key grace period has expired.','lmm'),
+						'local_key_tampering' => __('Error: The local license key has been tampered with or is invalid.','lmm'),
+						'local_key_invalid_for_location' => __('Error: The local license key is invalid for this location.','lmm'),
+						'missing_license_file' => __('Error: Please create the following file (and directories if they do not exist already):<br />\r\n<br />\r\n','lmm'),
+						'license_file_not_writable' => __('Error: Please make the following path writable:<br />','lmm'),
+						'invalid_local_key_storage' => __('Error: the local key storage on clear could not determined.','lmm'),
+						'could_not_save_local_key' => __('Error: the local license key could not saved.','lmm'),
+						'license_key_string_mismatch' => __('Error: The local key is invalid for this license.','lmm'),
 						);
 
 		// replace plain text messages with tags, make the tags keys for this localization array on the server side.
 		// move all plain text messages to tags & localizations
 		$this->localization=array(
-						'active' => 'This license is active.', 
-						'suspended' => 'Error: This license has been suspended.', 
-						'expired' => 'Error: This license has expired.', 
-						'pending' => 'Error: This license is pending review.', 
-						'download_access_expired' => 'Error: This version of the software was released '.
-													'after your download access expired. Please '.
-													'downgrade or contact support for more information.', 
+						'active' => __('This license is active.','lmm'), 
+						'suspended' => __('Error: This license has been suspended.','lmm'), 
+						'expired' => __('Error: This license has expired.','lmm'), 
+						'pending' => __('Error: This license is pending review.','lmm'), 
+						'download_access_expired' => __('Error: This version of the software was released after your download access expired. Please downgrade or contact support for more information.','lmm'), 
 						);
 		}
 
@@ -2000,8 +2043,19 @@ class spbas_maps_marker_pro
 //***************************/
 
 $run_leafletmapsmarker_pro = new LeafletmapsmarkerPro();
+
+//info: use transient to run update check only all 12 hours
 if ( is_admin() ) {
-	if ( maps_marker_pro_validate_access() ) {
+	$pluginupdatechecker_transient = 'leafletmapsmarkerpro_update_api_cache';
+	$pluginupdatechecker_schedule = get_transient( $pluginupdatechecker_transient );
+	if ( $pluginupdatechecker_schedule === FALSE ) {
+		if ( maps_marker_pro_validate_access() ) {
+			set_transient( $pluginupdatechecker_transient, 'true', 60*60*12 );
+		} else {
+			set_transient( $pluginupdatechecker_transient, 'false', 60*60*12 );
+		}
+	}
+	if ( get_transient( $pluginupdatechecker_transient ) == 'true' ) {
 		$run_PluginUpdateChecker = new PluginUpdateChecker(
 			'http://www.mapsmarker.com/updates/?action=get_metadata&slug=leaflet-maps-marker-pro',
 			__FILE__,
@@ -2009,7 +2063,7 @@ if ( is_admin() ) {
 			'12',
 			'leafletmapsmarkerpro_pluginupdatechecker'
 		);
-	} 
+	}
 }
 //info: include widget class
 require_once( plugin_dir_path( __FILE__ ) . 'inc' . DIRECTORY_SEPARATOR . 'class-leaflet-recent-marker-widget.php' );

@@ -9,16 +9,11 @@ if (is_multisite()) {
 	$lmm_free_readme = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'leaflet-maps-marker' . DIRECTORY_SEPARATOR . 'readme.txt';
 		//info: delete transients (needed for reinstalls within validity of transients)
 		$schedule_transient = 'leafletmapsmarker_install_update_cache_' . $current_version;
-		$install_update_schedule = get_transient( $schedule_transient );
-		if ( $install_update_schedule != FALSE ) {
-			delete_transient( $schedule_transient );
-		}
+		delete_transient( $schedule_transient );
+		
 		//info: do not remove tables, settings and files if free version exists
 		if (!file_exists($lmm_free_readme)) {
-			$version_before_update = get_transient( 'leafletmapsmarker_version_before_update' );
-			if ( $version_before_update != FALSE ) {
-				delete_transient( 'leafletmapsmarker_version_before_update' );
-			}
+			delete_transient('leafletmapsmarker_version_before_update');
 			delete_option('leafletmapsmarker_options');
 			delete_option('leafletmapsmarker_version');
 			delete_option('leafletmapsmarker_version_before_update');
@@ -36,10 +31,13 @@ if (is_multisite()) {
 			}
 		}
 		//info: delete pro options only
-		$pro_version_before_update = get_transient( 'leafletmapsmarker_version_pro_before_update' );
-		if ( $pro_version_before_update != FALSE ) {
-			delete_transient( 'leafletmapsmarker_version_pro_before_update' );
-		}
+		delete_transient('leafletmapsmarker_version_pro_before_update');
+		delete_transient('leafletmapsmarkerpro_update_api_cache');
+		delete_transient('leafletmapsmarkerpro_plugin_page_api_cache');
+		delete_transient('leafletmapsmarkerpro_dashboard_api_cache');
+		delete_transient('leafletmapsmarkerpro_adminheader_api_cache');
+		delete_transient('leafletmapsmarkerpro_adminheader2_api_cache');
+		delete_transient('leafletmapsmarkerpro_showmap_api_cache');
 		delete_option('leafletmapsmarker_version_pro');
 		delete_option('leafletmapsmarker_version_pro_before_update');
 		delete_option('leafletmapsmarkerpro_pluginupdatechecker');
@@ -50,16 +48,11 @@ if (is_multisite()) {
 			switch_to_blog($blog['blog_id']);
 			//info: delete transients (needed for reinstalls within validity of transients)
 			$schedule_transient = 'leafletmapsmarker_install_update_cache_' . $current_version;
-			$install_update_schedule = get_transient( $schedule_transient );
-			if ( $install_update_schedule != FALSE ) {
-				delete_transient( $schedule_transient );
-			}
+			delete_transient( $schedule_transient );
+
 			//info: do not remove tables, settings and files if free version exists
 			if (!file_exists($lmm_free_readme)) {
-				$version_before_update = get_transient( 'leafletmapsmarker_version_before_update' );
-				if ( $version_before_update != FALSE ) {
-					delete_transient( 'leafletmapsmarker_version_before_update' );
-				}
+				delete_transient('leafletmapsmarker_version_before_update');
 				delete_option('leafletmapsmarker_options');
 				delete_option('leafletmapsmarker_version');
 				delete_option('leafletmapsmarker_version_before_update');
@@ -85,10 +78,13 @@ if (is_multisite()) {
 				}
 		}
 		//info: delete pro options only
-		$pro_version_before_update = get_transient( 'leafletmapsmarker_version_pro_before_update' );
-		if ( $pro_version_before_update != FALSE ) {
-			delete_transient( 'leafletmapsmarker_version_pro_before_update' );
-		}
+		delete_transient('leafletmapsmarker_version_pro_before_update');
+		delete_transient('leafletmapsmarkerpro_update_api_cache');
+		delete_transient('leafletmapsmarkerpro_plugin_page_api_cache');
+		delete_transient('leafletmapsmarkerpro_dashboard_api_cache');
+		delete_transient('leafletmapsmarkerpro_adminheader_api_cache');
+		delete_transient('leafletmapsmarkerpro_adminheader2_api_cache');
+		delete_transient('leafletmapsmarkerpro_showmap_api_cache');
 		delete_option('leafletmapsmarker_version_pro');
 		delete_option('leafletmapsmarker_version_pro_before_update');
 		delete_option('leafletmapsmarkerpro_pluginupdatechecker');
@@ -100,17 +96,12 @@ else
 {
 	//info: delete transients (needed for reinstalls within validity of transients)
 	$schedule_transient = 'leafletmapsmarker_install_update_cache_' . $current_version;
-	$install_update_schedule = get_transient( $schedule_transient );
-	if ( $install_update_schedule != FALSE ) {
-		delete_transient( $schedule_transient );
-	}
+	delete_transient( $schedule_transient );
+
 	//info: do not remove tables, settings and files if free version exists
 	$lmm_free_readme = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'leaflet-maps-marker' . DIRECTORY_SEPARATOR . 'readme.txt';
 	if (!file_exists($lmm_free_readme)) {
-		$version_before_update = get_transient( 'leafletmapsmarker_version_before_update' );
-		if ( $version_before_update != FALSE ) {
-			delete_transient( 'leafletmapsmarker_version_before_update' );
-		}
+		delete_transient('leafletmapsmarker_version_before_update');
 		delete_option('leafletmapsmarker_options');
 		delete_option('leafletmapsmarker_version');
 		delete_option('leafletmapsmarker_version_before_update');
@@ -132,10 +123,13 @@ else
 		}
 	}
 	//info: delete pro options only
-	$pro_version_before_update = get_transient( 'leafletmapsmarker_version_pro_before_update' );
-	if ( $pro_version_before_update != FALSE ) {
-		delete_transient( 'leafletmapsmarker_version_pro_before_update' );
-	}
+	delete_transient('leafletmapsmarker_version_pro_before_update');
+	delete_transient('leafletmapsmarkerpro_update_api_cache');
+	delete_transient('leafletmapsmarkerpro_plugin_page_api_cache');
+	delete_transient('leafletmapsmarkerpro_dashboard_api_cache');	
+	delete_transient('leafletmapsmarkerpro_adminheader_api_cache');
+	delete_transient('leafletmapsmarkerpro_adminheader2_api_cache');
+	delete_transient('leafletmapsmarkerpro_showmap_api_cache');
 	delete_option('leafletmapsmarker_version_pro');
 	delete_option('leafletmapsmarker_version_pro_before_update');
 	delete_option('leafletmapsmarkerpro_pluginupdatechecker');

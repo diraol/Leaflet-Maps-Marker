@@ -6,6 +6,7 @@
 if (basename($_SERVER['SCRIPT_FILENAME']) == 'admin-header.php') { die ("Please do not access this file directly. Thanks!<br/><a href='http://www.mapsmarker.com/go'>www.mapsmarker.com</a>"); }
 //RH: debug info
 /*
+echo '<br>';
 
 echo 'VERSION_RELEASE_DATE: ' . VERSION_RELEASE_DATE;
 echo '<br>';
@@ -17,6 +18,23 @@ $maps_marker_pro_validate_access_releasedate = (maps_marker_pro_validate_access_
 echo 'maps_marker_pro_validate_access_releasedate(VERSION_RELEASE_DATE): ' . $maps_marker_pro_validate_access_releasedate;
 echo '<br>';
 */
+$pluginupdatecheckertrans = get_transient( 'leafletmapsmarkerpro_update_api_cache' );
+echo "get_transient( leafletmapsmarkerpro_update_api_cache ): " . $pluginupdatecheckertrans . '<br>';
+
+$pluginpagelinktrans = get_transient( 'leafletmapsmarkerpro_plugin_page_api_cache' );
+echo "get_transient( leafletmapsmarkerpro_plugin_page_api_cache ): " . $pluginpagelinktrans . '<br>';
+
+$dashboardtrans = get_transient( 'leafletmapsmarkerpro_dashboard_api_cache' );
+echo "get_transient( leafletmapsmarkerpro_dashboard_api_cache ): " . $dashboardtrans . '<br>';
+
+$headertrans = get_transient( 'leafletmapsmarkerpro_adminheader_api_cache' );
+echo "get_transient( leafletmapsmarkerpro_adminheader_api_cache ): " . $headertrans . '<br>';
+
+$headertrans2 = get_transient( 'leafletmapsmarkerpro_adminheader2_api_cache' );
+echo "get_transient( leafletmapsmarkerpro_adminheader2_api_cache ): " . $headertrans2 . '<br>';
+
+$showmaptrans = get_transient( 'leafletmapsmarkerpro_showmap_api_cache' );
+echo "get_transient( leafletmapsmarkerpro_showmap_api_cache ): " . $showmaptrans . '<br>';
 
 $maps_marker_pro_validate_access = (maps_marker_pro_validate_access()===true) ? 'true' : 'false';
 echo "maps_marker_pro_validate_access()===true: " . $maps_marker_pro_validate_access;
@@ -26,11 +44,11 @@ $test = (maps_marker_pro_validate_access($release_date=false, $license_only=true
 echo "maps_marker_pro_validate_access(release_date=false, license_only=true)===true): " . $test;
 echo '<br>';
 
-/*
+
 $validatelicense = (maps_marker_pro_validate_license()===true) ? 'true' : 'false';
 echo "maps_marker_pro_validate_license(): " . $validatelicense;
 echo '<br>';
-*/
+
 
 
 $maps_marker_pro_validate_access_releasedate = (maps_marker_pro_validate_access($release_date=VERSION_RELEASE_DATE,$license_only=false)===true) ? 'true' : 'false';
@@ -194,12 +212,30 @@ if ( isset($lmm_options['misc_global_admin_notices']) && ($lmm_options['misc_glo
 	if (is_plugin_active('daily-stat/statpress.php') ) {
 		echo '<p><div class="error" style="padding:10px;"><strong>' . __('Warning: you are using the plugin Daily Stat which is causing the Leaflet Maps Marker settings page to break! Please temporarily deactivate this plugin if you want change the settings. The plugin developer has already been contacted and will hopefully release a fix soon.','lmm') . '</strong></div></p>';
 	}
-}//info: end misc_global_admin_notices check
+}//info: end misc_global_admin_notices check (which can be disabled)
 
 //info: check if newer plugin version is available
 $error_message = isset($_GET['error']) ? $_GET['error'] : '';
 if ( $error_message == null ) { //info: dont show if get error
-	if ( maps_marker_pro_validate_access() ) {
+	$adminheader_transient = 'leafletmapsmarkerpro_adminheader_api_cache';
+	$adminheader_schedule = get_transient( $adminheader_transient );
+	if ( $adminheader_schedule === FALSE ) {
+		if ( maps_marker_pro_validate_access() ) {
+			set_transient( $adminheader_transient, 'true', 60*60*12 );
+		} else {
+			set_transient( $adminheader_transient, 'false', 60*60*12 );
+		}
+	}
+	$adminheader2_transient = 'leafletmapsmarkerpro_adminheader2_api_cache';
+	$adminheader2_schedule = get_transient( $adminheader2_transient );
+	if ( $adminheader2_schedule === FALSE ) {
+		if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && !$spbas->errors && !maps_marker_pro_validate_access() ) {
+			set_transient( $adminheader2_transient, 'true', 60*60*12 );
+		} else {
+			set_transient( $adminheader2_transient, 'false', 60*60*12 );
+		}
+	}
+	if ( get_transient( $adminheader_transient ) == 'true' ) {
 		$plugin_updates = get_site_transient( 'update_plugins' );
 		if (isset($plugin_updates->response['leaflet-maps-marker-pro/leaflet-maps-marker.php']->new_version)) {
 			$plugin_updates_lmm_installed = get_option("leafletmapsmarker_version_pro");
@@ -211,9 +247,12 @@ if ( $error_message == null ) { //info: dont show if get error
 				echo sprintf(__('Update instruction: as your user does not have the right to update plugins, please contact your <a href="mailto:%1s?subject=Please update plugin -Leaflet Maps Marker- on %2s">administrator</a>','lmm'), get_settings('admin_email'), site_url() ) . '</div></p>';
 			}
 		}
-	} else if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && !$spbas->errors && !maps_marker_pro_validate_access() ) {
+	} else if ( get_transient( $adminheader2_transient ) == 'true' ) {
 		$plugin_version = get_option('leafletmapsmarker_version_pro');
-		echo "<div id='message' class='error' style='padding:5px;'><strong>" . __('Warning: your access to updates and support for Leaflet Maps Marker Pro has expired!','lmm') . "</strong><br/>" . sprintf(__('You can continue using version %s without any limitations. Nevertheless you will not be able to get updates including bugfixes, new features and optimizations as well as access to our support system. ','lmm'), $plugin_version) . "<br/>" . sprintf(__('<a href="%s" target="_blank">Please renew your access to updates and support to keep your plugin up-to-date and safe</a>.','lmm'), 'http://www.mapsmarker.com/renew') . "</div>";
+		$page = (isset($_GET['page']) ? $_GET['page'] : '');
+		if ($page != 'leafletmapsmarker_license') {
+			echo "<div id='message' class='error' style='padding:5px;'><strong>" . __('Warning: your access to updates and support for Leaflet Maps Marker Pro has expired!','lmm') . "</strong><br/>" . sprintf(__('You can continue using version %s without any limitations. Nevertheless you will not be able to get updates including bugfixes, new features and optimizations as well as access to our support system. ','lmm'), $plugin_version) . "<br/>" . sprintf(__('<a href="%s">Please renew your access to updates and support to keep your plugin up-to-date and safe</a>.','lmm'), LEAFLET_WP_ADMIN_URL . "admin.php?page=leafletmapsmarker_license") . "</div>";
+		}
 	}
 }
 ?>

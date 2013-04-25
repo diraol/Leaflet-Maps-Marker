@@ -654,6 +654,12 @@ if (get_option('leafletmapsmarker_version_pro') == 'init' ) {
 /* template for pro plugin updates
 if (get_option('leafletmapsmarker_version_pro') == '1.0' ) {
 	delete_transient( 'leafletmapsmarker_install_update_cache_vp10'); //2do: update to version from line above
+	delete_transient('leafletmapsmarkerpro_update_api_cache');
+	delete_transient('leafletmapsmarkerpro_plugin_page_api_cache');
+	delete_transient('leafletmapsmarkerpro_dashboard_api_cache');	
+	delete_transient('leafletmapsmarkerpro_adminheader_api_cache');
+	delete_transient('leafletmapsmarkerpro_adminheader2_api_cache');
+	delete_transient('leafletmapsmarkerpro_showmap_api_cache');
 	//2do - optional: add code for sql updates (no ddl - done by dbdelta!)
 	//2do - mandatory if new options in class-leaflet-options.php were added & update /inc/class-leaflet-options.php update routine
 	$save_defaults_for_new_options = new Class_leaflet_options();

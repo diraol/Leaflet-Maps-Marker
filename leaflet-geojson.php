@@ -135,6 +135,9 @@ if (isset($_GET['layer'])) {
 				$mpopuptext = $mpopuptext . "<a href='http://map.project-osrm.org/?hl=" . $lmm_options[ 'directions_osrm_language' ] . "&loc=" . $marker['mlat'] . "," . $marker['mlon'] . "&df=" . $lmm_options[ 'directions_osrm_units' ] . "' target='_blank' title='" . esc_attr__('Get directions','lmm') . "'>" . __('Directions','lmm') . "</a>";
 			} else if ($lmm_options['directions_provider'] == 'ors') {
 				$mpopuptext = $mpopuptext . "<a href='http://openrouteservice.org/index.php?end=" . $marker['mlon'] . "," . $marker['mlat'] . "&pref=" . $lmm_options[ 'directions_ors_route_preferences' ] . "&lang=" . $lmm_options[ 'directions_ors_language' ] . "&noMotorways=" . $lmm_options[ 'directions_ors_no_motorways' ] . "&noTollways=" . $lmm_options[ 'directions_ors_no_tollways' ] . "' target='_blank' title='" . esc_attr__('Get directions','lmm') . "'>" . __('Directions','lmm') . "</a>";
+			} else if ($lmm_options['directions_provider'] == 'bingmaps') {
+				if ( $marker['maddress'] != NULL ) { $bing_to = '_' . urlencode($marker['maddress']); } else { $bing_to = ''; }
+				$mpopuptext = $mpopuptext . "<a href='http://www.bing.com/maps/default.aspx?v=2&rtp=pos___e_~pos." . $marker['mlat'] . "_" . $marker['mlon'] . $bing_to ."' target='_blank' title='" . esc_attr__('Get directions','lmm') . "'>" . __('Directions','lmm') . "</a>";
 			}
 			$mpopuptext = $mpopuptext . ')</div>';
 		}
@@ -260,6 +263,9 @@ elseif (isset($_GET['marker'])) {
 			$mpopuptext = $mpopuptext . "<a href='http://map.project-osrm.org/?hl=" . $lmm_options[ 'directions_osrm_language' ] . "&loc=" . $marker['mlat'] . "," . $marker['mlon'] . "&df=" . $lmm_options[ 'directions_osrm_units' ] . "' target='_blank' title='" . esc_attr__('Get directions','lmm') . "'>" . __('Directions','lmm') . "</a>";
 		} else if ($lmm_options['directions_provider'] == 'ors') {
 			$mpopuptext = $mpopuptext . "<a href='http://openrouteservice.org/index.php?end=" . $marker['mlon'] . "," . $marker['mlat'] . "&pref=" . $lmm_options[ 'directions_ors_route_preferences' ] . "&lang=" . $lmm_options[ 'directions_ors_language' ] . "&noMotorways=" . $lmm_options[ 'directions_ors_no_motorways' ] . "&noTollways=" . $lmm_options[ 'directions_ors_no_tollways' ] . "' target='_blank' title='" . esc_attr__('Get directions','lmm') . "'>" . __('Directions','lmm') . "</a>";
+		} else if ($lmm_options['directions_provider'] == 'bingmaps') {
+			if ( $marker['maddress'] != NULL ) { $bing_to = '_' . urlencode($marker['maddress']); } else { $bing_to = ''; }
+			$mpopuptext = $mpopuptext . "<a href='http://www.bing.com/maps/default.aspx?v=2&rtp=pos___e_~pos." . $marker['mlat'] . "_" . $marker['mlon'] . $bing_to . "' target='_blank' title='" . esc_attr__('Get directions','lmm') . "'>" . __('Directions','lmm') . "</a>";
 		}
 		$mpopuptext = $mpopuptext . ')</div>';
 	}

@@ -424,6 +424,9 @@ if ( $edit_status == 'updated') {
 								} else if ($lmm_options['directions_provider'] == 'ors') {
 									if ($lmm_options[ 'directions_ors_route_preferences' ] == 'Pedestrian') { $ors_transport_type_icon = 'icon-walk.png'; } else if ($lmm_options[ 'directions_ors_route_preferences' ] == 'Bicycle') { $ors_transport_type_icon = 'icon-bicycle.png'; } else { $ors_transport_type_icon = 'icon-car.png'; }
 									echo '<a tabindex="105" href="http://openrouteservice.org/index.php?end=' . $lon . ',' . $lat . '&pref=' . $lmm_options[ 'directions_ors_route_preferences' ] . '&lang=' . $lmm_options[ 'directions_ors_language' ] . '&noMotorways=' . $lmm_options[ 'directions_ors_no_motorways' ] . '&noTollways=' . $lmm_options[ 'directions_ors_no_tollways' ] . '" target="_blank" title="' . esc_attr__('Get directions','lmm') . '"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/' . $ors_transport_type_icon . '" width="14" height="14" class="lmm-panel-api-images" /></a>';
+								} else if ($lmm_options['directions_provider'] == 'bingmaps') {
+									if ( $address != NULL ) { $bing_to = '_' . urlencode($address); } else { $bing_to = ''; }
+									echo '<a tabindex="105" href="http://www.bing.com/maps/default.aspx?v=2&rtp=pos___e_~pos.' . $lat . '_' . $lon . $bing_to . '" target="_blank" title="' . esc_attr__('Get directions','lmm') . '"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-car.png" width="14" height="14" class="lmm-panel-api-images" /></a>';
 								}
 						}
 						if ( (isset($lmm_options[ 'defaults_marker_panel_kml' ] ) == TRUE ) && ( $lmm_options[ 'defaults_marker_panel_kml' ] == 1 ) ) {
@@ -1000,6 +1003,9 @@ var marker,selectlayer,googleLayer_roadmap,googleLayer_satellite,googleLayer_hyb
 		 $popuptext = $popuptext . '(<a href="http://map.project-osrm.org/?hl=' . $lmm_options[ 'directions_osrm_language' ] . '&loc=' . $lat . ',' . $lon . '&df=' . $lmm_options[ 'directions_osrm_units' ] . '" target="_blank" title="' . esc_attr__('Get directions','lmm') . '">' . __('Directions','lmm') . '</a>)';
 	 } else if ($lmm_options['directions_provider'] == 'ors') {
 		 $popuptext = $popuptext . '(<a href="http://openrouteservice.org/index.php?end=' . $lon . ',' . $lat . '&pref=' . $lmm_options[ 'directions_ors_route_preferences' ] . '&lang=' . $lmm_options[ 'directions_ors_language' ] . '&noMotorways=' . $lmm_options[ 'directions_ors_no_motorways' ] . '&noTollways=' . $lmm_options[ 'directions_ors_no_tollways' ] . '" target="_blank" title="' . esc_attr__('Get directions','lmm') . '">' . __('Directions','lmm') . '</a>)';
+	 } else if ($lmm_options['directions_provider'] == 'bingmaps') {
+		if ( $address != NULL ) { $bing_to = '_' . urlencode($address); } else { $bing_to = ''; }
+		 $popuptext = $popuptext . '(<a href="http://www.bing.com/maps/default.aspx?v=2&rtp=pos___e_~pos.' . $lat . '_' . $lon . $bing_to . '" target="_blank" title="' . esc_attr__('Get directions','lmm') . '">' . __('Directions','lmm') . '</a>)';
 	 }
 	 $popuptext = $popuptext . $directions_settings_link . '</div>';
  }

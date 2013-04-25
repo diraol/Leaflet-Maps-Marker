@@ -6,7 +6,18 @@
 if (basename($_SERVER['SCRIPT_FILENAME']) == 'leaflet-license.php') { die ("Please do not access this file directly. Thanks!<br/><a href='http://www.mapsmarker.com/go'>www.mapsmarker.com</a>"); }
 ?>
 <div class="wrap">
-<?php include('inc' . DIRECTORY_SEPARATOR . 'admin-header.php'); ?>
+<?php 
+//info: delete transients on update
+if ( isset($_POST['leafletmapsmarkerpro_license_key']) || isset($_POST['maps_marker_pro_register_free']) ) {
+	delete_transient('leafletmapsmarkerpro_update_api_cache');
+	delete_transient('leafletmapsmarkerpro_plugin_page_api_cache');
+	delete_transient('leafletmapsmarkerpro_dashboard_api_cache');
+	delete_transient('leafletmapsmarkerpro_adminheader_api_cache');
+	delete_transient('leafletmapsmarkerpro_adminheader2_api_cache');
+	delete_transient('leafletmapsmarkerpro_showmap_api_cache');
+} 
+include('inc' . DIRECTORY_SEPARATOR . 'admin-header.php'); 
+?>
 
 <h3 style="font-size:23px;"><?php _e('Pro License Settings','lmm'); ?></h3>
 
@@ -76,7 +87,11 @@ if (basename($_SERVER['SCRIPT_FILENAME']) == 'leaflet-license.php') { die ("Plea
 			<p class="howto"><?php _e('Already got a valid license key? Then please enter the license key that was e-mailed to you.','lmm'); ?></p>
 		<?php endif; ?>
 		<p>
-			<b><?php _e('License Key','lmm'); ?></b> <input name="leafletmapsmarkerpro_license_key" type="text" style="width:225px;" value="<?php echo $spbas->license_key; ?>" /> <input type="submit" class="button-primary" value="<?php echo _e('Activate','lmm'); ?>" />
+		<?php 
+			if ($spbas->license_key) { if ($spbas->errors) { $css_license_color = 'background:#ff0000;color:#ffffff;'; } else { $css_license_color = 'background:#00FF00;color:#000000;'; } } 
+			if ($spbas->license_key) { $button_text = __('update','lmm'); } else { $button_text = __('activate','lmm'); }
+		?>
+		<b><?php _e('License Key','lmm'); ?></b> <input name="leafletmapsmarkerpro_license_key" type="text" style="width:225px;<?php echo $css_license_color; ?>" value="<?php echo $spbas->license_key; ?>" /> <input type="submit" class="button-primary" value="<?php echo $button_text; ?>" />
 		</p>
 	</form>
 	<p>
@@ -92,10 +107,25 @@ if (basename($_SERVER['SCRIPT_FILENAME']) == 'leaflet-license.php') { die ("Plea
 				echo __('Access to plugin updates and support area valid until:','lmm') . date('d/m/Y', $download_expires) . ' (' . $download_expires_diff . ' ' . __('days left','lmm') . ')';
 			} else if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && (maps_marker_pro_validate_access()===false) ) {
 				$plugin_version = get_option('leafletmapsmarker_version_pro');
-				echo "<div id='message' class='error' style='padding:5px;'><strong>" . __('Warning: your access to updates and support for Leaflet Maps Marker Pro has expired!','lmm') . "</strong><br/>" . sprintf(__('You can continue using version %s without any limitations. Nevertheless you will not be able to get updates including bugfixes, new features and optimizations as well as access to our support system. ','lmm'), $plugin_version) . "<br/>" . sprintf(__('<a href="%s" target="_blank">Please renew your access to updates and support to keep your plugin up-to-date and safe</a>.','lmm'), 'http://www.mapsmarker.com/renew') . "</div>";
+				echo "<div id='message' class='error' style='padding:5px;'><strong>" . __('Warning: your access to updates and support for Leaflet Maps Marker Pro has expired!','lmm') . "</strong><br/>" . sprintf(__('You can continue using version %s without any limitations. Nevertheless you will not be able to get updates including bugfixes, new features and optimizations as well as access to our support system. ','lmm'), $plugin_version) . "</div>";
+				if (maps_marker_pro_is_twentyfive_pack_license() == TRUE) {
+					echo '<a href="http://www.mapsmarker.com/renewal-25-pack" target="_blank">link for 25 renewal</a>';
+				} else if (maps_marker_pro_is_five_pack_license() == TRUE) {
+					echo '<a href="http://www.mapsmarker.com/renewal-5-pack" target="_blank">link for 5 renewal</a>';
+				} else if ( (maps_marker_pro_is_twentyfive_pack_license() == FALSE) && (maps_marker_pro_is_five_pack_license() == FALSE) ) {
+					echo '<a href="http://www.mapsmarker.com/renewal-single" target="_blank">link for single site renewal</a>';
+				}
+				echo '<p>' . __('Important: please click the update button next to the license key after purchasing a renewal to finish your order.','lmm') . '</p>';
 			} 
-	} else if (maps_marker_pro_validate_access($release_date=VERSION_RELEASE_DATE,$license_only=false)===false) {
-		echo "<div id='message' class='error' style='padding:5px;'><strong>" . __('Error: This version of the software was released after your download access expired. Please downgrade or contact support for more information.','lmm') . "</strong></div>";		
+	} else if ( ($spbas->license_key) && (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && (maps_marker_pro_validate_access($release_date=VERSION_RELEASE_DATE,$license_only=false)===false) ) {
+		if (maps_marker_pro_is_twentyfive_pack_license() == TRUE) {
+			$renewlink = 'http://www.mapsmarker.com/renewal-25-pack';
+		} else if (maps_marker_pro_is_five_pack_license() == TRUE) {
+			$renewlink = 'http://www.mapsmarker.com/renewal-5-pack';
+		} else if ( (maps_marker_pro_is_twentyfive_pack_license() == FALSE) && (maps_marker_pro_is_five_pack_license() == FALSE) ) {
+			$renewlink = 'http://www.mapsmarker.com/renewal-single';
+		}
+		echo "<div id='message' class='error' style='padding:5px;'><strong>" . sprintf(__('Error: This version of the plugin was released after your download access expired. Please <a href="%1$s" target="_blank">renew your download and support access</a> or <a href="%2$s" target="_blank">downgrade to your previous valid version</a>.','lmm'), $renewlink, 'https://www.mapsmarker.com/updates/archive') . "</strong></div>";		
 	}
 	?>
 	</p>
