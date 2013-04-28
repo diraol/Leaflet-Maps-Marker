@@ -18,23 +18,6 @@ $maps_marker_pro_validate_access_releasedate = (maps_marker_pro_validate_access_
 echo 'maps_marker_pro_validate_access_releasedate(VERSION_RELEASE_DATE): ' . $maps_marker_pro_validate_access_releasedate;
 echo '<br>';
 */
-$pluginupdatecheckertrans = get_transient( 'leafletmapsmarkerpro_update_api_cache' );
-echo "get_transient( leafletmapsmarkerpro_update_api_cache ): " . $pluginupdatecheckertrans . '<br>';
-
-$pluginpagelinktrans = get_transient( 'leafletmapsmarkerpro_plugin_page_api_cache' );
-echo "get_transient( leafletmapsmarkerpro_plugin_page_api_cache ): " . $pluginpagelinktrans . '<br>';
-
-$dashboardtrans = get_transient( 'leafletmapsmarkerpro_dashboard_api_cache' );
-echo "get_transient( leafletmapsmarkerpro_dashboard_api_cache ): " . $dashboardtrans . '<br>';
-
-$headertrans = get_transient( 'leafletmapsmarkerpro_adminheader_api_cache' );
-echo "get_transient( leafletmapsmarkerpro_adminheader_api_cache ): " . $headertrans . '<br>';
-
-$headertrans2 = get_transient( 'leafletmapsmarkerpro_adminheader2_api_cache' );
-echo "get_transient( leafletmapsmarkerpro_adminheader2_api_cache ): " . $headertrans2 . '<br>';
-
-$showmaptrans = get_transient( 'leafletmapsmarkerpro_showmap_api_cache' );
-echo "get_transient( leafletmapsmarkerpro_showmap_api_cache ): " . $showmaptrans . '<br>';
 
 $maps_marker_pro_validate_access = (maps_marker_pro_validate_access()===true) ? 'true' : 'false';
 echo "maps_marker_pro_validate_access()===true: " . $maps_marker_pro_validate_access;
@@ -217,25 +200,7 @@ if ( isset($lmm_options['misc_global_admin_notices']) && ($lmm_options['misc_glo
 //info: check if newer plugin version is available
 $error_message = isset($_GET['error']) ? $_GET['error'] : '';
 if ( $error_message == null ) { //info: dont show if get error
-	$adminheader_transient = 'leafletmapsmarkerpro_adminheader_api_cache';
-	$adminheader_schedule = get_transient( $adminheader_transient );
-	if ( $adminheader_schedule === FALSE ) {
-		if ( maps_marker_pro_validate_access() ) {
-			set_transient( $adminheader_transient, 'true', 60*60*12 );
-		} else {
-			set_transient( $adminheader_transient, 'false', 60*60*12 );
-		}
-	}
-	$adminheader2_transient = 'leafletmapsmarkerpro_adminheader2_api_cache';
-	$adminheader2_schedule = get_transient( $adminheader2_transient );
-	if ( $adminheader2_schedule === FALSE ) {
-		if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && !$spbas->errors && !maps_marker_pro_validate_access() ) {
-			set_transient( $adminheader2_transient, 'true', 60*60*12 );
-		} else {
-			set_transient( $adminheader2_transient, 'false', 60*60*12 );
-		}
-	}
-	if ( get_transient( $adminheader_transient ) == 'true' ) {
+	if ( maps_marker_pro_validate_access() ) {
 		$plugin_updates = get_site_transient( 'update_plugins' );
 		if (isset($plugin_updates->response['leaflet-maps-marker-pro/leaflet-maps-marker.php']->new_version)) {
 			$plugin_updates_lmm_installed = get_option("leafletmapsmarker_version_pro");
@@ -247,7 +212,7 @@ if ( $error_message == null ) { //info: dont show if get error
 				echo sprintf(__('Update instruction: as your user does not have the right to update plugins, please contact your <a href="mailto:%1s?subject=Please update plugin -Leaflet Maps Marker- on %2s">administrator</a>','lmm'), get_settings('admin_email'), site_url() ) . '</div></p>';
 			}
 		}
-	} else if ( get_transient( $adminheader2_transient ) == 'true' ) {
+	} else if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && !$spbas->errors && !maps_marker_pro_validate_access() ) {
 		$plugin_version = get_option('leafletmapsmarker_version_pro');
 		$page = (isset($_GET['page']) ? $_GET['page'] : '');
 		if ($page != 'leafletmapsmarker_license') {
@@ -256,6 +221,7 @@ if ( $error_message == null ) { //info: dont show if get error
 	}
 }
 ?>
+
 <table cellpadding="5" cellspacing="0" class="widefat fixed">
   <tr>
     <td><div style="float:left;margin:2px 10px 0 0;"><a href="http://www.mapsmarker.com/go" target="_blank" title="www.mapsmarker.com"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/logo-mapsmarker-pro.png" width="65" height="65" alt="Leaflet Maps Marker Plugin Logo by Julia Loew, www.weiderand.net" /></a></div>

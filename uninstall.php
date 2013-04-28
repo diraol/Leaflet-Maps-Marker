@@ -32,12 +32,6 @@ if (is_multisite()) {
 		}
 		//info: delete pro options only
 		delete_transient('leafletmapsmarker_version_pro_before_update');
-		delete_transient('leafletmapsmarkerpro_update_api_cache');
-		delete_transient('leafletmapsmarkerpro_plugin_page_api_cache');
-		delete_transient('leafletmapsmarkerpro_dashboard_api_cache');
-		delete_transient('leafletmapsmarkerpro_adminheader_api_cache');
-		delete_transient('leafletmapsmarkerpro_adminheader2_api_cache');
-		delete_transient('leafletmapsmarkerpro_showmap_api_cache');
 		delete_option('leafletmapsmarker_version_pro');
 		delete_option('leafletmapsmarker_version_pro_before_update');
 		delete_option('leafletmapsmarkerpro_pluginupdatechecker');
@@ -79,12 +73,6 @@ if (is_multisite()) {
 		}
 		//info: delete pro options only
 		delete_transient('leafletmapsmarker_version_pro_before_update');
-		delete_transient('leafletmapsmarkerpro_update_api_cache');
-		delete_transient('leafletmapsmarkerpro_plugin_page_api_cache');
-		delete_transient('leafletmapsmarkerpro_dashboard_api_cache');
-		delete_transient('leafletmapsmarkerpro_adminheader_api_cache');
-		delete_transient('leafletmapsmarkerpro_adminheader2_api_cache');
-		delete_transient('leafletmapsmarkerpro_showmap_api_cache');
 		delete_option('leafletmapsmarker_version_pro');
 		delete_option('leafletmapsmarker_version_pro_before_update');
 		delete_option('leafletmapsmarkerpro_pluginupdatechecker');
@@ -124,12 +112,6 @@ else
 	}
 	//info: delete pro options only
 	delete_transient('leafletmapsmarker_version_pro_before_update');
-	delete_transient('leafletmapsmarkerpro_update_api_cache');
-	delete_transient('leafletmapsmarkerpro_plugin_page_api_cache');
-	delete_transient('leafletmapsmarkerpro_dashboard_api_cache');	
-	delete_transient('leafletmapsmarkerpro_adminheader_api_cache');
-	delete_transient('leafletmapsmarkerpro_adminheader2_api_cache');
-	delete_transient('leafletmapsmarkerpro_showmap_api_cache');
 	delete_option('leafletmapsmarker_version_pro');
 	delete_option('leafletmapsmarker_version_pro_before_update');
 	delete_option('leafletmapsmarkerpro_pluginupdatechecker');

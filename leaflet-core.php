@@ -13,12 +13,6 @@ if (version_compare(phpversion(),"5.2","<")){
 if ( ! defined( 'VERSION_RELEASE_DATE' ) )
 	define( 'VERSION_RELEASE_DATE', '01/04/2013' );
 
-//info: check if latest free version is used (run only on pro initialization - needed if users wants to switch back to free version)
-$lmm_free_version_number = get_option( 'leafletmapsmarker_version' );
-$lmm_pro_version_old = get_option( 'leafletmapsmarker_version_pro_before_update' );
-if ( (($lmm_free_version_number != NULL) && ($lmm_free_version_number < '3.5.3' )) && ($lmm_pro_version_old == NULL) ) { //2do: update to latest free version
-	die ("Before activating Leaflet Maps Marker Pro, please update the free version first!<br/>This helps ensuring that a hassle-free downgrade is possible - which we hope you will not want anyway ;-)");
-}
 //info: deactive free version first
 include_once( ABSPATH . 'wp-admin' . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'plugin.php' );
 if (is_plugin_active('leaflet-maps-marker/leaflet-maps-marker.php') ) {
@@ -115,16 +109,7 @@ class LeafletmapsmarkerPro
 			$rss_link = '<a href="http://feeds.feedburner.com/MapsMarker" target="_blank" title="RSS"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-rss.png" width="16" height="16" alt="rss"></a>';
 			$rss_email_link = '<a href="http://feedburner.google.com/fb/a/mailverify?uri=MapsMarker" target="_blank" title="RSS (via Email)"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-rss-email.png" width="16" height="16" alt="rss-email"></a>';
 			//info: check if update license has expired - dont check for valid license to show warning on invalid license too
-			$pluginpagelink_transient = 'leafletmapsmarkerpro_plugin_page_api_cache';
-			$pluginpagelink_schedule = get_transient( $pluginpagelink_transient );
-			if ( $pluginpagelink_schedule === FALSE ) {
-				if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && (maps_marker_pro_validate_access()===false) ) {
-					set_transient( $pluginpagelink_transient, 'false', 60*60*12 );
-				} else {
-					set_transient( $pluginpagelink_transient, 'true', 60*60*12 );
-				}
-			}
-			if ( get_transient( $pluginpagelink_transient ) == 'false' ) {
+			if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && (maps_marker_pro_validate_access()===false) ) {
 				$pro_update_info = '<br/></td></tr><tr><td colspan="3"><div style="padding: 3px 5px;background-color: #FFEBE8;border: 1px solid #CC0000;border-radius: 3px;color: #333;"><strong>' . __('Warning: your access to updates and support for Leaflet Maps Marker Pro has expired!','lmm') . '</strong><br/>' . sprintf(__('You can continue using version %s without any limitations. Nevertheless you will not be able to get updates including bugfixes, new features and optimizations as well as access to our support system. ','lmm'), $plugin_version) . '<br/>' . sprintf(__('<a href="%s">Please renew your access to updates and support to keep your plugin up-to-date and safe</a>.','lmm'), LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_license') . '</div>';
 			} else {
 				$pro_update_info = '';
@@ -229,16 +214,7 @@ class LeafletmapsmarkerPro
 		$widget_id = 'lmm-admin-dashboard-widget';
 		$number_of_markers =  isset( $widgets[$widget_id] ) && isset( $widgets[$widget_id]['items'] ) ? absint( $widgets[$widget_id]['items'] ) : 4;
 		//info: show license update warning
-		$dashboard_transient = 'leafletmapsmarkerpro_dashboard_api_cache';
-		$dashboard_schedule = get_transient( $dashboard_transient );
-		if ( $dashboard_schedule === FALSE ) {
-			if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && (maps_marker_pro_validate_access()===false) ) {
-				set_transient( $dashboard_transient, 'false', 60*60*12 );
-			} else {
-				set_transient( $dashboard_transient, 'true', 60*60*12 );
-			}
-		}
-		if ( get_transient( $dashboard_transient ) == 'false' ) {
+		if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && (maps_marker_pro_validate_access()===false) ) {
 			$plugin_version = get_option('leafletmapsmarker_version_pro');
 			echo '<div style="padding: 3px 5px;background-color: #FFEBE8;border: 1px solid #CC0000;border-radius: 3px;color: #333;"><strong>' . __('Warning: your access to updates and support for Leaflet Maps Marker Pro has expired!','lmm') . '</strong><br/>' . sprintf(__('You can continue using version %s without any limitations. Nevertheless you will not be able to get updates including bugfixes, new features and optimizations as well as access to our support system. ','lmm'), $plugin_version) . '<br/>' . sprintf(__('<a href="%s">Please renew your access to updates and support to keep your plugin up-to-date and safe</a>.','lmm'), LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_license') . '</div>';
 			echo '<hr style="border:0;height:1px;background-color:#d8d8d8;"/>';
@@ -369,19 +345,10 @@ class LeafletmapsmarkerPro
 	function lmm_showmap($atts) {
 		require('inc' . DIRECTORY_SEPARATOR . 'showmap.php');
 		if ( maps_marker_pro_is_free_version_and_license_entered() ) {
-			$showmap_transient = 'leafletmapsmarkerpro_showmap_api_cache';
-			$showmap_schedule = get_transient( $showmap_transient );
-			if ( $showmap_schedule === FALSE ) {
-				if ( (maps_marker_pro_validate_access($release_date=false, $license_only=false)===true) && (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) ) {
-					set_transient( $showmap_transient, 'true', 60*60*12 );
-				} else {
-					set_transient( $showmap_transient, 'false', 60*60*12 );
-				}
-			}
-			if ( get_transient( $showmap_transient ) == 'false' ) {
-				$licenseexpired = '<a style="color:white;text-decoration:none;" href="http://www.mapsmarker.com/expired" target="_blank"><div style="padding:5px;background:#FF4500;text-align:center;">MapsMarker.com: ' . __('please get a valid license key to activate the pro version','lmm') . '</div></a>';
-			} else {
+			if ( (maps_marker_pro_validate_access($release_date=false, $license_only=false)===true) && (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) ) {
 				$licenseexpired = '';
+			} else {
+				$licenseexpired = '<a style="color:white;text-decoration:none;" href="http://www.mapsmarker.com/expired" target="_blank"><div style="padding:5px;background:#FF4500;text-align:center;">MapsMarker.com: ' . __('please get a valid license key to activate the pro version','lmm') . '</div></a>';
 			}
 			return $licenseexpired . $lmm_out . $licenseexpired;
 		}
@@ -2046,16 +2013,7 @@ $run_leafletmapsmarker_pro = new LeafletmapsmarkerPro();
 
 //info: use transient to run update check only all 12 hours
 if ( is_admin() ) {
-	$pluginupdatechecker_transient = 'leafletmapsmarkerpro_update_api_cache';
-	$pluginupdatechecker_schedule = get_transient( $pluginupdatechecker_transient );
-	if ( $pluginupdatechecker_schedule === FALSE ) {
-		if ( maps_marker_pro_validate_access() ) {
-			set_transient( $pluginupdatechecker_transient, 'true', 60*60*12 );
-		} else {
-			set_transient( $pluginupdatechecker_transient, 'false', 60*60*12 );
-		}
-	}
-	if ( get_transient( $pluginupdatechecker_transient ) == 'true' ) {
+	if ( maps_marker_pro_validate_access() ) {
 		$run_PluginUpdateChecker = new PluginUpdateChecker(
 			'http://www.mapsmarker.com/updates/?action=get_metadata&slug=leaflet-maps-marker-pro',
 			__FILE__,
@@ -2065,6 +2023,7 @@ if ( is_admin() ) {
 		);
 	}
 }
+
 //info: include widget class
 require_once( plugin_dir_path( __FILE__ ) . 'inc' . DIRECTORY_SEPARATOR . 'class-leaflet-recent-marker-widget.php' );
 unset($run_leafletmapsmarker_pro);
