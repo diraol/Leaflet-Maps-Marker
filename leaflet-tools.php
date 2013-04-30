@@ -22,6 +22,7 @@ $table_name_markers = $wpdb->prefix.'leafletmapsmarker_markers';
 $table_name_layers = $wpdb->prefix.'leafletmapsmarker_layers';
 $markercount_all = $wpdb->get_var('SELECT count(*) FROM '.$table_name_markers.'');
 $layercount_all = $wpdb->get_var('SELECT count(*) FROM '.$table_name_layers.'') - 1;
+$pro_version = get_option("leafletmapsmarker_version_pro");
 $action = isset($_POST['action']) ? $_POST['action'] : '';
 if (!empty($action)) {
 	$toolnonce = isset($_POST['_wpnonce']) ? $_POST['_wpnonce'] : (isset($_GET['_wpnonce']) ? $_GET['_wpnonce'] : '');
@@ -183,14 +184,80 @@ if (!empty($action)) {
 		$wpdb->query( "OPTIMIZE TABLE $table_name_layers" );
 		echo '<p><div class="updated" style="padding:10px;">' . __('The list marker-status for all layers has been successfully updated','lmm') . '</div><br/><a class="button-secondary" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_tools">' . __('Back to Tools', 'lmm') . '</a></p>';
   }
+  elseif ($action == 'update-settings') {
+		$serialized_options_new = stripslashes($_POST['settings-array']);
+		if (is_serialized($serialized_options_new)) {
+			$options_table = $wpdb->prefix.'options';
+			$update_options = $wpdb->prepare( "UPDATE $options_table SET option_value = %s where option_name = 'leafletmapsmarker_options'", $serialized_options_new );
+			$wpdb->query( $update_options );
+			echo '<p><div class="updated" style="padding:10px;">' . __('Plugin options updated.','lmm') . '<br/>' . sprintf(__('Please be aware that restoring settings from a version <%1$s could result in breaking the plugin unless you <a href="%2$s">save the plugin settings once</a> afterwards to include settings added with newer versions!','lmm'), $pro_version, LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings') . '</div><a class="button-secondary" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_tools">' . __('Back to Tools', 'lmm') . '</a></p>';
+		} else { 
+			echo '<p><div class="error" style="padding:10px;"><strong>' . __('Error: settings were not updated as your input could not be serialized.','lmm') . '</strong></div><a class="button-secondary" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_tools">' . __('Back to Tools', 'lmm') . '</a></p>';
+		}
+  }
 } else {
 $layerlist = $wpdb->get_results('SELECT * FROM ' . $table_name_layers . ' WHERE id>0', ARRAY_A);
 ?>
 <h3 style="font-size:23px;"><?php _e('Tools','lmm'); ?></h3>
 <?php $nonce= wp_create_nonce('tool-nonce'); ?>
 <form method="post">
+<input type="hidden" name="action" value="update-settings" />
+<?php wp_nonce_field('tool-nonce'); 
+$serialized_options = serialize($lmm_options);
+?>
+<table class="widefat" style="width:100%;height:100px;">
+	<tr style="background-color:#efefef;">
+		<td colspan="2"><strong><?php _e('Backup/Restore settings','lmm'); ?> <img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/help-pro-feature.png" /></strong></td>
+	</tr>
+	<tr>
+		<td style="vertical-align:top;">
+		<p><?php _e('Below you find you current settings. Use copy and paste to make a backup or restore.','lmm'); ?><br/><?php echo sprintf(__('Please be aware that restoring settings from a version <%1$s could result in breaking the plugin unless you <a href="%2$s">save the plugin settings once</a> afterwards to include settings added with newer versions!','lmm'), $pro_version, LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings'); ?></p>
+		<?php 
+		global $wp_version;
+		if ( version_compare( $wp_version, '3.3', '>=' ) ) {
+				$settings_tinymce = array(
+				'wpautop' => false,
+				'media_buttons' => false,
+				'tinymce' => array(
+				 ),
+				'quicktags' => false
+				);
+				wp_editor( $serialized_options, 'settings-array', $settings_tinymce);
+		} else { 
+			if (function_exists( 'wp_tiny_mce' ) ) {
+				add_filter( 'teeny_mce_before_init', create_function( '$a', '
+				$a["height"] = "110";
+				$a["width"] = "640";
+				$a["editor_selector"] = "mceEditor";
+				$a["force_br_newlines"] = false;
+				$a["force_p_newlines"] = false;
+				$a["convert_newlines_to_brs"] = false;
+				return $a;'));
+				wp_tiny_mce(true);
+			}
+			echo '<textarea id="settings-array" name="settings-array">' . $serialized_options . '</textarea>';
+		}
+		echo '<input style="font-weight:bold;margin:10px 0;" class="submit button-primary" type="submit" name="update-settings" value="' . __('update settings','lmm') . ' &raquo;" onclick="return confirm(\'' . __('Do you really want to update your settings?','lmm') . '\')" />';
+		echo '<p>' . sprintf(__('In case of any issues you can always <a href="%1$s">reset the plugin settings</a>','lmm'), LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings#reset') . '</p>';		
+		?>
+		<script type="text/javascript">
+			(function($) {
+				$("#settings-array").click(function(){
+					this.select();
+				});
+			})(jQuery);
+		</script>
+		</td>
+	</tr>
+</table>
+</form>
+
+<br/><br/>
+<?php $nonce= wp_create_nonce('tool-nonce'); ?>
+<form method="post">
 <input type="hidden" name="action" value="mass_assign" />
 <?php wp_nonce_field('tool-nonce'); ?>
+
 <table class="widefat fixed" style="width:auto;">
 	<tr style="background-color:#efefef;">
 		<td colspan="2"><strong><?php _e('Move markers to a layer','lmm') ?></strong></td>

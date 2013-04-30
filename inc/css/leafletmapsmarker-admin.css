@@ -175,3 +175,6 @@ h3.titl{
 .lmm-nav-secondary:hover {
 	background: #E4E4E4 !important;
 }
+#settings-array {
+	height:115px;
+}

@@ -2011,7 +2011,6 @@ class spbas_maps_marker_pro
 
 $run_leafletmapsmarker_pro = new LeafletmapsmarkerPro();
 
-//info: use transient to run update check only all 12 hours
 if ( is_admin() ) {
 	if ( maps_marker_pro_validate_access() ) {
 		$run_PluginUpdateChecker = new PluginUpdateChecker(

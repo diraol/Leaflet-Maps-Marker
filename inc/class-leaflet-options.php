@@ -8377,6 +8377,15 @@ class Class_leaflet_options {
 		*
 		*
 		===========================================*/
+		$this->_settings['reset_helptext'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'reset-section1',
+			'std'     => '',
+			'title'   => '',
+			'desc'    => ' <img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-feature.png" /> ' . sprintf(__('You can backup your current settings on the <a href="%1$s">tools page</a> before resetting all options to their default values.','lmm'), LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_tools'),
+			'type'    => 'helptext'
+		);
 		$this->_settings['reset_settings'] = array(
 			'version' => '1.0',
 			'pane'    => 'reset',

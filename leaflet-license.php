@@ -104,7 +104,7 @@ include('inc' . DIRECTORY_SEPARATOR . 'admin-header.php');
 					$download_expires = $spbas->key_data['download_access_expires'];
 				}
 				$download_expires_diff = abs(floor((time()-$download_expires)/(60*60*24)));
-				echo __('Access to plugin updates and support area valid until:','lmm') . date('d/m/Y', $download_expires) . ' (' . $download_expires_diff . ' ' . __('days left','lmm') . ')';
+				echo __('Access to plugin updates and support area valid until:','lmm') . ' ' . date('d/m/Y', $download_expires) . ' (' . $download_expires_diff . ' ' . __('days left','lmm') . ')';
 			} else if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && (maps_marker_pro_validate_access()===false) ) {
 				$plugin_version = get_option('leafletmapsmarker_version_pro');
 				echo "<div id='message' class='error' style='padding:5px;'><strong>" . __('Warning: your access to updates and support for Leaflet Maps Marker Pro has expired!','lmm') . "</strong><br/>" . sprintf(__('You can continue using version %s without any limitations. Nevertheless you will not be able to get updates including bugfixes, new features and optimizations as well as access to our support system. ','lmm'), $plugin_version) . "</div>";

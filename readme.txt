@@ -6,7 +6,7 @@ Tags:              map, maps, Leaflet, OpenStreetMap, geoJSON, json, jsonp, OSM,
 Author URI:        http://www.harm.co.at
 Author:            Robert Harm
 Requires at least: 3.0
-Tested up to:      3.6-alpha-23451
+Tested up to:      3.6
 Stable tag:        1.0
 
 Pin, organize & show your favorite places through OpenStreetMap, Google Maps, Google Earth (KML), Bing Maps, APIs or Augmented-Reality browsers
