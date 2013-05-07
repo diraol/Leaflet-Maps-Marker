@@ -251,7 +251,6 @@ $serialized_options = serialize($lmm_options);
 	</tr>
 </table>
 </form>
-
 <br/><br/>
 <?php $nonce= wp_create_nonce('tool-nonce'); ?>
 <form method="post">

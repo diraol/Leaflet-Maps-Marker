@@ -2277,6 +2277,20 @@ class Class_leaflet_options {
 				'hide' => __('hide','lmm')
 			)
 		);
+		$this->_settings['misc_map_osm_editlink_editor'] = array(
+			'version' => '3.6',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section10',
+			'title'   => __('OpenStreetMap edit link editor','lmm'),
+			'desc'    => __('Editor used to edit maps','lmm'),
+			'type'    => 'radio',
+			'std'     => 'id',
+			'choices' => array(
+				'id' => '<a href="http://ideditor.com/" target="_blank">iD</a>',
+				'potlatch2' => '<a href="http://wiki.openstreetmap.org/wiki/Potlatch_2" target="_blank">Potlatch 2</a>',
+				'remote' => __('remote editor','lmm') . ' (<a href="http://wiki.openstreetmap.org/wiki/JOSM" target="_blank">JOSM</a> / <a href="http://wiki.openstreetmap.org/wiki/Merkaartor" target="_blank">Merkaartor</a>)'
+			)
+		);		
 		/*
 		* Keyboard navigation options
 		*/
@@ -8383,7 +8397,7 @@ class Class_leaflet_options {
 			'section' => 'reset-section1',
 			'std'     => '',
 			'title'   => '',
-			'desc'    => ' <img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-feature.png" /> ' . sprintf(__('You can backup your current settings on the <a href="%1$s">tools page</a> before resetting all options to their default values.','lmm'), LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_tools'),
+			'desc'    => '<img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-feature.png" /> ' . sprintf(__('You can backup your current settings on the <a href="%1$s">tools page</a> before resetting all options to their default values.','lmm'), LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_tools'),
 			'type'    => 'helptext'
 		);
 		$this->_settings['reset_settings'] = array(
@@ -8823,7 +8837,6 @@ class Class_leaflet_options {
 		$options_new = array_merge($options_current, $new_options_defaults);
 		update_option( 'leafletmapsmarker_options', $options_new );
 		}
-		/* template for free plugin updates - has to be kept up to date!
 		//info:  set defaults for options introduced in v3.6
 		if (get_option('leafletmapsmarker_version') == '3.5.3' )
 		{
@@ -8831,6 +8844,22 @@ class Class_leaflet_options {
 			foreach ( $this->settings as $id => $setting )
 			{
 				if ( $setting['type'] != 'heading' && $setting['type'] != 'helptext' && $setting['version'] == '3.6')
+				{
+				$new_options_defaults[$id] = $setting['std'];
+				}
+			}
+		$options_current = get_option( 'leafletmapsmarker_options' );
+		$options_new = array_merge($options_current, $new_options_defaults);
+		update_option( 'leafletmapsmarker_options', $options_new );
+		}
+		/* template for free plugin updates - has to be kept up to date!
+		//info:  set defaults for options introduced in v3.7
+		if (get_option('leafletmapsmarker_version') == '3.6' )
+		{
+			$new_options_defaults = array();
+			foreach ( $this->settings as $id => $setting )
+			{
+				if ( $setting['type'] != 'heading' && $setting['type'] != 'helptext' && $setting['version'] == '3.7')
 				{
 				$new_options_defaults[$id] = $setting['std'];
 				}

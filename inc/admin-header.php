@@ -197,6 +197,14 @@ if ( isset($lmm_options['misc_global_admin_notices']) && ($lmm_options['misc_glo
 	}
 }//info: end misc_global_admin_notices check (which can be disabled)
 
+//info: ask user to delete free version if pro version is used
+if (maps_marker_pro_is_paid_version()) {
+	$lmm_free_readme = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'leaflet-maps-marker' . DIRECTORY_SEPARATOR . 'readme.txt';
+	if ( (file_exists($lmm_free_readme)) && (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) ) {
+		echo '<p><div class="updated" style="padding:10px;">' . __('<strong>Thanks for purchasing a valid license key for Leaflet Maps Marker Pro!</strong><br/>To finish the installation please delete the inactive plugin "Leaflet Maps Marker" in order to avoid plugin conflicts! This message will disappear as soon as the free plugin has been deleted.','lmm') . '</div></p>';
+	}
+}
+
 //info: check if newer plugin version is available
 $error_message = isset($_GET['error']) ? $_GET['error'] : '';
 if ( $error_message == null ) { //info: dont show if get error
