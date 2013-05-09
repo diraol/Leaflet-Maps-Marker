@@ -140,6 +140,7 @@ if ($page == 'leafletmapsmarker_markers') {
 }
 $admin_quicklink_tools_buttons = ( current_user_can( "activate_plugins" ) ) ? "<a class='" . $buttonclass5 ."' href='" . LEAFLET_WP_ADMIN_URL . "admin.php?page=leafletmapsmarker_tools'><img src='" . LEAFLET_PLUGIN_URL . "inc/img/icon-menu-tools.png'> ".__('Tools','lmm')."</a>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;" : "";
 $admin_quicklink_settings_buttons = ( current_user_can( "activate_plugins" ) ) ? "<a class='" . $buttonclass6 ."' href='" . LEAFLET_WP_ADMIN_URL . "admin.php?page=leafletmapsmarker_settings'><img src='" . LEAFLET_PLUGIN_URL . "inc/img/icon-menu-settings.png'> ".__('Settings','lmm')."</a>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;" : "";
+$admin_quicklink_license_buttons = ( current_user_can( $lmm_options[ 'capabilities_edit' ] ) ) ? "<a class='" . $buttonclass8 ."' href='" . LEAFLET_WP_ADMIN_URL . "admin.php?page=leafletmapsmarker_license'><img src='" . LEAFLET_PLUGIN_URL . "inc/img/icon-menu-settings.png'> ".__('License settings', 'lmm')."</a>" : "";
 
 //////////////////////////////////////////////////////
 // info: admin notices which only show on LMM pages //
@@ -197,11 +198,13 @@ if ( isset($lmm_options['misc_global_admin_notices']) && ($lmm_options['misc_glo
 	}
 }//info: end misc_global_admin_notices check (which can be disabled)
 
-//info: ask user to delete free version if pro version is used
-if (maps_marker_pro_is_paid_version()) {
-	$lmm_free_readme = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'leaflet-maps-marker' . DIRECTORY_SEPARATOR . 'readme.txt';
-	if ( (file_exists($lmm_free_readme)) && (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) ) {
-		echo '<p><div class="updated" style="padding:10px;">' . __('<strong>Thanks for purchasing a valid license key for Leaflet Maps Marker Pro!</strong><br/>To finish the installation please delete the inactive plugin "Leaflet Maps Marker" in order to avoid plugin conflicts! This message will disappear as soon as the free plugin has been deleted.','lmm') . '</div></p>';
+//info: ask user to delete free version if pro version is used (not on multisite as mix of plugins is possible there)
+if (!is_multisite()) {
+	if ( maps_marker_pro_is_paid_version() ) {
+		$lmm_free_readme = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'leaflet-maps-marker' . DIRECTORY_SEPARATOR . 'readme.txt';
+		if ( (file_exists($lmm_free_readme)) && (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) ) {
+			echo '<p><div class="updated" style="padding:10px;">' . __('<strong>Thanks for purchasing a valid license key for Leaflet Maps Marker Pro!</strong><br/>To finish the installation please delete the inactive plugin "Leaflet Maps Marker" in order to avoid plugin conflicts! This message will disappear as soon as the free plugin has been deleted.','lmm') . '</div></p>';
+		}
 	}
 }
 
@@ -217,7 +220,7 @@ if ( $error_message == null ) { //info: dont show if get error
 			if ( current_user_can( 'update_plugins' ) ) {
 				echo sprintf(__('Update instruction: please start the update from the <a href="%1s">Updates-page</a>.','lmm'), get_admin_url() . 'update-core.php' ) . '</div></p>';
 			} else {
-				echo sprintf(__('Update instruction: as your user does not have the right to update plugins, please contact your <a href="mailto:%1s?subject=Please update plugin -Leaflet Maps Marker- on %2s">administrator</a>','lmm'), get_settings('admin_email'), site_url() ) . '</div></p>';
+				echo sprintf(__('Update instruction: as your user does not have the right to update plugins, please contact your <a href="mailto:%1s?subject=Please update plugin -Leaflet Maps Marker- on %2s">administrator</a>','lmm'), get_option('admin_email'), site_url() ) . '</div></p>';
 			}
 		}
 	} else if ( (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) && !$spbas->errors && !maps_marker_pro_validate_access() ) {
@@ -261,7 +264,7 @@ if ( $error_message == null ) { //info: dont show if get error
   <?php echo $admin_quicklink_tools_buttons ?>
   <?php echo $admin_quicklink_settings_buttons ?>
   <a class="<?php echo $buttonclass7; ?>" href="<?php echo LEAFLET_WP_ADMIN_URL ?>admin.php?page=leafletmapsmarker_help"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/icon-menu-help.png"> <?php _e("Support", "lmm") ?></a>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
-  <a class="<?php echo $buttonclass8; ?>" href="<?php echo LEAFLET_WP_ADMIN_URL ?>admin.php?page=leafletmapsmarker_license"><img src="<?php echo LEAFLET_PLUGIN_URL ?>inc/img/icon-menu-settings.png"> <?php _e("License settings", "lmm") ?></a>
+  <?php echo $admin_quicklink_license_buttons ?>
   </p>
 </td></tr></table>
 

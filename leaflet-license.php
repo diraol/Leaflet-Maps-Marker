@@ -16,6 +16,29 @@ if ( isset($_POST['leafletmapsmarkerpro_license_key']) || isset($_POST['maps_mar
 	delete_transient('leafletmapsmarkerpro_adminheader2_api_cache');
 	delete_transient('leafletmapsmarkerpro_showmap_api_cache');
 } 
+
+//info: propagate license key to subsites on WordPress Multisite
+if (isset($_POST['maps_marker_pro_multisite_propagate'])) {
+	$multisite_nonce = isset($_POST['maps_marker_pro_license_multisite']) ? $_POST['maps_marker_pro_license_multisite'] : '';
+	if (! wp_verify_nonce($multisite_nonce, 'maps_marker_pro_license_multisite') ) die('<br/>'.__('Security check failed - please call this function from the according Leaflet Maps Marker admin page!','lmm').'');
+		if (is_multisite()) {
+			if (current_user_can( 'activate_plugins' )) {
+				global $wpdb;
+				$blogs = $wpdb->get_results("SELECT blog_id FROM {$wpdb->blogs}", ARRAY_A);
+				if ($blogs) {
+					$mu_license_key = (get_option('leafletmapsmarkerpro_license_key') == TRUE) ? get_option('leafletmapsmarkerpro_license_key') : '';
+					$mu_license_local_key = (get_option('leafletmapsmarkerpro_license_local_key') == TRUE) ? get_option('leafletmapsmarkerpro_license_local_key') : '';
+					foreach($blogs as $blog) {
+						switch_to_blog($blog['blog_id']);
+						update_option('leafletmapsmarkerpro_license_key', $mu_license_key);
+						update_option('leafletmapsmarkerpro_license_local_key', $mu_license_local_key);
+					}
+					restore_current_blog();
+				}
+				echo '<div class="updated" style="padding:5px;"><p>' . __('License key was successfully propagated to all subsites','lmm') . '</p></div>';
+			}
+		}	
+}
 include('inc' . DIRECTORY_SEPARATOR . 'admin-header.php'); 
 ?>
 
@@ -133,6 +156,22 @@ include('inc' . DIRECTORY_SEPARATOR . 'admin-header.php');
 	<?php if ($spbas->license_key): ?>	
 		<p><?php echo sprintf(__('If you have any issues with your license, <a href="%1$s" target="_blank">please open a new support ticket</a>!','lmm'), 'https://www.mapsmarker.com/store/customers/index.php?task=helpdesk'); ?></p>
 	<?php endif; ?>
+
+	<?php
+	if (is_multisite()) {
+		if (current_user_can( 'activate_plugins' )) {
+			echo '<hr noshade size="1" /><h3 style="font-size:18px;">' . __('WordPress Multisite settings','lmm') . '</h3>';
+			echo '<p>' . __('Use the button below to propagate the license key entered above to all WordPress Multisite subsites.','lmm') . '</p>';
+			if ( (SUBDOMAIN_INSTALL == true) || is_plugin_active('wordpress-mu-domain-mapping/domain_mapping.php') ) {
+				echo '<p>' . __('Important: you seem to be using different domains for your subsites. Please make sure that your license key is valid for the number of domains you want to use it on and update the license key on each subsite directly first before propagating the license key! This will ensure that all these domains are registered on your customer profile on mapsmarker.com - which will result in a valid license validation on subsites after propagating the license key.','lmm') . '</p>';
+			}
+			echo '<form method="post">';	
+			wp_nonce_field('maps_marker_pro_license_multisite', 'maps_marker_pro_license_multisite');
+			echo '<input type="checkbox" name="maps_marker_pro_multisite_propagate" /> <label for="maps_marker_pro_multisite_propagate">' . __('Yes I want to propagate the license key to all subsites','lmm') . '</label>';
+			echo ' <input type="submit" class="button-primary" value="' . __('update','lmm') . '" />';
+		}
+	}
+	?>
 </div>
 <!--wrap-->
 <?php include('inc' . DIRECTORY_SEPARATOR . 'admin-footer.php'); ?>

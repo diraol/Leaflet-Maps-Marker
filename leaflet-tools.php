@@ -187,10 +187,29 @@ if (!empty($action)) {
   elseif ($action == 'update-settings') {
 		$serialized_options_new = stripslashes($_POST['settings-array']);
 		if (is_serialized($serialized_options_new)) {
-			$options_table = $wpdb->prefix.'options';
-			$update_options = $wpdb->prepare( "UPDATE $options_table SET option_value = %s where option_name = 'leafletmapsmarker_options'", $serialized_options_new );
-			$wpdb->query( $update_options );
-			echo '<p><div class="updated" style="padding:10px;">' . __('Plugin options updated.','lmm') . '<br/>' . sprintf(__('Please be aware that restoring settings from a version <%1$s could result in breaking the plugin unless you <a href="%2$s">save the plugin settings once</a> afterwards to include settings added with newer versions!','lmm'), $pro_version, LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings') . '</div><a class="button-secondary" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_tools">' . __('Back to Tools', 'lmm') . '</a></p>';
+			if (!isset($_POST['multisite_options_propagate'])) {
+				$options_table = $wpdb->prefix.'options';
+				$update_options = $wpdb->prepare( "UPDATE $options_table SET option_value = %s where option_name = 'leafletmapsmarker_options'", $serialized_options_new );
+				$wpdb->query( $update_options );
+				echo '<p><div class="updated" style="padding:10px;">' . __('Plugin options updated.','lmm') . '<br/>' . sprintf(__('Please be aware that restoring settings from a version <%1$s could result in breaking the plugin unless you <a href="%2$s">save the plugin settings once</a> afterwards to include settings added with newer versions!','lmm'), $pro_version, LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings') . '</div><a class="button-secondary" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_tools">' . __('Back to Tools', 'lmm') . '</a></p>';
+			} else {
+				if (is_multisite()) {
+					if (current_user_can( 'activate_plugins' )) {
+						global $wpdb;
+						$blogs = $wpdb->get_results("SELECT blog_id FROM {$wpdb->blogs}", ARRAY_A);
+						if ($blogs) {
+							foreach($blogs as $blog) {
+								switch_to_blog($blog['blog_id']);
+								$options_table = $wpdb->prefix.'options';
+								$update_options = $wpdb->prepare( "UPDATE $options_table SET option_value = %s where option_name = 'leafletmapsmarker_options'", $serialized_options_new );
+								$wpdb->query( $update_options );
+							}
+							restore_current_blog();
+						}
+						echo '<p><div class="updated" style="padding:10px;">' . __('Plugin options updated on all subsites.','lmm') . '<br/>' . sprintf(__('Please be aware that restoring settings from a version <%1$s could result in breaking the plugin unless you <a href="%2$s">save the plugin settings once</a> afterwards to include settings added with newer versions!','lmm'), $pro_version, LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings') . '</div><a class="button-secondary" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_tools">' . __('Back to Tools', 'lmm') . '</a></p>';
+					}
+				}
+			}
 		} else { 
 			echo '<p><div class="error" style="padding:10px;"><strong>' . __('Error: settings were not updated as your input could not be serialized.','lmm') . '</strong></div><a class="button-secondary" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_tools">' . __('Back to Tools', 'lmm') . '</a></p>';
 		}
@@ -236,6 +255,12 @@ $serialized_options = serialize($lmm_options);
 				wp_tiny_mce(true);
 			}
 			echo '<textarea id="settings-array" name="settings-array">' . $serialized_options . '</textarea>';
+		}
+		echo '</p>';
+		if (is_multisite()) {
+			if (current_user_can( 'activate_plugins' )) {
+				echo '<div style="margin-top:10px;"><input type="checkbox" name="multisite_options_propagate" /> <label for="multisite_options_propagate">' . __('Multisite-only: also update settings on all subsites','lmm') . '</label></div>';
+			}
 		}
 		echo '<input style="font-weight:bold;margin:10px 0;" class="submit button-primary" type="submit" name="update-settings" value="' . __('update settings','lmm') . ' &raquo;" onclick="return confirm(\'' . __('Do you really want to update your settings?','lmm') . '\')" />';
 		echo '<p>' . sprintf(__('In case of any issues you can always <a href="%1$s">reset the plugin settings</a>','lmm'), LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings#reset') . '</p>';		

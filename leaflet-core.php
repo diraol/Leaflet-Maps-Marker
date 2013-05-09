@@ -9,16 +9,28 @@ if (version_compare(phpversion(),"5.2","<")){
 	exit('[Leaflet Maps Marker Plugin - installation failed]: PHP 5.2 is needed for this plugin (you are using PHP '.phpversion().'; note: support for PHP 4 has been officially discontinued since 2007-12-31!) - please upgrade your PHP installation!');
 }
 
-//2do: update on each release (MM/DD/YYYY) - preventing manual update without valid upgrade license
-if ( ! defined( 'VERSION_RELEASE_DATE' ) )
-	define( 'VERSION_RELEASE_DATE', '01/04/2013' );
-
-//info: deactive free version first
+//info: deactive free version first if active
 include_once( ABSPATH . 'wp-admin' . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'plugin.php' );
 if (is_plugin_active('leaflet-maps-marker/leaflet-maps-marker.php') ) {
-	deactivate_plugins('leaflet-maps-marker/leaflet-maps-marker.php');
-	activate_plugin('leaflet-maps-marker-pro/leaflet-maps-marker.php', $redirect = 'plugins.php?activate=true');
+	if (!is_multisite()) {
+		deactivate_plugins('leaflet-maps-marker/leaflet-maps-marker.php', $silent = false, $network_wide = null);
+		activate_plugin('leaflet-maps-marker-pro/leaflet-maps-marker.php', $redirect = 'plugins.php?activate=true', $network_wide = false, $silent = false);
+	} else {
+		include_once( ABSPATH . 'wp-includes' . DIRECTORY_SEPARATOR . 'pluggable.php' );
+		if (is_network_admin()) {
+			deactivate_plugins('leaflet-maps-marker/leaflet-maps-marker.php', $silent = false, $network_wide = true);
+			activate_plugin('leaflet-maps-marker-pro/leaflet-maps-marker.php', $redirect = false, $network_wide = true, $silent = false);
+		} else {
+			deactivate_plugins('leaflet-maps-marker/leaflet-maps-marker.php', $silent = false, $network_wide = null);
+			activate_plugin('leaflet-maps-marker-pro/leaflet-maps-marker.php', $redirect = 'plugins.php?activate=true', $network_wide = false, $silent = false);
+		}
+	}
 }
+
+//2do: update on each release (MM/DD/YYYY) - preventing manual update without valid upgrade license
+if ( ! defined( 'VERSION_RELEASE_DATE' ) )
+define( 'VERSION_RELEASE_DATE', '01/04/2013' );
+
 //info: define necessary paths and urls
 if ( ! defined( 'LEAFLET_WP_ADMIN_URL' ) )
 	define( 'LEAFLET_WP_ADMIN_URL', get_admin_url() );
@@ -381,7 +393,7 @@ class LeafletmapsmarkerPro
 		$page7 = add_submenu_page('leafletmapsmarker_markers', 'Maps Marker - ' . __('Settings', 'lmm'), '<img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-settings.png"> ' . __('Settings', 'lmm'), 'activate_plugins','leafletmapsmarker_settings', array(&$this, 'lmm_settings') );
 		$page8 = add_submenu_page('leafletmapsmarker_markers', 'Maps Marker Pro - ' . __('Support', 'lmm'), '<img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-help.png"> ' . __('Support', 'lmm'), $lmm_options[ 'capabilities_edit' ], 'leafletmapsmarker_help', array(&$this, 'lmm_help') );
 		$page9 = add_submenu_page('leafletmapsmarker_markers', 'www.mapsmarker.com', '<img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-external.png"> ' . 'mapsmarker.com', $lmm_options[ 'capabilities_edit' ], 'www_mapsmarker_com', array(&$this, 'lmm_mapsmarker_com') );
-		$page10 = add_submenu_page('leafletmapsmarker_markers', 'Maps Marker Pro - ' . __('License settings', 'lmm'), '<hr noshade size="1"/><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-settings.png"> ' . __('License settings', 'lmm'), 'activate_plugins', 'leafletmapsmarker_license', 'maps_marker_pro_license_activation_page' );
+		$page10 = add_submenu_page('leafletmapsmarker_markers', 'Maps Marker Pro - ' . __('License settings', 'lmm'), '<hr noshade size="1"/><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-menu-settings.png"> ' . __('License settings', 'lmm'), $lmm_options[ 'capabilities_edit' ], 'leafletmapsmarker_license', 'maps_marker_pro_license_activation_page' );
 
 		//info: add javascript - leaflet.js - for admin area
 		add_action('admin_print_scripts-'.$page3, array(&$this, 'lmm_admin_enqueue_scripts'),7);
