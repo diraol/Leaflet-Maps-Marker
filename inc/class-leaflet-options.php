@@ -2737,8 +2737,9 @@ class Class_leaflet_options {
 			'title'   => __('Basemap','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
 			'desc'    => __('Please select basemap which should be used for minimaps (bing maps currently not supported)','lmm'),
 			'type'    => 'radio',
-			'std'     => 'osm_mapnik_minimap',
+			'std'     => 'automatic',
 			'choices' => array(
+				'automatic' => __('automatic (use basemap from main map and OpenStreetMap as fallback if unsupported)','lmm'),
 				'osm_mapnik_minimap' => __('OpenStreetMap (Mapnik, max zoom 18)','lmm'),
 				'mapquest_osm_minimap' => __('MapQuest (OSM, max zoom 18)','lmm'),
 				'mapquest_aerial_minimap' => __('MapQuest (Aerial, max zoom 12 globally, 12+ in the United States)','lmm'),
@@ -7644,6 +7645,7 @@ class Class_leaflet_options {
 				'ro_RO' => __('Romanian','lmm') . ' (ro_RO)',
 				'ru_RU' => __('Russian','lmm') . ' (ru_RU)',
 				'sk_SK' => __('Slovak','lmm') . ' (sk_SK)',
+				'sv_SE' => __('Swedish','lmm') . ' (sv_SE)',
 				'es_ES' => __('Spanish','lmm') . ' (es_ES)',
 				'tr_TR' => __('Turkish','lmm') . ' (tr_TR)',
 				'uk_UK' => __('Ukrainian','lmm') . ' (uk_UK)',

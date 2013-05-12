@@ -136,6 +136,7 @@ to the visitors of your website.
 * Russian (ru_RU) thanks to Ekaterina Golubina, supported by Teplitsa of Social Technologies
 * Slovak (sk_SK) thanks to Zdenko Podobny
 * Spanish (es_ES) thanks to David Ramirez, Alvaro Lara, Ricardo Viteri and Victor Guevara
+* Swedish (sv_SE) thanks to Swedish translation thanks to Olof Odier, Tedy Warsitha and Dan Paulsson
 * Turkish (tr_TR) thanks to Emre Erkan
 * Ukrainian (uk_UK) thanks to Andrexj
 * Yiddish (yi) thanks to Raphael Finkel
