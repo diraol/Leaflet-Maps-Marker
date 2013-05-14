@@ -120,6 +120,7 @@ class Class_leaflet_options {
 		$this->sections['misc-section6']			= esc_attr__('Available columns for layer listing page','lmm');
 		$this->sections['misc-section7']			= esc_attr__('Sort order for layer listing page','lmm');
 		$this->sections['misc-section8']			= esc_attr__('QR code settings','lmm');
+		$this->sections['misc-section9']			= esc_attr__('REST API settings','lmm');
 
 		$this->sections['reset-section1']			= esc_attr__('Reset Settings','lmm');
 
@@ -8385,6 +8386,85 @@ class Class_leaflet_options {
 			'std'     => '150',
 			'type'    => 'text'
 		);
+		/*
+		* REST API settings
+		*/
+		$this->_settings['api_helptext'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section9',
+			'std'     => '',
+			'title'   => '',
+			'desc'    => sprintf(__('For more information on how to use the REST API, <a href="%1s" target="_blank">please visit the API docs on mapsmarker.com</a>','lmm'), 'http://www.mapsmarker.com/rest-api'),
+			'type'    => 'helptext'
+		);
+		$this->_settings['api_helptext2'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section9',
+			'std'     => '',
+			'title'   => '<strong>' . __('API endpoint','lmm') . ':</strong>',
+			'desc'    =>  LEAFLET_PLUGIN_URL . 'leaflet-api.php?key=',
+			'type'    => 'helptext'
+		);
+		$this->_settings['api_status'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section9',
+			'title'   => __('API status','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => '',
+			'type'    => 'radio',
+			'std'     => 'disabled',
+			'choices' => array(
+				'enabled' => __('enabled','lmm'),
+				'disabled' => __('disabled','lmm')
+			)
+		);		
+		$this->_settings['api_key'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section9',
+			'title'   => __('API key', 'lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('It is strongly advised to set an API key to protect it from misuse!','lmm'),
+			'std'     => '',
+			'type'    => 'text'
+		);	
+		$this->_settings['api_permissions_view'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section9',
+			'title'   => __('allowed API actions','lmm'),
+			'desc'    => __('view existing markers/layers','lmm'),
+			'type'    => 'checkbox',
+			'std'     => 1
+		);			
+		$this->_settings['api_permissions_add'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section9',
+			'title'   => '',
+			'desc'    => __('add new markers/layers','lmm'),
+			'type'    => 'checkbox',
+			'std'     => 1
+		);			
+		$this->_settings['api_permissions_update'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section9',
+			'title'   => '',
+			'desc'    => __('update existing markers/layers','lmm'),
+			'type'    => 'checkbox',
+			'std'     => 1
+		);			
+		$this->_settings['api_permissions_delete'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section9',
+			'title'   => '',
+			'desc'    => __('delete existing markers/layers','lmm'),
+			'type'    => 'checkbox',
+			'std'     => 1
+		);			
 
 		/*===========================================
 		*
@@ -8412,6 +8492,7 @@ class Class_leaflet_options {
 			'class'   => 'warning', // Custom class for CSS
 			'desc'    => __( 'Check this box and click "Save Changes" below to reset plugin options to their defaults.','lmm' )
 		);
+	
 	}
 
 	/**
