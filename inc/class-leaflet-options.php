@@ -8411,7 +8411,7 @@ class Class_leaflet_options {
 			'version' => 'p1.0',
 			'pane'    => 'misc',
 			'section' => 'misc-section9',
-			'title'   => __('API status','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'title'   => __('API status','lmm'),
 			'desc'    => '',
 			'type'    => 'radio',
 			'std'     => 'disabled',
@@ -8424,8 +8424,17 @@ class Class_leaflet_options {
 			'version' => 'p1.0',
 			'pane'    => 'misc',
 			'section' => 'misc-section9',
-			'title'   => __('API key', 'lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'title'   => __('API key', 'lmm'),
 			'desc'    => __('It is strongly advised to set an API key to protect it from misuse!','lmm'),
+			'std'     => '',
+			'type'    => 'text'
+		);	
+		$this->_settings['api_allowed_ip'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'misc',
+			'section' => 'misc-section9',
+			'title'   => __('IP access restriction', 'lmm'),
+			'desc'    => __('If an IP address or range is entered above (like 12.34.56.*), only API calls from this IP address or range are allowed.','lmm'),
 			'std'     => '',
 			'type'    => 'text'
 		);	
