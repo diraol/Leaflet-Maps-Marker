@@ -4,7 +4,7 @@
 */
 //info: construct path to wp-load.php
 while(!is_file('wp-load.php')){
-  if(is_dir('../')) chdir('../');
+if(is_dir('../')) chdir('../');
   else die('Error: Could not construct path to wp-load.php - please check <a href="http://mapsmarker.com/path-error">http://mapsmarker.com/path-error</a> for more details');
 }
 include( 'wp-load.php' );
@@ -26,7 +26,7 @@ function lmm_is_plugin_active_for_network( $plugin ) {
 	return false;
 }
 if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
-	echo 'The WordPress plugin <a href="http://www.mapsmarker.com" target="_blank">Leaflet Maps Marker</a> is inactive on this site and therefore this API link is not working.<br/><br/>Please contact the site owner (' . hide_email(get_bloginfo('admin_email')) . ') who can activate this plugin again.';
+	echo sprintf(__('The plugin "Leaflet Maps Marker" is inactive on this site and therefore this API link is not working.<br/><br/>Please contact the site owner (%1s) who can activate this plugin again.','lmm'), hide_email(get_bloginfo('admin_email')) );
 } else {
 //info: set php header to allow calls from other (sub)domains
 header('Access-Control-Allow-Origin: *');

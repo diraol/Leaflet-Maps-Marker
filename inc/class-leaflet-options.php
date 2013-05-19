@@ -8390,7 +8390,7 @@ class Class_leaflet_options {
 		* REST API settings
 		*/
 		$this->_settings['api_helptext'] = array(
-			'version' => 'p1.0',
+			'version' => '3.6',
 			'pane'    => 'misc',
 			'section' => 'misc-section9',
 			'std'     => '',
@@ -8399,16 +8399,16 @@ class Class_leaflet_options {
 			'type'    => 'helptext'
 		);
 		$this->_settings['api_helptext2'] = array(
-			'version' => 'p1.0',
+			'version' => '3.6',
 			'pane'    => 'misc',
 			'section' => 'misc-section9',
 			'std'     => '',
-			'title'   => '<strong>' . __('API endpoint','lmm') . ':</strong>',
-			'desc'    =>  LEAFLET_PLUGIN_URL . 'leaflet-api.php?key=',
+			'title'   => '',
+			'desc'    =>  '<strong>' . __('API endpoint','lmm') . ':</strong> ' . LEAFLET_PLUGIN_URL . 'leaflet-api.php<br/><br/>',
 			'type'    => 'helptext'
 		);
 		$this->_settings['api_status'] = array(
-			'version' => 'p1.0',
+			'version' => '3.6',
 			'pane'    => 'misc',
 			'section' => 'misc-section9',
 			'title'   => __('API status','lmm'),
@@ -8419,27 +8419,40 @@ class Class_leaflet_options {
 				'enabled' => __('enabled','lmm'),
 				'disabled' => __('disabled','lmm')
 			)
-		);		
-		$this->_settings['api_key'] = array(
-			'version' => 'p1.0',
+		);	
+		$this->_settings['api_default_format'] = array(
+			'version' => '3.6',
 			'pane'    => 'misc',
 			'section' => 'misc-section9',
-			'title'   => __('API key', 'lmm'),
-			'desc'    => __('It is strongly advised to set an API key to protect it from misuse!','lmm'),
-			'std'     => '',
-			'type'    => 'text'
-		);	
-		$this->_settings['api_allowed_ip'] = array(
-			'version' => 'p1.0',
+			'title'   => __('API default format','lmm'),
+			'desc'    => __('Default output format (can be overwritten by parameter format on each API request)','lmm'),
+			'type'    => 'radio',
+			'std'     => 'json',
+			'choices' => array(
+				'json' => 'JSON',
+				'xml' => 'XML'
+			)
+		);
+		$this->_settings['api_json_callback'] = array(
+			'version' => '3.6',
 			'pane'    => 'misc',
 			'section' => 'misc-section9',
-			'title'   => __('IP access restriction', 'lmm'),
-			'desc'    => __('If an IP address or range is entered above (like 12.34.56.*), only API calls from this IP address or range are allowed.','lmm'),
-			'std'     => '',
+			'title'   => __('JSONP callback function name', 'lmm'),
+			'desc'    => sprintf(__('Used for JSON format only, allows to overcome the <a href="%1s" target="_blank">same origin policy</a> (can be overwritten by parameter callback on each API request)','lmm'), 'http://en.wikipedia.org/wiki/JSONP'),
+			'std'     => 'jsonp',
 			'type'    => 'text'
-		);	
+		);						
+		$this->_settings['api_helptext3'] = array(
+			'version' => '3.6',
+			'pane'    => 'misc',
+			'section' => 'misc-section9',
+			'std'     => '',
+			'title'   => '<strong>' . __('Security options','lmm') . '</strong>',
+			'desc'    =>  '',
+			'type'    => 'helptext'
+		);
 		$this->_settings['api_permissions_view'] = array(
-			'version' => 'p1.0',
+			'version' => '3.6',
 			'pane'    => 'misc',
 			'section' => 'misc-section9',
 			'title'   => __('allowed API actions','lmm'),
@@ -8448,7 +8461,7 @@ class Class_leaflet_options {
 			'std'     => 1
 		);			
 		$this->_settings['api_permissions_add'] = array(
-			'version' => 'p1.0',
+			'version' => '3.6',
 			'pane'    => 'misc',
 			'section' => 'misc-section9',
 			'title'   => '',
@@ -8461,7 +8474,7 @@ class Class_leaflet_options {
 			'pane'    => 'misc',
 			'section' => 'misc-section9',
 			'title'   => '',
-			'desc'    => __('update existing markers/layers','lmm'),
+			'desc'    => __('update existing markers/layers','lmm') . ' <img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-feature.png" />',
 			'type'    => 'checkbox',
 			'std'     => 1
 		);			
@@ -8470,10 +8483,37 @@ class Class_leaflet_options {
 			'pane'    => 'misc',
 			'section' => 'misc-section9',
 			'title'   => '',
-			'desc'    => __('delete existing markers/layers','lmm'),
+			'desc'    => __('delete existing markers/layers','lmm') . ' <img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-feature.png" />',
 			'type'    => 'checkbox',
 			'std'     => 1
 		);			
+		$this->_settings['api_key'] = array(
+			'version' => '3.6',
+			'pane'    => 'misc',
+			'section' => 'misc-section9',
+			'title'   => __('API key', 'lmm'),
+			'desc'    => __('It is strongly advised to set an API key to protect it from misuse!','lmm'),
+			'std'     => '',
+			'type'    => 'text'
+		);	
+		$this->_settings['api_allowed_ip'] = array(
+			'version' => '3.6',
+			'pane'    => 'misc',
+			'section' => 'misc-section9',
+			'title'   => __('IP access restriction', 'lmm'),
+			'desc'    => __('If an IP address or range is entered above (like 12.34.56.*), only API calls from this IP address or range are allowed.','lmm'),
+			'std'     => '',
+			'type'    => 'text'
+		);	
+		$this->_settings['api_allowed_referer'] = array(
+			'version' => '3.6',
+			'pane'    => 'misc',
+			'section' => 'misc-section9',
+			'title'   => __('Allowed referer', 'lmm'),
+			'desc'    => __('If set (like http://www.your-domain.com/form.php), only API calls with this referer are allowed.','lmm'),
+			'std'     => '',
+			'type'    => 'text'
+		);	
 
 		/*===========================================
 		*
