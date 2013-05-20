@@ -809,6 +809,48 @@ $serialized_options = serialize($lmm_options);
 __('Lite Edition','lmm');
 __('Widget to show the most recent Leaflet Maps Marker entries - please see www.mapsmarker.com for more info', 'lmm');
 __('Leaflet Maps Marker - recent markers', 'lmm');
+//info: upgrade page
+__('If you like using Leaflet Maps Marker, you might also be interested in starting a free 30-day-trial of Leaflet Maps Marker Pro, which offers even more features, higher performance and more. <br/>Below you find some highlights you will get when going pro (please click on the heading for more details):','lmm');
+__('integration of the latest leaflet.js version','lmm');
+__('Leaflet Maps Marker Pro supports the latest leaflet.js version, which is the core library used for displaying maps.','lmm');
+__('Major highlights:','lmm');
+__('support for IE10 touch devices','lmm');
+__('support for Metro apps','lmm');
+__('a much better panning inertia implementation','lmm');
+__('improved zoom animation curve for a better feel overal','lmm');
+__('improved scroll wheel zoom to be more responsive','lmm');
+__('hand cursors for dragging','lmm');
+__('optimized zoom control design','lmm');
+__('But the real power of the leaflet.js version used in Leaflet Maps Marker pro comes with about a hundred of subtle improvements and bugfixes, improving usability, performance and overall "feel" of browsing the map even further.','lmm');
+__('Click here to get the full changelog for leaflet.js v%1s currently integrated in the pro version','lmm');
+__('mobile optimized maps through use of native javascript instead of jQuery','lmm');
+__('Maps will be loaded much faster with Leaflet Maps Marker Pro – especially on mobile devices - as no jQuery is needed anymore for displaying maps on frontend. This reduces the download size of each map by about 90kb and also minimizes the browser resources needed for displaying maps.','lmm');
+__('Click here to get more information about this pro feature on mapsmarker.com','lmm');
+__('option to remove MapsMarker.com backlinks','lmm');
+__('Leaflet Maps Marker Pro allows you to hide MapsMarker.com-backlinks from maps, KML files and from the Wikitude app:','lmm');
+__('HTML5 fullscreen maps','lmm');
+__('Leaflet Maps Marker Pro allows you to add a fullscreen button to maps. Clicking on this button will open an HTML5 fullscreen map without leaving the page you are currently viewing.','lmm');
+__('Leaflet Maps Marker Pro allows you to add a small map in the corner which shows the same as the main map with a set zoom offset:','lmm');
+__('mobile web app support for fullscreen maps and optimized mobile viewport','lmm');
+__('Leaflet Maps Marker Pro enables you to save the link to the fullscreen map to the homescreen on iOS devices and reopen the map with an optional launch image as web app – meaning the display of the map in fullscreen mode with no address bar:','lmm');
+__('Furthermore the viewport of the device used is considered, which results in optimized display of fullscreen maps especially on mobile devices:','lmm');
+__('custom Google Maps styling','lmm');
+__('Leaflet Maps Marker Pro allow you to easily customize the presentation of the standard Google base maps, changing the visual display of such elements as roads, parks, and built-up areas:','lmm');
+__('QR codes with custom backgrounds','lmm');
+__('Leaflet Maps Marker Pro allows you to use custom backgrounds for QR codes.','lmm');
+__('Google Adsense for maps integration','lmm');
+__('Leaflet Maps Marker Pro supports Google Adsense for maps. This allows you to add different types of ads to your Google maps:','lmm');
+__('upload icon button & custom icon directory','lmm');
+__('Uploading new icons gets easier with Leaflet Maps Marker Pro - no more need to use a FTP client, just click on the new upload button and add new icons from WordPress admin area easily:','lmm');
+__('backup and restore of settings','lmm');
+__('Leaflet Maps Marker Pro allows you to backup and restore your settings which makes it possible to quickly switch between different plugin profiles. This is especially useful if you want to deploy the plugin with custom configuration on multiple sites:','lmm');
+__('For more details, showcases and reviews please also visit <a style="text-decoration:none;" href="http://www.mapsmarker.com">www.mapsmarker.com</a>','lmm');
+__('To start your free 30-day-trial of Leaflet Maps Marker Pro, please click on the button "start installation" below. This will start the download of Leaflet Maps Marker Pro from <a style="text-decoration:none;" href="%1s">%2s</a> and installation as a separate plugin.<br/>Afterwards please activate the pro plugin and you will be guided through the process to receive a free 30-day-trial license without any obligations. Your trial will expire automatically unless you purchase a valid pro license. You can also switch back to the free version at any time.','lmm');
+__('Warning: your user does not have the capability to install new plugins - please contact your administrator (%1s)','lmm');
+__('start installation','lmm');
+__('You already downloaded "Leaflet Maps Marker Pro" to your server but did not activate the plugin yet!','lmm');
+__('Please navigate to <a href="%1$s">Plugins / Installed Plugins</a> and activate the plugin "Leaflet Maps Marker Pro".','lmm');
+__('Please contact your administrator (%1s) to activate the plugin "Leaflet Maps Marker Pro".','lmm');
 ?>
 </div>
 <!--wrap-->

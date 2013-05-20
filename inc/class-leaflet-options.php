@@ -8455,7 +8455,7 @@ class Class_leaflet_options {
 			'version' => '3.6',
 			'pane'    => 'misc',
 			'section' => 'misc-section9',
-			'title'   => __('allowed API actions','lmm'),
+			'title'   => __('Allowed API actions','lmm'),
 			'desc'    => __('view existing markers/layers','lmm'),
 			'type'    => 'checkbox',
 			'std'     => 1
@@ -8514,6 +8514,24 @@ class Class_leaflet_options {
 			'std'     => '',
 			'type'    => 'text'
 		);	
+		$this->_settings['api_request_type_get'] = array(
+			'version' => '3.6',
+			'pane'    => 'misc',
+			'section' => 'misc-section9',
+			'title'   => __('Allowed API request methods','lmm'),
+			'desc'    => 'GET',
+			'type'    => 'checkbox',
+			'std'     => 1
+		);		
+		$this->_settings['api_request_type_post'] = array(
+			'version' => '3.6',
+			'pane'    => 'misc',
+			'section' => 'misc-section9',
+			'title'   => '',
+			'desc'    => 'POST',
+			'type'    => 'checkbox',
+			'std'     => 1
+		);		
 
 		/*===========================================
 		*
