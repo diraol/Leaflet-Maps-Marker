@@ -1,6 +1,6 @@
 <?php
 /*
-    REST-API - Leaflet Maps Marker Plugin
+    MapsMarker-API - Leaflet Maps Marker Plugin
 */
 //info: construct path to wp-load.php
 while(!is_file('wp-load.php')){

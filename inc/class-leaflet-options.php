@@ -120,7 +120,7 @@ class Class_leaflet_options {
 		$this->sections['misc-section6']			= esc_attr__('Available columns for layer listing page','lmm');
 		$this->sections['misc-section7']			= esc_attr__('Sort order for layer listing page','lmm');
 		$this->sections['misc-section8']			= esc_attr__('QR code settings','lmm');
-		$this->sections['misc-section9']			= esc_attr__('REST API settings','lmm');
+		$this->sections['misc-section9']			= esc_attr__('MapsMarker API settings','lmm');
 
 		$this->sections['reset-section1']			= esc_attr__('Reset Settings','lmm');
 
@@ -8387,7 +8387,7 @@ class Class_leaflet_options {
 			'type'    => 'text'
 		);
 		/*
-		* REST API settings
+		* MapsMarker API settings
 		*/
 		$this->_settings['api_helptext'] = array(
 			'version' => '3.6',
@@ -8395,7 +8395,7 @@ class Class_leaflet_options {
 			'section' => 'misc-section9',
 			'std'     => '',
 			'title'   => '',
-			'desc'    => sprintf(__('For more information on how to use the REST API, <a href="%1s" target="_blank">please visit the API docs on mapsmarker.com</a>','lmm'), 'http://www.mapsmarker.com/rest-api'),
+			'desc'    => sprintf(__('For more information on how to use the MapsMarker API, <a href="%1s" target="_blank">please visit the API docs on mapsmarker.com</a>','lmm'), 'http://www.mapsmarker.com/mapsmarker-api'),
 			'type'    => 'helptext'
 		);
 		$this->_settings['api_helptext2'] = array(
