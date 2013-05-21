@@ -208,48 +208,48 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 												header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 												header('Content-type: application/xml; charset=utf-8');
 												echo '<?xml version="1.0" encoding="utf8"?>'.PHP_EOL;
-												/*
-												echo '<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">'.PHP_EOL;
-												echo '<xs:element name="success" type="boolean" />'.PHP_EOL;
-												echo '<xs:element name="message" type="string" />'.PHP_EOL;
-												echo '<xs:element name="data"><xs:complexType><xs:sequence>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_id . '" type="xs:integer"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_markername . '" type="xs:string"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_basemap . '" type="xs:string"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_layer . '" type="xs:integer"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_lat . '" type="xs:decimal"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_lon . '" type="xs:decimal"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_icon . '" type="xs:string"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_popuptext . '" type="xs:string"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_zoom . '" type="xs:integer"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_openpopup . '" type="xs:boolean"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_mapwith . '" type="xs:integer"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_mapwithunit . '" type="xs:string"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_mapheight . '" type="xs:integer"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_panel . '" type="xs:boolean"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_createdby . '" type="xs:string"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_createdon . '" type="xs:string"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_updatedby . '" type="xs:string"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_updatedon . '" type="xs:string"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_controlbox . '" type="xs:boolean"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_overlays_custom . '" type="xs:boolean"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_overlays_custom2 . '" type="xs:boolean"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_overlays_custom3 . '" type="xs:boolean"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_overlays_custom4 . '" type="xs:boolean"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_wms . '" type="xs:boolean"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_wms2 . '" type="xs:boolean"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_wms3 . '" type="xs:boolean"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_wms4 . '" type="xs:boolean"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_wms5 . '" type="xs:boolean"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_wms6 . '" type="xs:boolean"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_wms7 . '" type="xs:boolean"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_wms8 . '" type="xs:boolean"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_wms9 . '" type="xs:boolean"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_wms10 . '" type="xs:boolean"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_kml_timestamp . '" type="xs:string"/>'.PHP_EOL;
-													echo '<xs:element name="' . $remap_address . '" type="xs:string"/>'.PHP_EOL;
-												echo '</xs:sequence></xs:complexType></xs:element></xs:schema>'.PHP_EOL;
-												*/
+												echo '<!DOCTYPE mapsmarker ['.PHP_EOL;
+												echo '<!ELEMENT mapsmarker ((success, message, data))>'.PHP_EOL;
+												echo '<!ATTLIST mapsmarker xmlns:xsi CDATA #FIXED "http://www.w3.org/2001/XMLSchema-instance" >'.PHP_EOL;
+												echo '<!ELEMENT success (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT message (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT data ((' . $remap_id . ', ' . $remap_markername . ', ' . $remap_basemap . ', ' . $remap_layer . ', ' . $remap_lat . ', ' . $remap_lon . ', ' . $remap_icon . ', ' . $remap_popuptext . ', ' . $remap_zoom . ', ' . $remap_openpopup . ', ' . $remap_mapwidth . ', ' . $remap_mapwidthunit . ', ' . $remap_mapheight . ', ' . $remap_panel . ', ' . $remap_createdby . ', ' . $remap_createdon . ', ' . $remap_updatedby . ', ' . $remap_updatedon . ', ' . $remap_controlbox . ', ' . $remap_overlays_custom . ', ' . $remap_overlays_custom2 . ', ' . $remap_overlays_custom3 . ', ' . $remap_overlays_custom4 . ', ' . $remap_wms . ', ' . $remap_wms2 . ', ' . $remap_wms3 . ', ' . $remap_wms4 . ', ' . $remap_wms5 . ', ' . $remap_wms6 . ', ' . $remap_wms7 . ', ' . $remap_wms8 . ', ' . $remap_wms9 . ', ' . $remap_wms10 . ', ' . $remap_kml_timestamp . ', ' . $remap_address . '))>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_id . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_markername . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_basemap . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_layer . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_lat . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_lon . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_icon . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_popuptext . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_zoom . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_openpopup . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_mapwidth . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_mapwidthunit . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_mapheight . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_panel . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_createdby . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_createdon . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_updatedby . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_updatedon . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_controlbox . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_overlays_custom . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_overlays_custom2 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_overlays_custom3 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_overlays_custom4 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms2 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms3 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms4 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms5 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms6 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms7 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms8 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms9 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms10 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_kml_timestamp . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_address . ' (#PCDATA)>'.PHP_EOL;
+												echo ']>'.PHP_EOL;
 												echo '<mapsmarker>'.PHP_EOL;
 												echo '<success>true</success>'.PHP_EOL;
 												echo '<message>' . esc_attr__('API call was successful','lmm') . '</message>'.PHP_EOL;
@@ -385,6 +385,46 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 												header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 												header('Content-type: application/xml; charset=utf-8');
 												echo '<?xml version="1.0" encoding="utf8"?>'.PHP_EOL;
+												echo '<!DOCTYPE mapsmarker ['.PHP_EOL;
+												echo '<!ELEMENT mapsmarker ((success, message, data))>'.PHP_EOL;
+												echo '<!ATTLIST mapsmarker xmlns:xsi CDATA #FIXED "http://www.w3.org/2001/XMLSchema-instance" >'.PHP_EOL;
+												echo '<!ELEMENT success (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT message (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT data ((' . $remap_id . ', ' . $remap_name . ', ' . $remap_basemap . ', ' . $remap_layerzoom . ', ' . $remap_mapwidth . ', ' . $remap_mapwidthunit . ', ' . $remap_mapheight . ', ' . $remap_panel . ', ' . $remap_layerviewlat . ', ' . $remap_layerviewlon . ', ' . $remap_createdby . ', ' . $remap_createdon . ', ' . $remap_updatedby . ', ' . $remap_updatedon . ', ' . $remap_controlbox . ', ' . $remap_overlays_custom . ', ' . $remap_overlays_custom2 . ', ' . $remap_overlays_custom3 . ', ' . $remap_overlays_custom4 . ', ' . $remap_wms . ', ' . $remap_wms2 . ', ' . $remap_wms3 . ', ' . $remap_wms4 . ', ' . $remap_wms5 . ', ' . $remap_wms6 . ', ' . $remap_wms7 . ', ' . $remap_wms8 . ', ' . $remap_wms9 . ', ' . $remap_wms10 . ', ' . $remap_listmarkers . ', ' . $remap_multi_layer_map . ', ' . $remap_multi_layer_map_list . ', ' . $remap_address . '))>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_id . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_name . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_basemap . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_layerzoom . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_mapwidth . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_mapwidthunit . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_mapheight . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_panel . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_layerviewlat . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_layerviewlon . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_createdby . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_createdon . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_updatedby . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_updatedon . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_controlbox . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_overlays_custom . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_overlays_custom2 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_overlays_custom3 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_overlays_custom4 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms2 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms3 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms4 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms5 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms6 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms7 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms8 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms9 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms10 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_listmarkers . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_multi_layer_map . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_multi_layer_map_list . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_address . ' (#PCDATA)>'.PHP_EOL;
+												echo ']>'.PHP_EOL;												
 												echo '<mapsmarker>'.PHP_EOL;
 												echo '<success>true</success>'.PHP_EOL;
 												echo '<message>' . esc_attr__('API call was successful','lmm') . '</message>'.PHP_EOL;
@@ -419,8 +459,8 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 													echo '<' . $remap_wms9 . '>' . $query_result['wms9'] . '</' . $remap_wms9 . '>'.PHP_EOL;
 													echo '<' . $remap_wms10 . '>' . $query_result['wms10'] . '</' . $remap_wms10 . '>'.PHP_EOL;
 													echo '<' . $remap_listmarkers . '>' . $query_result['listmarkers'] . '</' . $remap_listmarkers . '>'.PHP_EOL;
-													echo '<' . $remap_multi_layer_map . '><![CDATA[' . $query_result['multi_layer_map'] . ']]></' . $remap_multi_layer_map . '>'.PHP_EOL;
-													echo '<' . $remap_multi_layer_map_list . '><![CDATA[' . $query_result['multi_layer_map_list'] . ']]></' . $remap_multi_layer_map_list . '>'.PHP_EOL;
+													echo '<' . $remap_multi_layer_map . '>' . $query_result['multi_layer_map'] . '</' . $remap_multi_layer_map . '>'.PHP_EOL;
+													echo '<' . $remap_multi_layer_map_list . '>' . $query_result['multi_layer_map_list'] . '</' . $remap_multi_layer_map_list . '>'.PHP_EOL;
 													echo '<' . $remap_address . '>' . $query_result['address'] . '</' . $remap_address . '>'.PHP_EOL;
 												echo '</data>'.PHP_EOL;
 												echo '</mapsmarker>';										
@@ -512,12 +552,14 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 									if ($type == 'marker') {
 										$markername = isset($_POST['markername']) ? $_POST['markername'] : (isset($_GET['markername']) ? $_GET['markername'] : '');
 										$markername_quotes = str_replace("\"", "'", $markername);
+										$mpopuptext = isset($_POST['popuptext']) ? str_replace('"', '\'', preg_replace('/(\015\012)|(\015)|(\012)/','<br/>',$_POST['popuptext'])) : (isset($_GET['popuptext']) ? str_replace('"', '\'', preg_replace('/(\015\012)|(\015)|(\012)/','<br/>',$_GET['popuptext'])) : '');
+										
 										$basemap = isset($_POST['basemap']) && in_array($_POST['basemap'], array('osm_mapnik','mapquest_osm','mapquest_aerial','googleLayer_roadmap','googleLayer_satellite','googleLayer_hybrid','googleLayer_terrain','bingaerial','bingaerialwithlabels','bingroad','ogdwien_basemap','ogdwien_satellite','cloudmade','cloudmade2','cloudmade3','mapbox','mapbox2','mapbox3','custom_basemap','custom_basemap2','custom_basemap3','empty_basemap')) ? $_POST['basemap'] : (isset($_GET['basemap']) && in_array($_GET['basemap'], array('osm_mapnik','mapquest_osm','mapquest_aerial','googleLayer_roadmap','googleLayer_satellite','googleLayer_hybrid','googleLayer_terrain','bingaerial','bingaerialwithlabels','bingroad','ogdwien_basemap','ogdwien_satellite','cloudmade','cloudmade2','cloudmade3','mapbox','mapbox2','mapbox3','custom_basemap','custom_basemap2','custom_basemap3','empty_basemap')) ? $_GET['basemap'] : $lmm_options[ 'standard_basemap' ]);
-										$layer = isset($_POST['layer']) ? intval($_POST['layer']) : (isset($_GET['layer']) ? intval($_GET['layer']) : ($lmm_options[ 'defaults_marker_default_layer' ] == '0') ? '' : intval($lmm_options[ 'defaults_marker_default_layer' ]));
+										$layer = isset($_POST['layer']) ? intval($_POST['layer']) : (isset($_GET['layer']) ? intval($_GET['layer']) : ($lmm_options[ 'defaults_marker_default_layer' ] == '0') ? '0' : intval($lmm_options[ 'defaults_marker_default_layer' ]));
 										$lat = isset($_POST['lat']) ? floatval($_POST['lat']) : (isset($_GET['lat']) ? floatval($_GET['lat']) : floatval($lmm_options[ 'defaults_marker_lat' ]));
 										$lon = isset($_POST['lon']) ? floatval($_POST['lon']) : (isset($_GET['lon']) ? floatval($_GET['lon']) : floatval($lmm_options[ 'defaults_marker_lon' ]));
 										$icon = isset($_POST['icon']) ? $_POST['icon'] : (isset($_GET['icon']) ? $_GET['icon'] : ($lmm_options[ 'defaults_marker_icon' ] == NULL) ? '' : $lmm_options[ 'defaults_marker_icon' ]);
-										$popuptext = isset($_POST['popuptext']) ? $_POST['popuptext'] : (isset($_GET['popuptext']) ? $_GET['popuptext'] : '');
+										$popuptext = $mpopuptext;
 										$zoom = isset($_POST['zoom']) ? intval($_POST['zoom']) : (isset($_GET['zoom']) ? intval($_GET['zoom']) : intval($lmm_options[ 'defaults_marker_zoom' ]));
 										$openpopup = ( isset($_POST['openpopup']) && ( ($_POST['openpopup'] == '0') || ($_POST['openpopup'] == '1')) ) ? $_POST['openpopup'] : ( isset($_GET['openpopup']) && ( ($_GET['openpopup'] == '0') || ($_GET['openpopup'] == '1') ) ? $_GET['openpopup'] : $lmm_options[ 'defaults_marker_openpopup' ]);
 										$mapwidth = isset($_POST['mapwidth']) ? $_POST['mapwidth'] : (isset($_GET['mapwidth']) ? $_GET['mapwidth'] : intval($lmm_options[ 'defaults_marker_mapwidth' ]));
@@ -525,9 +567,9 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 										$mapheight = isset($_POST['mapheight']) ? $_POST['mapheight'] : (isset($_GET['mapheight']) ? $_GET['mapheight'] : intval($lmm_options[ 'defaults_marker_mapheight' ]));
 										$panel = ( isset($_POST['panel']) && ( ($_POST['panel'] == '0') || ($_POST['panel'] == '1')) ) ? $_POST['panel'] : ( isset($_GET['panel']) && ( ($_GET['panel'] == '0') || ($_GET['panel'] == '1') ) ? $_GET['panel'] : $lmm_options[ 'defaults_marker_panel' ]);
 										$createdby = isset($_POST['createdby']) ? $_POST['createdby'] : (isset($_GET['createdby']) ? $_GET['createdby'] : '');
-										$createdon = isset($_POST['createdon']) ? $_POST['createdon'] : (isset($_GET['createdon']) ? $_GET['createdon'] : current_time('mysql',0));
+										$createdon = isset($_POST['createdon']) && ( $_GET['createdon'] == date('Y-m-d H:i:s',strtotime($_GET['createdon'])) ) ? $_POST['createdon'] : (isset($_GET['createdon']) && ( $_GET['createdon'] == date('Y-m-d H:i:s',strtotime($_GET['createdon'])) ) ? $_GET['createdon'] : current_time('mysql',0));
 										$updatedby = isset($_POST['updatedby']) ? $_POST['updatedby'] : (isset($_GET['updatedby']) ? $_GET['updatedby'] : '');
-										$updatedon = isset($_POST['updatedon']) ? $_POST['updatedon'] : (isset($_GET['updatedon']) ? $_GET['updatedon'] : current_time('mysql',0));
+										$updatedon = isset($_POST['updatedon']) && ( $_GET['createdon'] == date('Y-m-d H:i:s',strtotime($_GET['createdon'])) ) ? $_POST['updatedon'] : (isset($_GET['updatedon']) && ( $_GET['createdon'] == date('Y-m-d H:i:s',strtotime($_GET['createdon'])) ) ? $_GET['updatedon'] : current_time('mysql',0));
 										$controlbox = ( isset($_POST['controlbox']) && ( ($_POST['controlbox'] == '0') || ($_POST['controlbox'] == '1') || ($_POST['controlbox'] == '2')) ) ? $_POST['controlbox'] : ( isset($_GET['controlbox']) && ( ($_GET['controlbox'] == '0') || ($_GET['controlbox'] == '1') || ($_GET['controlbox'] == '2') ) ? $_GET['controlbox'] : $lmm_options[ 'defaults_marker_controlbox' ]);
 										$overlays_custom = ( isset($_POST['overlays_custom']) && ( ($_POST['overlays_custom'] == '0') || ($_POST['overlays_custom'] == '1')) ) ? $_POST['overlays_custom'] : ( isset($_GET['overlays_custom']) && ( ($_GET['overlays_custom'] == '0') || ($_GET['overlays_custom'] == '1') ) ? $_GET['overlays_custom'] : (isset($lmm_options[ 'defaults_marker_overlays_custom_active' ]) ? '1' : '0'));
 										$overlays_custom2 = ( isset($_POST['overlays_custom2']) && ( ($_POST['overlays_custom2'] == '0') || ($_POST['overlays_custom2'] == '1')) ) ? $_POST['overlays_custom2'] : ( isset($_GET['overlays_custom2']) && ( ($_GET['overlays_custom2'] == '0') || ($_GET['overlays_custom2'] == '1') ) ? $_GET['overlays_custom2'] : (isset($lmm_options[ 'defaults_marker_overlays_custom2_active' ]) ? '1' : '0'));
@@ -543,7 +585,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 										$wms8 = ( isset($_POST['wms8']) && ( ($_POST['wms8'] == '0') || ($_POST['wms8'] == '1')) ) ? $_POST['wms8'] : ( isset($_GET['wms8']) && ( ($_GET['wms8'] == '0') || ($_GET['wms8'] == '1') ) ? $_GET['wms8'] : (isset($lmm_options[ 'defaults_marker_wms8_active' ]) ? '1' : '0'));
 										$wms9 = ( isset($_POST['wms9']) && ( ($_POST['wms9'] == '0') || ($_POST['wms9'] == '1')) ) ? $_POST['wms9'] : ( isset($_GET['wms9']) && ( ($_GET['wms9'] == '0') || ($_GET['wms9'] == '1') ) ? $_GET['wms9'] : (isset($lmm_options[ 'defaults_marker_wms9_active' ]) ? '1' : '0'));
 										$wms10 = ( isset($_POST['wms10']) && ( ($_POST['wms10'] == '0') || ($_POST['wms10'] == '1')) ) ? $_POST['wms10'] : ( isset($_GET['wms10']) && ( ($_GET['wms10'] == '0') || ($_GET['wms10'] == '1') ) ? $_GET['wms10'] : (isset($lmm_options[ 'defaults_marker_wms10_active' ]) ? '1' : '0'));
-										$kml_timestamp = isset($_POST['kml_timestamp']) ? $_POST['kml_timestamp'] : (isset($_GET['kml_timestamp']) ? $_GET['kml_timestamp'] : '');
+										$kml_timestamp = isset($_POST['kml_timestamp']) ? $_POST['kml_timestamp'] : (isset($_GET['kml_timestamp']) && ( $_GET['kml_timestamp'] == date('Y-m-d H:i:s',strtotime($_GET['kml_timestamp'])) ) ? $_GET['kml_timestamp'] : $query_view['kml_timestamp']);
 										$address = isset($_POST['address']) ? $_POST['address'] : (isset($_GET['address']) ? $_GET['address'] : '');
 										if ($geocode != NULL) {
 											$do_geocoding = lmm_getLatLng($geocode);
@@ -573,7 +615,11 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 												exit();	
 											}
 										}
-										$query_add = $wpdb->prepare( "INSERT INTO $table_name_markers (markername, basemap, layer, lat, lon, icon, popuptext, zoom, openpopup, mapwidth, mapwidthunit, mapheight, panel, createdby, createdon, updatedby, updatedon, controlbox, overlays_custom, overlays_custom2, overlays_custom3, overlays_custom4, wms, wms2, wms3, wms4, wms5, wms6, wms7, wms8, wms9, wms10, kml_timestamp, address) VALUES (%s, %s, %d, %s, %s, %s, %s, %d, %d, %d, %s, %d, %d, %s, %s, %s, %s, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %s, %s )", $markername_quotes, $basemap, $layer, str_replace(',', '.', $lat), str_replace(',', '.', $lon), $icon, $popuptext, $zoom, $openpopup, $mapwidth, $mapwidthunit, $mapheight, $panel, $createdby, $createdon, $updatedby, $updatedon, $controlbox, $overlays_custom, $overlays_custom2, $overlays_custom3, $overlays_custom4, $wms, $wms2, $wms3, $wms4, $wms5, $wms6, $wms7, $wms8, $wms9, $wms10, $kml_timestamp, $address );
+										if ($kml_timestamp == NULL) {
+											$query_add = $wpdb->prepare( "INSERT INTO $table_name_markers (markername, basemap, layer, lat, lon, icon, popuptext, zoom, openpopup, mapwidth, mapwidthunit, mapheight, panel, createdby, createdon, updatedby, updatedon, controlbox, overlays_custom, overlays_custom2, overlays_custom3, overlays_custom4, wms, wms2, wms3, wms4, wms5, wms6, wms7, wms8, wms9, wms10, address) VALUES (%s, %s, %d, %s, %s, %s, %s, %d, %d, %d, %s, %d, %d, %s, %s, %s, %s, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %s )", $markername_quotes, $basemap, $layer, str_replace(',', '.', $lat), str_replace(',', '.', $lon), $icon, $popuptext, $zoom, $openpopup, $mapwidth, $mapwidthunit, $mapheight, $panel, $createdby, $createdon, $updatedby, $updatedon, $controlbox, $overlays_custom, $overlays_custom2, $overlays_custom3, $overlays_custom4, $wms, $wms2, $wms3, $wms4, $wms5, $wms6, $wms7, $wms8, $wms9, $wms10, $address );
+										} else {
+											$query_add = $wpdb->prepare( "INSERT INTO $table_name_markers (markername, basemap, layer, lat, lon, icon, popuptext, zoom, openpopup, mapwidth, mapwidthunit, mapheight, panel, createdby, createdon, updatedby, updatedon, controlbox, overlays_custom, overlays_custom2, overlays_custom3, overlays_custom4, wms, wms2, wms3, wms4, wms5, wms6, wms7, wms8, wms9, wms10, kml_timestamp, address) VALUES (%s, %s, %d, %s, %s, %s, %s, %d, %d, %d, %s, %d, %d, %s, %s, %s, %s, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %s, %s )", $markername_quotes, $basemap, $layer, str_replace(',', '.', $lat), str_replace(',', '.', $lon), $icon, $popuptext, $zoom, $openpopup, $mapwidth, $mapwidthunit, $mapheight, $panel, $createdby, $createdon, $updatedby, $updatedon, $controlbox, $overlays_custom, $overlays_custom2, $overlays_custom3, $overlays_custom4, $wms, $wms2, $wms3, $wms4, $wms5, $wms6, $wms7, $wms8, $wms9, $wms10, $kml_timestamp, $address );
+										}
 										$result_add = $wpdb->query( $query_add );
 										if ($result_add == TRUE) {
 											if ($format == 'json') {
@@ -592,7 +638,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 													echo '"' . $remap_lat . '":"' . $lat . '",'.PHP_EOL;
 													echo '"' . $remap_lon . '":"' . $lon . '",'.PHP_EOL;
 													echo '"' . $remap_icon . '":"' . $icon . '",'.PHP_EOL;
-													echo '"' . $remap_popuptext . '":"' . $popuptext . '",'.PHP_EOL;
+													echo '"' . $remap_popuptext . '":"' . stripslashes($popuptext) . '",'.PHP_EOL;
 													echo '"' . $remap_zoom . '":"' . $zoom . '",'.PHP_EOL;
 													echo '"' . $remap_openpopup . '":"' . $openpopup . '",'.PHP_EOL;
 													echo '"' . $remap_mapwidth . '":"' . $mapwidth . '",'.PHP_EOL;
@@ -628,6 +674,48 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 												header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 												header('Content-type: application/xml; charset=utf-8');
 												echo '<?xml version="1.0" encoding="utf8"?>'.PHP_EOL;
+												echo '<!DOCTYPE mapsmarker ['.PHP_EOL;
+												echo '<!ELEMENT mapsmarker ((success, message, data))>'.PHP_EOL;
+												echo '<!ATTLIST mapsmarker xmlns:xsi CDATA #FIXED "http://www.w3.org/2001/XMLSchema-instance" >'.PHP_EOL;
+												echo '<!ELEMENT success (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT message (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT data ((' . $remap_id . ', ' . $remap_markername . ', ' . $remap_basemap . ', ' . $remap_layer . ', ' . $remap_lat . ', ' . $remap_lon . ', ' . $remap_icon . ', ' . $remap_popuptext . ', ' . $remap_zoom . ', ' . $remap_openpopup . ', ' . $remap_mapwidth . ', ' . $remap_mapwidthunit . ', ' . $remap_mapheight . ', ' . $remap_panel . ', ' . $remap_createdby . ', ' . $remap_createdon . ', ' . $remap_updatedby . ', ' . $remap_updatedon . ', ' . $remap_controlbox . ', ' . $remap_overlays_custom . ', ' . $remap_overlays_custom2 . ', ' . $remap_overlays_custom3 . ', ' . $remap_overlays_custom4 . ', ' . $remap_wms . ', ' . $remap_wms2 . ', ' . $remap_wms3 . ', ' . $remap_wms4 . ', ' . $remap_wms5 . ', ' . $remap_wms6 . ', ' . $remap_wms7 . ', ' . $remap_wms8 . ', ' . $remap_wms9 . ', ' . $remap_wms10 . ', ' . $remap_kml_timestamp . ', ' . $remap_address . '))>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_id . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_markername . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_basemap . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_layer . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_lat . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_lon . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_icon . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_popuptext . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_zoom . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_openpopup . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_mapwidth . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_mapwidthunit . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_mapheight . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_panel . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_createdby . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_createdon . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_updatedby . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_updatedon . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_controlbox . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_overlays_custom . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_overlays_custom2 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_overlays_custom3 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_overlays_custom4 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms2 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms3 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms4 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms5 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms6 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms7 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms8 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms9 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms10 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_kml_timestamp . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_address . ' (#PCDATA)>'.PHP_EOL;
+												echo ']>'.PHP_EOL;												
 												echo '<mapsmarker>'.PHP_EOL;
 												echo '<success>true</success>'.PHP_EOL;
 												echo '<message>' . esc_attr__('Marker has been successfully published','lmm') . '</message>'.PHP_EOL;
@@ -639,7 +727,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 													echo '<' . $remap_lat . '>' . $lat . '</' . $remap_lat . '>'.PHP_EOL;
 													echo '<' . $remap_lon . '>' . $lon . '</' . $remap_lon . '>'.PHP_EOL;
 													echo '<' . $remap_icon . '><![CDATA[' . $icon . ']]></' . $remap_icon . '>'.PHP_EOL;
-													echo '<' . $remap_popuptext . '><![CDATA[' . $popuptext . ']]></' . $remap_popuptext . '>'.PHP_EOL;
+													echo '<' . $remap_popuptext . '><![CDATA[' . stripslashes($popuptext) . ']]></' . $remap_popuptext . '>'.PHP_EOL;
 													echo '<' . $remap_zoom . '>' . $zoom . '</' . $remap_zoom . '>'.PHP_EOL;
 													echo '<' . $remap_openpopup . '>' . $openpopup . '</' . $remap_openpopup . '>'.PHP_EOL;
 													echo '<' . $remap_mapwidth . '>' . $mapwidth . '</' . $remap_mapwidth . '>'.PHP_EOL;
@@ -702,9 +790,9 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 										$layerviewlat = isset($_POST['layerviewlat']) ? floatval($_POST['layerviewlat']) : (isset($_GET['layerviewlat']) ? floatval($_GET['layerviewlat']) : floatval($lmm_options[ 'defaults_layer_lat' ]));
 										$layerviewlon = isset($_POST['layerviewlon']) ? floatval($_POST['layerviewlon']) : (isset($_GET['layerviewlon']) ? floatval($_GET['layerviewlon']) : floatval($lmm_options[ 'defaults_layer_lon' ]));
 										$createdby = isset($_POST['createdby']) ? $_POST['createdby'] : (isset($_GET['createdby']) ? $_GET['createdby'] : '');
-										$createdon = isset($_POST['createdon']) ? $_POST['createdon'] : (isset($_GET['createdon']) ? $_GET['createdon'] : current_time('mysql',0));
+										$createdon = isset($_POST['createdon']) && ( $_GET['createdon'] == date('Y-m-d H:i:s',strtotime($_GET['createdon'])) ) ? $_POST['createdon'] : (isset($_GET['createdon']) && ( $_GET['createdon'] == date('Y-m-d H:i:s',strtotime($_GET['createdon'])) ) ? $_GET['createdon'] : current_time('mysql',0));
 										$updatedby = isset($_POST['updatedby']) ? $_POST['updatedby'] : (isset($_GET['updatedby']) ? $_GET['updatedby'] : '');
-										$updatedon = isset($_POST['updatedon']) ? $_POST['updatedon'] : (isset($_GET['updatedon']) ? $_GET['updatedon'] : current_time('mysql',0));
+										$updatedon = isset($_POST['updatedon']) && ( $_GET['createdon'] == date('Y-m-d H:i:s',strtotime($_GET['createdon'])) ) ? $_POST['updatedon'] : (isset($_GET['updatedon']) && ( $_GET['createdon'] == date('Y-m-d H:i:s',strtotime($_GET['createdon'])) ) ? $_GET['updatedon'] : current_time('mysql',0));
 										$controlbox = ( isset($_POST['controlbox']) && ( ($_POST['controlbox'] == '0') || ($_POST['controlbox'] == '1') || ($_POST['controlbox'] == '2')) ) ? $_POST['controlbox'] : ( isset($_GET['controlbox']) && ( ($_GET['controlbox'] == '0') || ($_GET['controlbox'] == '1') || ($_GET['controlbox'] == '2') ) ? $_GET['controlbox'] : $lmm_options[ 'defaults_layer_controlbox' ]);
 										$overlays_custom = ( isset($_POST['overlays_custom']) && ( ($_POST['overlays_custom'] == '0') || ($_POST['overlays_custom'] == '1')) ) ? $_POST['overlays_custom'] : ( isset($_GET['overlays_custom']) && ( ($_GET['overlays_custom'] == '0') || ($_GET['overlays_custom'] == '1') ) ? $_GET['overlays_custom'] : (isset($lmm_options[ 'defaults_layer_overlays_custom_active' ]) ? '1' : '0'));
 										$overlays_custom2 = ( isset($_POST['overlays_custom2']) && ( ($_POST['overlays_custom2'] == '0') || ($_POST['overlays_custom2'] == '1')) ) ? $_POST['overlays_custom2'] : ( isset($_GET['overlays_custom2']) && ( ($_GET['overlays_custom2'] == '0') || ($_GET['overlays_custom2'] == '1') ) ? $_GET['overlays_custom2'] : (isset($lmm_options[ 'defaults_layer_overlays_custom2_active' ]) ? '1' : '0'));
@@ -805,6 +893,46 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 												header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 												header('Content-type: application/xml; charset=utf-8');
 												echo '<?xml version="1.0" encoding="utf8"?>'.PHP_EOL;
+												echo '<!DOCTYPE mapsmarker ['.PHP_EOL;
+												echo '<!ELEMENT mapsmarker ((success, message, data))>'.PHP_EOL;
+												echo '<!ATTLIST mapsmarker xmlns:xsi CDATA #FIXED "http://www.w3.org/2001/XMLSchema-instance" >'.PHP_EOL;
+												echo '<!ELEMENT success (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT message (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT data ((' . $remap_id . ', ' . $remap_name . ', ' . $remap_basemap . ', ' . $remap_layerzoom . ', ' . $remap_mapwidth . ', ' . $remap_mapwidthunit . ', ' . $remap_mapheight . ', ' . $remap_panel . ', ' . $remap_layerviewlat . ', ' . $remap_layerviewlon . ', ' . $remap_createdby . ', ' . $remap_createdon . ', ' . $remap_updatedby . ', ' . $remap_updatedon . ', ' . $remap_controlbox . ', ' . $remap_overlays_custom . ', ' . $remap_overlays_custom2 . ', ' . $remap_overlays_custom3 . ', ' . $remap_overlays_custom4 . ', ' . $remap_wms . ', ' . $remap_wms2 . ', ' . $remap_wms3 . ', ' . $remap_wms4 . ', ' . $remap_wms5 . ', ' . $remap_wms6 . ', ' . $remap_wms7 . ', ' . $remap_wms8 . ', ' . $remap_wms9 . ', ' . $remap_wms10 . ', ' . $remap_listmarkers . ', ' . $remap_multi_layer_map . ', ' . $remap_multi_layer_map_list . ', ' . $remap_address . '))>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_id . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_name . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_basemap . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_layerzoom . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_mapwidth . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_mapwidthunit . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_mapheight . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_panel . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_layerviewlat . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_layerviewlon . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_createdby . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_createdon . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_updatedby . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_updatedon . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_controlbox . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_overlays_custom . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_overlays_custom2 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_overlays_custom3 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_overlays_custom4 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms2 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms3 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms4 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms5 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms6 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms7 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms8 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms9 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_wms10 . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_listmarkers . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_multi_layer_map . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_multi_layer_map_list . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_address . ' (#PCDATA)>'.PHP_EOL;
+												echo ']>'.PHP_EOL;												
 												echo '<mapsmarker>'.PHP_EOL;
 												echo '<success>true</success>'.PHP_EOL;
 												echo '<message>' . esc_attr__('Layer has been successfully published','lmm') . '</message>'.PHP_EOL;
@@ -839,8 +967,8 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 													echo '<' . $remap_wms9 . '>' . $wms9 . '</' . $remap_wms9 . '>'.PHP_EOL;
 													echo '<' . $remap_wms10 . '>' . $wms10 . '</' . $remap_wms10 . '>'.PHP_EOL;
 													echo '<' . $remap_listmarkers . '>' . $listmarkers . '</' . $remap_listmarkers . '>'.PHP_EOL;
-													echo '<' . $remap_multi_layer_map . '><![CDATA[' . $multi_layer_map . ']]></' . $remap_multi_layer_map . '>'.PHP_EOL;
-													echo '<' . $remap_multi_layer_map_list . '><![CDATA[' . $multi_layer_map_list . ']]></' . $remap_multi_layer_map_list . '>'.PHP_EOL;
+													echo '<' . $remap_multi_layer_map . '>' . $multi_layer_map . '</' . $remap_multi_layer_map . '>'.PHP_EOL;
+													echo '<' . $remap_multi_layer_map_list . '>' . $multi_layer_map_list . '</' . $remap_multi_layer_map_list . '>'.PHP_EOL;
 													echo '<' . $remap_address . '>' . $address . '</' . $remap_address . '>'.PHP_EOL;
 												echo '</data>'.PHP_EOL;
 												echo '</mapsmarker>';										
@@ -930,9 +1058,237 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 							} else if ($action == 'update') {
 								if ( $lmm_options['api_permissions_update'] == TRUE ) {
 									if ($type == 'marker') {
-										$query_result = $wpdb->get_row( $wpdb->prepare("SELECT * FROM $table_name_markers WHERE id = %d", $id), ARRAY_A);
-										if (count($query_result) >= 1) {
-		
+										$query_view = $wpdb->get_row( $wpdb->prepare("SELECT * FROM $table_name_markers WHERE id = %d", $id), ARRAY_A);
+										if (count($query_view) >= 1) {
+											$mpopuptext = stripslashes(str_replace('"', '\'', preg_replace('/(\015\012)|(\015)|(\012)/','<br/>',$query_view['popuptext'])));
+											$address = stripslashes(str_replace('"', '\'', $query_view['address']));
+											
+											$markername = isset($_POST['markername']) ? $_POST['markername'] : (isset($_GET['markername']) ? $_GET['markername'] : $query_view['markername']);
+											$markername_quotes = str_replace("\"", "'", $markername);
+											$basemap = isset($_POST['basemap']) && in_array($_POST['basemap'], array('osm_mapnik','mapquest_osm','mapquest_aerial','googleLayer_roadmap','googleLayer_satellite','googleLayer_hybrid','googleLayer_terrain','bingaerial','bingaerialwithlabels','bingroad','ogdwien_basemap','ogdwien_satellite','cloudmade','cloudmade2','cloudmade3','mapbox','mapbox2','mapbox3','custom_basemap','custom_basemap2','custom_basemap3','empty_basemap')) ? $_POST['basemap'] : (isset($_GET['basemap']) && in_array($_GET['basemap'], array('osm_mapnik','mapquest_osm','mapquest_aerial','googleLayer_roadmap','googleLayer_satellite','googleLayer_hybrid','googleLayer_terrain','bingaerial','bingaerialwithlabels','bingroad','ogdwien_basemap','ogdwien_satellite','cloudmade','cloudmade2','cloudmade3','mapbox','mapbox2','mapbox3','custom_basemap','custom_basemap2','custom_basemap3','empty_basemap')) ? $_GET['basemap'] : $query_view['basemap']);
+											$layer = isset($_POST['layer']) ? intval($_POST['layer']) : (isset($_GET['layer']) ? intval($_GET['layer']) : $query_view['layer']);
+											$lat = isset($_POST['lat']) ? floatval($_POST['lat']) : (isset($_GET['lat']) ? floatval($_GET['lat']) : $query_view['lat']);
+											$lon = isset($_POST['lon']) ? floatval($_POST['lon']) : (isset($_GET['lon']) ? floatval($_GET['lon']) : $query_view['lon']);
+											$icon = isset($_POST['icon']) ? $_POST['icon'] : (isset($_GET['icon']) ? $_GET['icon'] : ($lmm_options[ 'defaults_marker_icon' ] == NULL) ? '' : $query_view['icon']);
+											$popuptext = isset($_POST['popuptext']) ? $_POST['popuptext'] : (isset($_GET['popuptext']) ? $_GET['popuptext'] : $mpopuptext);
+											$zoom = isset($_POST['zoom']) ? intval($_POST['zoom']) : (isset($_GET['zoom']) ? intval($_GET['zoom']) : $query_view['zoom']);
+											$openpopup = ( isset($_POST['openpopup']) && ( ($_POST['openpopup'] == '0') || ($_POST['openpopup'] == '1')) ) ? $_POST['openpopup'] : ( isset($_GET['openpopup']) && ( ($_GET['openpopup'] == '0') || ($_GET['openpopup'] == '1') ) ? $_GET['openpopup'] : $query_view['openpopup']);
+											$mapwidth = isset($_POST['mapwidth']) ? $_POST['mapwidth'] : (isset($_GET['mapwidth']) ? $_GET['mapwidth'] : $query_view['mapwidth']);
+											$mapwidthunit = ( isset($_POST['mapwidthunit']) && ( ($_POST['mapwidthunit'] == 'px') || ($_POST['mapwidthunit'] == '%') ) ) ? $_POST['mapwidthunit'] : ( isset($_GET['mapwidthunit']) && ( ($_GET['mapwidthunit'] == 'px') || ($_GET['mapwidthunit'] == '%')  ) ? $_GET['mapwidthunit'] : $query_view['mapwidthunit']);
+											$mapheight = isset($_POST['mapheight']) ? $_POST['mapheight'] : (isset($_GET['mapheight']) ? $_GET['mapheight'] : $query_view['mapheight']);
+											$panel = ( isset($_POST['panel']) && ( ($_POST['panel'] == '0') || ($_POST['panel'] == '1')) ) ? $_POST['panel'] : ( isset($_GET['panel']) && ( ($_GET['panel'] == '0') || ($_GET['panel'] == '1') ) ? $_GET['panel'] : $query_view['panel']);
+											$createdby = isset($_POST['createdby']) ? $_POST['createdby'] : (isset($_GET['createdby']) ? $_GET['createdby'] : $query_view['createdby']);
+											$createdon = isset($_POST['createdon']) && ( $_GET['createdon'] == date('Y-m-d H:i:s',strtotime($_GET['createdon'])) ) ? $_POST['createdon'] : (isset($_GET['createdon']) && ( $_GET['createdon'] == date('Y-m-d H:i:s',strtotime($_GET['createdon'])) ) ? $_GET['createdon'] : $query_view['createdon']);
+											$updatedby = isset($_POST['updatedby']) ? $_POST['updatedby'] : (isset($_GET['updatedby']) ? $_GET['updatedby'] : $query_view['updatedby']);
+											$updatedon = isset($_POST['updatedon']) && ( $_GET['createdon'] == date('Y-m-d H:i:s',strtotime($_GET['createdon'])) ) ? $_POST['updatedon'] : (isset($_GET['updatedon']) && ( $_GET['updatedon'] == date('Y-m-d H:i:s',strtotime($_GET['updatedon'])) ) ? $_GET['updatedon'] : current_time('mysql',0));
+											$controlbox = ( isset($_POST['controlbox']) && ( ($_POST['controlbox'] == '0') || ($_POST['controlbox'] == '1') || ($_POST['controlbox'] == '2')) ) ? $_POST['controlbox'] : ( isset($_GET['controlbox']) && ( ($_GET['controlbox'] == '0') || ($_GET['controlbox'] == '1') || ($_GET['controlbox'] == '2') ) ? $_GET['controlbox'] : $query_view['controlbox']);
+											$overlays_custom = ( isset($_POST['overlays_custom']) && ( ($_POST['overlays_custom'] == '0') || ($_POST['overlays_custom'] == '1')) ) ? $_POST['overlays_custom'] : ( isset($_GET['overlays_custom']) && ( ($_GET['overlays_custom'] == '0') || ($_GET['overlays_custom'] == '1') ) ? $_GET['overlays_custom'] : $query_view['overlays_custom']);
+											$overlays_custom2 = ( isset($_POST['overlays_custom2']) && ( ($_POST['overlays_custom2'] == '0') || ($_POST['overlays_custom2'] == '1')) ) ? $_POST['overlays_custom2'] : ( isset($_GET['overlays_custom2']) && ( ($_GET['overlays_custom2'] == '0') || ($_GET['overlays_custom2'] == '1') ) ? $_GET['overlays_custom2'] : $query_view['overlays_custom2']);
+											$overlays_custom3 = ( isset($_POST['overlays_custom3']) && ( ($_POST['overlays_custom3'] == '0') || ($_POST['overlays_custom3'] == '1')) ) ? $_POST['overlays_custom3'] : ( isset($_GET['overlays_custom3']) && ( ($_GET['overlays_custom3'] == '0') || ($_GET['overlays_custom3'] == '1') ) ? $_GET['overlays_custom3'] : $query_view['overlays_custom3']);
+											$overlays_custom4 = ( isset($_POST['overlays_custom4']) && ( ($_POST['overlays_custom4'] == '0') || ($_POST['overlays_custom4'] == '1')) ) ? $_POST['overlays_custom4'] : ( isset($_GET['overlays_custom4']) && ( ($_GET['overlays_custom4'] == '0') || ($_GET['overlays_custom4'] == '1') ) ? $_GET['overlays_custom4'] : $query_view['overlays_custom4']);
+											$wms = ( isset($_POST['wms']) && ( ($_POST['wms'] == '0') || ($_POST['wms'] == '1')) ) ? $_POST['wms'] : ( isset($_GET['wms']) && ( ($_GET['wms'] == '0') || ($_GET['wms'] == '1') ) ? $_GET['wms'] : $query_view['wms']);
+											$wms2 = ( isset($_POST['wms2']) && ( ($_POST['wms2'] == '0') || ($_POST['wms2'] == '1')) ) ? $_POST['wms2'] : ( isset($_GET['wms2']) && ( ($_GET['wms2'] == '0') || ($_GET['wms2'] == '1') ) ? $_GET['wms2'] : $query_view['wms2']);
+											$wms3 = ( isset($_POST['wms3']) && ( ($_POST['wms3'] == '0') || ($_POST['wms3'] == '1')) ) ? $_POST['wms3'] : ( isset($_GET['wms3']) && ( ($_GET['wms3'] == '0') || ($_GET['wms3'] == '1') ) ? $_GET['wms3'] : $query_view['wms3']);
+											$wms4 = ( isset($_POST['wms4']) && ( ($_POST['wms4'] == '0') || ($_POST['wms4'] == '1')) ) ? $_POST['wms4'] : ( isset($_GET['wms4']) && ( ($_GET['wms4'] == '0') || ($_GET['wms4'] == '1') ) ? $_GET['wms4'] : $query_view['wms4']);
+											$wms5 = ( isset($_POST['wms5']) && ( ($_POST['wms5'] == '0') || ($_POST['wms5'] == '1')) ) ? $_POST['wms5'] : ( isset($_GET['wms5']) && ( ($_GET['wms5'] == '0') || ($_GET['wms5'] == '1') ) ? $_GET['wms5'] : $query_view['wms5']);
+											$wms6 = ( isset($_POST['wms6']) && ( ($_POST['wms6'] == '0') || ($_POST['wms6'] == '1')) ) ? $_POST['wms6'] : ( isset($_GET['wms6']) && ( ($_GET['wms6'] == '0') || ($_GET['wms6'] == '1') ) ? $_GET['wms6'] : $query_view['wms6']);
+											$wms7 = ( isset($_POST['wms7']) && ( ($_POST['wms7'] == '0') || ($_POST['wms7'] == '1')) ) ? $_POST['wms7'] : ( isset($_GET['wms7']) && ( ($_GET['wms7'] == '0') || ($_GET['wms7'] == '1') ) ? $_GET['wms7'] : $query_view['wms7']);
+											$wms8 = ( isset($_POST['wms8']) && ( ($_POST['wms8'] == '0') || ($_POST['wms8'] == '1')) ) ? $_POST['wms8'] : ( isset($_GET['wms8']) && ( ($_GET['wms8'] == '0') || ($_GET['wms8'] == '1') ) ? $_GET['wms8'] : $query_view['wms8']);
+											$wms9 = ( isset($_POST['wms9']) && ( ($_POST['wms9'] == '0') || ($_POST['wms9'] == '1')) ) ? $_POST['wms9'] : ( isset($_GET['wms9']) && ( ($_GET['wms9'] == '0') || ($_GET['wms9'] == '1') ) ? $_GET['wms9'] : $query_view['wms9']);
+											$wms10 = ( isset($_POST['wms10']) && ( ($_POST['wms10'] == '0') || ($_POST['wms10'] == '1')) ) ? $_POST['wms10'] : ( isset($_GET['wms10']) && ( ($_GET['wms10'] == '0') || ($_GET['wms10'] == '1') ) ? $_GET['wms10'] : $query_view['wms10']);
+											$kml_timestamp = isset($_POST['kml_timestamp']) ? $_POST['kml_timestamp'] : (isset($_GET['kml_timestamp']) && ( $_GET['kml_timestamp'] == date('Y-m-d H:i:s',strtotime($_GET['kml_timestamp'])) ) ? $_GET['kml_timestamp'] : $query_view['kml_timestamp']);
+											$address = isset($_POST['address']) ? $_POST['address'] : (isset($_GET['address']) ? $_GET['address'] : $address);
+											if ($geocode != NULL) {
+												$do_geocoding = lmm_getLatLng($geocode);
+												if ($do_geocoding['success'] == true) {
+													$lat = $do_geocoding['lat'];
+													$lon = $do_geocoding['lon'];
+													$address = $do_geocoding['address'];
+												} else {
+													if ($format == 'json') {
+														header('Content-type: application/json; charset=utf-8');
+														if ($callback != NULL) { echo $callback . '('; }
+														echo '{'.PHP_EOL;
+														echo '"success":false,'.PHP_EOL;
+														echo '"message":"' . sprintf(esc_attr__('Geocoding error: %1s','lmm'), $do_geocoding['message']) . '",'.PHP_EOL;
+														echo '"data": { }'.PHP_EOL;
+														echo '}';
+														if ($callback != NULL) { echo ');'; }
+													} else if ($format == 'xml') {
+														header('Content-type: application/xml; charset=utf-8');
+														echo '<?xml version="1.0" encoding="utf8"?>'.PHP_EOL;
+														echo '<mapsmarker>'.PHP_EOL;
+														echo '<success>false</success>'.PHP_EOL;
+														echo '<message>' . sprintf(esc_attr__('Geocoding error: %1s','lmm'), $do_geocoding['message']) . '</message>'.PHP_EOL;
+														echo '<data></data>'.PHP_EOL;
+														echo '</mapsmarker>';
+													}							
+													exit();	
+												}
+											}
+											if ($kml_timestamp == NULL) {
+												$query_update = $wpdb->prepare( "UPDATE $table_name_markers SET markername = %s, basemap = %s, layer = %d, lat = %s, lon = %s, icon = %s, popuptext = %s, zoom = %d, openpopup = %d, mapwidth = %d, mapwidthunit = %s, mapheight = %d, panel = %d, createdby = %s, createdon = %s, updatedby = %s, updatedon = %s, controlbox = %d, overlays_custom = %s, overlays_custom2 = %s, overlays_custom3 = %s, overlays_custom4 = %s, wms = %d, wms2 = %d, wms3 = %d, wms4 = %d, wms5 = %d, wms6 = %d, wms7 = %d, wms8 = %d, wms9 = %d, wms10 = %d, address = %s WHERE id = %d", $markername_quotes, $basemap, $layer, str_replace(',', '.', $lat), str_replace(',', '.', $lon), $icon, $popuptext, $zoom, $openpopup, $mapwidth, $mapwidthunit, $mapheight, $panel, $createdby, $createdon, $updatedby, $updatedon, $controlbox, $overlays_custom, $overlays_custom2, $overlays_custom3, $overlays_custom4, $wms, $wms2, $wms3, $wms4, $wms5, $wms6, $wms7, $wms8, $wms9, $wms10, $address, $id );
+											} else {
+												$query_update = $wpdb->prepare( "UPDATE $table_name_markers SET markername = %s, basemap = %s, layer = %d, lat = %s, lon = %s, icon = %s, popuptext = %s, zoom = %d, openpopup = %d, mapwidth = %d, mapwidthunit = %s, mapheight = %d, panel = %d, createdby = %s, createdon = %s, updatedby = %s, updatedon = %s, controlbox = %d, overlays_custom = %s, overlays_custom2 = %s, overlays_custom3 = %s, overlays_custom4 = %s, wms = %d, wms2 = %d, wms3 = %d, wms4 = %d, wms5 = %d, wms6 = %d, wms7 = %d, wms8 = %d, wms9 = %d, wms10 = %d, kml_timestamp = %s, address = %s WHERE id = %d", $markername_quotes, $basemap, $layer, str_replace(',', '.', $lat), str_replace(',', '.', $lon), $icon, $popuptext, $zoom, $openpopup, $mapwidth, $mapwidthunit, $mapheight, $panel, $createdby, $createdon, $updatedby, $updatedon, $controlbox, $overlays_custom, $overlays_custom2, $overlays_custom3, $overlays_custom4, $wms, $wms2, $wms3, $wms4, $wms5, $wms6, $wms7, $wms8, $wms9, $wms10, $kml_timestamp, $address, $id );
+											}
+											$result_update = $wpdb->query( $query_update );
+											if ($result_update == TRUE) {
+												if ($format == 'json') {
+													header('Cache-Control: no-cache, must-revalidate');
+													header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+													header('Content-type: application/json; charset=utf-8');
+													if ($callback != NULL) { echo $callback . '('; }
+													echo '{'.PHP_EOL;
+													echo '"success":true,'.PHP_EOL;
+													echo '"message":"' . esc_attr__('Marker has been successfully updated','lmm') . '",'.PHP_EOL;
+													echo '"data": {'.PHP_EOL;
+														echo '"' . $remap_id . '":"'. $id . '",'.PHP_EOL;
+														echo '"' . $remap_markername . '":"' . stripslashes($markername_quotes) . '",'.PHP_EOL;
+														echo '"' . $remap_basemap . '":"' . $basemap . '",'.PHP_EOL;
+														echo '"' . $remap_layer . '":"' . $layer . '",'.PHP_EOL;
+														echo '"' . $remap_lat . '":"' . $lat . '",'.PHP_EOL;
+														echo '"' . $remap_lon . '":"' . $lon . '",'.PHP_EOL;
+														echo '"' . $remap_icon . '":"' . $icon . '",'.PHP_EOL;
+														echo '"' . $remap_popuptext . '":"' . stripslashes(str_replace('"', '\'', $popuptext)) . '",'.PHP_EOL;
+														echo '"' . $remap_zoom . '":"' . $zoom . '",'.PHP_EOL;
+														echo '"' . $remap_openpopup . '":"' . $openpopup . '",'.PHP_EOL;
+														echo '"' . $remap_mapwidth . '":"' . $mapwidth . '",'.PHP_EOL;
+														echo '"' . $remap_mapwidthunit . '":"' . $mapwidthunit . '",'.PHP_EOL;
+														echo '"' . $remap_mapheight . '":"' . $mapheight . '",'.PHP_EOL;
+														echo '"' . $remap_panel . '":"' . $panel . '",'.PHP_EOL;
+														echo '"' . $remap_createdby . '":"' . $createdby . '",'.PHP_EOL;
+														echo '"' . $remap_createdon . '":"' . $createdon . '",'.PHP_EOL;
+														echo '"' . $remap_updatedby . '":"' . $updatedby . '",'.PHP_EOL;
+														echo '"' . $remap_updatedon . '":"' . $updatedon . '",'.PHP_EOL;
+														echo '"' . $remap_controlbox . '":"'.$controlbox . '",'.PHP_EOL;
+														echo '"' . $remap_overlays_custom . '":"' . $overlays_custom . '",'.PHP_EOL;
+														echo '"' . $remap_overlays_custom2 . '":"' . $overlays_custom2 . '",'.PHP_EOL;
+														echo '"' . $remap_overlays_custom3 . '":"' . $overlays_custom3 . '",'.PHP_EOL;
+														echo '"' . $remap_overlays_custom4 . '":"' . $overlays_custom4 . '",'.PHP_EOL;
+														echo '"' . $remap_wms . '":"' . $wms . '",'.PHP_EOL;
+														echo '"' . $remap_wms2 . '":"' . $wms2 . '",'.PHP_EOL;
+														echo '"' . $remap_wms3 . '":"' . $wms3 . '",'.PHP_EOL;
+														echo '"' . $remap_wms4 . '":"' . $wms4 . '",'.PHP_EOL;
+														echo '"' . $remap_wms5 . '":"' . $wms5 . '",'.PHP_EOL;
+														echo '"' . $remap_wms6 . '":"' . $wms6 . '",'.PHP_EOL;
+														echo '"' . $remap_wms7 . '":"' . $wms7 . '",'.PHP_EOL;
+														echo '"' . $remap_wms8 . '":"' . $wms8 . '",'.PHP_EOL;
+														echo '"' . $remap_wms9 . '":"' . $wms9 . '",'.PHP_EOL;
+														echo '"' . $remap_wms10 . '":"' . $wms10 . '",'.PHP_EOL;
+														echo '"' . $remap_kml_timestamp . '":"' . $kml_timestamp . '",'.PHP_EOL;
+														echo '"' . $remap_address . '":"' . $address . '"'.PHP_EOL;
+														echo '}';
+													echo '}';
+													if ($callback != NULL) { echo ');'; }
+												} else if ($format == 'xml') {
+													header('Cache-Control: no-cache, must-revalidate');
+													header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+													header('Content-type: application/xml; charset=utf-8');
+													echo '<?xml version="1.0" encoding="utf8"?>'.PHP_EOL;
+													echo '<!DOCTYPE mapsmarker ['.PHP_EOL;
+													echo '<!ELEMENT mapsmarker ((success, message, data))>'.PHP_EOL;
+													echo '<!ATTLIST mapsmarker xmlns:xsi CDATA #FIXED "http://www.w3.org/2001/XMLSchema-instance" >'.PHP_EOL;
+													echo '<!ELEMENT success (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT message (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT data ((' . $remap_id . ', ' . $remap_markername . ', ' . $remap_basemap . ', ' . $remap_layer . ', ' . $remap_lat . ', ' . $remap_lon . ', ' . $remap_icon . ', ' . $remap_popuptext . ', ' . $remap_zoom . ', ' . $remap_openpopup . ', ' . $remap_mapwidth . ', ' . $remap_mapwidthunit . ', ' . $remap_mapheight . ', ' . $remap_panel . ', ' . $remap_createdby . ', ' . $remap_createdon . ', ' . $remap_updatedby . ', ' . $remap_updatedon . ', ' . $remap_controlbox . ', ' . $remap_overlays_custom . ', ' . $remap_overlays_custom2 . ', ' . $remap_overlays_custom3 . ', ' . $remap_overlays_custom4 . ', ' . $remap_wms . ', ' . $remap_wms2 . ', ' . $remap_wms3 . ', ' . $remap_wms4 . ', ' . $remap_wms5 . ', ' . $remap_wms6 . ', ' . $remap_wms7 . ', ' . $remap_wms8 . ', ' . $remap_wms9 . ', ' . $remap_wms10 . ', ' . $remap_kml_timestamp . ', ' . $remap_address . '))>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_id . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_markername . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_basemap . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_layer . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_lat . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_lon . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_icon . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_popuptext . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_zoom . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_openpopup . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_mapwidth . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_mapwidthunit . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_mapheight . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_panel . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_createdby . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_createdon . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_updatedby . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_updatedon . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_controlbox . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_overlays_custom . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_overlays_custom2 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_overlays_custom3 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_overlays_custom4 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms2 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms3 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms4 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms5 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms6 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms7 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms8 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms9 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms10 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_kml_timestamp . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_address . ' (#PCDATA)>'.PHP_EOL;
+													echo ']>'.PHP_EOL;												
+													echo '<mapsmarker>'.PHP_EOL;
+													echo '<success>true</success>'.PHP_EOL;
+													echo '<message>' . esc_attr__('Marker has been successfully updated','lmm') . '</message>'.PHP_EOL;
+													echo '<data>'.PHP_EOL;
+														echo '<' . $remap_id . '>' . $id . '</' . $remap_id . '>'.PHP_EOL;
+														echo '<' . $remap_markername . '><![CDATA[' . stripslashes($markername_quotes) . ']]></' . $remap_markername . '>'.PHP_EOL;
+														echo '<' . $remap_basemap . '>' . $basemap . '</' . $remap_basemap . '>'.PHP_EOL;
+														echo '<' . $remap_layer . '>' . $layer . '</' . $remap_layer . '>'.PHP_EOL;
+														echo '<' . $remap_lat . '>' . $lat . '</' . $remap_lat . '>'.PHP_EOL;
+														echo '<' . $remap_lon . '>' . $lon . '</' . $remap_lon . '>'.PHP_EOL;
+														echo '<' . $remap_icon . '><![CDATA[' . $icon . ']]></' . $remap_icon . '>'.PHP_EOL;
+														echo '<' . $remap_popuptext . '><![CDATA[' . $popuptext . ']]></' . $remap_popuptext . '>'.PHP_EOL;
+														echo '<' . $remap_zoom . '>' . $zoom . '</' . $remap_zoom . '>'.PHP_EOL;
+														echo '<' . $remap_openpopup . '>' . $openpopup . '</' . $remap_openpopup . '>'.PHP_EOL;
+														echo '<' . $remap_mapwidth . '>' . $mapwidth . '</' . $remap_mapwidth . '>'.PHP_EOL;
+														echo '<' . $remap_mapwidthunit . '>' . $mapwidthunit . '</' . $remap_mapwidthunit . '>'.PHP_EOL;
+														echo '<' . $remap_mapheight . '>' . $mapheight . '</' . $remap_mapheight . '>'.PHP_EOL;
+														echo '<' . $remap_panel . '>' . $panel . '</' . $remap_panel . '>'.PHP_EOL;
+														echo '<' . $remap_createdby . '><![CDATA[' . $createdby . ']]></' . $remap_createdby . '>'.PHP_EOL;
+														echo '<' . $remap_createdon . '>' . $createdon . '</' . $remap_createdon . '>'.PHP_EOL;
+														echo '<' . $remap_updatedby . '><![CDATA[' . $updatedby . ']]></' . $remap_updatedby . '>'.PHP_EOL;
+														echo '<' . $remap_updatedon . '>' . $updatedon . '</' . $remap_updatedon . '>'.PHP_EOL;
+														echo '<' . $remap_controlbox . '>' . $controlbox . '</' . $remap_controlbox . '>'.PHP_EOL;
+														echo '<' . $remap_overlays_custom . '>' . $overlays_custom . '</' . $remap_overlays_custom . '>'.PHP_EOL;
+														echo '<' . $remap_overlays_custom2 . '>' . $overlays_custom2 . '</' . $remap_overlays_custom2 . '>'.PHP_EOL;
+														echo '<' . $remap_overlays_custom3 . '>' . $overlays_custom3 . '</' . $remap_overlays_custom3 . '>'.PHP_EOL;
+														echo '<' . $remap_overlays_custom4 . '>' . $overlays_custom4 . '</' . $remap_overlays_custom4 . '>'.PHP_EOL;
+														echo '<' . $remap_wms . '>' . $wms . '</' . $remap_wms . '>'.PHP_EOL;
+														echo '<' . $remap_wms2 . '>' . $wms2 . '</' . $remap_wms2 . '>'.PHP_EOL;
+														echo '<' . $remap_wms3 . '>' . $wms3 . '</' . $remap_wms3 . '>'.PHP_EOL;
+														echo '<' . $remap_wms4 . '>' . $wms4 . '</' . $remap_wms4 . '>'.PHP_EOL;
+														echo '<' . $remap_wms5 . '>' . $wms5 . '</' . $remap_wms5 . '>'.PHP_EOL;
+														echo '<' . $remap_wms6 . '>' . $wms6 . '</' . $remap_wms6 . '>'.PHP_EOL;
+														echo '<' . $remap_wms7 . '>' . $wms7 . '</' . $remap_wms7 . '>'.PHP_EOL;
+														echo '<' . $remap_wms8 . '>' . $wms8 . '</' . $remap_wms8 . '>'.PHP_EOL;
+														echo '<' . $remap_wms9 . '>' . $wms9 . '</' . $remap_wms9 . '>'.PHP_EOL;
+														echo '<' . $remap_wms10 . '>' . $wms10 . '</' . $remap_wms10 . '>'.PHP_EOL;
+														echo '<' . $remap_kml_timestamp . '>' . $kml_timestamp . '</' . $remap_kml_timestamp . '>'.PHP_EOL;
+														echo '<' . $remap_address . '><![CDATA[' . $address . ']]></' . $remap_address . '>'.PHP_EOL;
+													echo '</data>'.PHP_EOL;
+													echo '</mapsmarker>';
+												} //info: end format marker / update											
+											} else {
+												if ($format == 'json') {
+													header('Content-type: application/json; charset=utf-8');
+													if ($callback != NULL) { echo $callback . '('; }
+													echo '{'.PHP_EOL;
+													echo '"success":false,'.PHP_EOL;
+													echo '"message":"' . esc_attr__('You have an error in your SQL syntax','lmm') . '",'.PHP_EOL;
+													echo '"data": { }'.PHP_EOL;
+													echo '}';
+													if ($callback != NULL) { echo ');'; }
+												} else if ($format == 'xml') {
+													header('Content-type: application/xml; charset=utf-8');
+													echo '<?xml version="1.0" encoding="utf8"?>'.PHP_EOL;
+													echo '<mapsmarker>'.PHP_EOL;
+													echo '<success>false</success>'.PHP_EOL;
+													echo '<message>' . esc_attr__('You have an error in your SQL syntax','lmm') . '</message>'.PHP_EOL;
+													echo '<data></data>'.PHP_EOL;
+													echo '</mapsmarker>';
+												} //info: end query check marker ok / update		
+											} //info: end update marker		
 										} else {
 											if ($format == 'json') {
 												header('Content-type: application/json; charset=utf-8');
@@ -1052,6 +1408,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 													header('Cache-Control: no-cache, must-revalidate');
 													header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 													header('Content-type: application/json; charset=utf-8');
+
 													if ($callback != NULL) { echo $callback . '('; }
 													echo '{'.PHP_EOL;
 													echo '"success":true,'.PHP_EOL;
@@ -1100,6 +1457,48 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 													header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 													header('Content-type: application/xml; charset=utf-8');
 													echo '<?xml version="1.0" encoding="utf8"?>'.PHP_EOL;
+													echo '<!DOCTYPE mapsmarker ['.PHP_EOL;
+													echo '<!ELEMENT mapsmarker ((success, message, data))>'.PHP_EOL;
+													echo '<!ATTLIST mapsmarker xmlns:xsi CDATA #FIXED "http://www.w3.org/2001/XMLSchema-instance" >'.PHP_EOL;
+													echo '<!ELEMENT success (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT message (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT data ((' . $remap_id . ', ' . $remap_markername . ', ' . $remap_basemap . ', ' . $remap_layer . ', ' . $remap_lat . ', ' . $remap_lon . ', ' . $remap_icon . ', ' . $remap_popuptext . ', ' . $remap_zoom . ', ' . $remap_openpopup . ', ' . $remap_mapwidth . ', ' . $remap_mapwidthunit . ', ' . $remap_mapheight . ', ' . $remap_panel . ', ' . $remap_createdby . ', ' . $remap_createdon . ', ' . $remap_updatedby . ', ' . $remap_updatedon . ', ' . $remap_controlbox . ', ' . $remap_overlays_custom . ', ' . $remap_overlays_custom2 . ', ' . $remap_overlays_custom3 . ', ' . $remap_overlays_custom4 . ', ' . $remap_wms . ', ' . $remap_wms2 . ', ' . $remap_wms3 . ', ' . $remap_wms4 . ', ' . $remap_wms5 . ', ' . $remap_wms6 . ', ' . $remap_wms7 . ', ' . $remap_wms8 . ', ' . $remap_wms9 . ', ' . $remap_wms10 . ', ' . $remap_kml_timestamp . ', ' . $remap_address . '))>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_id . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_markername . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_basemap . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_layer . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_lat . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_lon . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_icon . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_popuptext . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_zoom . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_openpopup . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_mapwidth . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_mapwidthunit . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_mapheight . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_panel . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_createdby . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_createdon . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_updatedby . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_updatedon . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_controlbox . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_overlays_custom . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_overlays_custom2 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_overlays_custom3 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_overlays_custom4 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms2 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms3 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms4 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms5 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms6 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms7 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms8 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms9 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms10 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_kml_timestamp . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_address . ' (#PCDATA)>'.PHP_EOL;
+													echo ']>'.PHP_EOL;													
 													echo '<mapsmarker>'.PHP_EOL;
 													echo '<success>true</success>'.PHP_EOL;
 													echo '<message>' . esc_attr__('Marker has been successfully deleted','lmm') . '</message>'.PHP_EOL;
@@ -1185,18 +1584,18 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 									} else if ($type == 'layer') {
 										$query_result = $wpdb->get_row( $wpdb->prepare("SELECT * FROM $table_name_layers WHERE id = %d", $id), ARRAY_A);
 										if (count($query_result) >= 1) {
-											$delete_markers = isset($_POST['delete_markers']) ? $_POST['delete_markers'] : (isset($_GET['delete_markers']) ? $_GET['delete_markers'] :  '');
-											if ($delete_markers == NULL) {
+											$delete_markers = ( isset($_POST['delete_markers']) && (($_POST['delete_markers'] == 'true') || ($_POST['delete_markers'] == 'false')) ) ? $_POST['delete_markers'] : ( (isset($_GET['delete_markers']) && ( ($_GET['delete_markers'] == 'true') || ($_GET['delete_markers'] == 'false')) ) ? $_GET['delete_markers'] :  'false');
+											if ($delete_markers == 'false') {
 												$query_delete = $wpdb->prepare( "DELETE FROM $table_name_layers WHERE id = %d", $id );
 												$result_delete = $wpdb->query( $query_delete );
-											} else {
+											} else if ($delete_markers == 'true') {
 												$query_delete_markers = $wpdb->prepare( "DELETE FROM $table_name_markers WHERE layer = %d", $id );
 												$result_delete_markers = $wpdb->query( $query_delete_markers );
 												$query_delete = $wpdb->prepare( "DELETE FROM $table_name_layers WHERE id = %d", $id );
 												$result_delete = $wpdb->query( $query_delete );
 											}												
 											if ($result_delete == TRUE) {
-												$delete_info = ($delete_markers == NULL) ? esc_attr__('Layer has been successfully deleted (assigned markers have not been deleted)','lmm') : esc_attr__('Layer and assigned markers have been successfully deleted','lmm');
+												$delete_info = ($delete_markers == 'false') ? esc_attr__('Layer has been successfully deleted (assigned markers have not been deleted)','lmm') : esc_attr__('Layer and assigned markers have been successfully deleted','lmm');
 												if ($format == 'json') {
 													$address = stripslashes(str_replace('"', '\'', $query_result['address']));
 													header('Cache-Control: no-cache, must-revalidate');
@@ -1248,6 +1647,46 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 													header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 													header('Content-type: application/xml; charset=utf-8');
 													echo '<?xml version="1.0" encoding="utf8"?>'.PHP_EOL;
+													echo '<!DOCTYPE mapsmarker ['.PHP_EOL;
+													echo '<!ELEMENT mapsmarker ((success, message, data))>'.PHP_EOL;
+													echo '<!ATTLIST mapsmarker xmlns:xsi CDATA #FIXED "http://www.w3.org/2001/XMLSchema-instance" >'.PHP_EOL;
+													echo '<!ELEMENT success (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT message (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT data ((' . $remap_id . ', ' . $remap_name . ', ' . $remap_basemap . ', ' . $remap_layerzoom . ', ' . $remap_mapwidth . ', ' . $remap_mapwidthunit . ', ' . $remap_mapheight . ', ' . $remap_panel . ', ' . $remap_layerviewlat . ', ' . $remap_layerviewlon . ', ' . $remap_createdby . ', ' . $remap_createdon . ', ' . $remap_updatedby . ', ' . $remap_updatedon . ', ' . $remap_controlbox . ', ' . $remap_overlays_custom . ', ' . $remap_overlays_custom2 . ', ' . $remap_overlays_custom3 . ', ' . $remap_overlays_custom4 . ', ' . $remap_wms . ', ' . $remap_wms2 . ', ' . $remap_wms3 . ', ' . $remap_wms4 . ', ' . $remap_wms5 . ', ' . $remap_wms6 . ', ' . $remap_wms7 . ', ' . $remap_wms8 . ', ' . $remap_wms9 . ', ' . $remap_wms10 . ', ' . $remap_listmarkers . ', ' . $remap_multi_layer_map . ', ' . $remap_multi_layer_map_list . ', ' . $remap_address . '))>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_id . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_name . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_basemap . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_layerzoom . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_mapwidth . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_mapwidthunit . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_mapheight . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_panel . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_layerviewlat . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_layerviewlon . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_createdby . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_createdon . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_updatedby . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_updatedon . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_controlbox . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_overlays_custom . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_overlays_custom2 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_overlays_custom3 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_overlays_custom4 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms2 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms3 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms4 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms5 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms6 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms7 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms8 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms9 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_wms10 . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_listmarkers . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_multi_layer_map . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_multi_layer_map_list . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_address . ' (#PCDATA)>'.PHP_EOL;
+													echo ']>'.PHP_EOL;												
 													echo '<mapsmarker>'.PHP_EOL;
 													echo '<success>true</success>'.PHP_EOL;
 													echo '<message>' . $delete_info . '</message>'.PHP_EOL;
@@ -1282,8 +1721,8 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 														echo '<' . $remap_wms9 . '>' . $query_result['wms9'] . '</' . $remap_wms9 . '>'.PHP_EOL;
 														echo '<' . $remap_wms10 . '>' . $query_result['wms10'] . '</' . $remap_wms10 . '>'.PHP_EOL;
 														echo '<' . $remap_listmarkers . '>' . $query_result['listmarkers'] . '</' . $remap_listmarkers . '>'.PHP_EOL;
-														echo '<' . $remap_multi_layer_map . '><![CDATA[' . $query_result['multi_layer_map'] . ']]></' . $remap_multi_layer_map . '>'.PHP_EOL;
-														echo '<' . $remap_multi_layer_map_list . '><![CDATA[' . $query_result['multi_layer_map_list'] . ']]></' . $remap_multi_layer_map_list . '>'.PHP_EOL;
+														echo '<' . $remap_multi_layer_map . '>' . $query_result['multi_layer_map'] . '</' . $remap_multi_layer_map . '>'.PHP_EOL;
+														echo '<' . $remap_multi_layer_map_list . '>' . $query_result['multi_layer_map_list'] . '</' . $remap_multi_layer_map_list . '>'.PHP_EOL;
 														echo '<' . $remap_address . '>' . $query_result['address'] . '</' . $remap_address . '>'.PHP_EOL;
 													echo '</data>'.PHP_EOL;
 													echo '</mapsmarker>';										
