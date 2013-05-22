@@ -851,6 +851,8 @@ __('start installation','lmm');
 __('You already downloaded "Leaflet Maps Marker Pro" to your server but did not activate the plugin yet!','lmm');
 __('Please navigate to <a href="%1$s">Plugins / Installed Plugins</a> and activate the plugin "Leaflet Maps Marker Pro".','lmm');
 __('Please contact your administrator (%1s) to activate the plugin "Leaflet Maps Marker Pro".','lmm');
+__('Manage your markers and layers through a highly customizable REST API, which supports GET & POST requests, JSON & XML as formats and was developed with a focus on security.','lmm');
+__('For more details please visit the MapsMarker API docs.','lmm');
 ?>
 </div>
 <!--wrap-->

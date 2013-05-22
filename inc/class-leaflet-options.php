@@ -2878,19 +2878,6 @@ class Class_leaflet_options {
 			'std'     => '',
 			'type'    => 'text'
 		);
-		$this->_settings['cloudmade_double_resolution'] = array(
-			'version' => '1.6',
-			'pane'    => 'basemaps',
-			'section' => 'basemaps-section1',
-			'title'   => __('Double resolution','lmm'),
-			'desc'    => __('This will improve map look for iPhone 4, Motorola Milestone, etc.','lmm'),
-			'type'    => 'radio',
-			'std'     => 'enabled',
-			'choices' => array(
-				'enabled' => __('enabled','lmm'),
-				'disabled' => __('disabled','lmm')
-			)
-		);
 		/*
 		* Cloudmade 2 settings
 		*/
@@ -2921,19 +2908,6 @@ class Class_leaflet_options {
 			'std'     => '',
 			'type'    => 'text'
 		);
-		$this->_settings['cloudmade2_double_resolution'] = array(
-			'version' => '1.6',
-			'pane'    => 'basemaps',
-			'section' => 'basemaps-section2',
-			'title'   => __('Double resolution','lmm'),
-			'desc'    => __('This will improve map look for iPhone 4, Motorola Milestone, etc.','lmm'),
-			'type'    => 'radio',
-			'std'     => 'enabled',
-			'choices' => array(
-				'enabled' => __('enabled','lmm'),
-				'disabled' => __('disabled','lmm')
-			)
-		);
 		/*
 		* Cloudmade 3 settings
 		*/
@@ -2963,19 +2937,6 @@ class Class_leaflet_options {
 			'desc'    => '',
 			'std'     => '',
 			'type'    => 'text'
-		);
-		$this->_settings['cloudmade3_double_resolution'] = array(
-			'version' => '1.6',
-			'pane'    => 'basemaps',
-			'section' => 'basemaps-section3',
-			'title'   => __('Double resolution','lmm'),
-			'desc'    => __('This will improve map look for iPhone 4, Motorola Milestone, etc.','lmm'),
-			'type'    => 'radio',
-			'std'     => 'enabled',
-			'choices' => array(
-				'enabled' => __('enabled','lmm'),
-				'disabled' => __('disabled','lmm')
-			)
 		);
 		/*
 		* MapBox settings
