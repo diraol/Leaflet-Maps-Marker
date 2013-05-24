@@ -66,7 +66,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 		if ($callback != NULL) { echo $callback . '('; }
 		echo '{'.PHP_EOL;
 		echo '"success":false,'.PHP_EOL;
-		echo '"message":"' . sprintf(esc_attr__('The WordPress plugin "Leaflet Maps Marker" is inactive on this site and therefore this API link is not working.<br/><br/>Please contact the site owner (%1s) who can activate this plugin again.','lmm'), get_bloginfo('admin_email') ) . '",'.PHP_EOL;
+		echo '"message":"' . sprintf(esc_attr__('The plugin "Leaflet Maps Marker" is inactive on this site and therefore this API link is not working.<br/><br/>Please contact the site owner (%1s) who can activate this plugin again.','lmm'), get_bloginfo('admin_email') ) . '",'.PHP_EOL;
 		echo '"data": { }'.PHP_EOL;
 		echo '}';
 		if ($callback != NULL) { echo ');'; }
@@ -75,7 +75,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 		echo '<?xml version="1.0" encoding="utf8"?>'.PHP_EOL;
 		echo '<mapsmarker>'.PHP_EOL;
 		echo '<success>false</success>'.PHP_EOL;
-		echo '<message>' . sprintf(esc_attr__('The WordPress plugin "Leaflet Maps Marker" is inactive on this site and therefore this API link is not working.<br/><br/>Please contact the site owner (%1s) who can activate this plugin again.','lmm'), get_bloginfo('admin_email') ) . '</message>'.PHP_EOL;
+		echo '<message>' . sprintf(esc_attr__('The plugin "Leaflet Maps Marker" is inactive on this site and therefore this API link is not working.<br/><br/>Please contact the site owner (%1s) who can activate this plugin again.','lmm'), get_bloginfo('admin_email') ) . '</message>'.PHP_EOL;
 		echo '<data></data>'.PHP_EOL;
 		echo '</mapsmarker>';
 	}

@@ -191,7 +191,7 @@ if (!empty($action)) {
 				$options_table = $wpdb->prefix.'options';
 				$update_options = $wpdb->prepare( "UPDATE $options_table SET option_value = %s where option_name = 'leafletmapsmarker_options'", $serialized_options_new );
 				$wpdb->query( $update_options );
-				echo '<p><div class="updated" style="padding:10px;">' . __('Plugin options updated.','lmm') . '<br/>' . sprintf(__('Please be aware that restoring settings from a version <%1$s could result in breaking the plugin unless you <a href="%2$s">save the plugin settings once</a> afterwards to include settings added with newer versions!','lmm'), $pro_version, LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings') . '</div><a class="button-secondary" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_tools">' . __('Back to Tools', 'lmm') . '</a></p>';
+				echo '<p><div class="updated" style="padding:10px;">' . __('Plugin options updated.','lmm') . '<br/>' . sprintf(__('Please be aware that restoring settings from a version smaller than %1$s could result in breaking the plugin unless you <a href="%2$s">save the plugin settings once</a> afterwards to include settings added with newer versions!','lmm'), $pro_version, LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings') . '</div><a class="button-secondary" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_tools">' . __('Back to Tools', 'lmm') . '</a></p>';
 			} else {
 				if (is_multisite()) {
 					if (current_user_can( 'activate_plugins' )) {
@@ -206,7 +206,7 @@ if (!empty($action)) {
 							}
 							restore_current_blog();
 						}
-						echo '<p><div class="updated" style="padding:10px;">' . __('Plugin options updated on all subsites.','lmm') . '<br/>' . sprintf(__('Please be aware that restoring settings from a version <%1$s could result in breaking the plugin unless you <a href="%2$s">save the plugin settings once</a> afterwards to include settings added with newer versions!','lmm'), $pro_version, LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings') . '</div><a class="button-secondary" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_tools">' . __('Back to Tools', 'lmm') . '</a></p>';
+						echo '<p><div class="updated" style="padding:10px;">' . __('Plugin options updated on all subsites.','lmm') . '<br/>' . sprintf(__('Please be aware that restoring settings from a version smaller than %1$s could result in breaking the plugin unless you <a href="%2$s">save the plugin settings once</a> afterwards to include settings added with newer versions!','lmm'), $pro_version, LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings') . '</div><a class="button-secondary" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_tools">' . __('Back to Tools', 'lmm') . '</a></p>';
 					}
 				}
 			}
@@ -230,7 +230,7 @@ $serialized_options = serialize($lmm_options);
 	</tr>
 	<tr>
 		<td style="vertical-align:top;">
-		<p><?php _e('Below you find you current settings. Use copy and paste to make a backup or restore.','lmm'); ?><br/><?php echo sprintf(__('Please be aware that restoring settings from a version <%1$s could result in breaking the plugin unless you <a href="%2$s">save the plugin settings once</a> afterwards to include settings added with newer versions!','lmm'), $pro_version, LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings'); ?></p>
+		<p><?php _e('Below you find you current settings. Use copy and paste to make a backup or restore.','lmm'); ?><br/><?php echo sprintf(__('Please be aware that restoring settings from a version smaller than %1$s could result in breaking the plugin unless you <a href="%2$s">save the plugin settings once</a> afterwards to include settings added with newer versions!','lmm'), $pro_version, LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_settings'); ?></p>
 		<?php 
 		global $wp_version;
 		if ( version_compare( $wp_version, '3.3', '>=' ) ) {
@@ -853,6 +853,9 @@ __('Please navigate to <a href="%1$s">Plugins / Installed Plugins</a> and activa
 __('Please contact your administrator (%1s) to activate the plugin "Leaflet Maps Marker Pro".','lmm');
 __('Manage your markers and layers through a highly customizable REST API, which supports GET & POST requests, JSON & XML as formats and was developed with a focus on security.','lmm');
 __('For more details please visit the MapsMarker API docs.','lmm');
+//2do delete once used in changelog
+__('Translation updates','lmm');
+__('In case you want to help with translations, please visit the <a href="%1s" target="_blank">web-based translation plattform</a>','lmm');
 ?>
 </div>
 <!--wrap-->

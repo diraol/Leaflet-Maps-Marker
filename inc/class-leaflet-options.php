@@ -2857,7 +2857,7 @@ class Class_leaflet_options {
 			'section' => 'basemaps-section1',
 			'std'     => '',
 			'title'   => '',
-			'desc'    => __( 'Tutorial for Cloudmade configuration:', 'lmm').'<a href="http://mapsmarker.com/cloudmade" target="_blank">http://mapsmarker.com/cloudmade</a><br/><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-cloudmade.jpg" />',
+			'desc'    => __( 'Tutorial for Cloudmade configuration:', 'lmm').'<a href="http://mapsmarker.com/cloudmade" target="_blank">http://mapsmarker.com/cloudmade</a>. ' . __('After finishing the basemap configuration, please navigate to Settings / "Maps Defaults" / "Available basemaps in control box" and check the corresponding checkbox to make this basemap available in the layer control box!','lmm') . '<br/><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-cloudmade.jpg" />',
 			'type'    => 'helptext'
 		);
 		$this->_settings['cloudmade_api_key'] = array(
@@ -2887,7 +2887,7 @@ class Class_leaflet_options {
 			'section' => 'basemaps-section2',
 			'std'     => '',
 			'title'   => '',
-			'desc'    => __( 'Tutorial for Cloudmade configuration:', 'lmm').'<a href="http://mapsmarker.com/cloudmade" target="_blank">http://mapsmarker.com/cloudmade</a><br/><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-cloudmade.jpg" />',
+			'desc'    => __( 'Tutorial for Cloudmade configuration:', 'lmm').'<a href="http://mapsmarker.com/cloudmade" target="_blank">http://mapsmarker.com/cloudmade</a>. ' . __('After finishing the basemap configuration, please navigate to Settings / "Maps Defaults" / "Available basemaps in control box" and check the corresponding checkbox to make this basemap available in the layer control box!','lmm') . '<br/><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-cloudmade.jpg" />',
 			'type'    => 'helptext'
 		);
 		$this->_settings['cloudmade2_api_key'] = array(
@@ -2917,7 +2917,7 @@ class Class_leaflet_options {
 			'section' => 'basemaps-section3',
 			'std'     => '',
 			'title'   => '',
-			'desc'    => __( 'Tutorial for Cloudmade configuration:', 'lmm').'<a href="http://mapsmarker.com/cloudmade" target="_blank">http://mapsmarker.com/cloudmade</a><br/><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-cloudmade.jpg" />',
+			'desc'    => __( 'Tutorial for Cloudmade configuration:', 'lmm').'<a href="http://mapsmarker.com/cloudmade" target="_blank">http://mapsmarker.com/cloudmade</a>. ' . __('After finishing the basemap configuration, please navigate to Settings / "Maps Defaults" / "Available basemaps in control box" and check the corresponding checkbox to make this basemap available in the layer control box!','lmm') . '<br/><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-cloudmade.jpg" />',
 			'type'    => 'helptext'
 		);
 		$this->_settings['cloudmade3_api_key'] = array(
@@ -2947,7 +2947,7 @@ class Class_leaflet_options {
 			'section' => 'basemaps-section4',
 			'std'     => '',
 			'title'   => '',
-			'desc'    => '<img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-mapbox.jpg" />',
+			'desc'    => __('After finishing the basemap configuration, please navigate to Settings / "Maps Defaults" / "Available basemaps in control box" and check the corresponding checkbox to make this basemap available in the layer control box!','lmm') . '<br/><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-mapbox.jpg" />',
 			'type'    => 'helptext'
 		);
 		$this->_settings['mapbox_user'] = array(
@@ -3004,7 +3004,7 @@ class Class_leaflet_options {
 			'section' => 'basemaps-section5',
 			'std'     => '',
 			'title'   => '',
-			'desc'    => '<img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-mapbox.jpg" />',
+			'desc'    => __('After finishing the basemap configuration, please navigate to Settings / "Maps Defaults" / "Available basemaps in control box" and check the corresponding checkbox to make this basemap available in the layer control box!','lmm') . '<br/><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-mapbox.jpg" />',
 			'type'    => 'helptext'
 		);
 		$this->_settings['mapbox2_user'] = array(
@@ -3061,7 +3061,7 @@ class Class_leaflet_options {
 			'section' => 'basemaps-section6',
 			'std'     => '',
 			'title'   => '',
-			'desc'    => '<img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-mapbox.jpg" />',
+			'desc'    => __('After finishing the basemap configuration, please navigate to Settings / "Maps Defaults" / "Available basemaps in control box" and check the corresponding checkbox to make this basemap available in the layer control box!','lmm') . '<br/><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-mapbox.jpg" />',
 			'type'    => 'helptext'
 		);
 		$this->_settings['mapbox3_user'] = array(
@@ -3118,7 +3118,7 @@ class Class_leaflet_options {
 			'section' => 'basemaps-section7',
 			'std'     => '',
 			'title'   => '',
-			'desc'    => __( 'Please enter settings for custom basemap', 'lmm').' (custom 1):<br/><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-custom-basemaps.jpg" />',
+			'desc'    => __( 'Please enter settings for custom basemap', 'lmm').' (custom 1). ' . __('After finishing the basemap configuration, please navigate to Settings / "Maps Defaults" / "Available basemaps in control box" and check the corresponding checkbox to make this basemap available in the layer control box!','lmm') . '<br/><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-custom-basemaps.jpg" />',
 			'type'    => 'helptext'
 		);
 		$this->_settings['custom_basemap_tileurl'] = array(
@@ -3240,7 +3240,7 @@ class Class_leaflet_options {
 			'section' => 'basemaps-section8',
 			'std'     => '',
 			'title'   => '',
-			'desc'    => __( 'Please enter settings for custom basemap', 'lmm').' (custom 2):<br/><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-custom-basemaps.jpg" />',
+			'desc'    => __( 'Please enter settings for custom basemap', 'lmm').' (custom 2). ' . __('After finishing the basemap configuration, please navigate to Settings / "Maps Defaults" / "Available basemaps in control box" and check the corresponding checkbox to make this basemap available in the layer control box!','lmm') . '<br/><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-custom-basemaps.jpg" />',
 			'type'    => 'helptext'
 		);
 		$this->_settings['custom_basemap2_tileurl'] = array(
@@ -3362,7 +3362,7 @@ class Class_leaflet_options {
 			'section' => 'basemaps-section9',
 			'std'     => '',
 			'title'   => '',
-			'desc'    => __( 'Please enter settings for custom basemap', 'lmm').' (custom 3):<br/><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-custom-basemaps.jpg" />',
+			'desc'    => __( 'Please enter settings for custom basemap', 'lmm').' (custom 3). ' . __('After finishing the basemap configuration, please navigate to Settings / "Maps Defaults" / "Available basemaps in control box" and check the corresponding checkbox to make this basemap available in the layer control box!','lmm') . '<br/><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-default-basemap-custom-basemaps.jpg" />',
 			'type'    => 'helptext'
 		);
 		$this->_settings['custom_basemap3_tileurl'] = array(
@@ -7570,7 +7570,7 @@ class Class_leaflet_options {
 			'section' => 'misc-section2',
 			'std'     => '',
 			'title'   => '',
-			'desc'    => __('The language used on plugin pages on backend and/or on maps on frontend. Please note that the language for Google and Bing Services can be set seperately via Settings / tab "Google Maps" / "Google language localization" respectively tab "Bing Maps" / "Cultures"','lmm'),
+			'desc'    => __('The language used on plugin pages on backend and/or on maps on frontend. Please note that the language for Google and Bing Services can be set seperately via Settings / tab "Google Maps" / "Google language localization" respectively tab "Bing Maps" / "Cultures"','lmm') . '<br/><br/>' . sprintf(__('If your language is missing or not fully translated yet, you are invited to help on the <a href="%1s" target="_blank">web-based translation plattform</a>.','lmm'), 'http://translate.mapsmarker.com/projects/lmm'),
 			'type'    => 'helptext'
 		);
 		$this->_settings['misc_plugin_language'] = array(
@@ -8949,7 +8949,7 @@ class Class_leaflet_options {
 		update_option( 'leafletmapsmarker_options', $options_new );
 		}
 		//info:  set defaults for options introduced in v3.6
-		if (get_option('leafletmapsmarker_version') == '3.5.3' )
+		if (get_option('leafletmapsmarker_version') == '3.5.4' )
 		{
 			$new_options_defaults = array();
 			foreach ( $this->settings as $id => $setting )

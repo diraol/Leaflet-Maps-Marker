@@ -29,7 +29,7 @@ if (is_plugin_active('leaflet-maps-marker/leaflet-maps-marker.php') ) {
 
 //2do: update on each release (MM/DD/YYYY) - preventing manual update without valid upgrade license
 if ( ! defined( 'VERSION_RELEASE_DATE' ) )
-define( 'VERSION_RELEASE_DATE', '01/04/2013' );
+define( 'VERSION_RELEASE_DATE', '05/01/2013' );
 
 //info: define necessary paths and urls
 if ( ! defined( 'LEAFLET_WP_ADMIN_URL' ) )
@@ -274,7 +274,7 @@ class LeafletmapsmarkerPro
 					echo sprintf(__('Feed could not be retrieved, please try again later or read the latest blog posts at %s','lmm'),$blogpost_url);
 				}
 				foreach ($feed->get_items(0,3) as $item) {
-					echo '<p>' . $item->get_date('j F Y') . ': <strong><a href="' . $item->get_permalink() . '">' . $item->get_title() . '</a></strong><br/>' . $item->get_description() . '</p>'.PHP_EOL;
+					echo '<p>' . $item->get_date('j F Y') . ': <strong><a href="' . $item->get_permalink() . '?ref=dashboard">' . $item->get_title() . '</a></strong><br/>' . $item->get_description() . '</p>'.PHP_EOL;
 				}
 				echo '<p><a style="text-decoration:none;" href="http://www.mapsmarker.com" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-website-home.png" width="16" height="16" alt="mapsmarker.com"> MapsMarker.com</a>&nbsp;&nbsp;
 				<a style="text-decoration:none;" href="http://www.mapsmarker.com/reviews" target="_blank" title="' . esc_attr__('please rate this plugin on wordpress.org','lmm') . '"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-star.png" width="16" height="16" alt="ratings"> ' . __('rate plugin','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a href="http://translate.mapsmarker.com/projects/lmm" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-translations.png" width="16" height="16" alt="translations"> ' . __('translations','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a href="http://twitter.com/mapsmarker" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-twitter.png" width="16" height="16" alt="twitter"> Twitter</a>&nbsp;&nbsp;&nbsp;<a href="http://facebook.com/mapsmarker" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-facebook.png" width="16" height="16" alt="facebook"> Facebook</a>&nbsp;&nbsp;&nbsp;<a href="http://www.mapsmarker.com/+" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-google-plus.png" width="16" height="16" alt="google+"> Google+</a>&nbsp;&nbsp;&nbsp;<a style="text-decoration:none;" href="http://www.mapsmarker.com/changelog" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-changelog-header.png" width="16" height="16" alt="changelog"> ' . __('Changelog','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a href="http://feeds.feedburner.com/MapsMarker" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-rss.png" width="16" height="16" alt="rss"> RSS</a>&nbsp;&nbsp;&nbsp;<a href="http://feedburner.google.com/fb/a/mailverify?uri=MapsMarker" target="_blank"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-rss-email.png" width="16" height="16" alt="rss-email"> ' . __('E-Mail','lmm') . '</a>&nbsp;&nbsp;&nbsp;</p>';
@@ -1160,7 +1160,7 @@ class spbas_maps_marker_pro
 						'suspended' => __('Error: This license has been suspended.','lmm'), 
 						'expired' => __('Error: This license has expired.','lmm'), 
 						'pending' => __('Error: This license is pending review.','lmm'), 
-						'download_access_expired' => __('Error: This version of the software was released after your download access expired. Please downgrade or contact support for more information.','lmm'), 
+						'download_access_expired' => __('Error: This version of the software was released after your download access expired. Please renew your download and support access or downgrade to a previous version.','lmm'), 
 						'missing_license_key' => __('Please enter a license key to continue.','lmm'),
 						'unknown_local_key_type' => __('Error: An unknown type of local key validation was requested.','lmm'),
 						'could_not_obtain_local_key' => __('Error: a new local license key could not be obtained.','lmm'), 
@@ -1181,7 +1181,7 @@ class spbas_maps_marker_pro
 						'suspended' => __('Error: This license has been suspended.','lmm'), 
 						'expired' => __('Error: This license has expired.','lmm'), 
 						'pending' => __('Error: This license is pending review.','lmm'), 
-						'download_access_expired' => __('Error: This version of the software was released after your download access expired. Please downgrade or contact support for more information.','lmm'), 
+						'download_access_expired' => __('Error: This version of the software was released after your download access expired. Please renew your download and support access or downgrade to a previous version.','lmm') 
 						);
 		}
 

@@ -58,6 +58,10 @@ if (get_option('leafletmapsmarker_update_info') == 'show') {
 		</td><td>
 
 		</td></tr>
+		<tr><td colspan="2">
+		<p><strong>' . __('Translation updates','lmm') . '</a></p></strong>
+		<p>' . sprintf(__('In case you want to help with translations, please visit the <a href="%1s" target="_blank">web-based translation plattform</a>','lmm'), 'http://translate.mapsmarker.com/projects/lmm') . '</p>
+		</td></tr>
 		<tr><td>
 		<img src="' . LEAFLET_PLUGIN_URL .'inc/img/icon-changelog-translations.png">
 		</td><td>
