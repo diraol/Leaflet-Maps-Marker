@@ -73,6 +73,7 @@ if (basename($_SERVER['SCRIPT_FILENAME']) == 'leaflet-help-credits.php') { die (
 		<li>- Indonesian (id_ID) thanks to Emir Hartato, <a href="http://whateverisaid.wordpress.com" target="_blank">http://whateverisaid.wordpress.com</a></li>
 		<li>- Italian (it_IT) by <a href="mailto:lucabarbetti@gmail.com">Luca Barbetti</a></li>
 		<li>- Japanese (ja) by Shu Higashi, <a href="http://twitter.com/higa4" target="_blank">@higa4</a></li>
+		<li>- Korean (ko_KR) thanks to Andy Park, <a href="http://wcpadventure.com" target="_blank">http://wcpadventure.com</a></li>
 		<li>- Polish (pl_PL) thanks to Pawel Wyszy&#324;ski, <a href="http://injit.pl" target="_blank">http://injit.pl</a></li>
 		<li>- Portuguese (pt_BR) thanks to Andre Santos, <a href="http://pelaeuropa.com.br" target="_blank">http://pelaeuropa.com.br</a> and Antonio Hammerl</li>
 		<li>- Portuguese (pt_PT) thanks to Joao Campos, <a href="http://www.all-about-portugal.com" target="_blank">http://www.all-about-portugal.com</a></li>

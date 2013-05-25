@@ -853,6 +853,9 @@ __('Please navigate to <a href="%1$s">Plugins / Installed Plugins</a> and activa
 __('Please contact your administrator (%1s) to activate the plugin "Leaflet Maps Marker Pro".','lmm');
 __('Manage your markers and layers through a highly customizable REST API, which supports GET & POST requests, JSON & XML as formats and was developed with a focus on security.','lmm');
 __('For more details please visit the MapsMarker API docs.','lmm');
+__('No marker created yet','lmm');
+__('advanced recent marker widget','lmm');
+__('Leaflet Maps Marker Pro allows you to customize which markers and layers to include or exclude in the recent marker widget:','lmm');
 //2do delete once used in changelog
 __('Translation updates','lmm');
 __('In case you want to help with translations, please visit the <a href="%1s" target="_blank">web-based translation plattform</a>','lmm');

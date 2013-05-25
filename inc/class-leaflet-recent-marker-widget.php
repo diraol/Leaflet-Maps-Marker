@@ -39,7 +39,12 @@ class Class_leaflet_recent_marker_widget extends WP_Widget {
 		echo '<input type="text" value="' . $instance['lmm-widget-textbeforelist'] . '" name="' . $this->get_field_name('lmm-widget-textbeforelist') . '" id="' . $this->get_field_id('lmm-widget-textbeforelist') . '" class="widefat" /></p>';
 		echo '<p><label for="lmm-widget-markerstoshow">' . __('Number of markers to display', 'lmm') . ':&nbsp;</label>';
 		echo '<input style="width:40px;" type="text" value="' . $instance['lmm-widget-howmany'] . '" name="' . $this->get_field_name('lmm-widget-howmany') . '" id="' . $this->get_field_id('lmm-widget-howmany') . '" class="widefat" /></p>';
-		echo '<hr style="border:0;height:1px;background-color:#d8d8d8;">';
+		echo '<p><div style="float:right"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/pro-feature-banner-small.png" width="68" height="9" border="0"></div><label for="lmm-widget-included-layers">' . __('Included layers', 'lmm') . ' <img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-question-mark.png" width="12" height="12" border="0" title="' . esc_attr__('If empty, markers from all layers are selected.','lmm') . ' ' . esc_attr__('To select only markers from a layer, please enter the layer ID. Use commas to separate multiple layers. Use 0 for markers not assigned to a layer.','lmm') . '" />:</label>';
+		echo '<input type="text" value="' . $instance['lmm-widget-included-layers'] . '" name="' . $this->get_field_name('lmm-widget-included-layers') . '" id="' . $this->get_field_id('lmm-widget-included-layers') . '" class="widefat" /></p>';
+		echo '<p><div style="float:right"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/pro-feature-banner-small.png" width="68" height="9" border="0"></div><label for="lmm-widget-exclude-markers">' . __('Exclude markers', 'lmm') . ' <img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-question-mark.png" width="12" height="12" border="0" title="' . esc_attr__('Please enter marker ID. Use commas to separate multiple markers','lmm') . '" />:</label>';
+		echo '<input type="text" value="' . $instance['lmm-widget-exclude-markers'] . '" name="' . $this->get_field_name('lmm-widget-exclude-markers') . '" id="' . $this->get_field_id('lmm-widget-exclude-markers') . '" class="widefat" /></p>';
+		echo '<p><div style="float:right"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/pro-feature-banner-small.png" width="68" height="9" border="0"></div><label for="lmm-widget-exclude-layers">' . __('Exclude layers', 'lmm') . ' <img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-question-mark.png" width="12" height="12" border="0" title="' . esc_attr__('Please enter layer ID. Use commas to separate multiple layers. Use 0 for markers not assigned to a layer.','lmm') . '" />:</label>';
+		echo '<input type="text" value="' . $instance['lmm-widget-exclude-layers'] . '" name="' . $this->get_field_name('lmm-widget-exclude-layers') . '" id="' . $this->get_field_id('lmm-widget-exclude-layers') . '" class="widefat" /></p>';
 		$showicons = $instance['lmm-widget-showicons'];
 		$iconsize = $instance['lmm-widget-iconsize'];
 		echo '<p><label for="lmm-widget-showicons">' . __('Show icons', 'lmm') . ':&nbsp;</label>';
@@ -83,18 +88,13 @@ class Class_leaflet_recent_marker_widget extends WP_Widget {
 		echo '<option value="desc" ' . selected($orderbysortorder, 'desc', false) . '>' . __('desc','lmm') . '</option>';
 		echo '<option value="asc" ' . selected($orderbysortorder, 'asc', false) . '>' . __('asc','lmm') . '</option></select></p>';
 		echo '<hr style="border:0;height:1px;background-color:#d8d8d8;">';
-		echo '<p><label for="lmm-widget-exclude-markers">' . __('Exclude markers', 'lmm') . ' <img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-question-mark.png" width="12" height="12" border="0" title="' . esc_attr__('Please enter marker ID. Use commas to separate multiple markers','lmm') . '" />:</label>';
-		echo '<input type="text" value="' . $instance['lmm-widget-exclude-markers'] . '" name="' . $this->get_field_name('lmm-widget-exclude-markers') . '" id="' . $this->get_field_id('lmm-widget-exclude-markers') . '" class="widefat" /></p>';
-		echo '<p><label for="lmm-widget-exclude-layers">' . __('Exclude layers', 'lmm') . ' <img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-question-mark.png" width="12" height="12" border="0" title="' . esc_attr__('Please enter layer ID. Use commas to separate multiple layers. Use 0 for markers not assigned to a layer.','lmm') . '" />:</label>';
-		echo '<input type="text" value="' . $instance['lmm-widget-exclude-layers'] . '" name="' . $this->get_field_name('lmm-widget-exclude-layers') . '" id="' . $this->get_field_id('lmm-widget-exclude-layers') . '" class="widefat" /></p>';
-		echo '<hr style="border:0;height:1px;background-color:#d8d8d8;">';
 		echo '<p><label for="lmm-widget-textafterlist">' . __('Text after list of markers', 'lmm') . ':</label>';
 		echo '<input type="text" value="' . $instance['lmm-widget-textafterlist'] . '" name="' . $this->get_field_name('lmm-widget-textafterlist') . '" id="' . $this->get_field_id('lmm-widget-textafterlist') . '" class="widefat" /></p>';
 		$georss = $instance['lmm-widget-georss'];
 		echo '<p><label for="lmm-widget-georss"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/icon-georss.png" /> ' . __('Show GeoRSS subscribe link', 'lmm') . ':&nbsp;</label>';
 		echo '<input type="checkbox" name="' . $this->get_field_name('lmm-widget-georss') . '" ' . checked($georss, 'on', false) . ' /></p>';
 		$attributionlink = $instance['lmm-widget-attributionlink'];
-		echo '<p><label for="lmm-widget-attributionlink">' . __('Show attribution link', 'lmm') . ':&nbsp;</label>';
+		echo '<p><div style="float:right"><img src="' . LEAFLET_PLUGIN_URL . 'inc/img/pro-feature-banner-small.png" width="68" height="9" border="0"></div><label for="lmm-widget-attributionlink">' . __('Show attribution link', 'lmm') . ':&nbsp;</label>';
 		echo '<input type="checkbox" name="' . $this->get_field_name('lmm-widget-attributionlink') . '" ' . checked($attributionlink, 'on', false) . ' /></p>';
 	}//info: END function form($instance)
 	public function update($new_instance, $old_instance) {
@@ -119,6 +119,7 @@ class Class_leaflet_recent_marker_widget extends WP_Widget {
 		$instance['lmm-widget-textafterlist'] = (string) strip_tags($new_instance['lmm-widget-textafterlist']);
 		$instance['lmm-widget-georss'] = (string) strip_tags($new_instance['lmm-widget-georss']);
 		$instance['lmm-widget-attributionlink'] = (string) strip_tags($new_instance['lmm-widget-attributionlink']);
+		$instance['lmm-widget-included-layers'] = (string) strip_tags($new_instance['lmm-widget-included-layers']);
 		$instance['lmm-widget-exclude-markers'] = (string) strip_tags($new_instance['lmm-widget-exclude-markers']);
 		$instance['lmm-widget-exclude-layers'] = (string) strip_tags($new_instance['lmm-widget-exclude-layers']);
 		return $instance;
@@ -135,18 +136,26 @@ class Class_leaflet_recent_marker_widget extends WP_Widget {
 		}
 		$orderby = ($instance['lmm-widget-orderby'] == 'createdon') ? 'createdon' : 'updatedon';
 		$orderbysortorder = ($instance['lmm-widget-orderby-sortorder'] == 'desc') ? 'desc' : 'asc';
+		$included_layers = ($instance['lmm-widget-included-layers'] == NULL) ? '' : mysql_real_escape_string($instance['lmm-widget-included-layers']);
 		$exclude_markers = ($instance['lmm-widget-exclude-markers'] == NULL) ? '' : mysql_real_escape_string($instance['lmm-widget-exclude-markers']);
 		$exclude_layers = ($instance['lmm-widget-exclude-layers'] == NULL) ? '' : mysql_real_escape_string($instance['lmm-widget-exclude-layers']);
-		if ( ($exclude_markers != NULL) && ($exclude_layers == NULL) ) {
-			$where_statement = 'WHERE ID NOT IN (' . $exclude_markers . ')';
-		} else if ( ($exclude_markers != NULL) && ($exclude_layers != NULL) ) {
-			$where_statement = 'WHERE ID NOT IN (' . $exclude_markers . ') AND layer NOT IN (' . $exclude_layers . ')';
-		} else if ( ($exclude_markers == NULL) && ($exclude_layers == NULL) ) {
-			$where_statement = '';
-		} else if ( ($exclude_markers == NULL) && ($exclude_layer != NULL) ) {
-			$where_statement = 'WHERE layer NOT IN (' . $exclude_layers . ')';
+
+		if ($included_layers == NULL) {
+			$where_statement_included = '(1 = 1)';
+		} else {
+			$where_statement_included = 'layer IN (' . $included_layers . ')';
 		}
-		$result = $wpdb->get_results("SELECT ID,markername,layer,icon,popuptext,createdon FROM $table_name_markers $where_statement ORDER BY $orderby $orderbysortorder LIMIT $limiter", ARRAY_A);
+		if ( ($exclude_markers != NULL) && ($exclude_layers == NULL) ) {
+			$where_statement_exclude = 'ID NOT IN (' . $exclude_markers . ')';
+		} else if ( ($exclude_markers != NULL) && ($exclude_layers != NULL) ) {
+			$where_statement_exclude = 'ID NOT IN (' . $exclude_markers . ') AND layer NOT IN (' . $exclude_layers . ')';
+		} else if ( ($exclude_markers == NULL) && ($exclude_layers == NULL) ) {
+			$where_statement_exclude = '(1 = 1)';
+		} else if ( ($exclude_markers == NULL) && ($exclude_layers != NULL) ) {
+			$where_statement_exclude = 'layer NOT IN (' . $exclude_layers . ')';
+		}
+		$wpdb->hide_errors(); //info: as no input validation can be done
+		$result = $wpdb->get_results("SELECT ID,markername,layer,icon,popuptext,createdon FROM $table_name_markers WHERE $where_statement_included AND $where_statement_exclude ORDER BY $orderby $orderbysortorder LIMIT $limiter", ARRAY_A);
 		$title = (empty($instance['lmm-widget-title'])) ? '' : $instance['lmm-widget-title'];
 		if (!empty($title)) {
 			echo $before_title . $title . $after_title;
@@ -154,6 +163,7 @@ class Class_leaflet_recent_marker_widget extends WP_Widget {
 		if (!empty($instance['lmm-widget-textbeforelist'])) {
 			echo '<p style="margin-bottom:5px;">' . $instance['lmm-widget-textbeforelist'] . '</p>';
 		}
+		
 		if ($result != NULL) {
 			echo '<table style="border:none;">';
 			$lmm_options = get_option( 'leafletmapsmarker_options' );
@@ -194,8 +204,9 @@ class Class_leaflet_recent_marker_widget extends WP_Widget {
 			}
 			echo '</table>';
 		} else {
-			echo '<p style="margin-bottom:5px;">' . __('No marker created yet','lmm') . '</p>';
+			echo '<p style="margin-bottom:5px;">' . __('No marker found!','lmm') . '</p>';
 		}
+		$wpdb->show_errors(); //info: as no input validation can be done
 		if (!empty($instance['lmm-widget-textafterlist'])) {
 			echo '<p style="margin:0;">' . $instance['lmm-widget-textafterlist'] . '</p>';
 		}

@@ -7601,6 +7601,7 @@ class Class_leaflet_options {
 				'id_ID' => __('Indonesian','lmm') . ' (id_ID)',
 				'it_IT' => __('Italian','lmm') . ' (it_IT)',
 				'ja' => __('Japanese','lmm') . ' (ja)',
+				'ko_KR' => __('Korean','lmm') . ' (ko_KR)',
 				'pl_PL' => __('Polish','lmm') . ' (pl_PL)',
 				'pt_BR' => __('Portuguese','lmm') . ' - ' . __('Brazil','lmm') . ' (pt_BR)',
 				'pt_PT' => __('Portuguese','lmm') . ' - ' . __('Portugal','lmm') . ' (pt_PT)',
