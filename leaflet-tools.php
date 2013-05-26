@@ -853,9 +853,31 @@ __('Please navigate to <a href="%1$s">Plugins / Installed Plugins</a> and activa
 __('Please contact your administrator (%1s) to activate the plugin "Leaflet Maps Marker Pro".','lmm');
 __('Manage your markers and layers through a highly customizable REST API, which supports GET & POST requests, JSON & XML as formats and was developed with a focus on security.','lmm');
 __('For more details please visit the MapsMarker API docs.','lmm');
+__('We are working hard on delivering the best mapping solution available for WordPress - helping you to share your favorite spots. Therefore we are commited to constantly improving Leaflet Maps Marker Pro. Below you find some highlights from our development roadmap - if an important one is missing for you, let us know and we will check if we can include it in a future release:','lmm');
+__('filtering markers on frontend','lmm');
+__('support for displaying routes (GPX)','lmm');
+__('support for displaying KML files','lmm');
+__('adding markers from frontend','lmm');
+__('support for Google Street View','lmm');
+__('import and export function for markers and layers','lmm');
+__('better integration into the publication workflow (adding markers from posts or as custom post type)','lmm');
+__('support for Wikitude AR launchlinks','lmm');
+__('search for markers on frontend','lmm');
+__('draw features like polylines, polygons, rectangles, circles and markers on maps','lmm');
+__('email notify on marker/layer actions','lmm');
+__('assign markers to multiple layers','lmm');
+__('support for permalinks','lmm');
+__('support for geocoding services other than Google Places','lmm');
+__('better integration with other plugins','lmm');
+__('Visit our contact form to submit your feature request or idea','lmm');
+//info: recent marker widget
 __('No marker created yet','lmm');
 __('advanced recent marker widget','lmm');
 __('Leaflet Maps Marker Pro allows you to customize which markers and layers to include or exclude in the recent marker widget:','lmm');
+esc_attr__('Please activate the plugin "Maps Marker Pro"','lmm');
+esc_attr__('Please install the plugin "Leaflet MapsMarker Pro"','lmm');
+__('free community support','lmm');
+__('One personal request: before you post a new support ticket in the <a href="http://wordpress.org/support/plugin/leaflet-maps-marker" target="_blank">Wordpress Support Forum</a>, please follow the instructions from <a href="http://www.mapsmarker.com/readme-first" target="_blank">http://www.mapsmarker.com/readme-first</a> which give you a guideline on how to deal with the most common issues.','lmm');
 //2do delete once used in changelog
 __('Translation updates','lmm');
 __('In case you want to help with translations, please visit the <a href="%1s" target="_blank">web-based translation plattform</a>','lmm');
