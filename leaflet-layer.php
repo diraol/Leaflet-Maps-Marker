@@ -16,6 +16,16 @@ if ( $lmm_options['defaults_marker_custom_icon_url_dir'] == 'no' ) {
 } else {
 	$defaults_marker_icon_url = htmlspecialchars($lmm_options['defaults_marker_icon_url']);
 }
+//info: set marker shadow url
+if ( $lmm_options['defaults_marker_icon_shadow_url_status'] == 'default' ) {
+	if ( $lmm_options['defaults_marker_icon_shadow_url'] == NULL ) {
+		$marker_shadow_url = '';
+	} else {
+		$marker_shadow_url = LEAFLET_PLUGIN_URL . 'leaflet-dist/images/marker-shadow.png';
+	}
+} else {
+	$marker_shadow_url = htmlspecialchars($lmm_options['defaults_marker_icon_shadow_url']);
+}
 $current_editor = get_option( 'leafletmapsmarker_editor' );
 $new_editor = isset($_GET['new_editor']) ? $_GET['new_editor'] : '';
 $current_editor_css = ($current_editor == 'simplified') ? 'display:none;' : '';
@@ -1228,7 +1238,7 @@ var markers = {};
 				iconSize: [<?php echo intval($lmm_options[ 'defaults_marker_icon_iconsize_x' ]); ?>, <?php echo intval($lmm_options[ 'defaults_marker_icon_iconsize_y' ]); ?>],
 				iconAnchor: [<?php echo intval($lmm_options[ 'defaults_marker_icon_iconanchor_x' ]); ?>, <?php echo intval($lmm_options[ 'defaults_marker_icon_iconanchor_y' ]); ?>],
 				popupAnchor: [<?php echo intval($lmm_options[ 'defaults_marker_icon_popupanchor_x' ]); ?>, <?php echo intval($lmm_options[ 'defaults_marker_icon_popupanchor_y' ]); ?>],
-				shadowUrl: '<?php echo htmlspecialchars($lmm_options[ 'defaults_marker_icon_shadow_url' ]); ?>',
+				shadowUrl: '<?php echo $marker_shadow_url; ?>',
 				shadowSize: [<?php echo intval($lmm_options[ 'defaults_marker_icon_shadowsize_x' ]); ?>, <?php echo intval($lmm_options[ 'defaults_marker_icon_shadowsize_y' ]); ?>],
 				shadowAnchor: [<?php echo intval($lmm_options[ 'defaults_marker_icon_shadowanchor_x' ]); ?>, <?php echo intval($lmm_options[ 'defaults_marker_icon_shadowanchor_y' ]); ?>],
 				className: (feature.properties.icon == '') ? "lmm_marker_icon_default" : "lmm_marker_icon_"+ feature.properties.icon.slice(0,-4)

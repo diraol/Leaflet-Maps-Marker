@@ -3,9 +3,9 @@
     GeoJSON generator - Leaflet Maps Marker Plugin
 */
 //info: construct path to wp-load.php
-while(!is_file('wp-load.php')){
-if(is_dir('../')) chdir('../');
-  else die('Error: Could not construct path to wp-load.php - please check <a href="http://mapsmarker.com/path-error">http://mapsmarker.com/path-error</a> for more details');
+while(!is_file('wp-load.php')) {
+	if(is_dir('..' . DIRECTORY_SEPARATOR)) chdir('..' . DIRECTORY_SEPARATOR);
+	else die('Error: Could not construct path to wp-load.php - please check <a href="http://mapsmarker.com/path-error">http://mapsmarker.com/path-error</a> for more details');
 }
 include( 'wp-load.php' );
 //info: get callback parameters for JSONP

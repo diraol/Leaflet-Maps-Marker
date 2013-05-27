@@ -806,6 +806,9 @@ $serialized_options = serialize($lmm_options);
 </form>
 <div style="display:none;">
 <?php //info: translations strings for Glotpress
+//info: mixed translations
+__('Too bad you are using the free version again :-( <a href="%1s" target="_blank">Please tell us what we can do to win you as a happy pro user and receive a discount voucher!</a>','lmm');
+__('This message will disappear once the pro version has been activated or deleted from your server (via the WordPress Plugins page!)','lmm');
 __('Lite Edition','lmm');
 __('Widget to show the most recent Leaflet Maps Marker entries - please see www.mapsmarker.com for more info', 'lmm');
 __('Leaflet Maps Marker - recent markers', 'lmm');

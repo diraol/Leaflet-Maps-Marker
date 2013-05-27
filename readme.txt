@@ -115,7 +115,7 @@ to the visitors of your website.
 * Bosnian (bs_BA) thanks to Kenan Dervišević
 * Bulgarian (bg_BG) thanks to Andon Ivanov
 * Catalan (ca) thanks to Vicent Cubells
-* Chinese (zh_CN) thanks to John Shen
+* Chinese (zh_CN) thanks to John Shen and ck
 * Chinese (zh_TW) thanks to jamesho Ho
 * Croatian (hr) thanks to Neven Pausic and Alan Benic
 * Czech (cs_CZ) thanks to Viktor Kleiner
