@@ -812,6 +812,7 @@ __('This message will disappear once the pro version has been activated or delet
 __('Lite Edition','lmm');
 __('Widget to show the most recent Leaflet Maps Marker entries - please see www.mapsmarker.com for more info', 'lmm');
 __('Leaflet Maps Marker - recent markers', 'lmm');
+__('Attention: your web server does not meet the requirements for "Leaflet Maps Marker Pro". <a href="%1s" target="_blank">Please click here to start the installation wizard</a> which offers an interactive tutorial on how to install the required "ionCube Loader" first.','lmm');
 //info: upgrade page
 __('If you like using Leaflet Maps Marker, you might also be interested in starting a free 30-day-trial of Leaflet Maps Marker Pro, which offers even more features, higher performance and more. <br/>Below you find some highlights you will get when going pro (please click on the heading for more details):','lmm');
 __('integration of the latest leaflet.js version','lmm');

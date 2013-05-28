@@ -2822,7 +2822,7 @@ function loader_not_installed()
         }
     }
     if (!isset($stype)) {
-        echo '<p>To use files that have been protected by the <a href="' . ENCODER_URL . '" target=encoder>ionCube PHP Encoder</a>, a component called the ionCube Loader must be installed.</p>';
+        echo '<p>In order to run Leaflet Maps Marker Pro, your web server needs to have support for ionCube encoded files (in order to ensure the validity and proper usage of your licenses). <a href="' . ENCODER_URL . '" target=encoder>ionCube</a> - an established industry standard solution for PHP encoding - is used to encrypt a small part of the source code.</p>';
     }
 
     if (!is_supported_php_version()) {
@@ -2874,8 +2874,10 @@ function server_selection_form()
     $hosturl = (!empty($_SESSION['hosturl']))?$_SESSION['hosturl']:'';
     $hosturl =  htmlspecialchars($hosturl, ENT_QUOTES, 'UTF-8');
     $form = <<<EOT
-    <p>This Wizard will give you information on how to install the ionCube Loader.</p>
-    <p>Please select the type of web server that you have and then click Next.</p>
+    <p>This wizard will give you information on how to install the ionCube Loader on your web server.</p>
+	<p>If you are not admin of your webserver, you don´t have to despair ;-) - you will be presented with detailed install infos you can easily forward.</p>
+	<p>If you need assistance, please contact your web server admin or check out the <a href="http://www.ioncube.com/contact.php" target="_blank">ionCube support pages!</a></p>
+    <p><strong>Please select the type of web server that you have and then click Next.</strong></p>
     <script type=text/javascript>
         function trim(s) {
             return s.replace(/^\s+|\s+$/g,"");
@@ -3598,7 +3600,7 @@ function footer($update_info = null)
 
     echo "</div>";
     echo "<div id=\"footer\">" .
-    "Copyright ionCube Ltd. 2002-$year | " .
+    "Copyright ionCube Ltd. 2002-$year | <a href=\"http://www.ioncube.com/contact.php\" target=\"_blank\">Support</a> | " .
     "Loader Wizard version " . script_version() . " ";
 
     if ($update_info === true) {
