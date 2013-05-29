@@ -1026,6 +1026,18 @@ function maps_marker_pro_is_five_pack_license($prefix = 'MapsMarkerPro-5P-') {
 function maps_marker_pro_is_twentyfive_pack_license($prefix = 'MapsMarkerPro-25P-') {
 	return substr(get_option('leafletmapsmarkerpro_license_key'), 0, strlen($prefix)) == $prefix;
 }
+function maps_marker_pro_is_hundred_pack_license($prefix = 'MapsMarkerPro-100P-') {
+	return substr(get_option('leafletmapsmarkerpro_license_key'), 0, strlen($prefix)) == $prefix;
+}
+function maps_marker_pro_is_twohundredfifty_pack_license($prefix = 'MapsMarkerPro-250P-') {
+	return substr(get_option('leafletmapsmarkerpro_license_key'), 0, strlen($prefix)) == $prefix;
+}
+function maps_marker_pro_is_fivehundred_pack_license($prefix = 'MapsMarkerPro-500P-') {
+	return substr(get_option('leafletmapsmarkerpro_license_key'), 0, strlen($prefix)) == $prefix;
+}
+function maps_marker_pro_is_thousand_pack_license($prefix = 'MapsMarkerPro-1000P-') {
+	return substr(get_option('leafletmapsmarkerpro_license_key'), 0, strlen($prefix)) == $prefix;
+}
 
 function maps_marker_pro_reg($attribute) {
 	if ( isset($_POST[$attribute]) && ($_POST[$attribute] == TRUE) ) { return $_POST[$attribute]; }
