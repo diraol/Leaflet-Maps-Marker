@@ -874,6 +874,7 @@ __('support for permalinks','lmm');
 __('support for geocoding services other than Google Places','lmm');
 __('better integration with other plugins','lmm');
 __('Visit our contact form to submit your feature request or idea','lmm');
+__('Furthermore can also remove the attribution link from the recent marker widget:','lmm');
 //info: recent marker widget
 __('No marker created yet','lmm');
 __('advanced recent marker widget','lmm');
