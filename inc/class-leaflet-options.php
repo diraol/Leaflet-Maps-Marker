@@ -64,6 +64,7 @@ class Class_leaflet_options {
 		$this->sections['mapdefaults-section15']	= esc_attr__('Retina display detection','lmm');
 		$this->sections['mapdefaults-section16']	= esc_attr__('Mobile web app settings','lmm');
 		$this->sections['mapdefaults-section17']	= esc_attr__('Minimap settings','lmm');
+		$this->sections['mapdefaults-section18']	= esc_attr__('Marker clustering settings','lmm');
 
 		$this->sections['basemaps-section1']		= esc_attr__('Cloudmade 1 settings','lmm');
 		$this->sections['basemaps-section2']		= esc_attr__('Cloudmade 2 settings','lmm');
@@ -1801,6 +1802,7 @@ class Class_leaflet_options {
 			'type'    => 'checkbox',
 			'std'     => 0
 		);
+		// defaults_layer_panel
 		$this->_settings['defaults_layer_panel'] = array(
 			'version' => '1.0',
 			'pane'    => 'mapdefaults',
@@ -1814,6 +1816,20 @@ class Class_leaflet_options {
 				'0' => __('hide','lmm'),
 			)
 		);
+		// defaults_layer_clustering
+		$this->_settings['defaults_layer_clustering'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section8',
+			'title'   => __('Marker clustering','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => '',
+			'type'    => 'radio',
+			'std'     => 'enabled',
+			'choices' => array(
+				'enabled' => __('enabled','lmm'),
+				'disabled' => __('disabled','lmm'),
+			)
+		);		
 		// defaults_layer - active API links in panel
 		$this->_settings['defaults_layer_panel_kml'] = array(
 			'version' => '1.0',
@@ -2842,7 +2858,120 @@ class Class_leaflet_options {
 				'true' => __('true','lmm')
 			)
 		);
-			
+		/*
+		* Marker clustering settings
+		*/
+		$this->_settings['clustering_helptext'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section18',
+			'std'     => '',
+			'title'   => '',
+			'desc'    => __( 'Settings for animated marker clustering functionality for layer maps', 'lmm') . ':<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-clustering.jpg" />',
+			'type'    => 'helptext'
+		);
+		$this->_settings['clustering_zoomToBoundsOnClick'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section18',
+			'title'   => 'zoomToBoundsOnClick<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('When you click a cluster it zooms to its bounds','lmm'),
+			'type'    => 'radio',
+			'std'     => 'true',
+			'choices' => array(
+				'true' => __('true','lmm'),
+				'false' => __('false','lmm')
+			)
+		);
+		$this->_settings['clustering_showCoverageOnHover'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section18',
+			'title'   => 'showCoverageOnHover<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('When you mouse over a cluster it shows the bounds of its markers:','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-clustering-coverage.jpg" />',
+			'type'    => 'radio',
+			'std'     => 'true',
+			'choices' => array(
+				'true' => __('true','lmm'),
+				'false' => __('false','lmm')
+			)
+		);
+		$this->_settings['clustering_spiderfyOnMaxZoom'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section18',
+			'title'   => 'spiderfyOnMaxZoom<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('When you click a cluster at the bottom zoom level it spiderfies it so you can see all of its markers:','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-clustering-spiderify.jpg" />',
+			'type'    => 'radio',
+			'std'     => 'true',
+			'choices' => array(
+				'true' => __('true','lmm'),
+				'false' => __('false','lmm')
+			)
+		);
+		$this->_settings['clustering_disableClusteringAtZoom'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section18',
+			'title'   =>'disableClusteringAtZoom<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('If set (1 to 18 repectively 19 if supported), at this zoom level and below markers will not be clustered.','lmm'),
+			'std'     => '',
+			'type'    => 'text'
+		);			
+		$this->_settings['clustering_maxClusterRadius'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section18',
+			'title'   =>'maxClusterRadius<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('The maximum radius that a cluster will cover from the central marker (in pixels). Decreasing will make more smaller clusters.','lmm'),
+			'std'     => '80',
+			'type'    => 'text'
+		);	
+		$this->_settings['clustering_polygonOptions'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section18',
+			'title'   =>'polygonOptions<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => sprintf(__('Options to pass when creating the L.Polygon to show the bounds of a cluster (<a href="%1s" target="_blank">more details</a>)','lmm'), 'http://leafletjs.com/reference.html#path-options') . ' - ' . __('example','lmm') . ': <strong>color: "#ff0000", weight: 3, fill: false</strong>',
+			'std'     => '',
+			'type'    => 'text'
+		);	
+		$this->_settings['clustering_singleMarkerMode'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section18',
+			'title'   => 'singleMarkerMode<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('If set to true, overrides the icon for all added markers to make them appear as a 1 size cluster:','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-clustering-singlemarkermode.jpg" />',
+			'type'    => 'radio',
+			'std'     => 'false',
+			'choices' => array(
+				'true' => __('true','lmm'),
+				'false' => __('false','lmm')
+			)
+		);	
+		$this->_settings['clustering_spiderfyDistanceMultiplier'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section18',
+			'title'   =>'spiderfyDistanceMultiplier<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('Increase from 1 to increase the distance away from the center that spiderfied markers are placed. Use if you are using big marker icons:','lmm') . '<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-clustering-spiderify-distance.jpg" />',
+			'std'     => '1',
+			'type'    => 'text'
+		);			
+		$this->_settings['clustering_animateAddingMarkers'] = array(
+			'version' => 'p1.0',
+			'pane'    => 'mapdefaults',
+			'section' => 'mapdefaults-section18',
+			'title'   => 'animateAddingMarkers<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" />',
+			'desc'    => __('If set to true then adding individual markers to the MarkerClusterGroup after it has been added to the map will add the marker and animate it in to the cluster. Defaults to false as this gives better performance when bulk adding markers.','lmm'),
+			'type'    => 'radio',
+			'std'     => 'false',
+			'choices' => array(
+				'true' => __('true','lmm'),
+				'false' => __('false','lmm')
+			)
+		);
+		
 		/*===========================================
 		*
 		*

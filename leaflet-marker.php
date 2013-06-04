@@ -44,7 +44,7 @@ $table_name_layers = $wpdb->prefix.'leafletmapsmarker_layers';
 $action = isset($_POST['action']) ? $_POST['action'] : (isset($_GET['action']) ? $_GET['action'] : '');
 $addtoLayer = isset($_GET['addtoLayer']) ? intval($_GET['addtoLayer']) : (isset($_POST['layer']) ? intval($_POST['layer']) : '');
 $layername = isset($_GET['Layername']) ? stripslashes($_GET['Layername']) : '';
-$layer_show_button = ($addtoLayer != NULL && $addtoLayer != 0) ? "<a class='button-secondary' href=" . LEAFLET_WP_ADMIN_URL . "admin.php?page=leafletmapsmarker_layer&id=" . $addtoLayer .">" . __('edit assigned layer','lmm') . "</a>&nbsp;&nbsp;&nbsp;" : "";
+$layer_show_button = ($addtoLayer != NULL && $addtoLayer != 0) ? "<a class='button-secondary lmm-nav-secondary' href=" . LEAFLET_WP_ADMIN_URL . "admin.php?page=leafletmapsmarker_layer&id=" . $addtoLayer .">" . __('edit assigned layer','lmm') . "</a>&nbsp;&nbsp;&nbsp;" : "";
 $oid = isset($_POST['id']) ? intval($_POST['id']) : (isset($_GET['id']) ? intval($_GET['id']) : '');
 $lat_check = isset($_POST['lat']) ? $_POST['lat'] : (isset($_GET['lat']) ? $_GET['lat'] : '');
 $lon_check = isset($_POST['lon']) ? $_POST['lon'] : (isset($_GET['lon']) ? $_GET['lon'] : '');
@@ -83,7 +83,7 @@ if (! wp_verify_nonce($markernonce, 'marker-nonce') ) die('<br/>'.__('Security c
 	   }
 	   else
 	   {
-		echo '<p><div class="error" style="padding:10px;">' . __('Error: coordinates cannot be empty!','lmm') . '</div><br/><a href="javascript:history.back();" class=\'button-secondary\' >' . __('Go back to form','lmm') . '</a></p>';
+		echo '<p><div class="error" style="padding:10px;">' . __('Error: coordinates cannot be empty!','lmm') . '</div><br/><a href="javascript:history.back();" class=\'button-secondary lmm-nav-secondary\' >' . __('Go back to form','lmm') . '</a></p>';
 	   }
   }
   elseif ($action == 'edit') {
@@ -115,7 +115,7 @@ if (! wp_verify_nonce($markernonce, 'marker-nonce') ) die('<br/>'.__('Security c
 	    }
 		else
 		{
-		echo '<p><div class="error" style="padding:10px;">' . __('Error: coordinates cannot be empty!','lmm') . '</div><br/><a href="javascript:history.back();" class=\'button-secondary\' >' . __('Go back to form','lmm') . '</a></p>';
+		echo '<p><div class="error" style="padding:10px;">' . __('Error: coordinates cannot be empty!','lmm') . '</div><br/><a href="javascript:history.back();" class=\'button-secondary lmm-nav-secondary\' >' . __('Go back to form','lmm') . '</a></p>';
     	}
   }
   elseif ($action == 'delete') {
@@ -123,7 +123,7 @@ if (! wp_verify_nonce($markernonce, 'marker-nonce') ) die('<br/>'.__('Security c
 		$result = $wpdb->prepare( "DELETE FROM $table_name_markers WHERE id = %d", $oid );
 		$wpdb->query( $result );
 		$wpdb->query( "OPTIMIZE TABLE $table_name_markers" );
-        echo '<p><div class="updated" style="padding:10px;">' . __('Marker has been successfully deleted','lmm') . '</div><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_markers\'>' . __('list all markers','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_marker\'>' . __('add new marker','lmm') . '</a></p>';
+        echo '<p><div class="updated" style="padding:10px;">' . __('Marker has been successfully deleted','lmm') . '</div><a class=\'button-secondary lmm-nav-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_markers\'>' . __('list all markers','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a class=\'button-secondary lmm-nav-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_marker\'>' . __('add new marker','lmm') . '</a></p>';
     }
   }
   elseif ($action == 'switcheditor') {
@@ -240,7 +240,7 @@ if (! wp_verify_nonce($markernonce, 'marker-nonce') ) die('<br/>'.__('Security c
 if ($lat === NULL) {
 $error_marker_not_exists = sprintf( esc_attr__('Error: a marker with the ID %1$s does not exist!','lmm'), htmlspecialchars($_GET['id']));
 echo '<p><div class="error" style="padding:10px;">' . $error_marker_not_exists . '</div></p>';
-echo '<p><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_markers\'>' . __('list all markers','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_marker\'>' . __('add new marker','lmm') . '</a></p>';
+echo '<p><a class=\'button-secondary lmm-nav-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_markers\'>' . __('list all markers','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a class=\'button-secondary lmm-nav-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_marker\'>' . __('add new marker','lmm') . '</a></p>';
 } else { ?>
 
 <?php 
@@ -278,7 +278,7 @@ if ( $edit_status == 'updated') {
          <h3 style="font-size:23px;"><?php ($isedit === true) ? _e('Edit marker','lmm') : _e('Add new marker','lmm') ?>
 		<?php echo ($isedit === true) ? '"' . stripslashes($markername) . '" (ID '.$id.')' : '' ?>
 		<input style="font-weight:bold;margin-left:10px;" type="submit" name="marker" class="submit button-primary" value="<?php ($isedit === true) ? _e('update','lmm') : _e('publish','lmm') ?>" />
-		<?php if ($isedit === true) { echo '<a class="button-primary" style="margin-left:20px;" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_marker">' . __('add new marker','lmm') . '</a>'; } ?>
+		<?php if ($isedit === true) { echo '<a class="button-secondary lmm-nav-secondary" style="margin-left:20px;" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_marker">' . __('add new marker','lmm') . '</a>'; } ?>
 		</h3>
 
 		<table class="widefat fixed">
@@ -699,7 +699,7 @@ if ( $edit_status == 'updated') {
 			<input type="hidden" name="action" value="delete" />
 				<?php $confirm = sprintf( esc_attr__('Do you really want to delete marker %1$s (ID %2$s)?','lmm'), $markername, $id) ?>
 				<div class="submit" style="margin:0 0 0 40px;">
-				<input class="submit button-secondary" style="color:#FF0000;" type="submit" name="marker" value="<?php _e('delete', 'lmm') ?>" onclick="return confirm('<?php echo $confirm ?>')" />
+				<input class="submit button-secondary lmm-nav-secondary" style="color:#FF0000;" type="submit" name="marker" value="<?php _e('delete', 'lmm') ?>" onclick="return confirm('<?php echo $confirm ?>')" />
 				</div>
 		</form>
 	</td>

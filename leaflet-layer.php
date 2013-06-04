@@ -64,6 +64,7 @@ if (!empty($action)) {
 		$wms8_checkbox = isset($_POST['wms8']) ? '1' : '0';
 		$wms9_checkbox = isset($_POST['wms9']) ? '1' : '0';
 		$wms10_checkbox = isset($_POST['wms10']) ? '1' : '0';
+		$clustering_checkbox = isset($_POST['clustering']) ? '1' : '0';
 		$listmarkers_checkbox = isset($_POST['listmarkers']) ? '1' : '0';
 		$panel_checkbox = isset($_POST['panel']) ? '1' : '0';
 		$layername_quotes = str_replace("\"", "'", $_POST['name']);
@@ -78,14 +79,14 @@ if (!empty($action)) {
 			$mlm_checked_imploded = substr($mlm_checked_temp, 0, -1);
 		}
 
-		$result = $wpdb->prepare( "INSERT INTO $table_name_layers (name, basemap, layerzoom, mapwidth, mapwidthunit, mapheight, panel, layerviewlat, layerviewlon, createdby, createdon, updatedby, updatedon, controlbox, overlays_custom, overlays_custom2, overlays_custom3, overlays_custom4, wms, wms2, wms3, wms4, wms5, wms6, wms7, wms8, wms9, wms10, listmarkers, multi_layer_map, multi_layer_map_list, address ) VALUES (%s, %s, %d, %d, %s, %d, %d, %s, %s, %s, %s, %s, %s, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %s, %s)", $layername_quotes, $_POST['basemap'], $_POST['layerzoom'], $_POST['mapwidth'], $_POST['mapwidthunit'], $_POST['mapheight'], $panel_checkbox, str_replace(',', '.', $_POST['layerviewlat']), str_replace(',', '.', $_POST['layerviewlon']), $current_user->user_login, current_time('mysql',0), $current_user->user_login, current_time('mysql',0), $_POST['controlbox'], $_POST['overlays_custom'], $_POST['overlays_custom2'], $_POST['overlays_custom3'], $_POST['overlays_custom4'], $wms_checkbox, $wms2_checkbox, $wms3_checkbox, $wms4_checkbox, $wms5_checkbox, $wms6_checkbox, $wms7_checkbox, $wms8_checkbox, $wms9_checkbox, $wms10_checkbox, $listmarkers_checkbox, $multi_layer_map_checkbox, $mlm_checked_imploded, $_POST['address'] );
+		$result = $wpdb->prepare( "INSERT INTO $table_name_layers (name, basemap, layerzoom, mapwidth, mapwidthunit, mapheight, panel, layerviewlat, layerviewlon, createdby, createdon, updatedby, updatedon, controlbox, overlays_custom, overlays_custom2, overlays_custom3, overlays_custom4, wms, wms2, wms3, wms4, wms5, wms6, wms7, wms8, wms9, wms10, listmarkers, multi_layer_map, multi_layer_map_list, address, clustering ) VALUES (%s, %s, %d, %d, %s, %d, %d, %s, %s, %s, %s, %s, %s, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %s, %s, %d)", $layername_quotes, $_POST['basemap'], $_POST['layerzoom'], $_POST['mapwidth'], $_POST['mapwidthunit'], $_POST['mapheight'], $panel_checkbox, str_replace(',', '.', $_POST['layerviewlat']), str_replace(',', '.', $_POST['layerviewlon']), $current_user->user_login, current_time('mysql',0), $current_user->user_login, current_time('mysql',0), $_POST['controlbox'], $_POST['overlays_custom'], $_POST['overlays_custom2'], $_POST['overlays_custom3'], $_POST['overlays_custom4'], $wms_checkbox, $wms2_checkbox, $wms3_checkbox, $wms4_checkbox, $wms5_checkbox, $wms6_checkbox, $wms7_checkbox, $wms8_checkbox, $wms9_checkbox, $wms10_checkbox, $listmarkers_checkbox, $multi_layer_map_checkbox, $mlm_checked_imploded, $_POST['address'], $clustering_checkbox );
 		$wpdb->query( $result );
 		$wpdb->query( "OPTIMIZE TABLE $table_name_layers" );
 		echo '<script> window.location="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_layer&id=' . $wpdb->insert_id . '&status=published&Layername=' . $layername_quotes . '"; </script> ';		
 		}
 	    else
 		{
-		echo '<p><div class="error" style="padding:10px;">' . __('Error: coordinates cannot be empty!','lmm') . '</div><br/><a href="javascript:history.back();" class=\'button-secondary\' >' . __('Go back to form','lmm') . '</a></p>';
+		echo '<p><div class="error" style="padding:10px;">' . __('Error: coordinates cannot be empty!','lmm') . '</div><br/><a href="javascript:history.back();" class=\'button-secondary lmm-nav-secondary\' >' . __('Go back to form','lmm') . '</a></p>';
     }
   }
   elseif ($action == 'edit') {
@@ -103,6 +104,7 @@ if (!empty($action)) {
 		$wms8_checkbox = isset($_POST['wms8']) ? '1' : '0';
 		$wms9_checkbox = isset($_POST['wms9']) ? '1' : '0';
 		$wms10_checkbox = isset($_POST['wms10']) ? '1' : '0';
+		$clustering_checkbox = isset($_POST['clustering']) ? '1' : '0';
 		$listmarkers_checkbox = isset($_POST['listmarkers']) ? '1' : '0';
 		$panel_checkbox = isset($_POST['panel']) ? '1' : '0';
 		$layername_quotes = str_replace("\"", "'", $_POST['name']);
@@ -117,14 +119,14 @@ if (!empty($action)) {
 			$mlm_checked_imploded = substr($mlm_checked_temp, 0, -1);
 		}
 
-		$result = $wpdb->prepare( "UPDATE $table_name_layers SET name = %s, basemap = %s, layerzoom = %d, mapwidth = %d, mapwidthunit = %s, mapheight = %d, panel = %d, layerviewlat = %s, layerviewlon = %s, updatedby = %s, updatedon = %s, controlbox = %d, overlays_custom = %d, overlays_custom2 = %d, overlays_custom3 = %d, overlays_custom4 = %d, wms = %d, wms2 = %d, wms3 = %d, wms4 = %d, wms5 = %d, wms6 = %d, wms7 = %d, wms8 = %d, wms9 = %d, wms10 = %d, listmarkers = %d, multi_layer_map = %d, multi_layer_map_list = %s, address = %s WHERE id = %d", $layername_quotes, $_POST['basemap'], $_POST['layerzoom'], $_POST['mapwidth'], $_POST['mapwidthunit'], $_POST['mapheight'], $panel_checkbox, str_replace(',', '.', $_POST['layerviewlat']), str_replace(',', '.', $_POST['layerviewlon']), $current_user->user_login, current_time('mysql',0), $_POST['controlbox'], $_POST['overlays_custom'], $_POST['overlays_custom2'], $_POST['overlays_custom3'], $_POST['overlays_custom4'], $wms_checkbox, $wms2_checkbox, $wms3_checkbox, $wms4_checkbox, $wms5_checkbox, $wms6_checkbox, $wms7_checkbox, $wms8_checkbox, $wms9_checkbox, $wms10_checkbox, $listmarkers_checkbox, $multi_layer_map_checkbox, $mlm_checked_imploded, $_POST['address'], $oid );
+		$result = $wpdb->prepare( "UPDATE $table_name_layers SET name = %s, basemap = %s, layerzoom = %d, mapwidth = %d, mapwidthunit = %s, mapheight = %d, panel = %d, layerviewlat = %s, layerviewlon = %s, updatedby = %s, updatedon = %s, controlbox = %d, overlays_custom = %d, overlays_custom2 = %d, overlays_custom3 = %d, overlays_custom4 = %d, wms = %d, wms2 = %d, wms3 = %d, wms4 = %d, wms5 = %d, wms6 = %d, wms7 = %d, wms8 = %d, wms9 = %d, wms10 = %d, listmarkers = %d, multi_layer_map = %d, multi_layer_map_list = %s, address = %s, clustering = %d WHERE id = %d", $layername_quotes, $_POST['basemap'], $_POST['layerzoom'], $_POST['mapwidth'], $_POST['mapwidthunit'], $_POST['mapheight'], $panel_checkbox, str_replace(',', '.', $_POST['layerviewlat']), str_replace(',', '.', $_POST['layerviewlon']), $current_user->user_login, current_time('mysql',0), $_POST['controlbox'], $_POST['overlays_custom'], $_POST['overlays_custom2'], $_POST['overlays_custom3'], $_POST['overlays_custom4'], $wms_checkbox, $wms2_checkbox, $wms3_checkbox, $wms4_checkbox, $wms5_checkbox, $wms6_checkbox, $wms7_checkbox, $wms8_checkbox, $wms9_checkbox, $wms10_checkbox, $listmarkers_checkbox, $multi_layer_map_checkbox, $mlm_checked_imploded, $_POST['address'], $clustering_checkbox, $oid );
 		$wpdb->query( $result );
 		$wpdb->query( "OPTIMIZE TABLE $table_name_layers" );
 		echo '<script> window.location="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_layer&id=' . $oid . '&status=updated&Layername=' . urlencode($_POST['name']) . '"; </script> ';
   }
   else
 	{
-		echo '<p><div class="error" style="padding:10px;">' . __('Error: coordinates cannot be empty!','lmm') . '</div><br/><a href="javascript:history.back();" class=\'button-secondary\' >' . __('Go back to form','lmm') . '</a></p>';
+		echo '<p><div class="error" style="padding:10px;">' . __('Error: coordinates cannot be empty!','lmm') . '</div><br/><a href="javascript:history.back();" class=\'button-secondary lmm-nav-secondary\' >' . __('Go back to form','lmm') . '</a></p>';
     }
   }
   elseif ($action == 'deleteboth') {
@@ -133,7 +135,7 @@ if (!empty($action)) {
 		$result2 = $wpdb->prepare( "DELETE FROM $table_name_layers WHERE id = %d", $oid );
 		$wpdb->query( $result2 );
 		$wpdb->query( "OPTIMIZE TABLE $table_name_layers" );
-        echo '<p><div class="updated" style="padding:10px;">' . __('Layer and assigned markers have been successfully deleted','lmm') . '</div><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_layers\'>' . __('list all layers','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_layer\'>' . __('add new layer','lmm') . '</a></p>';
+        echo '<p><div class="updated" style="padding:10px;">' . __('Layer and assigned markers have been successfully deleted','lmm') . '</div><a class=\'button-secondary lmm-nav-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_layers\'>' . __('list all layers','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a class=\'button-secondary lmm-nav-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_layer\'>' . __('add new layer','lmm') . '</a></p>';
   }
   elseif ($action == 'delete') {
 		$result = $wpdb->prepare( "UPDATE $table_name_markers SET layer = 0 WHERE layer = %d", $oid );
@@ -141,7 +143,7 @@ if (!empty($action)) {
 		$result2 = $wpdb->prepare( "DELETE FROM $table_name_layers WHERE id = %d", $oid );
 		$wpdb->query( $result2 );
 		$wpdb->query( "OPTIMIZE TABLE $table_name_layers" );
-		echo '<div class="updated" style="padding:10px;">' . __('Layer has been successfully deleted (assigned markers have not been deleted)','lmm') . '</div><p><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_layers\'>' . __('list all layers','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_layer\'>' . __('add new layer','lmm') . '</a></p>';
+		echo '<div class="updated" style="padding:10px;">' . __('Layer has been successfully deleted (assigned markers have not been deleted)','lmm') . '</div><p><a class=\'button-secondary lmm-nav-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_layers\'>' . __('list all layers','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a class=\'button-secondary lmm-nav-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_layer\'>' . __('add new layer','lmm') . '</a></p>';
   }
   elseif ($action == 'switcheditor') {
 	if ($new_editor == 'advanced') {
@@ -198,11 +200,12 @@ else {
   $multi_layer_map_list = array();
   $multi_layer_map_list_exploded = array();
   $laddress = '';
+  $lclustering = ($lmm_options[ 'defaults_layer_clustering' ] == 'enabled' ) ? '1' : '0';
   $markercount = 0;
   $isedit = isset($_GET['id']);
   if ($isedit) {
     $id = intval($_GET['id']);
-    $row = $wpdb->get_row('SELECT l.id as lid, l.name as lname, l.basemap as lbasemap, l.layerzoom as llayerzoom, l.mapwidth as lmapwidth, l.mapwidthunit as lmapwidthunit, l.mapheight as lmapheight, l.panel as lpanel, l.layerviewlat as llayerviewlat, l.layerviewlon as llayerviewlon, l.createdby as lcreatedby, l.createdon as lcreatedon, l.updatedby as lupdatedby, l.updatedon as lupdatedon, l.controlbox as lcontrolbox, l.overlays_custom as loverlays_custom, l.overlays_custom2 as loverlays_custom2, l.overlays_custom3 as loverlays_custom3, l.overlays_custom4 as loverlays_custom4,l.wms as lwms, l.wms2 as lwms2, l.wms3 as lwms3, l.wms4 as lwms4, l.wms5 as lwms5, l.wms6 as lwms6, l.wms7 as lwms7, l.wms8 as lwms8, l.wms9 as lwms9, l.wms10 as lwms10, l.listmarkers as llistmarkers, l.multi_layer_map as lmulti_layer_map, l.address as laddress, m.id as markerid, m.markername as markername, m.lat as mlat, m.lon as mlon, m.icon as micon, m.popuptext as mpopuptext, m.zoom as mzoom, m.mapwidth as mmapwidth, m.mapwidthunit as mmapwidthunit,m.mapheight as mmapheight, m.address as maddress FROM '.$table_name_layers.' as l LEFT OUTER JOIN '.$table_name_markers.' AS m ON l.id=m.layer WHERE l.id='.$id, ARRAY_A);
+    $row = $wpdb->get_row('SELECT l.id as lid, l.name as lname, l.basemap as lbasemap, l.layerzoom as llayerzoom, l.mapwidth as lmapwidth, l.mapwidthunit as lmapwidthunit, l.mapheight as lmapheight, l.panel as lpanel, l.layerviewlat as llayerviewlat, l.layerviewlon as llayerviewlon, l.createdby as lcreatedby, l.createdon as lcreatedon, l.updatedby as lupdatedby, l.updatedon as lupdatedon, l.controlbox as lcontrolbox, l.overlays_custom as loverlays_custom, l.overlays_custom2 as loverlays_custom2, l.overlays_custom3 as loverlays_custom3, l.overlays_custom4 as loverlays_custom4,l.wms as lwms, l.wms2 as lwms2, l.wms3 as lwms3, l.wms4 as lwms4, l.wms5 as lwms5, l.wms6 as lwms6, l.wms7 as lwms7, l.wms8 as lwms8, l.wms9 as lwms9, l.wms10 as lwms10, l.listmarkers as llistmarkers, l.multi_layer_map as lmulti_layer_map, l.address as laddress, l.clustering as lclustering, m.id as markerid, m.markername as markername, m.lat as mlat, m.lon as mlon, m.icon as micon, m.popuptext as mpopuptext, m.zoom as mzoom, m.mapwidth as mmapwidth, m.mapwidthunit as mmapwidthunit,m.mapheight as mmapheight, m.address as maddress FROM '.$table_name_layers.' as l LEFT OUTER JOIN '.$table_name_markers.' AS m ON l.id=m.layer WHERE l.id='.$id, ARRAY_A);
     $name = htmlspecialchars($row['lname']);
     $basemap = $row['lbasemap'];
     $layerzoom = $row['llayerzoom'];
@@ -247,6 +250,7 @@ else {
     $multi_layer_map_list = $wpdb->get_var('SELECT l.multi_layer_map_list FROM '.$table_name_layers.' as l WHERE l.id='.$id);
     $multi_layer_map_list_exploded = explode(",", $wpdb->get_var('SELECT l.multi_layer_map_list FROM '.$table_name_layers.' as l WHERE l.id='.$id));
     $laddress = htmlspecialchars($row['laddress']);
+	$lclustering = $row['lclustering'];
 
 	//info: markercount
 	if ($multi_layer_map == 0) {
@@ -334,7 +338,7 @@ else {
 if ($layerviewlat === NULL) {
 $error_layer_not_exists = sprintf( esc_attr__('Error: a layer with the ID %1$s does not exist!','lmm'), htmlspecialchars($_GET['id']));
 echo '<p><div class="error" style="padding:10px;">' . $error_layer_not_exists . '</div></p>';
-echo '<p><a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_layers\'>' . __('list all layers','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a class=\'button-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_layer\'>' . __('add new layer','lmm') . '</a></p>';
+echo '<p><a class=\'button-secondary lmm-nav-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_layers\'>' . __('list all layers','lmm') . '</a>&nbsp;&nbsp;&nbsp;<a class=\'button-secondary lmm-nav-secondary\' href=\'' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_layer\'>' . __('add new layer','lmm') . '</a></p>';
 } else { ?>
 
 <?php 
@@ -372,8 +376,11 @@ if ( $edit_status == 'updated') {
 		<h3 style="font-size:23px;"><?php ($isedit === true) ? _e('Edit layer','lmm') : _e('Add new layer','lmm') ?>
 		<?php echo ($isedit === true) ?'"' . stripslashes($name) . '" (ID '.$id.')' : '' ?>
 		<input style="font-weight:bold;margin-left:10px;" class="submit button-primary" type="submit" name="layer" value="<?php ($isedit === true) ? _e('update','lmm') : _e('publish','lmm') ?>" />
-		<?php $multi_layer_map_edit_button = ( ($multi_layer_map == 0) && ($id != NULL) ) ? '<a class="button-primary" style="margin-left:15px;" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_marker&addtoLayer=' . $oid . '&Layername=' . urlencode($name) . '">' . __('add new marker to this layer','lmm') . '</a>' : '';
-		echo $multi_layer_map_edit_button; ?>
+		<?php $multi_layer_map_edit_button = ( ($multi_layer_map == 0) && ($id != NULL) ) ? '<a class="button-secondary lmm-nav-secondary" style="margin-left:15px;" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_marker&addtoLayer=' . $oid . '&Layername=' . urlencode($name) . '">' . __('add new marker to this layer','lmm') . '</a>' : '';
+		echo $multi_layer_map_edit_button;
+		$add_new_layer_button = ($id != NULL) ? '<a class="button-secondary lmm-nav-secondary" style="margin-left:20px;" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_layer">' . __('add new layer','lmm') . '</a>' : '';
+		echo $add_new_layer_button;
+		?>
 		</h3>
 		
 		<table class="widefat fixed">
@@ -450,6 +457,8 @@ if ( $edit_status == 'updated') {
 				<br/><br/>
 				<strong><?php _e('Display panel','lmm') ?></strong>&nbsp;&nbsp;<input type="checkbox" name="panel" id="panel" <?php checked($panel, 1 ); ?>><br/>
 				<small><?php _e('If checked, panel on top of map is displayed','lmm') ?></small>
+				<br/><br/>
+				<strong><?php _e('Marker clustering','lmm') ?></strong>&nbsp;&nbsp;<input type="checkbox" name="clustering" id="clustering" <?php checked($lclustering, 1 ); ?>>&nbsp;&nbsp;<small>(<a href="<?php echo LEAFLET_WP_ADMIN_URL ?>admin.php?page=leafletmapsmarker_settings#mapdefaults-section18"><?php _e('Settings','lmm') ?></a>)</small>
 				<?php
 					if ( $lmm_options['misc_backlinks'] == 'show' ) {
 						echo '<br/><br/><strong>' . __('Hide MapsMarker.com backlinks','lmm') .'</strong>';
@@ -717,7 +726,7 @@ if ( $edit_status == 'updated') {
 			<input type="hidden" name="action" value="delete" />
 			<div class="submit" style="margin:0 0 0 40px;">
 				<?php $confirm = sprintf( esc_attr__('Do you really want to delete layer %1$s (ID %2$s)?','lmm'), $row['lname'], $id) ?>
-				<input class="submit button-secondary" style="color:#FF0000;" type="submit" name="layer" value="<?php _e('delete', 'lmm') ?>" onclick="return confirm('<?php echo $confirm ?>')"/>
+				<input class="submit button-secondary lmm-nav-secondary" style="color:#FF0000;" type="submit" name="layer" value="<?php _e('delete', 'lmm') ?>" onclick="return confirm('<?php echo $confirm ?>')"/>
 			</div>
 		</form>
 	</td><td>
@@ -728,7 +737,7 @@ if ( $edit_status == 'updated') {
 			<div class="submit" style="margin:0 0 0 40px;">
 				<?php $confirm2 = sprintf( esc_attr__('Do you really want to delete layer %1$s (ID %2$s) and all %3$s assigned markers?','lmm'), $row['lname'], $id, $markercount) ?>
 				<?php if ($multi_layer_map == 0) {
-					echo "<input class='submit button-secondary' style='color:#FF0000;' type='submit' name='layer' value='" . __('delete layer AND assigned markers', 'lmm') . "' onclick='return confirm(\"".$confirm2 ."\")' />";
+					echo "<input class='submit button-secondary lmm-nav-secondary' style='color:#FF0000;' type='submit' name='layer' value='" . __('delete layer AND assigned markers', 'lmm') . "' onclick='return confirm(\"".$confirm2 ."\")' />";
 				} ?>
 			</div>
 		</form>
@@ -935,7 +944,7 @@ $markernonce = wp_create_nonce('marker-nonce'); //info: for delete-links
 <!--wrap-->
 <script type="text/javascript">
 /* //<![CDATA[ */
-var marker,selectlayer,googleLayer_roadmap,googleLayer_satellite,googleLayer_hybrid,googleLayer_terrain,bingaerial,bingaerialwithlabels,bingroad,osm_mapnik,mapquest_osm,mapquest_aerial,ogdwien_basemap,ogdwien_satellite,cloudmade,cloudmade2,cloudmade3,mapbox,mapbox2,mapbox3,custom_basemap,custom_basemap2,custom_basemap3,empty_basemap,overlays_custom,overlays_custom2,overlays_custom3,overlays_custom4,wms,wms2,wms3,wms4,wms5,wms6,wms7,wms8,wms9,wms10,layersControl;
+var marker,selectlayer,googleLayer_roadmap,googleLayer_satellite,googleLayer_hybrid,googleLayer_terrain,bingaerial,bingaerialwithlabels,bingroad,osm_mapnik,mapquest_osm,mapquest_aerial,ogdwien_basemap,ogdwien_satellite,cloudmade,cloudmade2,cloudmade3,mapbox,mapbox2,mapbox3,custom_basemap,custom_basemap2,custom_basemap3,empty_basemap,overlays_custom,overlays_custom2,overlays_custom3,overlays_custom4,wms,wms2,wms3,wms4,wms5,wms6,wms7,wms8,wms9,wms10,layersControl,markercluster,geojson_markers;
 var markers = {};
 (function($) {
   selectlayer = new L.Map("selectlayer", { dragging: <?php echo $lmm_options['misc_map_dragging'] ?>, touchZoom: <?php echo $lmm_options['misc_map_touchzoom'] ?>, scrollWheelZoom: <?php echo $lmm_options['misc_map_scrollwheelzoom'] ?>, doubleClickZoom: <?php echo $lmm_options['misc_map_doubleclickzoom'] ?>, boxzoom: <?php echo $lmm_options['map_interaction_options_boxzoom'] ?>, trackResize: <?php echo $lmm_options['misc_map_trackresize'] ?>, worldCopyJump: <?php echo $lmm_options['map_interaction_options_worldcopyjump'] ?>, closePopupOnClick: <?php echo $lmm_options['misc_map_closepopuponclick'] ?>, keyboard: <?php echo $lmm_options['map_keyboard_navigation_options_keyboard'] ?>, keyboardPanOffset: <?php echo intval($lmm_options['map_keyboard_navigation_options_keyboardpanoffset']) ?>, keyboardZoomOffset: <?php echo intval($lmm_options['map_keyboard_navigation_options_keyboardzoomoffset']) ?>, inertia: <?php echo $lmm_options['map_panning_inertia_options_inertia'] ?>, inertiaDeceleration: <?php echo intval($lmm_options['map_panning_inertia_options_inertiadeceleration']) ?>, inertiaMaxSpeed: <?php echo intval($lmm_options['map_panning_inertia_options_inertiamaxspeed']) ?>, zoomControl: <?php echo $lmm_options['misc_map_zoomcontrol'] ?>, crs: <?php echo $lmm_options['misc_projections'] ?>, fullscreenControl: <?php echo $lmm_options['map_fullscreen_button'] ?> });
@@ -1219,7 +1228,10 @@ var markers = {};
   } else if ($multi_layer_map == 1) {
 	  echo 'geojsonObj = eval("(" + jQuery.ajax({url: "' . LEAFLET_PLUGIN_URL . 'leaflet-geojson.php?layer=' . $multi_layer_map_list . '", async: false, cache: true}).responseText + ")");';
   };?>
-	L.geoJson(geojsonObj, {
+
+   markercluster = new L.MarkerClusterGroup({ zoomToBoundsOnClick: <?php echo $lmm_options['clustering_zoomToBoundsOnClick'] ?>, showCoverageOnHover: <?php echo $lmm_options['clustering_showCoverageOnHover'] ?>, spiderfyOnMaxZoom: <?php echo $lmm_options['clustering_spiderfyOnMaxZoom'] ?>, animateAddingMarkers: <?php echo $lmm_options['clustering_animateAddingMarkers'] ?>, disableClusteringAtZoom: <?php echo intval($lmm_options['clustering_disableClusteringAtZoom']) ?>, maxClusterRadius: <?php echo intval($lmm_options['clustering_maxClusterRadius']) ?>, polygonOptions: {<?php echo $lmm_options['clustering_polygonOptions'] ?>}, singleMarkerMode: <?php echo $lmm_options['clustering_singleMarkerMode'] ?>, spiderfyDistanceMultiplier: <?php echo intval($lmm_options['clustering_spiderfyDistanceMultiplier']) ?> });
+
+   geojson_markers = L.geoJson(geojsonObj, {
 		onEachFeature: function(feature, marker) {
 			if (feature.properties.text != '') {
 					marker.bindPopup(feature.properties.text, {
@@ -1249,7 +1261,9 @@ var markers = {};
 			<?php }; ?>
 			return L.marker(latlng, {icon: mapIcon, clickable: marker_clickable, title: marker_title, opacity: <?php echo floatval($lmm_options[ 'defaults_marker_icon_opacity' ]) ?>});
 		}
-	}).addTo(selectlayer);
+	});
+	geojson_markers<?php if ($lclustering == '1') {  echo '.addTo(markercluster);'.PHP_EOL; echo 'selectlayer.addLayer(markercluster);'; } else { echo '.addTo(selectlayer);'.PHP_EOL; } ?>
+
   <?php
   if ($lcontrolbox == '0') { echo "$('.leaflet-control-layers').hide();"; }
   ?>
@@ -1262,7 +1276,6 @@ var markers = {};
 		}
 
 	});
-
   //info: update basemap when chosing from control box
   selectlayer.on('layeradd', function(e) {
 		if(e.layer.options.mmid) {
@@ -1289,7 +1302,7 @@ var markers = {};
       selectlayer.setView(e.latlng,selectlayer.getZoom());
       mapcentermarker.setLatLng(e.latlng);
   });
-  var mapElement = $('#selectlayer'), mapWidth = $('#mapwidth'), mapHeight = $('#mapheight'), layerviewlat = $('#layerviewlat'), layerviewlon = $('#layerviewlon'), panel = $('#lmm-panel'), lmm = $('#lmm'), layername = $('#layername'), listmarkers = $('#lmm-listmarkers'), listmarkers_table = $('#lmm-listmarkers-table'), multi_layer_map = $('#lmm-multi_layer_map'), zoom = $('#layerzoom');
+  var mapElement = $('#selectlayer'), mapWidth = $('#mapwidth'), mapHeight = $('#mapheight'), layerviewlat = $('#layerviewlat'), layerviewlon = $('#layerviewlon'), panel = $('#lmm-panel'), lmm = $('#lmm'), layername = $('#layername'), listmarkers = $('#lmm-listmarkers'), listmarkers_table = $('#lmm-listmarkers-table'), multi_layer_map = $('#lmm-multi_layer_map'), zoom = $('#layerzoom'), clustering = $('#clustering');
 	//info: bugfix causing maps not to show up in WP 3.0 and errors in WP <3.3
 	<?php if ( version_compare( $wp_version, '3.3', '>=' ) ) { ?>
 	//info: change zoom level when changing form field
@@ -1353,6 +1366,17 @@ var markers = {};
 			multi_layer_map.css("display",'none');
 		}
 	});
+	//info: toggle marker clustering 
+	$('input:checkbox[name=clustering]').click(function() {
+		if($('input:checkbox[name=clustering]').is(':checked')) {
+			selectlayer.removeLayer(geojson_markers);
+			geojson_markers.addTo(markercluster);
+			selectlayer.addLayer(markercluster);
+		} else {
+			markercluster.clearLayers();
+			geojson_markers.addTo(selectlayer);
+		}
+	});  	
 	//info: check if layerviewlat is a number
 	$('input:text[name=layerviewlat]').blur(function(e) {
 		if(isNaN(layerviewlat.val())) {

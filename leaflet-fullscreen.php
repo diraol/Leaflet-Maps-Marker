@@ -52,7 +52,7 @@ if (isset($_GET['layer'])) {
 	$uid = substr(md5(''.rand()), 0, 8);
 	$pname = 'pa'.$uid;
 	$table_name_layers = $wpdb->prefix.'leafletmapsmarker_layers';
-	$row = $wpdb->get_row('SELECT id,name,basemap,mapwidth,mapheight,mapwidthunit,panel,layerzoom,layerviewlat,layerviewlon,controlbox,overlays_custom,overlays_custom2,overlays_custom3,overlays_custom4,wms,wms2,wms3,wms4,wms5,wms6,wms7,wms8,wms9,wms10,multi_layer_map,multi_layer_map_list FROM '.$table_name_layers.' WHERE id='.$layer, ARRAY_A);
+	$row = $wpdb->get_row('SELECT id,name,basemap,mapwidth,mapheight,mapwidthunit,panel,layerzoom,layerviewlat,layerviewlon,controlbox,overlays_custom,overlays_custom2,overlays_custom3,overlays_custom4,wms,wms2,wms3,wms4,wms5,wms6,wms7,wms8,wms9,wms10,multi_layer_map,multi_layer_map_list,clustering FROM '.$table_name_layers.' WHERE id='.$layer, ARRAY_A);
 	$id = $row['id'];
 	$layername = $row['name'];
 	$basemap = $row['basemap'];
@@ -82,6 +82,7 @@ if (isset($_GET['layer'])) {
 	$mapname = 'mapsmarker_'.$uid;
 	$multi_layer_map = $row['multi_layer_map'];
 	$multi_layer_map_list = $row['multi_layer_map_list'];
+	$clustering = $row['clustering'];
 	//info: check if layer/marker ID exists
 	if ($row == NULL) {
 	$error_layer_not_exists = sprintf( esc_attr__('Error: a layer with the ID %1$s does not exist!','lmm'), $layer);
@@ -586,7 +587,9 @@ if (isset($_GET['layer'])) {
 			$lmm_out .= 'xhReq.send(null);'.PHP_EOL;
 			$lmm_out .= 'geojsonObj = eval("(" + xhReq.responseText + ")");'.PHP_EOL;
 		}
-		$lmm_out .= 'L.geoJson(geojsonObj, {'.PHP_EOL;
+		//info: clustering 1/2
+		$lmm_out .= 'var markercluster = new L.MarkerClusterGroup({ zoomToBoundsOnClick: ' . $lmm_options['clustering_zoomToBoundsOnClick'] . ', showCoverageOnHover: ' . $lmm_options['clustering_showCoverageOnHover'] . ', spiderfyOnMaxZoom: ' . $lmm_options['clustering_spiderfyOnMaxZoom'] . ', animateAddingMarkers: ' . $lmm_options['clustering_animateAddingMarkers'] . ', disableClusteringAtZoom: ' . intval($lmm_options['clustering_disableClusteringAtZoom']) . ', maxClusterRadius: ' . intval($lmm_options['clustering_maxClusterRadius']) . ', polygonOptions: {' . $lmm_options['clustering_polygonOptions'] . '}, singleMarkerMode: ' . $lmm_options['clustering_singleMarkerMode'] . ', spiderfyDistanceMultiplier: ' . intval($lmm_options['clustering_spiderfyDistanceMultiplier']) . ' });'.PHP_EOL;
+		$lmm_out .= 'var geojson_markers = L.geoJson(geojsonObj, {'.PHP_EOL;
 		$lmm_out .= '		onEachFeature: function(feature, marker) {'.PHP_EOL;
 		$lmm_out .= "			if (feature.properties.text != '') {".PHP_EOL;
 		$lmm_out .= '			marker.bindPopup(feature.properties.text, {'.PHP_EOL;
@@ -615,8 +618,14 @@ if (isset($_GET['layer'])) {
 		$lmm_out .= "if (feature.properties.markername == '') { marker_title = '' } else { marker_title = feature.properties.markername };".PHP_EOL;
 		}
 		$lmm_out .= 'return L.marker(latlng, {icon: mapIcon, clickable: marker_clickable, title: marker_title, opacity: ' . floatval($lmm_options[ 'defaults_marker_icon_opacity' ]) . '});'.PHP_EOL;
-		$lmm_out .= '}'.PHP_EOL;
-		$lmm_out .= '}).addTo(' . $mapname . ');'.PHP_EOL;
+		$lmm_out .= '}});'.PHP_EOL;
+		//info: clustering 2/2
+		if ($clustering == '1') {
+			$lmm_out .= 'geojson_markers.addTo(markercluster);'.PHP_EOL; 
+			$lmm_out .= $mapname . '.addLayer(markercluster);'.PHP_EOL; 
+		} else { 
+			$lmm_out .= 'geojson_markers.addTo(' . $mapname . ');'.PHP_EOL;
+		}
     }
   $lmm_out .= '/* ]] > */'.PHP_EOL;
   $lmm_out .= '</script>';

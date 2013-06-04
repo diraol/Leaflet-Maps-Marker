@@ -131,6 +131,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 	$remap_multi_layer_map = isset($_POST['remap_multi_layer_map']) ? $_POST['remap_multi_layer_map'] : (isset($_GET['remap_multi_layer_map']) ? $_GET['remap_multi_layer_map'] : 'multi_layer_map');
 	$remap_multi_layer_map_list = isset($_POST['remap_multi_layer_map_list']) ? $_POST['remap_multi_layer_map_list'] : (isset($_GET['remap_multi_layer_map_list']) ? $_GET['remap_multi_layer_map_list'] : 'multi_layer_map_list');
 	$remap_address = isset($_POST['remap_address']) ? $_POST['remap_address'] : (isset($_GET['remap_address']) ? $_GET['remap_address'] : 'address');
+	$remap_clustering = isset($_POST['remap_clustering']) ? $_POST['remap_clustering'] : (isset($_GET['remap_clustering']) ? $_GET['remap_clustering'] : 'clustering');
 
 	if ($lmm_options['api_status'] == 'enabled') {
 
@@ -376,7 +377,8 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 													echo '"' . $remap_listmarkers . '":"' . $query_result['listmarkers'] . '",'.PHP_EOL;
 													echo '"' . $remap_multi_layer_map . '":"' . $query_result['multi_layer_map'] . '",'.PHP_EOL;
 													echo '"' . $remap_multi_layer_map_list . '":"' . $query_result['multi_layer_map_list'] . '",'.PHP_EOL;
-													echo '"' . $remap_address . '":"' . $address . '"'.PHP_EOL;
+													echo '"' . $remap_address . '":"' . $address . '",'.PHP_EOL;
+													echo '"' . $remap_clustering . '":"' . $clustering . '"'.PHP_EOL;
 													echo '}';
 												echo '}';
 												if ($callback != NULL) { echo ');'; }
@@ -390,7 +392,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 												echo '<!ATTLIST mapsmarker xmlns:xsi CDATA #FIXED "http://www.w3.org/2001/XMLSchema-instance" >'.PHP_EOL;
 												echo '<!ELEMENT success (#PCDATA)>'.PHP_EOL;
 												echo '<!ELEMENT message (#PCDATA)>'.PHP_EOL;
-												echo '<!ELEMENT data ((' . $remap_id . ', ' . $remap_name . ', ' . $remap_basemap . ', ' . $remap_layerzoom . ', ' . $remap_mapwidth . ', ' . $remap_mapwidthunit . ', ' . $remap_mapheight . ', ' . $remap_panel . ', ' . $remap_layerviewlat . ', ' . $remap_layerviewlon . ', ' . $remap_createdby . ', ' . $remap_createdon . ', ' . $remap_updatedby . ', ' . $remap_updatedon . ', ' . $remap_controlbox . ', ' . $remap_overlays_custom . ', ' . $remap_overlays_custom2 . ', ' . $remap_overlays_custom3 . ', ' . $remap_overlays_custom4 . ', ' . $remap_wms . ', ' . $remap_wms2 . ', ' . $remap_wms3 . ', ' . $remap_wms4 . ', ' . $remap_wms5 . ', ' . $remap_wms6 . ', ' . $remap_wms7 . ', ' . $remap_wms8 . ', ' . $remap_wms9 . ', ' . $remap_wms10 . ', ' . $remap_listmarkers . ', ' . $remap_multi_layer_map . ', ' . $remap_multi_layer_map_list . ', ' . $remap_address . '))>'.PHP_EOL;
+												echo '<!ELEMENT data ((' . $remap_id . ', ' . $remap_name . ', ' . $remap_basemap . ', ' . $remap_layerzoom . ', ' . $remap_mapwidth . ', ' . $remap_mapwidthunit . ', ' . $remap_mapheight . ', ' . $remap_panel . ', ' . $remap_layerviewlat . ', ' . $remap_layerviewlon . ', ' . $remap_createdby . ', ' . $remap_createdon . ', ' . $remap_updatedby . ', ' . $remap_updatedon . ', ' . $remap_controlbox . ', ' . $remap_overlays_custom . ', ' . $remap_overlays_custom2 . ', ' . $remap_overlays_custom3 . ', ' . $remap_overlays_custom4 . ', ' . $remap_wms . ', ' . $remap_wms2 . ', ' . $remap_wms3 . ', ' . $remap_wms4 . ', ' . $remap_wms5 . ', ' . $remap_wms6 . ', ' . $remap_wms7 . ', ' . $remap_wms8 . ', ' . $remap_wms9 . ', ' . $remap_wms10 . ', ' . $remap_listmarkers . ', ' . $remap_multi_layer_map . ', ' . $remap_multi_layer_map_list . ', ' . $remap_address . ', ' . $remap_clustering . '))>'.PHP_EOL;
 												echo '<!ELEMENT ' . $remap_id . ' (#PCDATA)>'.PHP_EOL;
 												echo '<!ELEMENT ' . $remap_name . ' (#PCDATA)>'.PHP_EOL;
 												echo '<!ELEMENT ' . $remap_basemap . ' (#PCDATA)>'.PHP_EOL;
@@ -424,6 +426,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 												echo '<!ELEMENT ' . $remap_multi_layer_map . ' (#PCDATA)>'.PHP_EOL;
 												echo '<!ELEMENT ' . $remap_multi_layer_map_list . ' (#PCDATA)>'.PHP_EOL;
 												echo '<!ELEMENT ' . $remap_address . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_clustering . ' (#PCDATA)>'.PHP_EOL;
 												echo ']>'.PHP_EOL;												
 												echo '<mapsmarker>'.PHP_EOL;
 												echo '<success>true</success>'.PHP_EOL;
@@ -462,6 +465,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 													echo '<' . $remap_multi_layer_map . '>' . $query_result['multi_layer_map'] . '</' . $remap_multi_layer_map . '>'.PHP_EOL;
 													echo '<' . $remap_multi_layer_map_list . '>' . $query_result['multi_layer_map_list'] . '</' . $remap_multi_layer_map_list . '>'.PHP_EOL;
 													echo '<' . $remap_address . '>' . $query_result['address'] . '</' . $remap_address . '>'.PHP_EOL;
+													echo '<' . $remap_clustering . '>' . $query_result['clustering'] . '</' . $remap_clustering . '>'.PHP_EOL;
 												echo '</data>'.PHP_EOL;
 												echo '</mapsmarker>';										
 											} //info: end format layer / view
@@ -555,7 +559,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 										$mpopuptext = isset($_POST['popuptext']) ? str_replace('"', '\'', preg_replace('/(\015\012)|(\015)|(\012)/','<br/>',$_POST['popuptext'])) : (isset($_GET['popuptext']) ? str_replace('"', '\'', preg_replace('/(\015\012)|(\015)|(\012)/','<br/>',$_GET['popuptext'])) : '');
 										
 										$basemap = isset($_POST['basemap']) && in_array($_POST['basemap'], array('osm_mapnik','mapquest_osm','mapquest_aerial','googleLayer_roadmap','googleLayer_satellite','googleLayer_hybrid','googleLayer_terrain','bingaerial','bingaerialwithlabels','bingroad','ogdwien_basemap','ogdwien_satellite','cloudmade','cloudmade2','cloudmade3','mapbox','mapbox2','mapbox3','custom_basemap','custom_basemap2','custom_basemap3','empty_basemap')) ? $_POST['basemap'] : (isset($_GET['basemap']) && in_array($_GET['basemap'], array('osm_mapnik','mapquest_osm','mapquest_aerial','googleLayer_roadmap','googleLayer_satellite','googleLayer_hybrid','googleLayer_terrain','bingaerial','bingaerialwithlabels','bingroad','ogdwien_basemap','ogdwien_satellite','cloudmade','cloudmade2','cloudmade3','mapbox','mapbox2','mapbox3','custom_basemap','custom_basemap2','custom_basemap3','empty_basemap')) ? $_GET['basemap'] : $lmm_options[ 'standard_basemap' ]);
-										$layer = isset($_POST['layer']) ? intval($_POST['layer']) : (isset($_GET['layer']) ? intval($_GET['layer']) : ($lmm_options[ 'defaults_marker_default_layer' ] == '0') ? '0' : intval($lmm_options[ 'defaults_marker_default_layer' ]));
+										$layer = isset($_POST['layer']) ? intval($_POST['layer']) : (isset($_GET['layer']) ? intval($_GET['layer']) : (($lmm_options[ 'defaults_marker_default_layer' ] == '0') ? '0' : intval($lmm_options[ 'defaults_marker_default_layer' ])));
 										$lat = isset($_POST['lat']) ? floatval($_POST['lat']) : (isset($_GET['lat']) ? floatval($_GET['lat']) : floatval($lmm_options[ 'defaults_marker_lat' ]));
 										$lon = isset($_POST['lon']) ? floatval($_POST['lon']) : (isset($_GET['lon']) ? floatval($_GET['lon']) : floatval($lmm_options[ 'defaults_marker_lon' ]));
 										$icon = isset($_POST['icon']) ? $_POST['icon'] : (isset($_GET['icon']) ? $_GET['icon'] : ($lmm_options[ 'defaults_marker_icon' ] == NULL) ? '' : $lmm_options[ 'defaults_marker_icon' ]);
@@ -812,6 +816,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 										$multi_layer_map = ( isset($_POST['multi_layer_map']) && ( ($_POST['multi_layer_map'] == '0') || ($_POST['multi_layer_map'] == '1')) ) ? $_POST['multi_layer_map'] : ( isset($_GET['multi_layer_map']) && ( ($_GET['multi_layer_map'] == '0') || ($_GET['multi_layer_map'] == '1') ) ? $_GET['multi_layer_map'] : '0');
 										$multi_layer_map_list = isset($_POST['multi_layer_map_list']) ? $_POST['multi_layer_map_list'] : (isset($_GET['multi_layer_map_list']) ? $_GET['multi_layer_map_list'] : '');
 										$address = isset($_POST['address']) ? $_POST['address'] : (isset($_GET['address']) ? $_GET['address'] : '');
+										$clustering = ( isset($_POST['clustering']) && ( ($_POST['clustering'] == '0') || ($_POST['clustering'] == '1')) ) ? $_POST['clustering'] : ( isset($_GET['clustering']) && ( ($_GET['clustering'] == '0') || ($_GET['clustering'] == '1') ) ? $_GET['clustering'] : ($lmm_options[ 'defaults_layer_clustering' ] == 'enabled') ? '1' : '0');
 										if ($geocode != NULL) {
 											$do_geocoding = lmm_getLatLng($geocode);
 											if ($do_geocoding['success'] == true) {
@@ -840,7 +845,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 												exit();	
 											}
 										}
-										$query_add = $wpdb->prepare( "INSERT INTO $table_name_layers (name, basemap, layerzoom, mapwidth, mapwidthunit, mapheight, panel, layerviewlat, layerviewlon, createdby, createdon, updatedby, updatedon, controlbox, overlays_custom, overlays_custom2, overlays_custom3, overlays_custom4, wms, wms2, wms3, wms4, wms5, wms6, wms7, wms8, wms9, wms10, listmarkers, multi_layer_map, multi_layer_map_list, address ) VALUES (%s, %s, %d, %d, %s, %d, %d, %s, %s, %s, %s, %s, %s, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %s, %s)", $name_quotes, $basemap, $layerzoom, $mapwidth, $mapwidthunit, $mapheight, $panel, str_replace(',', '.', $layerviewlat), str_replace(',', '.', $layerviewlon), $createdby, $createdon, $updatedby, $updatedon, $controlbox, $overlays_custom, $overlays_custom2, $overlays_custom3, $overlays_custom4, $wms, $wms2, $wms3, $wms4, $wms5, $wms6, $wms7, $wms8, $wms9, $wms10, $listmarkers, $multi_layer_map, $multi_layer_map_list, $address );
+										$query_add = $wpdb->prepare( "INSERT INTO $table_name_layers (name, basemap, layerzoom, mapwidth, mapwidthunit, mapheight, panel, layerviewlat, layerviewlon, createdby, createdon, updatedby, updatedon, controlbox, overlays_custom, overlays_custom2, overlays_custom3, overlays_custom4, wms, wms2, wms3, wms4, wms5, wms6, wms7, wms8, wms9, wms10, listmarkers, multi_layer_map, multi_layer_map_list, address, clustering ) VALUES (%s, %s, %d, %d, %s, %d, %d, %s, %s, %s, %s, %s, %s, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %s, %s, %d)", $name_quotes, $basemap, $layerzoom, $mapwidth, $mapwidthunit, $mapheight, $panel, str_replace(',', '.', $layerviewlat), str_replace(',', '.', $layerviewlon), $createdby, $createdon, $updatedby, $updatedon, $controlbox, $overlays_custom, $overlays_custom2, $overlays_custom3, $overlays_custom4, $wms, $wms2, $wms3, $wms4, $wms5, $wms6, $wms7, $wms8, $wms9, $wms10, $listmarkers, $multi_layer_map, $multi_layer_map_list, $address, $clustering );
 										$result_add = $wpdb->query( $query_add );
 										if ($result_add == TRUE) {
 											if ($format == 'json') {
@@ -884,7 +889,8 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 													echo '"' . $remap_listmarkers . '":"' . $listmarkers . '",'.PHP_EOL;
 													echo '"' . $remap_multi_layer_map . '":"' . $multi_layer_map . '",'.PHP_EOL;
 													echo '"' . $remap_multi_layer_map_list . '":"' . $multi_layer_map_list . '",'.PHP_EOL;
-													echo '"' . $remap_address . '":"'.$address.'"'.PHP_EOL;
+													echo '"' . $remap_address . '":"' . $address . '",'.PHP_EOL;
+													echo '"' . $remap_clustering . '":"' . $clustering . '"'.PHP_EOL;
 													echo '}';
 												echo '}';
 												if ($callback != NULL) { echo ');'; }
@@ -898,7 +904,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 												echo '<!ATTLIST mapsmarker xmlns:xsi CDATA #FIXED "http://www.w3.org/2001/XMLSchema-instance" >'.PHP_EOL;
 												echo '<!ELEMENT success (#PCDATA)>'.PHP_EOL;
 												echo '<!ELEMENT message (#PCDATA)>'.PHP_EOL;
-												echo '<!ELEMENT data ((' . $remap_id . ', ' . $remap_name . ', ' . $remap_basemap . ', ' . $remap_layerzoom . ', ' . $remap_mapwidth . ', ' . $remap_mapwidthunit . ', ' . $remap_mapheight . ', ' . $remap_panel . ', ' . $remap_layerviewlat . ', ' . $remap_layerviewlon . ', ' . $remap_createdby . ', ' . $remap_createdon . ', ' . $remap_updatedby . ', ' . $remap_updatedon . ', ' . $remap_controlbox . ', ' . $remap_overlays_custom . ', ' . $remap_overlays_custom2 . ', ' . $remap_overlays_custom3 . ', ' . $remap_overlays_custom4 . ', ' . $remap_wms . ', ' . $remap_wms2 . ', ' . $remap_wms3 . ', ' . $remap_wms4 . ', ' . $remap_wms5 . ', ' . $remap_wms6 . ', ' . $remap_wms7 . ', ' . $remap_wms8 . ', ' . $remap_wms9 . ', ' . $remap_wms10 . ', ' . $remap_listmarkers . ', ' . $remap_multi_layer_map . ', ' . $remap_multi_layer_map_list . ', ' . $remap_address . '))>'.PHP_EOL;
+												echo '<!ELEMENT data ((' . $remap_id . ', ' . $remap_name . ', ' . $remap_basemap . ', ' . $remap_layerzoom . ', ' . $remap_mapwidth . ', ' . $remap_mapwidthunit . ', ' . $remap_mapheight . ', ' . $remap_panel . ', ' . $remap_layerviewlat . ', ' . $remap_layerviewlon . ', ' . $remap_createdby . ', ' . $remap_createdon . ', ' . $remap_updatedby . ', ' . $remap_updatedon . ', ' . $remap_controlbox . ', ' . $remap_overlays_custom . ', ' . $remap_overlays_custom2 . ', ' . $remap_overlays_custom3 . ', ' . $remap_overlays_custom4 . ', ' . $remap_wms . ', ' . $remap_wms2 . ', ' . $remap_wms3 . ', ' . $remap_wms4 . ', ' . $remap_wms5 . ', ' . $remap_wms6 . ', ' . $remap_wms7 . ', ' . $remap_wms8 . ', ' . $remap_wms9 . ', ' . $remap_wms10 . ', ' . $remap_listmarkers . ', ' . $remap_multi_layer_map . ', ' . $remap_multi_layer_map_list . ', ' . $remap_address . ', ' . $remap_clustering . '))>'.PHP_EOL;
 												echo '<!ELEMENT ' . $remap_id . ' (#PCDATA)>'.PHP_EOL;
 												echo '<!ELEMENT ' . $remap_name . ' (#PCDATA)>'.PHP_EOL;
 												echo '<!ELEMENT ' . $remap_basemap . ' (#PCDATA)>'.PHP_EOL;
@@ -932,6 +938,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 												echo '<!ELEMENT ' . $remap_multi_layer_map . ' (#PCDATA)>'.PHP_EOL;
 												echo '<!ELEMENT ' . $remap_multi_layer_map_list . ' (#PCDATA)>'.PHP_EOL;
 												echo '<!ELEMENT ' . $remap_address . ' (#PCDATA)>'.PHP_EOL;
+												echo '<!ELEMENT ' . $remap_clustering . ' (#PCDATA)>'.PHP_EOL;
 												echo ']>'.PHP_EOL;												
 												echo '<mapsmarker>'.PHP_EOL;
 												echo '<success>true</success>'.PHP_EOL;
@@ -970,6 +977,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 													echo '<' . $remap_multi_layer_map . '>' . $multi_layer_map . '</' . $remap_multi_layer_map . '>'.PHP_EOL;
 													echo '<' . $remap_multi_layer_map_list . '>' . $multi_layer_map_list . '</' . $remap_multi_layer_map_list . '>'.PHP_EOL;
 													echo '<' . $remap_address . '>' . $address . '</' . $remap_address . '>'.PHP_EOL;
+													echo '<' . $remap_clustering . '>' . $clustering . '</' . $remap_clustering . '>'.PHP_EOL;
 												echo '</data>'.PHP_EOL;
 												echo '</mapsmarker>';										
 											} //info: end format layer / add																				
@@ -1345,6 +1353,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 											$multi_layer_map = ( isset($_POST['multi_layer_map']) && ( ($_POST['multi_layer_map'] == '0') || ($_POST['multi_layer_map'] == '1')) ) ? $_POST['multi_layer_map'] : ( isset($_GET['multi_layer_map']) && ( ($_GET['multi_layer_map'] == '0') || ($_GET['multi_layer_map'] == '1') ) ? $_GET['multi_layer_map'] : $query_view['multi_layer_map']);
 											$multi_layer_map_list = isset($_POST['multi_layer_map_list']) ? $_POST['multi_layer_map_list'] : (isset($_GET['multi_layer_map_list']) ? $_GET['multi_layer_map_list'] : $query_view['multi_layer_map_list']);
 											$address = isset($_POST['address']) ? $_POST['address'] : (isset($_GET['address']) ? $_GET['address'] : $query_view['address']);
+											$clustering = ( isset($_POST['clustering']) && ( ($_POST['clustering'] == '0') || ($_POST['clustering'] == '1')) ) ? $_POST['clustering'] : ( isset($_GET['clustering']) && ( ($_GET['clustering'] == '0') || ($_GET['clustering'] == '1') ) ? $_GET['clustering'] : $query_view['clustering']);
 											if ($geocode != NULL) {
 												$do_geocoding = lmm_getLatLng($geocode);
 												if ($do_geocoding['success'] == true) {
@@ -1373,7 +1382,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 													exit();	
 												}
 											}
-											$query_update = $wpdb->prepare( "UPDATE $table_name_layers SET name = %s, basemap = %s, layerzoom = %d, mapwidth = %d, mapwidthunit = %s, mapheight = %d, panel = %d, layerviewlat = %s, layerviewlon = %s, createdby = %s, createdon = %s, updatedby = %s, updatedon = %s, controlbox = %d, overlays_custom = %d, overlays_custom2 = %d, overlays_custom3 = %d, overlays_custom4 = %d, wms = %d, wms2 = %d, wms3 = %d, wms4 = %d, wms5 = %d, wms6 = %d, wms7 = %d, wms8 = %d, wms9 = %d, wms10 = %d, listmarkers = %d, multi_layer_map = %d, multi_layer_map_list = %s, address = %s WHERE id = %d", $name_quotes, $basemap, $layerzoom, $mapwidth, $mapwidthunit, $mapheight, $panel, str_replace(',', '.', $layerviewlat), str_replace(',', '.', $layerviewlon), $createdby, $createdon, $updatedby, $updatedon, $controlbox, $overlays_custom, $overlays_custom2, $overlays_custom3, $overlays_custom4, $wms, $wms2, $wms3, $wms4, $wms5, $wms6, $wms7, $wms8, $wms9, $wms10, $listmarkers, $multi_layer_map, $multi_layer_map_list, $address, $id );
+											$query_update = $wpdb->prepare( "UPDATE $table_name_layers SET name = %s, basemap = %s, layerzoom = %d, mapwidth = %d, mapwidthunit = %s, mapheight = %d, panel = %d, layerviewlat = %s, layerviewlon = %s, createdby = %s, createdon = %s, updatedby = %s, updatedon = %s, controlbox = %d, overlays_custom = %d, overlays_custom2 = %d, overlays_custom3 = %d, overlays_custom4 = %d, wms = %d, wms2 = %d, wms3 = %d, wms4 = %d, wms5 = %d, wms6 = %d, wms7 = %d, wms8 = %d, wms9 = %d, wms10 = %d, listmarkers = %d, multi_layer_map = %d, multi_layer_map_list = %s, address = %s, clustering = %d WHERE id = %d", $name_quotes, $basemap, $layerzoom, $mapwidth, $mapwidthunit, $mapheight, $panel, str_replace(',', '.', $layerviewlat), str_replace(',', '.', $layerviewlon), $createdby, $createdon, $updatedby, $updatedon, $controlbox, $overlays_custom, $overlays_custom2, $overlays_custom3, $overlays_custom4, $wms, $wms2, $wms3, $wms4, $wms5, $wms6, $wms7, $wms8, $wms9, $wms10, $listmarkers, $multi_layer_map, $multi_layer_map_list, $address, $clustering, $id );
 											$result_update = $wpdb->query( $query_update );
 											if ($result_update == TRUE) {
 												if ($format == 'json') {
@@ -1417,7 +1426,8 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 														echo '"' . $remap_listmarkers . '":"' . $listmarkers . '",'.PHP_EOL;
 														echo '"' . $remap_multi_layer_map . '":"' . $multi_layer_map . '",'.PHP_EOL;
 														echo '"' . $remap_multi_layer_map_list . '":"' . $multi_layer_map_list . '",'.PHP_EOL;
-														echo '"' . $remap_address . '":"'.$address.'"'.PHP_EOL;
+														echo '"' . $remap_address . '":"' . $address . '",'.PHP_EOL;
+														echo '"' . $remap_clustering . '":"' . $clustering . '"'.PHP_EOL;
 														echo '}';
 													echo '}';
 													if ($callback != NULL) { echo ');'; }
@@ -1431,7 +1441,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 													echo '<!ATTLIST mapsmarker xmlns:xsi CDATA #FIXED "http://www.w3.org/2001/XMLSchema-instance" >'.PHP_EOL;
 													echo '<!ELEMENT success (#PCDATA)>'.PHP_EOL;
 													echo '<!ELEMENT message (#PCDATA)>'.PHP_EOL;
-													echo '<!ELEMENT data ((' . $remap_id . ', ' . $remap_name . ', ' . $remap_basemap . ', ' . $remap_layerzoom . ', ' . $remap_mapwidth . ', ' . $remap_mapwidthunit . ', ' . $remap_mapheight . ', ' . $remap_panel . ', ' . $remap_layerviewlat . ', ' . $remap_layerviewlon . ', ' . $remap_createdby . ', ' . $remap_createdon . ', ' . $remap_updatedby . ', ' . $remap_updatedon . ', ' . $remap_controlbox . ', ' . $remap_overlays_custom . ', ' . $remap_overlays_custom2 . ', ' . $remap_overlays_custom3 . ', ' . $remap_overlays_custom4 . ', ' . $remap_wms . ', ' . $remap_wms2 . ', ' . $remap_wms3 . ', ' . $remap_wms4 . ', ' . $remap_wms5 . ', ' . $remap_wms6 . ', ' . $remap_wms7 . ', ' . $remap_wms8 . ', ' . $remap_wms9 . ', ' . $remap_wms10 . ', ' . $remap_listmarkers . ', ' . $remap_multi_layer_map . ', ' . $remap_multi_layer_map_list . ', ' . $remap_address . '))>'.PHP_EOL;
+													echo '<!ELEMENT data ((' . $remap_id . ', ' . $remap_name . ', ' . $remap_basemap . ', ' . $remap_layerzoom . ', ' . $remap_mapwidth . ', ' . $remap_mapwidthunit . ', ' . $remap_mapheight . ', ' . $remap_panel . ', ' . $remap_layerviewlat . ', ' . $remap_layerviewlon . ', ' . $remap_createdby . ', ' . $remap_createdon . ', ' . $remap_updatedby . ', ' . $remap_updatedon . ', ' . $remap_controlbox . ', ' . $remap_overlays_custom . ', ' . $remap_overlays_custom2 . ', ' . $remap_overlays_custom3 . ', ' . $remap_overlays_custom4 . ', ' . $remap_wms . ', ' . $remap_wms2 . ', ' . $remap_wms3 . ', ' . $remap_wms4 . ', ' . $remap_wms5 . ', ' . $remap_wms6 . ', ' . $remap_wms7 . ', ' . $remap_wms8 . ', ' . $remap_wms9 . ', ' . $remap_wms10 . ', ' . $remap_listmarkers . ', ' . $remap_multi_layer_map . ', ' . $remap_multi_layer_map_list . ', ' . $remap_address . ', ' . $remap_clustering . '))>'.PHP_EOL;
 													echo '<!ELEMENT ' . $remap_id . ' (#PCDATA)>'.PHP_EOL;
 													echo '<!ELEMENT ' . $remap_name . ' (#PCDATA)>'.PHP_EOL;
 													echo '<!ELEMENT ' . $remap_basemap . ' (#PCDATA)>'.PHP_EOL;
@@ -1465,6 +1475,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 													echo '<!ELEMENT ' . $remap_multi_layer_map . ' (#PCDATA)>'.PHP_EOL;
 													echo '<!ELEMENT ' . $remap_multi_layer_map_list . ' (#PCDATA)>'.PHP_EOL;
 													echo '<!ELEMENT ' . $remap_address . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_clustering . ' (#PCDATA)>'.PHP_EOL;
 													echo ']>'.PHP_EOL;												
 													echo '<mapsmarker>'.PHP_EOL;
 													echo '<success>true</success>'.PHP_EOL;
@@ -1503,6 +1514,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 														echo '<' . $remap_multi_layer_map . '>' . $multi_layer_map . '</' . $remap_multi_layer_map . '>'.PHP_EOL;
 														echo '<' . $remap_multi_layer_map_list . '>' . $multi_layer_map_list . '</' . $remap_multi_layer_map_list . '>'.PHP_EOL;
 														echo '<' . $remap_address . '>' . $address . '</' . $remap_address . '>'.PHP_EOL;
+														echo '<' . $remap_clustering . '>' . $clustering . '</' . $remap_clustering . '>'.PHP_EOL;
 													echo '</data>'.PHP_EOL;
 													echo '</mapsmarker>';										
 												} //info: end format layer / update																				
@@ -1851,7 +1863,8 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 														echo '"' . $remap_listmarkers . '":"' . $query_result['listmarkers'] . '",'.PHP_EOL;
 														echo '"' . $remap_multi_layer_map . '":"' . $query_result['multi_layer_map'] . '",'.PHP_EOL;
 														echo '"' . $remap_multi_layer_map_list . '":"' . $query_result['multi_layer_map_list'] . '",'.PHP_EOL;
-														echo '"' . $remap_address . '":"' . $address . '"'.PHP_EOL;
+														echo '"' . $remap_address . '":"' . $address . '",'.PHP_EOL;
+														echo '"' . $remap_clustering . '":"' . $query_result['clustering'] . '"'.PHP_EOL;
 														echo '}';
 													echo '}';
 													if ($callback != NULL) { echo ');'; }
@@ -1865,7 +1878,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 													echo '<!ATTLIST mapsmarker xmlns:xsi CDATA #FIXED "http://www.w3.org/2001/XMLSchema-instance" >'.PHP_EOL;
 													echo '<!ELEMENT success (#PCDATA)>'.PHP_EOL;
 													echo '<!ELEMENT message (#PCDATA)>'.PHP_EOL;
-													echo '<!ELEMENT data ((' . $remap_id . ', ' . $remap_name . ', ' . $remap_basemap . ', ' . $remap_layerzoom . ', ' . $remap_mapwidth . ', ' . $remap_mapwidthunit . ', ' . $remap_mapheight . ', ' . $remap_panel . ', ' . $remap_layerviewlat . ', ' . $remap_layerviewlon . ', ' . $remap_createdby . ', ' . $remap_createdon . ', ' . $remap_updatedby . ', ' . $remap_updatedon . ', ' . $remap_controlbox . ', ' . $remap_overlays_custom . ', ' . $remap_overlays_custom2 . ', ' . $remap_overlays_custom3 . ', ' . $remap_overlays_custom4 . ', ' . $remap_wms . ', ' . $remap_wms2 . ', ' . $remap_wms3 . ', ' . $remap_wms4 . ', ' . $remap_wms5 . ', ' . $remap_wms6 . ', ' . $remap_wms7 . ', ' . $remap_wms8 . ', ' . $remap_wms9 . ', ' . $remap_wms10 . ', ' . $remap_listmarkers . ', ' . $remap_multi_layer_map . ', ' . $remap_multi_layer_map_list . ', ' . $remap_address . '))>'.PHP_EOL;
+													echo '<!ELEMENT data ((' . $remap_id . ', ' . $remap_name . ', ' . $remap_basemap . ', ' . $remap_layerzoom . ', ' . $remap_mapwidth . ', ' . $remap_mapwidthunit . ', ' . $remap_mapheight . ', ' . $remap_panel . ', ' . $remap_layerviewlat . ', ' . $remap_layerviewlon . ', ' . $remap_createdby . ', ' . $remap_createdon . ', ' . $remap_updatedby . ', ' . $remap_updatedon . ', ' . $remap_controlbox . ', ' . $remap_overlays_custom . ', ' . $remap_overlays_custom2 . ', ' . $remap_overlays_custom3 . ', ' . $remap_overlays_custom4 . ', ' . $remap_wms . ', ' . $remap_wms2 . ', ' . $remap_wms3 . ', ' . $remap_wms4 . ', ' . $remap_wms5 . ', ' . $remap_wms6 . ', ' . $remap_wms7 . ', ' . $remap_wms8 . ', ' . $remap_wms9 . ', ' . $remap_wms10 . ', ' . $remap_listmarkers . ', ' . $remap_multi_layer_map . ', ' . $remap_multi_layer_map_list . ', ' . $remap_address . ', ' . $remap_clustering . '))>'.PHP_EOL;
 													echo '<!ELEMENT ' . $remap_id . ' (#PCDATA)>'.PHP_EOL;
 													echo '<!ELEMENT ' . $remap_name . ' (#PCDATA)>'.PHP_EOL;
 													echo '<!ELEMENT ' . $remap_basemap . ' (#PCDATA)>'.PHP_EOL;
@@ -1899,6 +1912,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 													echo '<!ELEMENT ' . $remap_multi_layer_map . ' (#PCDATA)>'.PHP_EOL;
 													echo '<!ELEMENT ' . $remap_multi_layer_map_list . ' (#PCDATA)>'.PHP_EOL;
 													echo '<!ELEMENT ' . $remap_address . ' (#PCDATA)>'.PHP_EOL;
+													echo '<!ELEMENT ' . $remap_clustering . ' (#PCDATA)>'.PHP_EOL;
 													echo ']>'.PHP_EOL;												
 													echo '<mapsmarker>'.PHP_EOL;
 													echo '<success>true</success>'.PHP_EOL;
@@ -1937,6 +1951,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 														echo '<' . $remap_multi_layer_map . '>' . $query_result['multi_layer_map'] . '</' . $remap_multi_layer_map . '>'.PHP_EOL;
 														echo '<' . $remap_multi_layer_map_list . '>' . $query_result['multi_layer_map_list'] . '</' . $remap_multi_layer_map_list . '>'.PHP_EOL;
 														echo '<' . $remap_address . '>' . $query_result['address'] . '</' . $remap_address . '>'.PHP_EOL;
+														echo '<' . $remap_clustering . '>' . $query_result['clustering'] . '</' . $remap_clustering . '>'.PHP_EOL;
 													echo '</data>'.PHP_EOL;
 													echo '</mapsmarker>';										
 												} //info: end format layer / view

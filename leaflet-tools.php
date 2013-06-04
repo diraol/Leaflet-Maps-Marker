@@ -184,6 +184,12 @@ if (!empty($action)) {
 		$wpdb->query( "OPTIMIZE TABLE $table_name_layers" );
 		echo '<p><div class="updated" style="padding:10px;">' . __('The list marker-status for all layers has been successfully updated','lmm') . '</div><br/><a class="button-secondary" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_tools">' . __('Back to Tools', 'lmm') . '</a></p>';
   }
+  elseif ($action == 'listmarkers-clustering') {
+		$result = $wpdb->prepare( "UPDATE $table_name_layers SET clustering = %d", $_POST['listmarkers-clustering'] );
+		$wpdb->query( $result );
+		$wpdb->query( "OPTIMIZE TABLE $table_name_layers" );
+		echo '<p><div class="updated" style="padding:10px;">' . __('The clustering status for all layers has been successfully updated','lmm') . '</div><br/><a class="button-secondary" href="' . LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_tools">' . __('Back to Tools', 'lmm') . '</a></p>';
+  }
   elseif ($action == 'update-settings') {
 		$serialized_options_new = stripslashes($_POST['settings-array']);
 		if (is_serialized($serialized_options_new)) {
@@ -778,6 +784,23 @@ $serialized_options = serialize($lmm_options);
 		<label for="layermaps_listmarkers_no"><?php _e('no','lmm') ?></label></p></td>
 		<td style="vertical-align:middle;">
 		<input style="font-weight:bold;" class="submit button-primary" type="submit" name="listmarkers-layer-submit" value="<?php _e('change list marker-status for all layers','lmm') ?> &raquo;" onclick="return confirm('<?php _e('Do you really want to change the list marker-status for all layers? (cannot be undone)','lmm') ?>')" />
+		</form>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<form method="post">
+		<input type="hidden" name="action" value="listmarkers-clustering" />
+		<?php wp_nonce_field('tool-nonce'); ?>
+		<strong><?php _e('Marker clustering','lmm') ?></strong>
+		</td>
+		<td style="vertical-align:middle;">
+		<input id="layermaps_clustering_enabled" type="radio" name="listmarkers-clustering" value="1" checked />
+		<label for="layermaps_clustering_enabled"><?php _e('enabled','lmm') ?></label><br/>
+		<input id="layermaps_clustering_disabled" type="radio" name="listmarkers-clustering" value="0" />
+		<label for="layermaps_listmarkers_disabled"><?php _e('disabled','lmm') ?></label></p></td>
+		<td style="vertical-align:middle;">
+		<input style="font-weight:bold;" class="submit button-primary" type="submit" name="listmarkers-clustering-submit" value="<?php _e('change clustering status for all layers','lmm') ?> &raquo;" onclick="return confirm('<?php _e('Do you really want to change the clustering-status for all layers? (cannot be undone)','lmm') ?>')" />
 		</form>
 		</td>
 	</tr>

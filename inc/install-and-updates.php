@@ -91,6 +91,7 @@ $sql_layers_table = "CREATE TABLE " . $table_name_layers . " (
 	multi_layer_map tinyint(1) NOT NULL,
 	multi_layer_map_list varchar(255) DEFAULT NULL,
 	address varchar(255) NOT NULL,
+	clustering tinyint(1) unsigned NOT NULL,
 	PRIMARY KEY  (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 dbDelta($sql_layers_table);
