@@ -4,62 +4,6 @@
 */
 //info: prevent file from being accessed directly
 if (basename($_SERVER['SCRIPT_FILENAME']) == 'admin-header.php') { die ("Please do not access this file directly. Thanks!<br/><a href='http://www.mapsmarker.com/go'>www.mapsmarker.com</a>"); }
-//RH: debug info
-/*
-echo '<br>';
-
-echo 'VERSION_RELEASE_DATE: ' . VERSION_RELEASE_DATE;
-echo '<br>';
-
-echo 'VERSION_RELEASE_DATE / strtotime(VERSION_RELEASE_DATE): ' . VERSION_RELEASE_DATE . ' / ' . strtotime(VERSION_RELEASE_DATE);
-echo '<br>';
-
-$maps_marker_pro_validate_access_releasedate = (maps_marker_pro_validate_access_releasedate(VERSION_RELEASE_DATE)) ? 'true' : 'false';
-echo 'maps_marker_pro_validate_access_releasedate(VERSION_RELEASE_DATE): ' . $maps_marker_pro_validate_access_releasedate;
-echo '<br>';
-*/
-
-$maps_marker_pro_validate_access = (maps_marker_pro_validate_access()===true) ? 'true' : 'false';
-echo "maps_marker_pro_validate_access()===true: " . $maps_marker_pro_validate_access;
-echo '<br>';
-
-$test = (maps_marker_pro_validate_access($release_date=false, $license_only=true)===true) ? 'true' : 'false';
-echo "maps_marker_pro_validate_access(release_date=false, license_only=true)===true): " . $test;
-echo '<br>';
-
-
-$validatelicense = (maps_marker_pro_validate_license()===true) ? 'true' : 'false';
-echo "maps_marker_pro_validate_license(): " . $validatelicense;
-echo '<br>';
-
-
-
-$maps_marker_pro_validate_access_releasedate = (maps_marker_pro_validate_access($release_date=VERSION_RELEASE_DATE,$license_only=false)===true) ? 'true' : 'false';
-echo "maps_marker_pro_validate_access($release_date=VERSION_RELEASE_DATE,$license_only=false): " . $maps_marker_pro_validate_access_releasedate;
-echo '<br>';
-
-/*
-$skey = ($spbas->license_key != '') ? 'set' : 'null';
-echo "spbas->license_key: " . $skey;
-echo '<br>';
-*/
-
-/*
-$maps_marker_pro_is_paid_version = (maps_marker_pro_is_paid_version()===true) ? 'true' : 'false';
-echo "maps_marker_pro_is_paid_version(): " . $maps_marker_pro_is_paid_version;
-echo '<br>';
-*/
-
-		$download_expires = $spbas->key_data['download_access_expires'];
-		echo '$download_expires: ' . gmdate("d M Y", $download_expires) . ' / ' . $download_expires . '<br>';
-		$support_expires = $spbas->key_data['support_access_expires'];
-		echo '$support_expires: ' .  gmdate("d M Y", $support_expires) . ' / ' . $support_expires . '<br>';
-		$expires = abs(($download_expires > $support_expires)?$download_expires:$support_expires);
-		echo '$expires: ' .  gmdate("d M Y", $expires) . ' / ' . $expires . '<br>';
-		echo 'time():&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' . time() . '<br>';
-echo 'license_expires: ' . $spbas->key_data['license_expires'] . '<br>';
-echo 'VERSION_RELEASE_DATE / strtotime(VERSION_RELEASE_DATE): ' . VERSION_RELEASE_DATE . ' / ' . strtotime(VERSION_RELEASE_DATE) . '<br>';
-
 require_once(ABSPATH . WPINC . DIRECTORY_SEPARATOR . "pluggable.php");
 $lmm_options = get_option( 'leafletmapsmarker_options' ); //info: required for bing maps api key check
 //info: make to menu buttons active depended on page you´re on

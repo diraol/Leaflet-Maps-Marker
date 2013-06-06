@@ -2932,7 +2932,7 @@ class Class_leaflet_options {
 			'pane'    => 'mapdefaults',
 			'section' => 'mapdefaults-section18',
 			'title'   =>'polygonOptions<br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-pro-option.png" width="65" height="15" />',
-			'desc'    => sprintf(__('Options to pass when creating the L.Polygon to show the bounds of a cluster (<a href="%1s" target="_blank">more details</a>)','lmm'), 'http://leafletjs.com/reference.html#path-options') . ' - ' . __('example','lmm') . ': <strong>color: "#ff0000", weight: 3, fill: false</strong><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-clustering-polygon-options.jpg" width="141" height="91" />',
+			'desc'    => sprintf(__('Options to pass when creating the L.Polygon for styling (<a href="%1s" target="_blank">more details</a>)','lmm'), 'http://leafletjs.com/reference.html#path-options') . ' - ' . __('example','lmm') . ': <strong>color: "#ff0000", weight: 3, fill: false</strong><br/><img src="'. LEAFLET_PLUGIN_URL .'inc/img/help-clustering-polygon-options.jpg" width="141" height="91" />',
 			'std'     => '',
 			'type'    => 'text'
 		);	

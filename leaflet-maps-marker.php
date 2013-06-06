@@ -17,7 +17,7 @@ Copyright 2011-2013 - @RobertHarm - All rights reserved
 MapsMarker &reg; - registration pending
 */
 if (extension_loaded('ionCube Loader')) {
-	require_once('leaflet-core.php');
+	require_once('leaflet-control.php');
 } else {
 	function lmm_ioncube_install_check() {
 		echo '<div class="error" style="padding:10px;"><strong>' . sprintf(__('Attention: your web server does not meet the requirements for "Leaflet Maps Marker Pro". <a href="%1s" target="_blank">Please click here to start the installation wizard</a> which offers an interactive tutorial on how to install the required "ionCube Loader" first.','lmm'), plugin_dir_url(__FILE__) . 'inc/loader-wizard.php' ) . '</strong></div>';
