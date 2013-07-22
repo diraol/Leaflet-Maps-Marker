@@ -23,7 +23,11 @@ function lmm_is_plugin_active_for_network( $plugin ) {
 				return true;
 	return false;
 }
+<<<<<<< HEAD
 if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
+=======
+if (!lmm_is_plugin_active('leaflet-maps-marker/leaflet-maps-marker.php') ) {
+>>>>>>> dev
 	echo sprintf(__('The plugin "Leaflet Maps Marker" is inactive on this site and therefore this API link is not working.<br/><br/>Please contact the site owner (%1s) who can activate this plugin again.','lmm'), hide_email(get_bloginfo('admin_email')) );
 } else {
 global $wpdb;

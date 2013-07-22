@@ -23,7 +23,11 @@ function lmm_is_plugin_active_for_network( $plugin ) {
 				return true;
 	return false;
 }
+<<<<<<< HEAD
 if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
+=======
+if (!lmm_is_plugin_active('leaflet-maps-marker/leaflet-maps-marker.php') ) {
+>>>>>>> dev
 	echo sprintf(__('The plugin "Leaflet Maps Marker" is inactive on this site and therefore this API link is not working.<br/><br/>Please contact the site owner (%1s) who can activate this plugin again.','lmm'), hide_email(get_bloginfo('admin_email')) );
 } else {
 	$lmm_options = get_option( 'leafletmapsmarker_options' );
@@ -39,6 +43,7 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
 		curl_setopt($ch, CURLOPT_HTTPHEADER,array("Content-type: application/json"));
 		curl_setopt($ch, CURLOPT_POST,true);
+<<<<<<< HEAD
 		$filedata = ( $lmm_options['qrcode_visualead_image_url'] == NULL ) ? urlencode(LEAFLET_PLUGIN_URL . 'inc/img/logo-qr-code.png') : urlencode(htmlspecialchars($lmm_options['qrcode_visualead_image_url']));
 		$api_key = ($lmm_options['qrcode_visualead_api_key'] == NULL) ? strrev('b7a8f1a0e750-c488-44b4-c34b-2592e115') : htmlspecialchars($lmm_options['qrcode_visualead_api_key']);
 		if ($lmm_options['qrcode_visualead_qr_cell_size'] == NULL) {
@@ -68,6 +73,16 @@ if (!lmm_is_plugin_active('leaflet-maps-marker-pro/leaflet-maps-marker.php') ) {
 			'qr_rotation'=>intval($lmm_options['qrcode_visualead_qr_rotation']),
 			'qr_gravity'=>$qr_gravity,
 			'output_image_width'=>$output_image_width,
+=======
+		$filedata = urlencode(LEAFLET_PLUGIN_URL . 'inc/img/logo-qr-code.png');
+		$api_key = strrev('b7a8f1a0e750-c488-44b4-c34b-2592e115');
+		$data=array(
+			'api_key'=>$api_key,
+			'image'=>$filedata,
+			'qr_x'=>4,
+			'qr_y'=>5,
+			'qr_size'=>124,
+>>>>>>> dev
 			'output_type' => 1,
 			'action'=>'url',
 			'content'=>array('url'=>$url)

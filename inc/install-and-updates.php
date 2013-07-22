@@ -7,10 +7,13 @@ add_option('leafletmapsmarker_version', 'init');
 add_option('leafletmapsmarker_version_before_update', '0');
 add_option('leafletmapsmarker_redirect', 'true'); //redirect to marker creation page page after first activation only
 
+<<<<<<< HEAD
 //info: pro options not managed by Settings API
 add_option('leafletmapsmarker_version_pro', 'init');
 add_option('leafletmapsmarker_version_pro_before_update', '0');
 
+=======
+>>>>>>> dev
 //info: check and update db-structure for markers and layers table - not done in 'init' as needed for switches between free and pro edition
 require_once(ABSPATH . 'wp-admin' . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'upgrade.php');
 //info: create/update marker table
@@ -91,7 +94,10 @@ $sql_layers_table = "CREATE TABLE " . $table_name_layers . " (
 	multi_layer_map tinyint(1) NOT NULL,
 	multi_layer_map_list varchar(255) DEFAULT NULL,
 	address varchar(255) NOT NULL,
+<<<<<<< HEAD
 	clustering tinyint(1) unsigned NOT NULL,
+=======
+>>>>>>> dev
 	PRIMARY KEY  (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 dbDelta($sql_layers_table);
@@ -564,7 +570,11 @@ if (get_option('leafletmapsmarker_version') == '3.4.2' ) {
 	$version_before_update = get_transient( 'leafletmapsmarker_version_before_update' );
 	if ( $version_before_update === FALSE ) {
 		set_transient( 'leafletmapsmarker_version_before_update', 'deleted-in-1-hour', 60*3 );
+<<<<<<< HEAD
 		update_option('leafletmapsmarker_version_before_update', '3.4.2');
+=======
+		update_option('leafletmapsmarker_version_before_update', '3.4.2'); //2do - update to version before update
+>>>>>>> dev
 	}
 	update_option('leafletmapsmarker_version', '3.4.3');
 }
@@ -609,6 +619,7 @@ if (get_option('leafletmapsmarker_version') == '3.5.2' ) {
 	update_option('leafletmapsmarker_version', '3.5.3');
 }
 if (get_option('leafletmapsmarker_version') == '3.5.3' ) {
+<<<<<<< HEAD
 	delete_transient( 'leafletmapsmarker_install_update_cache_v353');
 	$version_before_update = get_transient( 'leafletmapsmarker_version_before_update' );
 	if ( $version_before_update === FALSE ) {
@@ -622,11 +633,24 @@ if (get_option('leafletmapsmarker_version') == '3.5.3' ) {
 if (get_option('leafletmapsmarker_version') == 'x.x' ) {
 	delete_transient( 'leafletmapsmarker_install_update_cache_vx.x');
 	//2do - mandatory if new options in class-leaflet-options.php were added & update /inc/class-leaflet-options.php update routine
+=======
+	delete_transient( 'leafletmapsmarker_install_update_cache_v353'); 
+	$version_before_update = get_transient( 'leafletmapsmarker_version_before_update' );
+	if ( $version_before_update === FALSE ) {
+		set_transient( 'leafletmapsmarker_version_before_update', 'deleted-in-1-hour', 60*3 );
+		update_option('leafletmapsmarker_version_before_update', '3.5.3'); 
+	}
+	update_option('leafletmapsmarker_version', '3.5.4');
+}
+if (get_option('leafletmapsmarker_version') == '3.5.4' ) {
+	delete_transient( 'leafletmapsmarker_install_update_cache_v354');
+>>>>>>> dev
 	$save_defaults_for_new_options = new Class_leaflet_options();
 	$save_defaults_for_new_options->save_defaults_for_new_options();
 	$version_before_update = get_transient( 'leafletmapsmarker_version_before_update' );
 	if ( $version_before_update === FALSE ) {
 		set_transient( 'leafletmapsmarker_version_before_update', 'deleted-in-1-hour', 60*3 );
+<<<<<<< HEAD
 		update_option('leafletmapsmarker_version_before_update', 'x.x');
 	}
 	update_option('leafletmapsmarker_version', 'x.x+1');
@@ -648,6 +672,13 @@ if (get_option('leafletmapsmarker_version_pro') == 'init' ) {
 	update_option('leafletmapsmarker_version_pro', '1.0');
 	//info: redirect to create marker page only on first plugin activation, otherwise redirect is also done on bulk plugin activations
 	if (get_option('leafletmapsmarker_redirect') == 'true')
+=======
+		update_option('leafletmapsmarker_version_before_update', '3.5.4');
+	}
+	update_option('leafletmapsmarker_version', '3.6');
+	//info: redirect to create marker page only on first plugin activation, otherwise redirect is also done on bulk plugin activations
+	if (get_option('leafletmapsmarker_redirect') == 'true') 
+>>>>>>> dev
 	{
 		update_option('leafletmapsmarker_redirect', 'false');
 		wp_redirect(LEAFLET_WP_ADMIN_URL . 'admin.php?page=leafletmapsmarker_marker');
@@ -655,11 +686,16 @@ if (get_option('leafletmapsmarker_version_pro') == 'init' ) {
 		update_option('leafletmapsmarker_update_info', 'show');
 	}
 	//info: hide changelog for new installations
+<<<<<<< HEAD
 	$version_before_update = get_option('leafletmapsmarker_version_pro_before_update');
+=======
+	$version_before_update = get_option('leafletmapsmarker_version_before_update');
+>>>>>>> dev
 	if ($version_before_update == '0') {
 			update_option('leafletmapsmarker_update_info', 'hide');
 	}
 }
+<<<<<<< HEAD
 
 /* template for pro plugin updates
 if (get_option('leafletmapsmarker_version_pro') == '1.0' ) {
@@ -670,10 +706,16 @@ if (get_option('leafletmapsmarker_version_pro') == '1.0' ) {
 	delete_transient('leafletmapsmarkerpro_adminheader_api_cache');
 	delete_transient('leafletmapsmarkerpro_adminheader2_api_cache');
 	delete_transient('leafletmapsmarkerpro_showmap_api_cache');
+=======
+/* template for plugin updates
+if (get_option('leafletmapsmarker_version') == '3.6' ) {
+	delete_transient( 'leafletmapsmarker_install_update_cache_v36'); //2do: update to version from line above
+>>>>>>> dev
 	//2do - optional: add code for sql updates (no ddl - done by dbdelta!)
 	//2do - mandatory if new options in class-leaflet-options.php were added & update /inc/class-leaflet-options.php update routine
 	$save_defaults_for_new_options = new Class_leaflet_options();
 	$save_defaults_for_new_options->save_defaults_for_new_options();
+<<<<<<< HEAD
 	$version_before_update = get_transient( 'leafletmapsmarker_version_pro_before_update' );
 	if ( $version_before_update === FALSE ) {
 		set_transient( 'leafletmapsmarker_version_pro_before_update', 'deleted-in-1-hour', 60*3 );
@@ -684,6 +726,17 @@ if (get_option('leafletmapsmarker_version_pro') == '1.0' ) {
 	//2do - mandatory: set $current_version in leaflet-maps-marker.php / function lmm_install_and_updates()
 	//2do - mandatory: set $current_version in uninstall.php
 	//2do - mandatory: set current free version in leaflet-maps-marker.php to check if latest free version is used
+=======
+	$version_before_update = get_transient( 'leafletmapsmarker_version_before_update' );
+	if ( $version_before_update === FALSE ) {
+		set_transient( 'leafletmapsmarker_version_before_update', 'deleted-in-1-hour', 60*3 );
+		update_option('leafletmapsmarker_version_before_update', '3.6'); //2do - update to version before update
+	}
+	update_option('leafletmapsmarker_version', '3.7');
+	//2do - mandatory: move code for redirect-on-first-activation-check and hide changelog for new installs to here
+	//2do - mandatory: set $current_version in leaflet-maps-marker.php / function lmm_install_and_updates()
+	//2do - mandatory: set $current_version in uninstall.php
+>>>>>>> dev
 }
 */
 ?>

@@ -3,4 +3,10 @@ By default, a preselection of about 100 icons (from more than 700 available icon
 On first activation of the plugin, the zip-file mapicons.zip gets unzipped into the directory \wp-content\uploads\leaflet-maps-marker-icons
 of your WordPress installation (note: you might have to enter your ftp-credentials once depending on your configuration)
 If you want to add more map icons, please download the desired icons from http://mapicons.nicolasmollet.com/ 
+<<<<<<< HEAD
 and upload them to the directory \wp-content\uploads\leaflet-maps-marker-icons
+=======
+and upload them to the directory \wp-content\uploads\leaflet-maps-marker-icons
+
+PLEASE DO NOT DELETE THIS FILE FROM YOUR MARKER ICONS DIRECTORY AS IT IS USED TO CHECK IF INSTALLATION WAS SUCCESSFUL!
+>>>>>>> dev

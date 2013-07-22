@@ -177,4 +177,15 @@ h3.titl{
 }
 #settings-array {
 	height:115px;
+<<<<<<< HEAD
+=======
+}
+a.pro-upgrade-external-links {
+	color:#21759b !important;
+	text-decoration:none;
+}
+a.pro-upgrade-external-links:hover {
+	color:#df6c21 !important;
+	text-decoration:none;
+>>>>>>> dev
 }
